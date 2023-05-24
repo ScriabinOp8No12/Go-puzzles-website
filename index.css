@@ -1,0 +1,221 @@
+/* Need to apply flexbox to parent element,
+otherwise you might get weird behavior when you have the children as flexboxes */
+.top-menu {
+  height: 100px;
+  background-color: white;
+  display: flex;
+  /* align-items is cross-axis which is the vertical axis, so it will align the items in the center vertically */
+  align-items: center;
+  /* line below puts the left menu on the left, and right menu on the right */
+  justify-content: space-between;
+}
+
+/* had to add padding: 0 to the entire left side, NOT the logo */
+.left-side-menu ul {
+  padding: 0;
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+}
+
+/* This seems like a hacky way to align the logo to the left of the screen, lol */
+.left-side-menu li {
+  margin-left: -30px;
+}
+
+.right-side-menu {
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: center;
+  /* padding-top: 10px; */
+}
+
+/* this block below is so weird, it kinda works? */
+.right-side-menu .sign-in {
+  background-color: green;
+  /* Height doesn't change anything because of outer menu li being set */
+  /* height: 20px; */
+  font-weight: bold;
+  font-size: larger;
+  box-sizing: border-box;
+  border-top: none;
+}
+
+.top-menu li {
+  display: inline-block;
+  /* Add padding to li elements, that spreads out our links */
+  padding: 30px;
+}
+
+/* Need to do .top-menu with the ul b/c we are
+targeting only the ul elements within the top menu class
+if we only did .top-menu, it wouldn't work! */
+
+.top-menu ul {
+  margin: 0;
+  list-style: none inside;
+  display: flex;
+  flex-direction: row;
+  /* can't just add black here below, need to target the a tags within the li elements! */
+  /* color: black; */
+}
+
+.top-menu ul li a {
+  color: black;
+  /* text-decoration removes the underlines! */
+  text-decoration: none;
+}
+
+.top-menu .go-puzzles-logo img {
+  height: 48px;
+  width: 48px;
+  vertical-align: middle;
+  padding: none;
+}
+
+.top-menu .home {
+  font-weight: bold;
+  font-size: larger;
+}
+
+/* browsers usually have a default margin on the body, so we need
+to remove that (AND THE top-menu ul margin) to make the top-menu hug the top of the screen*/
+body {
+  margin: 0;
+  background-color: #1e1919;
+  /* This looks similar to the commercial font they use
+  which is: Atlas Grotesk */
+  font-family: "Montserrat", sans-serif;
+  /* font-family: "Atlas Grotesk Regular"; */
+}
+
+/* Need a media query to dynamically resize
+this text here when the screen gets smaller */
+h1 {
+  font-size: 3rem;
+  color: white;
+}
+
+h2 {
+  /* margin-top: 3%; */
+  color: white;
+  font-size: 2rem;
+  font-weight: lighter;
+}
+
+/* Below 2 blocks of CSS create a flexbox for the main page */
+/* Add this to your index.css file */
+#container-for-main-page {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+}
+
+/* #left-side-main-page,
+#right-side-main-page {
+  flex: 1;
+} */
+
+#left-side-main-page {
+  margin-right: 10%;
+  max-width: 33%;
+}
+
+#right-side-main-page {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  max-width: 33%;
+}
+
+.main-image {
+  /* not sure why we need display block to get it to center, but ok */
+  display: block;
+  width: 45%;
+  margin-top: 3%;
+  /* the margin right and left auto centers it to the parent container*/
+  margin-top: 4%;
+  margin-right: auto;
+  margin-bottom: 3%;
+  margin-left: auto;
+
+  /* margin: 0 auto;   this is some weird shorthand notation that is very confusing */
+}
+
+/* UNFINISHED hamburger menu, all I know is we need it to be invisible (display: none;) at the start, and
+in our media query, we will make it show up once the screen gets smaller than 1231px wide */
+.menu-button {
+  display: none; /* hide the button by default */
+  /* position: absolute; */
+  color: black;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  font-size: 24px;
+  /* background: transparent; */
+  border: none;
+}
+
+@media screen and (max-width: 1250px) {
+  /* Remove all links EXCEPT home, custom puzzles, browse puzzles, and signin
+  hide removed ones under a hamburger menu */
+
+  .top-menu .custom-puzzles {
+    display: none;
+  }
+  .top-menu .upload-sgf {
+    display: none;
+  }
+  .top-menu .why-us {
+    display: none;
+  }
+  .top-menu .learn-to-play {
+    display: none;
+  }
+  .top-menu .compete-against-friends {
+    display: none;
+  }
+  .menu-button {
+    display: block;
+    /* Now we need to write code to show the button */
+  }
+}
+
+@media screen and (max-width: 774px) {
+  /* Now remove home text! */
+  .top-menu .home {
+    display: none;
+  }
+}
+
+/* FIND PLAN BUTTON */
+/*
+.find-plan-button {
+  background-color: #0061fe;
+  /* background-color: #3984ff;
+  /* margin-left: 43%;
+  margin: 0 auto;
+  width: fit-content;
+  padding: 25px 43px;
+  font-size: larger;
+  /* needed the flex container below too for some reason
+  display: flex;
+  justify-content: center;
+  /* added a margin here so that it's not as close to the paragraph text
+  margin-top: 39px;
+}
+
+*/
+
+/*
+/* If I hard code these pixel values for the font-size, is it possible to readjust them when we use media queries?
+h3 {
+  color: white;
+  /* better to use 2em than to use 32px
+  /* font-size: 32px;
+  font-size: 2em;
+  margin-left: 35%;
+  margin-right: 35%;
+}
+
+*/
