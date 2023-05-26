@@ -19,3 +19,5 @@
 7. Add a timer and options to change speed of byo-yomi timers for the puzzles you play against Katrain on
 
 8. Store other player's SGFs of puzzles in the database, and categorize them by type (also add a search by category feature to the "browze puzzle" link at the top of the page)
+
+9. Set up payment for using the website (Server costs going to be high)
