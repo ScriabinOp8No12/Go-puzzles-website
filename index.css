@@ -1,8 +1,8 @@
 /* Need to apply flexbox to parent element,
 otherwise you might get weird behavior when you have the children as flexboxes */
 .top-menu {
-  height: 100px;
-  background-color: white;
+  height: 48px;
+  background-color: #3282b8;
   display: flex;
   /* align-items is cross-axis which is the vertical axis, so it will align the items in the center vertically */
   align-items: center;
@@ -32,7 +32,7 @@ otherwise you might get weird behavior when you have the children as flexboxes *
 
 /* this block below is so weird, it kinda works? */
 .right-side-menu .sign-in {
-  background-color: green;
+  /* background-color: #1b262c; */
   /* Height doesn't change anything because of outer menu li being set */
   /* height: 20px; */
   font-weight: bold;
@@ -61,7 +61,7 @@ if we only did .top-menu, it wouldn't work! */
 }
 
 .top-menu ul li a {
-  color: black;
+  color: #bbe1fa;
   /* text-decoration removes the underlines! */
   text-decoration: none;
 }
@@ -82,7 +82,7 @@ if we only did .top-menu, it wouldn't work! */
 to remove that (AND THE top-menu ul margin) to make the top-menu hug the top of the screen*/
 body {
   margin: 0;
-  background-color: #1e1919;
+  background-color: #1b262c;
   /* This looks similar to the commercial font they use
   which is: Atlas Grotesk */
   font-family: "Montserrat", sans-serif;
@@ -93,12 +93,12 @@ body {
 this text here when the screen gets smaller */
 h1 {
   font-size: 3rem;
-  color: white;
+  color: #bbe1fa;
 }
 
 h2 {
   /* margin-top: 3%; */
-  color: white;
+  color: #bbe1fa;
   font-size: 2rem;
   font-weight: lighter;
 }
@@ -154,6 +154,17 @@ in our media query, we will make it show up once the screen gets smaller than 12
   font-size: 24px;
   /* background: transparent; */
   border: none;
+}
+
+/* Use JS for:
+1. Form submission and validation (click event listener)
+2. Showing/hiding content
+3. Interactive elements using event listeners
+*/
+
+/* Display: none  and then show it when hovering*/
+.home:hover {
+  background-color: #bbe1fa;
 }
 
 @media screen and (max-width: 1250px) {
