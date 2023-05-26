@@ -61,7 +61,7 @@ if we only did .top-menu, it wouldn't work! */
 }
 
 .top-menu ul li a {
-  color: #bbe1fa;
+  color: white;
   /* text-decoration removes the underlines! */
   text-decoration: none;
 }

@@ -1,0 +1,4 @@
+/* Puts upload button below choose file button */
+.file-input {
+  display: block;
+}
