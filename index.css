@@ -99,12 +99,11 @@ h1 {
 h2 {
   /* margin-top: 3%; */
   color: #bbe1fa;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: lighter;
 }
 
 /* Below 2 blocks of CSS create a flexbox for the main page */
-/* Add this to your index.css file */
 #container-for-main-page {
   display: flex;
   justify-content: space-around;
@@ -117,14 +116,14 @@ h2 {
 } */
 
 #left-side-main-page {
-  margin-right: 10%;
+  /* margin-right: 10%; */
   max-width: 33%;
 }
 
 #right-side-main-page {
   display: flex;
   flex-direction: column;
-  margin-left: 10%;
+  /* margin-left: 10%; */
   max-width: 33%;
 }
 
