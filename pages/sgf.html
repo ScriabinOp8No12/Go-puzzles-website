@@ -5,11 +5,16 @@
     <link rel="stylesheet" href="/pagesCSS/sgf.css" />
   </head>
   <body>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <label for="file">Choose file to upload:</label>
-      <input type="file" id="file" name="file" accept=".sgf" />
+    <form
+      id="upload-sgf-form"
+      action="/upload"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <label for="file">Upload up to 10 SGFs at once:</label>
+      <input type="file" id="file" name="file" accept=".sgf" multiple />
       <input type="submit" value="Upload" />
     </form>
-    <!-- rest of your page content -->
+    <script src="/pagesJS/sgf.js"></script>
   </body>
 </html>
