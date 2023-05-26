@@ -3,13 +3,20 @@
   <head>
     <title>SGF Page</title>
     <link rel="stylesheet" href="/pagesCSS/sgf.css" />
+    <!-- Favicon not showing up but it's the same code at index.html ... -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="images/Cropped turtle logo for Go website 5-25-23.jpg"
+    />
   </head>
   <body>
     <nav class="top-menu">
       <div class="left-side-menu">
         <ul>
           <li class="go-puzzles-logo">
-            <a href="index.html"
+            <!-- Use absolute reference to /index.html instead of to index.html because otherwise it'll take us to /pages/index.html -->
+            <a href="/index.html"
               ><img
                 src="/images/Cropped turtle logo for Go website 5-25-23.jpg"
                 alt="go-puzzles-logo"
@@ -40,6 +47,7 @@
         </ul>
       </div>
     </nav>
+    <!-- Submit SGF form -->
     <form
       id="upload-sgf-form"
       action="/upload"

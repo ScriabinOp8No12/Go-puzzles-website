@@ -202,35 +202,3 @@ in our media query, we will make it show up once the screen gets smaller than 12
     display: none;
   }
 }
-
-/* FIND PLAN BUTTON */
-/*
-.find-plan-button {
-  background-color: #0061fe;
-  /* background-color: #3984ff;
-  /* margin-left: 43%;
-  margin: 0 auto;
-  width: fit-content;
-  padding: 25px 43px;
-  font-size: larger;
-  /* needed the flex container below too for some reason
-  display: flex;
-  justify-content: center;
-  /* added a margin here so that it's not as close to the paragraph text
-  margin-top: 39px;
-}
-
-*/
-
-/*
-/* If I hard code these pixel values for the font-size, is it possible to readjust them when we use media queries?
-h3 {
-  color: white;
-  /* better to use 2em than to use 32px
-  /* font-size: 32px;
-  font-size: 2em;
-  margin-left: 35%;
-  margin-right: 35%;
-}
-
-*/
