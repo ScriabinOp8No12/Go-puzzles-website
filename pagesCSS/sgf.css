@@ -3,6 +3,10 @@
   display: block;
 }
 
+#upload-sgf-form {
+  color: white;
+}
+
 /* Need to apply flexbox to parent element,
 otherwise you might get weird behavior when you have the children as flexboxes */
 .top-menu {
