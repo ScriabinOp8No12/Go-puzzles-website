@@ -20,7 +20,7 @@ app.post("/upload", upload.array("file", 10), (req, res) => {
     });
   });
 
-  res.json({ message: "File(s) uploaded!", count: req.files.length });
+  // res.json({ message: "File(s) uploaded!", count: req.files.length });
 });
 
 app.get("/sgfs", (req, res) => {
