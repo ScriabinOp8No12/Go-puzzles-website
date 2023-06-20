@@ -91,7 +91,9 @@ if we only did .top-menu, it wouldn't work! */
 to remove that (AND THE top-menu ul margin) to make the top-menu hug the top of the screen*/
 body {
   margin: 0;
-  background-color: #1b262c;
+
+  /* background-color: #1b262c; */
+  background-color: white;
   /* This looks similar to the commercial font they use
   which is: Atlas Grotesk */
   font-family: "Montserrat", sans-serif;
