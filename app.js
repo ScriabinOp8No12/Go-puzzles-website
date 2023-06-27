@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+// IT GIVES PERMISSION DENIED if I changed dest below to "/backend/uploads/"
+const upload = multer({ dest: "./backend/uploads" });
 
 const app = express();
 
