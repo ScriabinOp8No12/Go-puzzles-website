@@ -16,7 +16,9 @@ app.post("/upload", upload.array("file", 10), (req, res) => {
   // add each uploaded file to the database
   req.files.forEach((file) => {
     sgfs.push({
-      originalname: file.originalname,
+      // below line was this:
+      // originalname: file.originalname,
+      originalname: file.originalname.replace(".sgf", ".txt"),
       uploadDate: new Date(),
     });
   });
