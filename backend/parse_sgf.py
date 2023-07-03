@@ -27,7 +27,8 @@ for text_file in text_files:
     white_player = white_player_match.group(1) if white_player_match else None
 
     # Regex for BR and WR properties (Black Rank and White Rank)
-    rank_match = re.search(r'BR\[(.*?)\].*WR\[(.*?)\]', text_data, re.DOTALL)
+    rank_match = re.search(
+        r'BR\[([^\]]*)\].*WR\[([^\]]*)\]', text_data, re.DOTALL)
 
     # Extract the black and white player's ranks
     black_rank = rank_match.group(1) if rank_match else "?"
@@ -40,7 +41,7 @@ for text_file in text_files:
     result = result_match.group(1) if result_match else "?"
 
     # Print the extracted information
-    print("Black Player:", black_player, "------- ",
-          "Black rank:", black_rank, "Result:", result)
-    print("White Player:", white_player, "------- ",
-          "White rank:", white_rank, "Result:", result)
+    print("Black Player:", black_player, "-",
+          "Black rank:", black_rank, "-", "Result:", result)
+    print("White Player:", white_player, "-",
+          "White rank:", white_rank)
