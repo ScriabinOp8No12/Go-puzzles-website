@@ -17,7 +17,7 @@ sgfForm.addEventListener("submit", (e) => {
   const formData = new FormData(sgfForm);
 
   // send an AJAX request with the form data
-  fetch("http://localhost:8000/upload", {
+  fetch("http://localhost:8001/upload", {
     method: "POST",
     body: formData,
   })
