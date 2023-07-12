@@ -18,7 +18,7 @@ app.post("/upload", upload.array("file", 10), (req, res) => {
   // add each uploaded file to the database
   req.files.forEach((file) => {
     sgfs.push({
-      // below line was this:
+      // below line was this (parsing text file instead of SGF kept the special Chinese characters!):
       // originalname: file.originalname,
       originalname: file.originalname.replace(".sgf", ".txt"),
       uploadDate: new Date(),
