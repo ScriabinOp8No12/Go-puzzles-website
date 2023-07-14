@@ -13,8 +13,8 @@ module.exports = {
       options,
       [
         {
-          // we want an array of moves in the SGF!
-          sgf_data: ```(;FF[4]
+          user_id: 1,
+          sgf_data: `(;FF[4]
             CA[UTF-8]
             GM[1]
             DT[2023-06-29]
@@ -57,28 +57,25 @@ module.exports = {
             (;W[md]
             (;B[pg]
             (;W[jd]
-            ))))))))))))))))))))))))))```,
+            ))))))))))))))))))))))))))`,
           sgf_name: "Nathan vs. Matthew",
-          mistake_move_numbers: [55, 100, 120, 125, 145],
+          // we want an array of moves in the SGF here!
+          mistake_move_numbers: JSON.stringify([55, 100, 120, 125, 145]),
           game_preview: "https://example.com/image1.jpg",
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
-          sgf_data: ```test123```,
+          user_id: 2,
+          sgf_data: `test123`,
           sgf_name: "Nathan vs. Matthew",
-          mistake_move_numbers: [55],
+          mistake_move_numbers: JSON.stringify([58]),
           game_preview: "https://example.com/image2.jpg",
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
         {
-          sgf_data: ```test```,
+          user_id: 3,
+          sgf_data: `test`,
           sgf_name: "Nathan vs. Matthew",
-          mistake_move_numbers: [9, 15, 26, 55, 100],
+          mistake_move_numbers: JSON.stringify([9, 15, 26, 55, 100]),
           game_preview: "https://example.com/image3.jpg",
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
       ],
       {}

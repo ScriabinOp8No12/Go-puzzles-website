@@ -33,15 +33,21 @@ module.exports = (sequelize, DataTypes) => {
       },
       mistake_move_numbers: {
         allowNull: false,
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        type: DataTypes.TEXT,
         validate: {
-          // don't think we need to add the notEmpty validator here
-          // notEmpty: true,
           isValidArray(value) {
-            if (!Array.isArray(value)) {
+            let array;
+            try {
+              array = JSON.parse(value);
+            } catch (e) {
+              throw new Error(
+                "Mistake move numbers must be a valid JSON array"
+              );
+            }
+            if (!Array.isArray(array)) {
               throw new Error("Mistake move numbers must be an array");
             }
-            value.forEach((num) => {
+            array.forEach((num) => {
               if (!Number.isInteger(num)) {
                 throw new Error("Mistake move numbers must be integers");
               }

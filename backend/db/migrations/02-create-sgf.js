@@ -25,7 +25,7 @@ module.exports = {
       },
       mistake_move_numbers: {
         allowNull: false,
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        type: Sequelize.TEXT,
       },
       game_preview: {
         allowNull: false,

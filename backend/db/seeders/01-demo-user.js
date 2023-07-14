@@ -16,7 +16,7 @@ module.exports = {
         {
           username: "bigfry",
           email: "test@gmail.com",
-          rank: null,
+          rank: 150,
           solved_puzzles: 5,
           // Verify BCRYPT setup LATER!
           hashedPassword: bcrypt.hashSync("password"),
