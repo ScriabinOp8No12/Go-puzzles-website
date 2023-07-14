@@ -16,7 +16,6 @@ module.exports = {
         {
           username: "bigfry",
           email: "test@gmail.com",
-          hashedPassword: "test",
           rank: null,
           solved_puzzles: 5,
           // Verify BCRYPT setup LATER!
@@ -28,8 +27,7 @@ module.exports = {
           hashedPassword: "test",
           rank: 1500,
           solved_puzzles: 500,
-          // SETUP BCRYPT LATER!
-          // hashedPassword: bcrypt.hashSync("password"),
+          hashedPassword: bcrypt.hashSync("password"),
         },
         {
           username: "bigfry2",
@@ -37,8 +35,7 @@ module.exports = {
           hashedPassword: "test",
           rank: 2250,
           solved_puzzles: 10,
-          // SETUP BCRYPT LATER!
-          // hashedPassword: bcrypt.hashSync("password"),
+          hashedPassword: bcrypt.hashSync("password"),
         },
       ],
       {}
