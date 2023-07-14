@@ -4,7 +4,12 @@ module.exports = (sequelize, DataTypes) => {
   class Puzzle extends Model {
     static associate(models) {
       Puzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id" });
-      Puzzle.hasMany(models.UserPuzzle, { foreignKey: "puzzle_id" });
+      // Many to many relationship between Puzzles and Users through the UserPuzzles join table!
+      Puzzle.belongsToMany(models.User, {
+        through: "UserPuzzles",
+        foreignKey: "puzzle_id",
+        otherKey: "user_id",
+      });
     }
   }
   Puzzle.init(

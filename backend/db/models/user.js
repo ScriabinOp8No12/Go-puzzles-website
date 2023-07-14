@@ -4,8 +4,12 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // verify associations later once all the models and migrations are made
-      User.hasMany(models.UserPuzzle, { foreignKey: "userId" });
-      User.hasMany(models.Sgf, { foreignKey: "userId" });
+      User.belongsToMany(models.Puzzle, {
+        through: "UserPuzzles",
+        foreignKey: "user_id",
+        otherKey: "puzzle_id",
+      });
+      User.hasMany(models.Sgf, { foreignKey: "user_Id" });
     }
   }
   User.init(
