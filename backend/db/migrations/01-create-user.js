@@ -1,9 +1,9 @@
 "use strict";
 
-// let options = {};
-// if (process.env.NODE_ENV === "production") {
-//   options.schema = process.env.SCHEMA; // define your schema in options object
-// }
+let options = {};
+if (process.env.NODE_ENV === "production") {
+  options.schema = process.env.SCHEMA; // define your schema in options object
+}
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -32,7 +32,7 @@ module.exports = {
           type: Sequelize.STRING.BINARY,
         },
         rank: {
-          // ALLOW NULL because won't have initial data to know what rank the puzzle is
+          // ALLOW NULL because won't have initial data to know what rank the user is
           type: Sequelize.INTEGER,
         },
         solved_puzzles: {
@@ -50,12 +50,11 @@ module.exports = {
           type: Sequelize.DATE,
           defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
-      }
-      // options
+      },
+      options
     );
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Users");
-    // await queryInterface.dropTable("Users", options);
+    await queryInterface.dropTable("Users", options);
   },
 };
