@@ -2,13 +2,10 @@
 const { Model, Validator } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // verify associations later once all the models and migrations are made
+      User.hasMany(models.UserPuzzle, { foreignKey: "userId" });
+      User.hasMany(models.Sgf, { foreignKey: "userId" });
     }
   }
   User.init(
@@ -25,11 +22,7 @@ module.exports = (sequelize, DataTypes) => {
             }
           },
           // empty string model validation
-          notEmptyString(value) {
-            if (value.length === 0) {
-              throw new Error("Cannot be empty.");
-            }
-          },
+          notEmpty: true,
         },
       },
       email: {
@@ -38,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [3, 256],
           isEmail: true,
+          notEmpty: true,
         },
       },
       hashedPassword: {
@@ -50,21 +44,23 @@ module.exports = (sequelize, DataTypes) => {
       },
       // RANK OF USER, NOT PUZZLE
       rank: {
+        allowNull: false,
         type: DataTypes.INTEGER,
         // using my own elo system for ranking user, must not be negative, and maximum of 100,000 elo
         validate: {
           min: 0,
           // realistically, something like a maximum of 5,000 elo should be plenty
-          max: 100000,
+          max: 5000,
         },
       },
       solved_puzzles: {
         allowNull: false,
         type: DataTypes.INTEGER,
-        // solved number of puzzles must be between 0 and 1 trillion (can't be negative)
+        // solved number of puzzles must be between 0 and 1 billion (can't be negative)
         validate: {
+          notEmpty: true,
           min: 0,
-          max: 1000000000000,
+          max: 1000000000,
         },
       },
     },

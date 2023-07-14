@@ -32,7 +32,9 @@ module.exports = {
           type: Sequelize.STRING.BINARY,
         },
         rank: {
-          // ALLOW NULL because won't have initial data to know what rank the user is
+          allowNull: false,
+          // default their elo to 500 (be on the safer side)
+          defaultValue: 500,
           type: Sequelize.INTEGER,
         },
         solved_puzzles: {

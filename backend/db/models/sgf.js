@@ -1,27 +1,70 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Sgf extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      Sgf.hasMany(models.Puzzle, { foreignKey: "sgf_id" });
+      Sgf.belongsTo(models.User, { foreignKey: "user_id" });
     }
   }
-  Sgf.init({
-    user_id: DataTypes.INTEGER,
-    sgf_data: DataTypes.TEXT,
-    sgf_name: DataTypes.STRING,
-    mistake_move_numbers: DataTypes.INTEGER,
-    game_preview: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Sgf',
-  });
+  Sgf.init(
+    {
+      user_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      sgf_data: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          // don't let the sgf_data be more than 10,000 characters
+          len: [1, 10000],
+          // does not take in an empty sgf either
+          notEmpty: true,
+        },
+      },
+      sgf_name: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          // does not take in an empty name
+          notEmpty: true,
+        },
+      },
+      mistake_move_numbers: {
+        allowNull: false,
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        validate: {
+          isValidArray(value) {
+            if (!Array.isArray(value)) {
+              throw new Error("Mistake move numbers must be an array");
+            }
+            value.forEach((num) => {
+              if (!Number.isInteger(num)) {
+                throw new Error("Mistake move numbers must be integers");
+              }
+              if (num < 1 || num > 1000) {
+                throw new Error(
+                  "Mistake move numbers must be between 1 and 1000"
+                );
+              }
+            });
+          },
+        },
+      },
+
+      game_preview: {
+        type: DataTypes.STRING,
+        // does not take in an empty url either
+        validate: {
+          notEmpty: true,
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: "Sgf",
+    }
+  );
   return Sgf;
 };
