@@ -3,7 +3,8 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Puzzle extends Model {
     static associate(models) {
-      // define association here
+      Puzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id" });
+      Puzzle.hasMany(models.UserPuzzle, { foreignKey: "puzzle_id" });
     }
   }
   Puzzle.init(

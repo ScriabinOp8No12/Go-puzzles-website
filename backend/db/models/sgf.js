@@ -35,6 +35,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         validate: {
+          // don't think we need to add the notEmpty validator here
+          // notEmpty: true,
           isValidArray(value) {
             if (!Array.isArray(value)) {
               throw new Error("Mistake move numbers must be an array");
