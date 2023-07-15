@@ -166,9 +166,11 @@ in our media query, we will make it show up once the screen gets smaller than 12
   background-color: #bbe1fa;
 }
 
-@media screen and (max-width: 1250px) {
-  /* Remove all links EXCEPT home, custom puzzles, browse puzzles, and signin
+/* Remove all links EXCEPT home, custom puzzles, browse puzzles, and signin
   hide removed ones under a hamburger menu */
+
+/* @media screen and (max-width: 1250px) {
+
 
   .top-menu .custom-puzzles {
     display: none;
@@ -187,16 +189,20 @@ in our media query, we will make it show up once the screen gets smaller than 12
   }
   .menu-button {
     display: block;
-    /* Now we need to write code to show the button */
-  }
-}
 
-@media screen and (max-width: 774px) {
-  /* Now remove home text! */
+  }
+} */
+
+/* Now we need to write code to show the button */
+
+/* Now remove home text! below */
+
+/* @media screen and (max-width: 774px) {
+
   .top-menu .home {
     display: none;
   }
-}
+} */
 
 /* FIND PLAN BUTTON */
 /*
