@@ -25,7 +25,7 @@
 - `POST /api/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
 - `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
 
-### Users (user specific info: includes their completed puzzles and account information like user's rank, count of solved puzzles, as well as ability to change username, password, email)
+### Users (Endpoints of user specific info. Includes the user's completed puzzles and account information like user's rank, count of solved puzzles, as well as ability to change username, password, and email)
 
 - `GET /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
 - `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed with a count of each category, accuracy rating when solving public puzzles, and account creation date
@@ -33,6 +33,7 @@
 - `PATCH /api/users/:user_id/username`: Edit the user's username
 - `PATCH /api/users/:user_id/password`: Edit the user's password
 - `PATCH /api/users/:user_id/email`: Edit the user's email
+- `DELETE /api/users/:user_id`: Delete the user's account
 
 ## USER AUTHENTICATION/AUTHORIZATION
 
