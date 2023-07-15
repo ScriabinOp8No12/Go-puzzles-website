@@ -31,13 +31,11 @@ const validateSignup = [
 
 // Sign up
 router.post("/", validateSignup, async (req, res) => {
-  // adding first and last name here into the req.body and in the .create method below
-  const { firstName, lastName, email, password, username } = req.body;
+  // REMOVING first and last name here from the req.body and in the .create method below
+  const { email, password, username } = req.body;
   const hashedPassword = bcrypt.hashSync(password);
   const user = await User.create({
-    // needed first and last name here too!
-    firstName,
-    lastName,
+    // REMOVED first and last name here too!
     email,
     username,
     hashedPassword,
@@ -45,9 +43,7 @@ router.post("/", validateSignup, async (req, res) => {
 
   const safeUser = {
     id: user.id,
-    // added first and last name to POST request
-    firstName: user.firstName,
-    lastName: user.lastName,
+    // REMOVED first and last name to POST request
     email: user.email,
     username: user.username,
   };
