@@ -27,12 +27,9 @@
 
 - `GET /api/users/:user_id/puzzles`: Get ALL of the user's puzzles (from own SGF or public puzzles)
 - `GET /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles are returned.
-
 - `POST /api/users/:user_id/:sgf_id/puzzles`: Create a new puzzle from the user's SGF
-
 - `GET /api/users/:user_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
 - `POST /api/users/:user_id/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
-
 - `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed with a count of each category, accuracy rating when solving public puzzles, and account creation date
 - `POST /api/users/:user_id/ranking`: Set initial user's ranking (don't allow it to be changed later)
 - `PATCH /api/users/:user_id/username`: Edit the user's username
