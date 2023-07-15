@@ -25,6 +25,15 @@
 - `POST /api/puzzles/:id/practice`: Play against AI from a specific move and get accuracy rating
 - `DELETE /api/puzzles/:id`: Delete a puzzle
 
+### Users
+
+- `GET /api/users/:user_id/puzzles`: Get the user's puzzles
+- `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed with a count of each category, accuracy rating when solving public puzzles, and account creation date
+- `POST /api/users/:user_id/ranking`: Set initial user's ranking (don't allow it to be changed later)
+- `PATCH /api/users/:user_id/username`: Edit the user's username
+- `PATCH /api/users/:user_id/password`: Edit the user's password
+- `PATCH /api/users/:user_id/email`: Edit the user's email
+
 ## USER AUTHENTICATION/AUTHORIZATION
 
 ### All endpoints that require authentication
