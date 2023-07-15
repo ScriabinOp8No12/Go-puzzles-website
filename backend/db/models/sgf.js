@@ -1,4 +1,7 @@
-"use strict";
+// use built in smartgame library to add custom model validation to ensure uploaded file is an sgf!
+const smartgame = require("smartgame");
+
+("use strict");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Sgf extends Model {
@@ -17,10 +20,18 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
         validate: {
-          // don't let the sgf_data be more than 10,000 characters
-          len: [1, 10000],
+          // don't let the sgf_data be more than 500,000 characters (each SGF is roughly between 500 and 5000 characters)
+          len: [1, 500000],
           // does not take in an empty sgf either
           notEmpty: true,
+          // accept only valid .sgf files
+          isSgf(value) {
+            try {
+              smartgame.parse(value);
+            } catch (error) {
+              throw new Error("Invalid file type. Only sgf files are allowed.");
+            }
+          },
         },
       },
       sgf_name: {
