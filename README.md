@@ -8,6 +8,33 @@
 
 ## API Documentation
 
+### SGFs (Endpoints for current user's SGFs)
+
+- `GET /api/sgfs`: Get all SGFs of the current user
+- `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
+- `PATCH /api/sgfs/:sgf_id`: Edit the name, player ranks, preview image, if the puzzle can be made public, and/or other info of an SGF
+- `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF
+- `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
+- `POST /api/sgfs/:sgf_id/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
+- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (probably don't want on delete cascade?)
+
+### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
+
+- `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters. Paginate to limit number of puzzles per page.
+- `PATCH /api/puzzles/:puzzle_id`: Edit the move number, description, category, and other info of the public puzzle (need verification / priviledges / reputation)
+- `POST /api/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
+- `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
+
+### Users (Endpoints of user specific info. Includes the user's completed puzzles and account information like user's rank, count of solved puzzles, as well as ability to change username, password, and email)
+
+- `GET /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
+- `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed with a count of each category, accuracy rating when solving public puzzles, and account creation date
+- `POST /api/users/:user_id/ranking`: Set initial user's ranking (don't allow it to be changed later)
+- `PATCH /api/users/:user_id/username`: Edit the user's username
+- `PATCH /api/users/:user_id/password`: Edit the user's password
+- `PATCH /api/users/:user_id/email`: Edit the user's email
+- `DELETE /api/users/:user_id`: Delete the user's account
+
 ## USER AUTHENTICATION/AUTHORIZATION
 
 ### All endpoints that require authentication
@@ -229,11 +256,15 @@ user's information.
     }
     ```
 
+## SGFs
+
 ### Get all SGFs of Current User
 
 Returns all the user's SGFs (in a table with columns)
 
-- Require Authentication: true
+- Require Authentication: true (error 401)
+- Require Authorization: SGF data/table must belong to the current user (error 403)
+
 - Request
 
   - Method: GET
@@ -253,13 +284,13 @@ Returns all the user's SGFs (in a table with columns)
         {
           "id": 1,
           "user_id": 1,
+          "game_preview (OPTIONAL: DO LIKE Go4Go.net)": "image of move 30 in game",
           "createdAt": "2023-7-14 20:39:36",
-          "updatedAt": "2023-7-14 20:39:36",
-          "sgf_data": "Giant amount of SGF/text here",
-          "sgf_name": "Nathan [6d] vs. Matthew [9d]",
-          "mistakes_move_numbers": [55, 100, 155, 233],
+          "updatedAt": "2023-7-15 20:39:36",
+          "sgf_name": "Nathan 6d vs. Matthew 9d",
+          "sgf_data (instead of it being separate, just have it be a clickable and openable from the sgf_name)": "Giant amount of SGF/text here",
+          "result": "B+Resign",
           "numberOfPuzzles": 8,
-          "game_preview": "image of move 100 in game"
         }
       ]
     }
@@ -267,9 +298,11 @@ Returns all the user's SGFs (in a table with columns)
 
 ### Upload SGF(s)
 
-Add SGF(s) from user's computer / phone
+Upload / add SGF(s) from user's device
 
-- Require Authentication: true
+- Require Authentication: true (error 401)
+- Require Authorization: SGF data/table must belong to the current user (error 403)
+
 - Request
 
   - Method: POST
@@ -293,11 +326,33 @@ Add SGF(s) from user's computer / phone
 
     ```json
     {
+      "game_preview": "image of move 30 in game (LIKE go4go.net)",
       "id": 1,
       "user_id": 1,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "sgf_name": "Nathan [6d] vs. Matthew [9d]",
-      "game_preview": "image of move 100 in game"
+      "sgf_name": "Nathan 6d vs. Matthew 9d",
+      "result": "B+Resign"
     }
     ```
+
+- Error Response: Body validation error
+
+- On the client side, we can iterate over the array of error messages and display each message to the user.
+
+- Status Code: 400
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
+    "errors": {
+      "sgf_data": [
+        "valid sgf is required",
+        "can only upload up to 10 SGFs at   once!"
+      ]
+    }
+  }
+  ```
