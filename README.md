@@ -12,13 +12,13 @@
 
 - `GET /api/sgfs`: Get all SGFs of the current user
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
-- `PATCH /api/sgfs/:id`: Edit the name and other info of an SGF
-- `DELETE /api/sgfs/:id`: Delete an SGF
+- `PATCH /api/sgfs/:id`: Edit the name, player ranks, preview image, if the puzzle can be public, and/or other info of an SGF
+- `DELETE /api/sgfs/:id`: Delete an SGF (probably don't want on delete cascade?)
 
 ### Puzzles
 
-- `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters
-- `POST /api/puzzles`: Create a new puzzle with a description and category
+- `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters. Paginate to limit number of puzzles per page.
+- `POST /api/puzzles`: **\*** (wrong url?) Create a new puzzle from the SGF with a description and category
 - `GET /api/puzzles/completed`: Get all completed puzzles of the current user
 - `PATCH /api/puzzles/:id`: Edit the move number, description, category, and other info of a puzzle
 - `GET /api/puzzles/:id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
