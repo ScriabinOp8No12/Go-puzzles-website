@@ -12,22 +12,27 @@
 
 - `GET /api/sgfs`: Get all SGFs of the current user
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
-- `PATCH /api/sgfs/:id`: Edit the name, player ranks, preview image, if the puzzle can be public, and/or other info of an SGF
-- `DELETE /api/sgfs/:id`: Delete an SGF (probably don't want on delete cascade?)
+- `PATCH /api/sgfs/:sgf_id`: Edit the name, player ranks, preview image, if the puzzle can be public, and/or other info of an SGF
+- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (probably don't want on delete cascade?)
 
-### Puzzles
+### Puzzles (public)
 
 - `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters. Paginate to limit number of puzzles per page.
-- `POST /api/puzzles`: **\*** (wrong url?) Create a new puzzle from the SGF with a description and category
-- `GET /api/puzzles/completed`: Get all completed puzzles of the current user
-- `PATCH /api/puzzles/:id`: Edit the move number, description, category, and other info of a puzzle
-- `GET /api/puzzles/:id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
-- `POST /api/puzzles/:id/practice`: Play against AI from a specific move and get accuracy rating
-- `DELETE /api/puzzles/:id`: Delete a puzzle
+- `PATCH /api/puzzles/:puzzle_id`: Edit the move number, description, category, and other info of the public puzzle (need verification / priviledges / reputation)
+- `GET /api/puzzles/:puzzle_id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
+- `POST /api/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
+- `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Must be admin)
 
 ### Users
 
-- `GET /api/users/:user_id/puzzles`: Get the user's puzzles
+- `GET /api/users/:user_id/puzzles`: Get ALL of the user's puzzles (from own SGF or public puzzles)
+- `GET /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles are returned.
+
+- `POST /api/users/:user_id/:sgf_id/puzzles`: Create a new puzzle from the user's SGF
+
+- `GET /api/users/:user_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
+- `POST /api/users/:user_id/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
+
 - `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed with a count of each category, accuracy rating when solving public puzzles, and account creation date
 - `POST /api/users/:user_id/ranking`: Set initial user's ranking (don't allow it to be changed later)
 - `PATCH /api/users/:user_id/username`: Edit the user's username
