@@ -8,6 +8,23 @@
 
 ## API Documentation
 
+### SGFs
+
+- `GET /api/sgfs`: Get all SGFs of the current user
+- `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
+- `PATCH /api/sgfs/:id`: Edit the name and other info of an SGF
+- `DELETE /api/sgfs/:id`: Delete an SGF
+
+### Puzzles
+
+- `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters
+- `POST /api/puzzles`: Create a new puzzle with a description and category
+- `GET /api/puzzles/completed`: Get all completed puzzles of the current user
+- `PATCH /api/puzzles/:id`: Edit the move number, description, category, and other info of a puzzle
+- `GET /api/puzzles/:id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
+- `POST /api/puzzles/:id/practice`: Play against AI from a specific move and get accuracy rating
+- `DELETE /api/puzzles/:id`: Delete a puzzle
+
 ## USER AUTHENTICATION/AUTHORIZATION
 
 ### All endpoints that require authentication
@@ -229,7 +246,7 @@ user's information.
     }
     ```
 
-## SGFS
+## SGFs
 
 ### Get all SGFs of Current User
 
