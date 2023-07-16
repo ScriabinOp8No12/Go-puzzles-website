@@ -15,14 +15,12 @@
 - `PATCH /api/sgfs/:sgf_id`: Edit the name, player ranks, preview image, if the puzzle can be made public, and/or other info of an SGF
 - `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF
 - `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
-- `POST /api/sgfs/:sgf_id/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
 - `DELETE /api/sgfs/:sgf_id`: Delete an SGF (probably don't want on delete cascade?)
 
 ### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
 
 - `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters. Paginate to limit number of puzzles per page.
 - `PATCH /api/puzzles/:puzzle_id`: Edit the move number, description, category, and other info of the public puzzle (need verification / priviledges / reputation)
-- `POST /api/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
 - `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
 
 ### Users (Endpoints of user specific info. Includes the user's completed puzzles and account information like user's rank, count of solved puzzles, as well as ability to change username, password, and email)
@@ -34,6 +32,11 @@
 - `PATCH /api/users/:user_id/password`: Edit the user's password
 - `PATCH /api/users/:user_id/email`: Edit the user's email
 - `DELETE /api/users/:user_id`: Delete the user's account
+
+### Possible features
+
+- `POST /api/sgfs/:sgf_id/puzzles/:puzzle_id/practice`: [OPTIONAL FOR NOW] Play against AI from a specific move and get accuracy rating
+- `POST /api/puzzles/:puzzle_id/practice`: [OPTIONAL FOR NOW] Play against AI from a specific move and get accuracy rating
 
 ## USER AUTHENTICATION/AUTHORIZATION
 
@@ -361,7 +364,7 @@ Upload new SGFs to the current user's SGF table
 
 ### Edit SGF
 
-Edit the SGF name, or player names/ranks
+Edit the SGF name, player names, or player ranks
 
 - Require Authentication: true (error 401)
 - Require Authorization: SGF data/table must belong to the current user (error 403)
@@ -387,7 +390,7 @@ Edit the SGF name, or player names/ranks
 
 - Error Response: Body validation error
 
-- sgf_name and game_preview can't be left blank, rank can be set to ? though
+- sgf_name can't be left blank or null, rank can be set to "", ?, or null though
 
 - Status Code: 400
 - Headers:
