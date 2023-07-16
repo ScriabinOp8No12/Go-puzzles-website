@@ -37,7 +37,7 @@ module.exports = {
       },
       mistake_move_numbers: {
         allowNull: false,
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       game_preview: {
         allowNull: false,
