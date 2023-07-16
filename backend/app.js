@@ -28,6 +28,9 @@ const app = express();
 app.use("/wgo", express.static(path.join(__dirname, "wgo")));
 // Serve static files from the "node_modules" directory
 app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
+// Serve static files from the "uploads" directory
+// This allows the server to serve the uploaded SGF files from the "/uploads" URL path
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(morgan("dev"));
 app.use(cookieParser());
