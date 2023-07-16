@@ -10,25 +10,28 @@
 
 ### SGFs (Endpoints for current user's SGFs)
 
-- `GET /api/sgfs`: Get all SGFs of the current user
+- `GET /api/sgfs`: Get all SGFs of the current user (format like go4go.net)
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
-- `PATCH /api/sgfs/:sgf_id`: Edit the name, player ranks, preview image, if the puzzle can be made public, and/or other info of an SGF
+- `PATCH /api/sgfs/:sgf_id`: Edit the SGF name, player names, or player ranks
 - `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF
-- `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo
-- `POST /api/sgfs/:sgf_id/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
-- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (probably don't want on delete cascade?)
+- `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the largest point mistakes according to KataGo. Use heuristics, something like 10-12 simple rules to tell Katago how to look for a good puzzle with clear right/wrong answers!
+- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (do NOT delete the puzzles with it)
 
 ### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
 
 - `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters. Paginate to limit number of puzzles per page.
-- `PATCH /api/puzzles/:puzzle_id`: Edit the move number, description, category, and other info of the public puzzle (need verification / priviledges / reputation)
-- `POST /api/puzzles/:puzzle_id/practice`: Play against AI from a specific move and get accuracy rating
+- `PATCH /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (need verification / priviledges / reputation)
 - `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
 
 ### Users (Endpoints of user specific info. Includes the user's completed puzzles and account information like user's rank, count of solved puzzles, as well as ability to change username, password, and email)
 
 - `GET /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
-- `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed with a count of each category, accuracy rating when solving public puzzles, and account creation date
+- `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed, and a count of puzzle completed for each category
+
+### Features for later
+
+- `POST /api/sgfs/:sgf_id/puzzles/:puzzle_id/practice`: [OPTIONAL FOR NOW] Play against AI from a specific move and get accuracy rating
+- `POST /api/puzzles/:puzzle_id/practice`: [OPTIONAL FOR NOW] Play against AI from a specific move and get accuracy rating
 - `POST /api/users/:user_id/ranking`: Set initial user's ranking (don't allow it to be changed later)
 - `PATCH /api/users/:user_id/username`: Edit the user's username
 - `PATCH /api/users/:user_id/password`: Edit the user's password
@@ -260,7 +263,7 @@ user's information.
 
 ### Get all SGFs of Current User
 
-Get all SGFs of the current user (in a table with columns)
+Get all SGFs of the current user (format like go4go.net)
 
 - Require Authentication: true (error 401)
 - Require Authorization: SGF data/table must belong to the current user (error 403)
@@ -284,11 +287,15 @@ Get all SGFs of the current user (in a table with columns)
         {
           "id": 1,
           "user_id": 1,
-          "game_preview (OPTIONAL: DO LIKE Go4Go.net)": "image of move 30 in game",
+          "game_preview (Copy Go4Go.net format)": "image of move 30 in game",
           "createdAt": "2023-7-14 20:39:36",
           "updatedAt": "2023-7-15 20:39:36",
           "sgf_name": "Nathan 6d vs. Matthew 9d",
           "sgf_data (instead of it being separate, just have it be a clickable and openable from the sgf_name)": "Giant amount of SGF/text here",
+          "black_player": "Nathan",
+          "white_player": "Matthew",
+          "black_rank": "6d",
+          "white_player": "9d",
           "result": "B+Resign",
           "numberOfPuzzles": 8,
         }
@@ -326,12 +333,14 @@ Upload new SGFs to the current user's SGF table
 
     ```json
     {
-      "game_preview": "image of move 30 in game (LIKE go4go.net)",
+      "game_preview": "image of move 30 in game (Copy go4go.net format)",
       "id": 1,
       "user_id": 1,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
       "sgf_name": "Nathan 6d vs. Matthew 9d",
+      "black_player": "Nathan",
+      "white_player": "Matthew",
       "black_rank": "6d",
       "white_rank": "9d",
       "result": "B+Resign"
@@ -361,14 +370,13 @@ Upload new SGFs to the current user's SGF table
 
 ### Edit SGF
 
-Edit the SGF name, or player names/ranks
+Edit the SGF name, player names, or player ranks
 
 - Require Authentication: true (error 401)
 - Require Authorization: SGF data/table must belong to the current user (error 403)
 
 - Request
 
-  - Status Code: 200
   - Method: PATCH
   - URL: /api/sgfs/:sgf_id
   - Headers:
@@ -385,9 +393,27 @@ Edit the SGF name, or player names/ranks
     }
     ```
 
+- Successful Response
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "sgf_id": "1",
+    "sgf_name": "Changed SGF name to this",
+    "black_player": "Nathannn",
+    "white_player": "Matthewww",
+    "black_rank": "2d",
+    "white_rank": "3d"
+  }
+  ```
+
 - Error Response: Body validation error
 
-- sgf_name and game_preview can't be left blank, rank can be set to ? though
+- sgf_name can't be left blank or null, rank can be set to "", ?, or null though
 
 - Status Code: 400
 - Headers:
@@ -400,5 +426,69 @@ Edit the SGF name, or player names/ranks
     "errors": {
       "sgf_name": "sgf name is required"
     }
+  }
+  ```
+
+### Create Puzzle from SGF
+
+Create a new puzzle from the user's SGF
+
+- Require Authentication: true (error 401)
+- Require Authorization: SGF must belong to the current user (error 403)
+
+- Request
+
+  - Method: POST
+  - URL: /api/sgfs/:sgf_id/puzzles
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "move_number": "56",
+      "category": "life and death",
+      "description": "Can you save the group?"
+    }
+    ```
+
+  - Successful Response
+
+- Status Code: 201
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "message": "puzzle created successfully!",
+    "puzzle": {
+      "id": 1,
+      "sgf_id": 1,
+      "category": "life and death",
+      "move_number": 56,
+      "difficulty_rank": 900,
+      "description": "Can you save the group?",
+      "game_preview": "image of the move of the puzzle, in this case, 56",
+      "completed": false,
+      "is_public": true
+    }
+  }
+  ```
+
+- Error Response: Validation error
+
+- Status Code: 400
+- Headers:
+- Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
+    "errors": [
+      "move_number must be an integer",
+      "move_number must be between 1 and 1000"
+    ]
   }
   ```

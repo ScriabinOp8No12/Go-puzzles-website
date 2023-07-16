@@ -6,9 +6,10 @@ const morgan = require("morgan");
 // const csurf = require("csurf");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
-
 const { environment } = require("./config");
 const isProduction = environment === "production";
+// we need to require path for serving static files from the wgo directory
+const path = require("path");
 // ***************************************
 // these 2 below are mine!
 const multer = require("multer");
@@ -23,8 +24,15 @@ const { ValidationError } = require("sequelize");
 
 const app = express();
 
-app.use(morgan("dev"));
+// Serve static files from the "wgo" directory
+app.use("/wgo", express.static(path.join(__dirname, "wgo")));
+// Serve static files from the "node_modules" directory
+app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
+// Serve static files from the "uploads" directory
+// This allows the server to serve the uploaded SGF files from the "/uploads" URL path
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -111,10 +119,5 @@ app.use((err, _req, res, _next) => {
     stack: isProduction ? null : err.stack,
   });
 });
-
-// const port = 8001;
-// app.listen(port, () => {
-//   console.log(`Server listening on port ${port}`);
-// });
 
 module.exports = app;

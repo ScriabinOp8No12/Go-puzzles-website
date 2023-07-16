@@ -187,15 +187,7 @@ in our media query, we will make it show up once the screen gets smaller than 12
   .top-menu .upload-sgf {
     display: none;
   }
-  .top-menu .why-us {
-    display: none;
-  }
-  .top-menu .learn-to-play {
-    display: none;
-  }
-  .top-menu .compete-against-friends {
-    display: none;
-  }
+
   .menu-button {
     display: block;
     /* Now we need to write code to show the button */
