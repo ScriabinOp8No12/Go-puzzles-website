@@ -23,6 +23,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      black_player: {
+        type: Sequelize.STRING,
+      },
+      white_player: {
+        type: Sequelize.STRING,
+      },
+      black_rank: {
+        type: Sequelize.STRING,
+      },
+      white_rank: {
+        type: Sequelize.STRING,
+      },
       mistake_move_numbers: {
         allowNull: false,
         type: Sequelize.TEXT,

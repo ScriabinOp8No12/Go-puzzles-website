@@ -42,6 +42,30 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      black_player: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [1, 100],
+        },
+      },
+      white_player: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [1, 100],
+        },
+      },
+      black_rank: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [1, 10],
+        },
+      },
+      white_rank: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [1, 10],
+        },
+      },
       mistake_move_numbers: {
         allowNull: false,
         type: DataTypes.TEXT,
@@ -73,6 +97,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       game_preview: {
+        allowNull: false,
         type: DataTypes.STRING,
         // does not take in an empty url either
         validate: {
