@@ -40,6 +40,8 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           // does not take in an empty name
           notEmpty: true,
+          // length of sgf_name is capped at 150 characters
+          len: [1, 150],
         },
       },
       black_player: {
@@ -68,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       mistake_move_numbers: {
         allowNull: false,
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         validate: {
           isValidArray(value) {
             let array;
