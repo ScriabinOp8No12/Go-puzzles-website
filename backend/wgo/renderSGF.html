@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My page</title>
+    <script type="text/javascript" src="wgo.js-master/wgo/wgo.min.js"></script>
+    <script
+      type="text/javascript"
+      src="wgo.js-master/wgo/wgo.player.min.js"
+    ></script>
+    <link
+      type="text/css"
+      href="wgo.js-master/wgo/wgo.player.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="player" style="width: 700px"></div>
+    <script type="text/javascript">
+      // Load the SGF data from the file
+      fetch("../uploads/1aae07cbcd589b0e75a4ae5b44b3fdf1")
+        .then((response) => response.text())
+        .then((sgfData) => {
+          // Create a new WGo.BasicPlayer instance and pass it the SGF data
+          const elem = document.getElementById("player");
+          const player = new WGo.BasicPlayer(elem, {
+            sgf: sgfData,
+          });
+        });
+    </script>
+  </body>
+</html>
