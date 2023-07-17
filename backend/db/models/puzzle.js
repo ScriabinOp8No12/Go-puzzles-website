@@ -41,18 +41,19 @@ module.exports = (sequelize, DataTypes) => {
         // add unique validation rule to move_number field to make sure that it should
         // be a unique combination with the sgf_id field.
         // args: true -> option is used to specify that this validation rule should be applied
-        unique: {
-          args: true,
-          msg: "User already has a puzzle for this move number, please edit the puzzle instead",
-        },
+        // commented out for now
+        // unique: {
+        //   args: true,
+        //   msg: "User already has a puzzle for this move number, please edit the puzzle instead",
+        // },
       },
       // this is elo difficulty rank of the PUZZLE, NOT the strength of the user
       difficulty_rank: {
         type: DataTypes.INTEGER,
         validate: {
-          min: 0,
-          // capping elo at 100,000 -> realistically 5,000 max should be plenty
-          max: 100000,
+          min: 100,
+          // capping elo at 3,000
+          max: 3000,
         },
       },
       description: {
