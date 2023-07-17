@@ -6,6 +6,8 @@
 
 4. Add CSS hover effect (EVENT LISTENER?) for top menu (and add drop down menu for certain items like 'learn to play Go') -->
 
+Updated gitignore
+
 4a. Allow users to look through the game, add a button that allows them to store that specific move as a puzzle
 for later. Also allow users to have AI analyze the game for the biggest point mistakes. Give users the option to categorize the puzzles they save (ladder/net, forcing move, reading, direction, judgment, sacrificing, etc.)
 
