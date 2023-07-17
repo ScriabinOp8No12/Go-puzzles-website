@@ -1,6 +1,6 @@
 const express = require("express");
 const { requireAuth } = require("../../utils/auth");
-const { User, Sgf } = require("../../db/models");
+const { User, Puzzle, Sgf } = require("../../db/models");
 const { Sequelize } = require("sequelize");
 const { Op } = require("sequelize");
 

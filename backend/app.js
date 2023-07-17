@@ -81,11 +81,6 @@ app.post("/upload", upload.array("file", 10), (req, res) => {
   // res.json({ message: "File(s) uploaded!", count: req.files.length });
 });
 
-app.get("/sgfs", (req, res) => {
-  // return a list of all uploaded SGFs
-  res.json(sgfs);
-});
-
 app.use(routes);
 app.use((_req, _res, next) => {
   const err = new Error("The requested resource couldn't be found.");
