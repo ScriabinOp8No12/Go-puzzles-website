@@ -10,7 +10,7 @@
 
 ### SGFs (Endpoints for current user's SGFs)
 
-- `GET /api/sgfs`: Get all SGFs of the current user (format like go4go.net)
+- `GET /api/sgfs/users/:user_id`: Get all SGFs of the current user (format like go4go.net)
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
 - `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, or player ranks
 - `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
@@ -276,7 +276,7 @@ Get all SGFs of the current user (format like go4go.net)
 - Request
 
   - Method: GET
-  - URL: /api/sgfs
+  - URL: /api/sgfs/users/:user_id
   - Body: none
 
 - Successful Response

@@ -18,6 +18,8 @@ module.exports = {
         },
         username: {
           allowNull: false,
+          // added unique here, it was in the email, but needs to be here too!
+          unique: true,
           // max username characters 30
           type: Sequelize.STRING(30),
         },
