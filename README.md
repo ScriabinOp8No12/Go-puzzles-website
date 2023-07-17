@@ -11,16 +11,16 @@
 ### SGFs (Endpoints for current user's SGFs)
 
 - `GET /api/sgfs/users/:user_id`: Get all SGFs of the current user (format like go4go.net)
-- `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
-- `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, or player ranks
-- `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
+- `POST /api/sgfs/users/:user_id`: Upload new SGFs to the current user's SGF table
+- `PUT /api/sgfs/:sgf_id/users/:user_id`: Edit the SGF name, player names, or player ranks
+- `POST /api/sgfs/:sgf_id/users/:user_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
   taking the average of the two ranks of the players
   that played the game, then converting that Go rank
   into an elo rating. If there are no ranks, it'll
   default to 1500 elo (which should be around 5-7k range)
-- `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo. Use heuristics, something like 10-12 simple rules to tell Katago how to look for a good puzzle with clear right/wrong answers!
-- `DELETE /api/sgfs/:sgf_id/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
-- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (do NOT delete the puzzles with it)
+- `GET /api/sgfs/:sgf_id/users/:user_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo. Use heuristics, something like 10-12 simple rules to tell Katago how to look for a good puzzle with clear right/wrong answers!
+- `DELETE /api/sgfs/:sgf_id/users/:user_id/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
+- `DELETE /api/sgfs/:sgf_id/users/:user_id`: Delete an SGF (do NOT delete the puzzles with it)
 
 ### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
 
