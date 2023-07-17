@@ -24,7 +24,6 @@ module.exports = {
         {
           username: "bigfry1",
           email: "test1@gmail.com",
-          hashedPassword: "test",
           rank: 1500,
           solved_puzzles: 500,
           hashedPassword: bcrypt.hashSync("password"),
@@ -32,7 +31,6 @@ module.exports = {
         {
           username: "bigfry2",
           email: "test2@gmail.com",
-          hashedPassword: "test",
           rank: 2250,
           solved_puzzles: 10,
           hashedPassword: bcrypt.hashSync("password"),
