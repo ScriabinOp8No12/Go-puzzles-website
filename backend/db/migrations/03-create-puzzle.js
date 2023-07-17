@@ -64,16 +64,10 @@ module.exports = {
       options
     );
     // add index and unique property to ensure user can only add one puzzle per move!
-    await queryInterface.addIndex(
-      "Puzzles",
-      ["sgf_id", "move_number"],
-      {
-        unique: true,
-        name: "unique_sgf_move_number",
-      },
-      // need options here also?
-      options
-    );
+    await queryInterface.addIndex("Puzzles", ["sgf_id", "move_number"], {
+      unique: true,
+      name: "unique_sgf_move_number",
+    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.removeIndex("Puzzles", "unique_sgf_move_number");
