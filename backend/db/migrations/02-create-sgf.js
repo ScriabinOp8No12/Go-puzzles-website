@@ -25,7 +25,7 @@ module.exports = {
         },
         sgf_data: {
           allowNull: false,
-          // changed from .TEXT to .STRING
+          // changed back to TEXT because SGF data > 255 characters
           type: Sequelize.TEXT,
         },
         sgf_name: {
