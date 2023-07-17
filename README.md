@@ -573,6 +573,44 @@ Use KataGo to recommend puzzles from the uploaded SGF (use heuristics, maybe 10-
     }
     ```
 
+### Delete a SGF
+
+Delete an SGF (do NOT delete the puzzles with it)
+
+- Require Authentication: true (error 401)
+- Require authorization: true (error 403)
+- Request
+
+  - Method: DELETE
+  - URL: /api/sgf/:sgf_id
+  - Body: none
+
+- Successful Response
+
+  - Status Code: 204
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+- Error response: Couldn't find a SGF with the specified sgf_id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "SGF couldn't be found"
+    }
+    ```
+
 ## Puzzles
 
 ### Get all Public Puzzles
