@@ -12,7 +12,7 @@
 
 - `GET /api/sgfs`: Get all SGFs of the current user (format like go4go.net)
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
-- `PATCH /api/sgfs/:sgf_id`: Edit the SGF name, player names, or player ranks
+- `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, or player ranks
 - `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
   taking the average of the two ranks of the players
   that played the game, then converting that Go rank
@@ -24,7 +24,7 @@
 ### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
 
 - `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters.
-- `PATCH /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (requires priviledges / reputation)
+- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (requires priviledges / reputation)
 - `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
 
 ### Users (Endpoints of user specific info. Includes the user's completed puzzles and account information like user's rank, count of solved puzzles by category)
@@ -37,9 +37,9 @@
 - `POST /api/sgfs/:sgf_id/puzzles/:puzzle_id/practice`: [OPTIONAL FOR NOW] Play against AI from a specific move and get accuracy rating
 - `POST /api/puzzles/:puzzle_id/practice`: [OPTIONAL FOR NOW] Play against AI from a specific move and get accuracy rating
 - `POST /api/users/:user_id/ranking`: Set initial user's ranking (don't allow it to be changed later)
-- `PATCH /api/users/:user_id/username`: Edit the user's username
-- `PATCH /api/users/:user_id/password`: Edit the user's password
-- `PATCH /api/users/:user_id/email`: Edit the user's email
+- `PUT /api/users/:user_id/username`: Edit the user's username
+- `PUT /api/users/:user_id/password`: Edit the user's password
+- `PUT /api/users/:user_id/email`: Edit the user's email
 - `DELETE /api/users/:user_id`: Delete the user's account
 
 ## USER AUTHENTICATION/AUTHORIZATION
@@ -381,7 +381,7 @@ Edit the SGF name, player names, or player ranks
 
 - Request
 
-  - Method: PATCH
+  - Method: PUT
   - URL: /api/sgfs/:sgf_id
   - Headers:
     - Content-Type: application/json
@@ -647,7 +647,7 @@ Edit the description, category, and other info of a public puzzle. Requires priv
 
 - Request
 
-- Method: PATCH
+- Method: PUT
 - URL: /api/puzzles/:puzzle_id
 - Headers:
   Content-Type: application/json
