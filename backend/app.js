@@ -1,8 +1,8 @@
 const express = require("express");
 require("express-async-errors");
 const morgan = require("morgan");
-// cors and csurf commented out!
-// const cors = require("cors");
+const cors = require("cors");
+// csurf breaks the upload button from localhost:5500, but it works if we don't make that request
 // const csurf = require("csurf");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
@@ -37,10 +37,10 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Security Middleware
-// if (!isProduction) {
-//   // enable cors only in development
-//   app.use(cors());
-// }
+if (!isProduction) {
+  // enable cors only in development
+  app.use(cors());
+}
 
 // helmet helps set a variety of headers to better secure your app
 app.use(
