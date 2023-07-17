@@ -276,7 +276,7 @@ Get all SGFs of the current user (format like go4go.net)
 - Request
 
   - Method: GET
-  - URL: /api/sgfs/users/:user_id
+  - URL: /api/sgfs/current
   - Body: none
 
 - Successful Response
