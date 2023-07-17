@@ -24,10 +24,10 @@
 ### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
 
 - `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters.
-- `PATCH /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (need verification / priviledges / reputation)
+- `PATCH /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (requires priviledges / reputation)
 - `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
 
-### Users (Endpoints of user specific info. Includes the user's completed puzzles and account information like user's rank, count of solved puzzles, as well as ability to change username, password, and email)
+### Users (Endpoints of user specific info. Includes the user's completed puzzles and account information like user's rank, count of solved puzzles by category)
 
 - `GET /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
 - `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed, and a count of puzzle completed for each category
@@ -573,6 +573,8 @@ Use KataGo to recommend puzzles from the uploaded SGF (use heuristics, maybe 10-
     }
     ```
 
+## Puzzles
+
 ### Get all Public Puzzles
 
 Get all public puzzles with optional query parameters for rank and category filters.
@@ -633,5 +635,214 @@ Body:
         "page": "Page must be at least 1",
         "size": "Size must be between 1 and 30"
       }
+    }
+    ```
+
+### Edit a Public Puzzle
+
+Edit the description, category, and other info of a public puzzle. Requires privileges/reputation.
+
+- Require Authentication: true (error 401)
+- Require Authorization: User must have privileges/reputation (error 403)
+
+- Request
+
+- Method: PATCH
+- URL: /api/puzzles/:puzzle_id
+- Headers:
+  Content-Type: application/json
+  Body:
+  ```json
+  {
+    "description": "New description",
+    "category": "New category"
+  }
+  ```
+
+Successful Response
+
+- Status Code: 200
+- Headers:
+  Content-Type: application/json
+  Body:
+
+```json
+{
+  "id": 1,
+  "category": "New category",
+  "move_number": 56,
+  "difficulty_rank": 654,
+  "description": "New description",
+  "completed": false,
+  "is_public": true
+}
+```
+
+### Delete a public puzzle
+
+Deletes an existing public puzzle.
+
+- Require Authentication: true (error 401)
+- Require authorization: User must be an admin (error 403)
+- Request
+
+  - Method: DELETE
+  - URL: /api/puzzles/:puzzle_id
+  - Body: none
+
+- Successful Response
+
+  - Status Code: 204
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+- Error response: Couldn't find a Puzzle with the specified puzzle_id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Puzzle couldn't be found"
+    }
+    ```
+
+## Users
+
+### Get all Puzzles
+
+Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
+
+- Require Authentication: true (error 401)
+- Require Authorization: true (error 403)
+
+- Request
+
+  - Method: GET
+  - URL: /api/users/:user_id/puzzles/completed?source=[own|public]
+  - Body: none
+
+- Successful Response
+
+Status Code: 200
+Headers:
+Content-Type: application/json
+
+Body:
+
+```json
+  {
+    {
+      "completed_puzzles": [
+        {
+          {
+            "puzzle_id": 1,
+            "category": "life and death",
+            "move_number": 35,
+            "difficulty_rank": 855,
+            "description": "Can you save the group?",
+            "completed": true,
+            "is_public": true
+          }
+        },
+        {
+          {
+            "puzzle_id": 2,
+            "category": "reading",
+            "move_number": 135,
+            "difficulty_rank": 2750,
+            "description": "Are you an AI?",
+            "completed": true,
+            "is_public": false
+          }
+        }
+      ]
+    }
+  }
+```
+
+- Error Response: Query parameter validation errors
+
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
+      "errors": {
+        "source": "Source must be either own or public"
+      }
+    }
+    ```
+
+  - Error response: Couldn't find a user with the specified user_id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "User couldn't be found!"
+    }
+    ```
+
+### Get the user's ranking and puzzle statistics
+
+Get the user’s ranking (elo), number of total puzzles completed, and a count of puzzle completed for each category.
+
+- Require Authentication: true (error 401)
+- Require Authorization: can only access your own user account (error 403)
+
+- Request
+
+  - Method: GET
+  - URL: /api/users/:user_id
+  - Body: none
+
+- Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+  ```json
+  {
+    "ranking": {
+      "elo": 1500
+    },
+    "puzzles_completed": {
+      "total": 10,
+      "category": {
+        "life and death": 3,
+        "reading": 7
+      }
+    }
+  }
+  ```
+
+  - Error response: Couldn't find a user with the specified user_id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "User couldn't be found!"
     }
     ```
