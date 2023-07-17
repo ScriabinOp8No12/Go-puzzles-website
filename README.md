@@ -10,7 +10,7 @@
 
 ### SGFs (Endpoints for current user's SGFs)
 
-- `GET /api/sgfs`: Get all SGFs of the current user (format like go4go.net)
+- `GET /api/sgfs/users/:user_id`: Get all SGFs of the current user (format like go4go.net)
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
 - `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, or player ranks
 - `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
@@ -19,6 +19,7 @@
   into an elo rating. If there are no ranks, it'll
   default to 1500 elo (which should be around 5-7k range)
 - `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo. Use heuristics, something like 10-12 simple rules to tell Katago how to look for a good puzzle with clear right/wrong answers!
+- `DELETE /api/sgfs/:sgf_id/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
 - `DELETE /api/sgfs/:sgf_id`: Delete an SGF (do NOT delete the puzzles with it)
 
 ### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
@@ -275,7 +276,7 @@ Get all SGFs of the current user (format like go4go.net)
 - Request
 
   - Method: GET
-  - URL: /api/sgfs
+  - URL: /api/sgfs/users/:user_id
   - Body: none
 
 - Successful Response
@@ -608,6 +609,44 @@ Delete an SGF (do NOT delete the puzzles with it)
     ```json
     {
       "message": "SGF couldn't be found"
+    }
+    ```
+
+### Delete a User's Puzzle
+
+Delete a puzzle that belongs to the user
+
+- Require Authentication: true (error 401)
+- Require authorization: true, puzzle must belong to the user (error 403)
+- Request
+
+  - Method: DELETE
+  - URL: /api/sgf/:sgf_id/puzzles/puzzle_id
+  - Body: none
+
+- Successful Response
+
+  - Status Code: 204
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+- Error response: Couldn't find a puzzle with the specified puzzle_id
+
+  - Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Puzzle couldn't be found"
     }
     ```
 
