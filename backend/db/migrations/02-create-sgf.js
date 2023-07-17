@@ -26,7 +26,7 @@ module.exports = {
         sgf_data: {
           allowNull: false,
           // changed from .TEXT to .STRING
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT,
         },
         sgf_name: {
           allowNull: false,

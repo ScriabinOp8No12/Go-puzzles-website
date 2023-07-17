@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       sgf_data: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         validate: {
           // don't let the sgf_data be more than 500,000 characters (each SGF is roughly between 500 and 5000 characters)
           len: [1, 500000],
