@@ -67,6 +67,7 @@ for filename in os.listdir(sgf_dir):
             draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
 
         # Iterate over the first 50 moves of the game or until the game ended
+        # list comprehension? keep shorter
         for i in range(50):
             # Get the next node in the game tree
             try:
@@ -77,6 +78,7 @@ for filename in os.listdir(sgf_dir):
             # Get the move information from the node
             color, move = node.get_move()
             if move is None:
+                # break instead?
                 continue
 
             # Unpack the move coordinates (instead of row, col, it's col, row now)
@@ -91,15 +93,22 @@ for filename in os.listdir(sgf_dir):
             try:
                 print(f'Playing move: {move} ({color})')
                 print(f'Board state before move:\n{go_board}')
-                print(f'row: {row}, col: {col}, color_int: {color_int}')
-                captured_stones = go_board.play(row, col, color_int)
+                print(f'row: {row}, col: {col}, color_int: {color}')
+                # pass in color instead of color_int
+                captured_stones = go_board.play(row, col, color)
                 print(f'Captured stones: {captured_stones}')
-                print(f'Board state after move:\n{go_board.__str__()}')
+                print(f'Board state after move:\n{go_board}')
             except ValueError as e:
                 print(f'Illegal move: {e}')
-                continue
+                # continue
+                raise
 
             # Convert the move coordinates to image coordinates
+
+            # Need to draw based on played Go board, not the SGF, loop through and use go_board.play first to play
+            # all the valid moves on the board,then have a separate loop that loops through the go board to find all the black and white stones, then
+            # draws that
+            # Do a separate loop now
             row, col = move
             cx = (col + 1) * cell_size
             cy = (board_size - row) * cell_size
