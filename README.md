@@ -271,7 +271,6 @@ user's information.
 Get all SGFs of the current user (format like go4go.net)
 
 - Require Authentication: true (error 401)
-- Require Authorization: SGF data/table must belong to the current user (error 403)
 
 - Request
 
@@ -302,9 +301,9 @@ Get all SGFs of the current user (format like go4go.net)
           "black_rank": "6d",
           "white_player": "9d",
           "result": "B+Resign",
-          "numberOfPuzzles": 8,
         }
       ]
+      "numberOfSGFs": 8,
     }
     ```
 

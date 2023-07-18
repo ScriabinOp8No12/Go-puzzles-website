@@ -48,25 +48,32 @@ module.exports = (sequelize, DataTypes) => {
       black_player: {
         type: DataTypes.STRING,
         validate: {
-          len: [1, 100],
+          len: [0, 100],
         },
       },
       white_player: {
         type: DataTypes.STRING,
         validate: {
-          len: [1, 100],
+          len: [0, 100],
         },
       },
       black_rank: {
         type: DataTypes.STRING,
         validate: {
-          len: [1, 10],
+          len: [0, 10],
         },
       },
       white_rank: {
         type: DataTypes.STRING,
         validate: {
-          len: [1, 10],
+          len: [0, 10],
+        },
+      },
+      result: {
+        type: DataTypes.STRING,
+        validate: {
+          // length of 30 characters should cover all combinations of result strings
+          len: [0, 30],
         },
       },
       mistake_move_numbers: {
