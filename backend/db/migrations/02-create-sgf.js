@@ -32,6 +32,7 @@ module.exports = {
           allowNull: false,
           type: Sequelize.STRING,
         },
+        // player, rank, and result can all be empty or null
         black_player: {
           type: Sequelize.STRING,
         },
@@ -42,6 +43,9 @@ module.exports = {
           type: Sequelize.STRING,
         },
         white_rank: {
+          type: Sequelize.STRING,
+        },
+        result: {
           type: Sequelize.STRING,
         },
         mistake_move_numbers: {

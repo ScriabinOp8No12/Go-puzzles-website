@@ -64,6 +64,7 @@ module.exports = {
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
+          result: "Black + Resign",
           // we want an array of moves in the SGF here!
           mistake_move_numbers: JSON.stringify([55, 100, 120, 125, 145]),
           game_preview: "https://example.com/image1.jpg",
@@ -76,6 +77,7 @@ module.exports = {
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
+          result: "Black + 5.5",
           mistake_move_numbers: JSON.stringify([58]),
           game_preview: "https://example.com/image2.jpg",
         },
@@ -87,6 +89,7 @@ module.exports = {
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
+          result: "White + 3.5",
           mistake_move_numbers: JSON.stringify([9, 15, 26, 55, 100]),
           game_preview: "https://example.com/image3.jpg",
         },
