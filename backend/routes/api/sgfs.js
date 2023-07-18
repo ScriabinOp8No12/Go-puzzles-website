@@ -8,7 +8,9 @@ const router = express.Router();
 
 // Get all SGFs of the current user (format like go4go.net)
 router.get("/current", requireAuth, async (req, res) => {
-  // should throw a 401 authentication error if no user logged in
+  // when making a request to "get current user" on postman, and result is { "user": null}
+  // we get a 401 unauthorized error "Authentication required"
+
   // Find all SGFs owned by the current logged in user
   // Retrieve the SGFs for the specified user
   const sgfs = await Sgf.findAll({
