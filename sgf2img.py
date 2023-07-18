@@ -1,4 +1,5 @@
-from sgfmill import sgf
+from sgfmill import sgf, boards
+# added boards import above (1)
 from PIL import Image, ImageDraw
 import os
 
@@ -51,6 +52,10 @@ for filename in os.listdir(sgf_dir):
         draw.line((x, cell_size, x, img_size - cell_size), fill=0)
         draw.line((cell_size, y, img_size - cell_size, y), fill=0)
 
+  # Added go_board value outside of loop here (2)
+  # Create a new Go board object to keep track of stone groups and captures
+    go_board = boards.Board(board_size)
+
     # Draw the star points on the 19 by 19 Go board
     if board_size == 19:
         star_points = [(4, 4), (4, 10), (4, 16), (10, 4),
@@ -72,6 +77,26 @@ for filename in os.listdir(sgf_dir):
             # Get the move information from the node
             color, move = node.get_move()
             if move is None:
+                continue
+
+            # Unpack the move coordinates (instead of row, col, it's col, row now)
+            row, col = move
+
+            # Added here (3)
+            # Convert color to integer value (1 = black, 2 = white) for sgfmill Board object
+            color_int = {'b': 1, 'w': 2}.get(color)
+
+            # Added here (4)
+            # Play move on sgfmill Board object to keep track of captures
+            try:
+                print(f'Playing move: {move} ({color})')
+                print(f'Board state before move:\n{go_board}')
+                print(f'row: {row}, col: {col}, color_int: {color_int}')
+                captured_stones = go_board.play(row, col, color_int)
+                print(f'Captured stones: {captured_stones}')
+                print(f'Board state after move:\n{go_board.__str__()}')
+            except ValueError as e:
+                print(f'Illegal move: {e}')
                 continue
 
             # Convert the move coordinates to image coordinates
