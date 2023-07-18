@@ -1,5 +1,4 @@
 from sgfmill import sgf, boards
-# added boards import above (1)
 from PIL import Image, ImageDraw
 import os
 
@@ -25,7 +24,6 @@ white_stone_color = (255, 255, 255)
 
 # Iterate over the SGF files in the directory
 for filename in os.listdir(sgf_dir):
-    # if filename.endswith('.sgf'):
     # Set the input and output file names
     input_file = os.path.join(sgf_dir, filename)
     output_file = os.path.join(
@@ -38,7 +36,7 @@ for filename in os.listdir(sgf_dir):
     # Get the root node of the game tree
     node = game.get_root()
 
-    # Get the size of the Go board from the SGF file (more dynamic than hard coding in board size of 19)
+    # Get the size of the Go board from the SGF file
     board_size = game.get_size()
 
     # Create a new image for the Go board
@@ -52,8 +50,7 @@ for filename in os.listdir(sgf_dir):
         draw.line((x, cell_size, x, img_size - cell_size), fill=0)
         draw.line((cell_size, y, img_size - cell_size, y), fill=0)
 
-  # Added go_board value outside of loop here (2)
-  # Create a new Go board object to keep track of stone groups and captures
+    # Create a new Go board object to keep track of captures
     go_board = boards.Board(board_size)
 
     # Draw the star points on the 19 by 19 Go board
@@ -66,130 +63,45 @@ for filename in os.listdir(sgf_dir):
             r = stone_size // 4
             draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
 
-        # Iterate over the first 50 moves of the game or until the game ended
-        # list comprehension? keep shorter
-        for i in range(50):
-            # Get the next node in the game tree
-            try:
-                node = node[0]
-            except IndexError:
-                break
+    # Iterate over the first 50 moves of the game or if the game ended early
+    for i in range(50):
+        # Get the next node in the game tree
+        try:
+            node = node[0]
+        except IndexError:
+            break
 
-            # Get the move information from the node
-            color, move = node.get_move()
-            if move is None:
-                # break instead?
-                continue
+        # Get the move information from the node
+        color, move = node.get_move()
 
-            # Unpack the move coordinates (instead of row, col, it's col, row now)
-            row, col = move
+        if move is None:
+            # use break instead?
+            continue
 
-            # Added here (3)
-            # Convert color to integer value (1 = black, 2 = white) for sgfmill Board object
-            color_int = {'b': 1, 'w': 2}.get(color)
+        # Unpack the move coordinates
+        row, col = move
 
-            # Added here (4)
-            # Play move on sgfmill Board object to keep track of captures
-            try:
-                print(f'Playing move: {move} ({color})')
-                print(f'Board state before move:\n{go_board}')
-                print(f'row: {row}, col: {col}, color_int: {color}')
-                # pass in color instead of color_int
-                captured_stones = go_board.play(row, col, color)
-                print(f'Captured stones: {captured_stones}')
-                print(f'Board state after move:\n{go_board}')
-            except ValueError as e:
-                print(f'Illegal move: {e}')
-                # continue
-                raise
+        try:
+            # Play the move on the board (we are in a loop for first 50 moves)
+            go_board.play(col, row, color)
+        except Exception as e:
+            print(f'Error playing move: {e}')
 
-            # Convert the move coordinates to image coordinates
+    # Iterate over rows and columns of Go board to draw stones based on board state
+    for row in range(board_size):
+        for col in range(board_size):
+            stone = go_board.get(col, row)
+            # Major bug was here, needed to be: if stone == "b" and if stone == "w" instead of 1 and 2
+            if stone == "b":
+                cx = (col+1)*cell_size
+                cy = (board_size-row) * cell_size
+                r = stone_size//2
+                draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=black_stone_color)
+            elif stone == "w":
+                cx = (col+1)*cell_size
+                cy = (board_size-row) * cell_size
+                r = stone_size//2
+                draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=white_stone_color)
 
-            # Need to draw based on played Go board, not the SGF, loop through and use go_board.play first to play
-            # all the valid moves on the board,then have a separate loop that loops through the go board to find all the black and white stones, then
-            # draws that
-            # Do a separate loop now
-            row, col = move
-            cx = (col + 1) * cell_size
-            cy = (board_size - row) * cell_size
-
-            # Draw the stone on the Go board
-            r = stone_size // 2
-            if color == 'b':
-                draw.ellipse((cx - r, cy - r,
-                              cx + r, cy + r), fill=black_stone_color)
-            else:
-                draw.ellipse((cx - r, cy - r,
-                              cx + r, cy + r), fill=white_stone_color)
-    # Draw the star points on the 13 by 13 Go board (5 star points)
-    if board_size == 13:
-        star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
-        for x, y in star_points:
-            cx = x * cell_size
-            cy = y * cell_size
-            r = stone_size // 4
-            draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
-
-        # Iterate over the first 20 moves of the game or until the game ended
-        for i in range(20):
-            # Get the next node in the game tree
-            try:
-                node = node[0]
-            except IndexError:
-                break
-
-            # Get the move information from the node
-            color, move = node.get_move()
-            if move is None:
-                continue
-
-            # Convert the move coordinates to image coordinates
-            row, col = move
-            cx = (col + 1) * cell_size
-            cy = (board_size - row) * cell_size
-
-            # Draw the stone on the Go board
-            r = stone_size // 2
-            if color == 'b':
-                draw.ellipse((cx - r, cy - r,
-                              cx + r, cy + r), fill=black_stone_color)
-            else:
-                draw.ellipse((cx - r, cy - r,
-                              cx + r, cy + r), fill=white_stone_color)
-    # Draw the star points on the 9 by 9 Go board (5 star points)
-    if board_size == 9:
-        star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
-        for x, y in star_points:
-            cx = x * cell_size
-            cy = y * cell_size
-            r = stone_size // 4
-            draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
-
-        # Iterate over the first 12 moves of the game or until the game ended
-        for i in range(12):
-            # Get the next node in the game tree
-            try:
-                node = node[0]
-            except IndexError:
-                break
-
-            # Get the move information from the node
-            color, move = node.get_move()
-            if move is None:
-                continue
-
-            # Convert the move coordinates to image coordinates
-            row, col = move
-            cx = (col + 1) * cell_size
-            cy = (board_size - row) * cell_size
-
-            # Draw the stone on the Go board
-            r = stone_size // 2
-            if color == 'b':
-                draw.ellipse((cx - r, cy - r,
-                              cx + r, cy + r), fill=black_stone_color)
-            else:
-                draw.ellipse((cx - r, cy - r,
-                              cx + r, cy + r), fill=white_stone_color)
-    # Save the image to a file
+    # Save image to file
     img.save(output_file)
