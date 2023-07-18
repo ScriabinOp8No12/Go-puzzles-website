@@ -11,7 +11,8 @@ output_dir = 'sgfThumbnails'
 # Create the output directory if it doesn't exist
 os.makedirs(output_dir, exist_ok=True)
 
-# Set the size of the Go board
+# Set the size of the Go board (make it dynamic by parsing the board size in SGF with sgfmill)
+# we might get a 9x9 or 13x13 board upload
 board_size = 19
 
 # Set the size of each cell in the Go board
@@ -60,7 +61,7 @@ for filename in os.listdir(sgf_dir):
         r = stone_size // 4
         draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
 
-    # Iterate over the first 30 moves of the game
+    # Iterate over the first 30 moves of the game (doesn't throw an error if there are less than 30 moves, it'll just draw up to the last move played!)
     for i in range(30):
         # Get the next node in the game tree
         try:
