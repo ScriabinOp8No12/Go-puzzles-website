@@ -312,7 +312,6 @@ Get all SGFs of the current user (format like go4go.net)
 Upload new SGFs to the current user's SGF table
 
 - Require Authentication: true (error 401)
-- Require Authorization: SGF data/table must belong to the current user (error 403)
 
 - Request
 
@@ -337,7 +336,7 @@ Upload new SGFs to the current user's SGF table
 
     ```json
     {
-      "game_preview": "image of move 30 in game (Copy go4go.net format)",
+      ["game_preview": "image of move 30 in game (Copy go4go.net format)",
       "id": 1,
       "user_id": 1,
       "createdAt": "2021-11-19 20:39:36",
@@ -347,7 +346,20 @@ Upload new SGFs to the current user's SGF table
       "white_player": "Matthew",
       "black_rank": "6d",
       "white_rank": "9d",
-      "result": "B+Resign"
+      "result": "B+Resign",
+      //
+      "game_preview": "image of move 30 in game (Copy go4go.net format)",
+      "id": 2,
+      "user_id": 1,
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36",
+      "sgf_name": "sgf2",
+      "black_player": "Nathan",
+      "white_player": "Matthew",
+      "black_rank": "6d",
+      "white_rank": "9d",
+      "result": "W + 3.5"
+      ]
     }
     ```
 

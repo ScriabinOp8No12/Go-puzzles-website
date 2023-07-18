@@ -57,4 +57,36 @@ router.get("/current", requireAuth, async (req, res) => {
 
   return res.json(formattedSGFs);
 });
+
+// Upload new SGFs (up to 10 at a time) to the current user's SGF table
+router.post("/current", requireAuth, async (req, res) => {
+  // should throw a 401 authentication error if no user logged in
+
+  // Grab the data from the req.body
+  const { sgf_data } = req.body;
+
+  // Check if the sgf_data array contains more than 10 elements
+  if (sgf_data.length > 10) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        sgf_data: ["Can only upload up to 10 SGFs at once!"],
+      },
+    });
+  }
+  const sgfData = await Sgf.create({
+    game_preview,
+    id,
+    user_id,
+    createdAt,
+    updatedAt,
+    sgf_name,
+    black_player,
+    white_player,
+    black_rank,
+    white_rank,
+    result,
+  });
+  return res.json(sgfData);
+});
 module.exports = router;
