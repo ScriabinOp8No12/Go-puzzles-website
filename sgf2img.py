@@ -76,13 +76,13 @@ for filename in os.listdir(sgf_dir):
         # Convert the move coordinates to image coordinates
         row, col = move
         cx = (col + 1) * cell_size
-        cy = (row + 1) * cell_size
+        cy = (board_size - row) * cell_size
 
         # Draw the stone on the Go board
         r = stone_size // 2
         if color == 'b':
-            draw.ellipse((cx - r, cy - r, cx + r,
-                          cy + r), fill=black_stone_color)
+            draw.ellipse((cx - r, cy - r,
+                          cx + r, cy + r), fill=black_stone_color)
         else:
             draw.ellipse((cx - r, cy - r,
                           cx + r, cy + r), fill=white_stone_color)
