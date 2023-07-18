@@ -30,7 +30,6 @@ router.get("/current", requireAuth, async (req, res) => {
       "black_rank",
       "white_rank",
       "result",
-      // "numberOfPuzzles",
     ],
   });
   // use count aggregate function to get the total number of SGFs
@@ -52,6 +51,7 @@ router.get("/current", requireAuth, async (req, res) => {
       white_rank: sgf.white_rank, // these are strings for now, will convert to integers (elo system) later
       result: sgf.result, // added this column to the migration/model/seeder
     })),
+    // put count of SGFs outside of sgf array
     numberOfSGFs,
   };
 
