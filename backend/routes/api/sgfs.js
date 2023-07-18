@@ -27,7 +27,7 @@ router.get("/current", requireAuth, async (req, res) => {
       "white_player",
       "black_rank",
       "white_rank",
-      // "result",
+      "result",
       // "numberOfPuzzles",
     ],
   });
@@ -46,7 +46,7 @@ router.get("/current", requireAuth, async (req, res) => {
       white_player: sgf.white_player,
       black_rank: sgf.black_rank, // these are strings for now, will convert to integers (elo system) later
       white_rank: sgf.white_rank, // these are strings for now, will convert to integers (elo system) later
-      // result: sgf.result, // need to add this column to the migration/model/seeder
+      result: sgf.result, // added this column to the migration/model/seeder
       // numberOfSGFs: **aggregate function here to count number of SGFs returned, and need it outside of the array!
     })),
   };
