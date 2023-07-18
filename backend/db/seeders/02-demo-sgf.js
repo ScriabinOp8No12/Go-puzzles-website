@@ -93,6 +93,19 @@ module.exports = {
           mistake_move_numbers: JSON.stringify([9, 15, 26, 55, 100]),
           game_preview: "https://example.com/image3.jpg",
         },
+        // null test for player/rank/result
+        {
+          user_id: 1,
+          sgf_data: `test`,
+          sgf_name: "Nathan vs. Matthew",
+          black_player: null,
+          white_player: "",
+          black_rank: null,
+          white_rank: "",
+          result: null,
+          mistake_move_numbers: JSON.stringify([9, 15, 26, 55, 100]),
+          game_preview: "https://example.com/image4.jpg",
+        },
       ],
       {}
     );
