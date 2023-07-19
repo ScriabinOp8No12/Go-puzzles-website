@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: schema/7_13_23_updated_schema_Go_website.png
+[db-schema]: schema/Go_website_schema_updated_7_19_23.png
 
 ## API Documentation
 
@@ -14,8 +14,7 @@
 - `POST /api/sgfs/current`: Upload new SGFs to the current user's SGF table
 - `PUT /api/sgfs/:sgf_id/current`: Edit the SGF name, player names, or player ranks
 - `POST /api/sgfs/:sgf_id/current/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
-  taking the average of the two ranks of the players
-  that played the game, then converting that Go rank
+  taking the rank of the player that made the mistake, then converting that Go rank
   into an elo rating. If there are no ranks, it'll
   default to 1500 elo (which should be around 5-7k range)
 - `GET /api/sgfs/:sgf_id/current/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo. Use heuristics, something like 10-12 simple rules to tell Katago how to look for a good puzzle with clear right/wrong answers!
@@ -291,7 +290,6 @@ Get all SGFs of the current user (format like go4go.net)
         {
           "id": 1,
           "user_id": 1,
-          "game_preview (Copy Go4Go.net format)": "image of move 30 in game",
           "createdAt": "2023-7-14 20:39:36",
           "updatedAt": "2023-7-15 20:39:36",
           "sgf_name": "Nathan 6d vs. Matthew 9d",
@@ -323,7 +321,9 @@ Upload new SGFs to the current user's SGF table
 
     ```json
     {
-      "sgf_data": ["SGF data 1", "SGF data 2", "SGF data 3"]
+      "sgf_data": [
+        "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])"
+      ]
     }
     ```
 
@@ -336,29 +336,30 @@ Upload new SGFs to the current user's SGF table
 
     ```json
     {
-      ["game_preview": "thumbnail created successfully!",
+      [
       "id": 1,
       "user_id": 1,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36",
+      "sgf_data": "sgf data user sent",
       "sgf_name": "Nathan 6d vs. Matthew 9d",
       "black_player": "Nathan",
       "white_player": "Matthew",
       "black_rank": "6d",
       "white_rank": "9d",
       "result": "B+Resign",
-      //
-      "game_preview": "thumbnail created successfully!",
-      "id": 2,
-      "user_id": 1,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "sgf_name": "sgf2",
+      //
+      "id": 2,
+      "user_id": 1,
+      "sgf_data": "sgf data user sent",
+      "sgf_name": "Nathan 6d vs. Matthew 9d",
       "black_player": "Nathan",
       "white_player": "Matthew",
       "black_rank": "6d",
       "white_rank": "9d",
-      "result": "W + 3.5"
+      "result": "W + 3.5",
+      "createdAt": "2021-11-19 20:39:36",
+      "updatedAt": "2021-11-19 20:39:36",
       ]
     }
     ```
@@ -485,7 +486,6 @@ Create a new puzzle from the user's SGF (either manually or from AI's suggestion
       "move_number": 56,
       "difficulty_rank": 950,
       "description": "Can you save the group?",
-      "game_preview": "image of the move of the puzzle, in this case move 56",
       "completed": false,
       "is_public": true
     }
@@ -564,7 +564,6 @@ Use KataGo to recommend puzzles from the uploaded SGF (use heuristics, maybe 10-
           "sgf_id": 1,
           "puzzle_id": 1,
           "move_numbers": [15, 35, 78, 150, 225, 280, 295],
-          "game_preview (puzzle preview)": ["moveImage15", "moveImage35","mistakeImage78", "mistakeImage150", "mistakeImage225", "mistakeImage280", "mistakeImage295"],
           "createdAt": "2023-7-14 20:39:36",
           "updatedAt": "2023-7-15 20:39:36",
         }

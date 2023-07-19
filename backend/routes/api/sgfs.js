@@ -22,7 +22,6 @@ router.get("/current", requireAuth, async (req, res) => {
     attributes: [
       "id",
       "user_id",
-      "game_preview",
       "createdAt",
       "updatedAt",
       "sgf_name",
@@ -42,7 +41,6 @@ router.get("/current", requireAuth, async (req, res) => {
     SGFs: sgfs.map((sgf) => ({
       id: sgf.id,
       user_id: sgf.user_id,
-      game_preview: sgf.game_preview,
       createdAt: sgf.createdAt,
       updatedAt: sgf.updatedAt,
       sgf_name: sgf.sgf_name,
@@ -123,7 +121,6 @@ router.post("/current", requireAuth, async (req, res) => {
         sgf_data: data,
         // execute python script when data enters database, different syntax for postgres and sqlite3
         // maybe a simple confirmation in the response body here is good enough
-        // game_preview: previewImage,
         user_id: req.user.id,
         sgf_name: sgfName,
         black_player: blackPlayer,
