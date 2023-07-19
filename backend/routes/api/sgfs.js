@@ -49,9 +49,9 @@ router.get("/current", requireAuth, async (req, res) => {
       sgf_data: sgf.sgf_data,
       black_player: sgf.black_player,
       white_player: sgf.white_player,
-      black_rank: sgf.black_rank, // these are strings for now, will convert to integers (elo system) later
-      white_rank: sgf.white_rank, // these are strings for now, will convert to integers (elo system) later
-      result: sgf.result, // added this column to the migration/model/seeder
+      black_rank: sgf.black_rank,
+      white_rank: sgf.white_rank,
+      result: sgf.result,
     })),
     // put count of SGFs outside of sgf array
     numberOfSGFs,
@@ -85,7 +85,6 @@ router.post("/current", requireAuth, async (req, res) => {
     // Process each SGF in the array
     const response = [];
     for (const data of sgf_data) {
-      console.log("THIS IS THE DATA: ", data);
       try {
         // Parse the SGF data using smartgame
         const collection = smartgame.parse(data);
@@ -114,7 +113,7 @@ router.post("/current", requireAuth, async (req, res) => {
       // Generate the SGF name
       const sgfName = `${blackPlayer} vs ${whitePlayer}`;
 
-      // Generate the preview image
+      // Generate the preview image (how do we use the python script we wrote to do this in this javascript file?)
       // const previewImage = await sgf2img.generatePreview(data);
 
       // Create a new Sgf record in the database
