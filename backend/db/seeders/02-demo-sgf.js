@@ -13,6 +13,7 @@ module.exports = {
       options,
       [
         {
+          // ****** removed sgf_mistake_move_numbers and game_preview from seeders
           user_id: 1,
           sgf_data: `(;FF[4]
           CA[UTF-8]
@@ -65,46 +66,37 @@ module.exports = {
           black_rank: "6d",
           white_rank: "9d",
           result: "Black + Resign",
-          // we want an array of moves in the SGF here!
-          mistake_move_numbers: JSON.stringify([55, 100, 120, 125, 145]),
-          game_preview: "https://example.com/image1.jpg",
         },
         {
           user_id: 2,
-          sgf_data: `test123`,
+          sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
           sgf_name: "Nathan vs. Matthew",
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
           result: "Black + 5.5",
-          mistake_move_numbers: JSON.stringify([58]),
-          game_preview: "https://example.com/image2.jpg",
         },
         {
           user_id: 3,
-          sgf_data: `test`,
+          sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
           sgf_name: "Nathan vs. Matthew",
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
           result: "White + 3.5",
-          mistake_move_numbers: JSON.stringify([9, 15, 26, 55, 100]),
-          game_preview: "https://example.com/image3.jpg",
         },
         // null test for player/rank/result
         {
           user_id: 1,
-          sgf_data: `test`,
+          sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
           sgf_name: "Nathan vs. Matthew",
           black_player: null,
           white_player: "",
           black_rank: null,
           white_rank: "",
           result: null,
-          mistake_move_numbers: JSON.stringify([9, 15, 26, 55, 100]),
-          game_preview: "https://example.com/image4.jpg",
         },
       ],
       {}

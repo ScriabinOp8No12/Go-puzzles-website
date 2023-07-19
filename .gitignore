@@ -4,3 +4,6 @@ node_modules
 build
 .DS_Store
 *.db
+package.json
+plan.MD
+challenges.md

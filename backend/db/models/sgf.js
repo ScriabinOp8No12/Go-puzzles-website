@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Sgf.init(
+    // ****** removed sgf_mistake_move_numbers and game_preview from model and migration
     {
       user_id: {
         allowNull: false,
@@ -74,44 +75,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           // length of 30 characters should cover all combinations of result strings
           len: [0, 30],
-        },
-      },
-      mistake_move_numbers: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        validate: {
-          isValidArray(value) {
-            let array;
-            try {
-              array = JSON.parse(value);
-            } catch (e) {
-              throw new Error(
-                "Mistake move numbers must be a valid JSON array"
-              );
-            }
-            if (!Array.isArray(array)) {
-              throw new Error("Mistake move numbers must be an array");
-            }
-            array.forEach((num) => {
-              if (!Number.isInteger(num)) {
-                throw new Error("Mistake move numbers must be integers");
-              }
-              if (num < 1 || num > 1000) {
-                throw new Error(
-                  "Mistake move numbers must be between 1 and 1000"
-                );
-              }
-            });
-          },
-        },
-      },
-
-      game_preview: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        // does not take in an empty url either
-        validate: {
-          notEmpty: true,
         },
       },
     },
