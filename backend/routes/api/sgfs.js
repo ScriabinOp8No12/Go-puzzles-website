@@ -101,6 +101,8 @@ router.post("/current", requireAuth, async (req, res) => {
 
       // Parse the SGF data using jssgf
       const sgf = jssgf.parse(data);
+      // sgf[0] contains the game info, which we can then access the SGF properties using dot notation
+      // sgf[1] doesn't exist
       const gameInfo = sgf[0];
       const blackPlayer = gameInfo.PB;
       const whitePlayer = gameInfo.PW;
