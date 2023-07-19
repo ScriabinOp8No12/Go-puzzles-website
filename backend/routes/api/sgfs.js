@@ -103,11 +103,8 @@ router.post("/current", requireAuth, async (req, res) => {
 
       // Parse the SGF data using jssgf
       const sgf = jssgf.parse(data);
-      console.log("sgf: ", sgf);
       const gameInfo = sgf[0];
-      console.log("gameInfo: ", gameInfo);
       const blackPlayer = gameInfo.PB;
-      console.log("blackPlayer: ", blackPlayer);
       const whitePlayer = gameInfo.PW;
       const blackRank = gameInfo.BR;
       const whiteRank = gameInfo.WR;
