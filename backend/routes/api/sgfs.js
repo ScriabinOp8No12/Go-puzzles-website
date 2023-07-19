@@ -103,12 +103,15 @@ router.post("/current", requireAuth, async (req, res) => {
 
       // Parse the SGF data using jssgf
       const sgf = jssgf.parse(data);
-      const gameInfo = sgf[0].props;
-      const blackPlayer = gameInfo.PB[0];
-      const whitePlayer = gameInfo.PW[0];
-      const blackRank = gameInfo.BR[0];
-      const whiteRank = gameInfo.WR[0];
-      const result = gameInfo.RE[0];
+      console.log("sgf: ", sgf);
+      const gameInfo = sgf[0];
+      console.log("gameInfo: ", gameInfo);
+      const blackPlayer = gameInfo.PB;
+      console.log("blackPlayer: ", blackPlayer);
+      const whitePlayer = gameInfo.PW;
+      const blackRank = gameInfo.BR;
+      const whiteRank = gameInfo.WR;
+      const result = gameInfo.RE;
 
       // Generate the SGF name
       const sgfName = `${blackPlayer} vs ${whitePlayer}`;
@@ -118,7 +121,11 @@ router.post("/current", requireAuth, async (req, res) => {
 
       // Create a new Sgf record in the database
       const sgfRecord = await Sgf.create({
+        // return the sgfdata back so user can click on it to view the sgf
+        // need it to execute the wgo.js code that opens the sgf player with the sgf rendered in the browser
         sgf_data: data,
+        // execute python script when data enters database, different syntax for postgres and sqlite3
+        // maybe a simple confirmation in the response body here is good enough
         // game_preview: previewImage,
         user_id: req.user.id,
         sgf_name: sgfName,
@@ -134,7 +141,8 @@ router.post("/current", requireAuth, async (req, res) => {
     }
 
     // Send a success response
-    res.status(201).json(response);
+    return res.status(201).json(response);
+    // return res.status(201).json(sgfRecord);
   } catch (err) {
     console.error(err);
     res

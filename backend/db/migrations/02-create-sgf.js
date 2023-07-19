@@ -12,6 +12,7 @@ module.exports = {
     await queryInterface.createTable(
       "Sgfs",
       {
+        // ****** removed sgf_mistake_move_numbers and game_preview from migration and model
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -46,14 +47,6 @@ module.exports = {
           type: Sequelize.STRING,
         },
         result: {
-          type: Sequelize.STRING,
-        },
-        mistake_move_numbers: {
-          allowNull: false,
-          type: Sequelize.STRING,
-        },
-        game_preview: {
-          allowNull: false,
           type: Sequelize.STRING,
         },
         createdAt: {
