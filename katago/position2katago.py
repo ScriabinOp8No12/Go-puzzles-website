@@ -54,9 +54,9 @@ def position_to_katago(input_file, player_turn):
 
 
 # Change path to input position / sgf
-input_file = 'katago/positions/puzzle1_7_20_23.sgf'
+input_file = 'katago/positions/puzzle3_7_20_23.sgf'
 # Change player's turn to W or B
-player_turn = 'W'
+player_turn = 'B'
 result = position_to_katago(input_file, player_turn)
 
 # Convert dictionary to JSON-formatted string
@@ -64,7 +64,7 @@ result_string = json.dumps(result)
 
 # Save JSON-formatted string to file
 
-output_file = 'katago/analysisOutput/output1.json'
+output_file = 'katago/analysisOutput/output3.json'
 with open(output_file, 'w') as f:
     f.write(result_string)
 
