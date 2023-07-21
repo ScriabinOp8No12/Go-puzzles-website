@@ -54,12 +54,10 @@ def draw_board(board_size, star_points, num_moves, node):
 
 
 # Set the directory containing the SGF files
-sgf_dir = 'backend/uploads'
-# sgf_dir = 'katago/sgfs'
+sgf_dir = 'katago/sgfs'
 
 # Set the directory for saving the generated images
-output_dir = 'sgfThumbnails'
-# output_dir = 'sgfPuzzles'
+output_dir = 'sgfPuzzles'
 
 # Create the output directory if it doesn't exist
 os.makedirs(output_dir, exist_ok=True)
@@ -82,7 +80,7 @@ for filename in os.listdir(sgf_dir):
     # Set the input and output file names
     input_file = os.path.join(sgf_dir, filename)
     output_file = os.path.join(
-        output_dir, f'{os.path.splitext(filename)[0]}_thumbnail.png')
+        output_dir, f'{os.path.splitext(filename)[0]}.png')
 
     # Load the SGF file
     with open(input_file, 'r') as f:
@@ -111,19 +109,19 @@ for filename in os.listdir(sgf_dir):
         # num_moves set to 50 to draw on 19 by 19 board
         draw_board(board_size=board_size,
                    star_points=star_points,
-                   num_moves=50, node=node)
+                   num_moves=500, node=node)
     elif board_size == 13:
         star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
         # num_moves set to 20 to draw on 13 by 13 board
         draw_board(board_size=board_size,
                    star_points=star_points,
-                   num_moves=20, node=node)
+                   num_moves=200, node=node)
     elif board_size == 9:
         star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
         # num_moves set to 12 to draw on 9 by 9 board
         draw_board(board_size=board_size,
                    star_points=star_points,
-                   num_moves=12, node=node)
+                   num_moves=120, node=node)
     # Resize the image to the desired size while preserving aspect ratio (for improving performance, lose a little quality though)
     # img = img.resize((400, 400), resample=Image.LANCZOS)
 
