@@ -16,7 +16,7 @@ def draw_board(board_size, star_points, num_moves, node):
     go_board = boards.Board(board_size)
 
     # Iterate over the first num_moves moves of the game or until the game ended
-    for i in range(num_moves):
+    for _ in range(num_moves):
         # Get the next node in the game tree
         try:
             node = node[0]
@@ -54,7 +54,7 @@ def draw_board(board_size, star_points, num_moves, node):
 
 
 # Set the directory containing the SGF files
-sgf_dir = 'katago/sgfs'
+sgf_dir = 'katago/positionsAsSGFs'
 
 # Set the directory for saving the generated images
 output_dir = 'sgfPuzzles'
@@ -64,11 +64,9 @@ os.makedirs(output_dir, exist_ok=True)
 
 # Set the size of each cell in the Go board
 cell_size = 80
-# cell_size = 20
 
 # Set the size of each stone
 stone_size = 72
-# stone_size = 18
 
 # Set the colors for the Go board and stones
 board_color = (255, 204, 102)
@@ -106,19 +104,19 @@ for filename in os.listdir(sgf_dir):
     if board_size == 19:
         star_points = [(4, 4), (4, 10), (4, 16), (10, 4),
                        (10, 10), (10, 16), (16, 4), (16, 10), (16, 16)]
-        # num_moves set to 50 to draw on 19 by 19 board
+        # num_moves set to 500 to draw on 19 by 19 board
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=500, node=node)
     elif board_size == 13:
         star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
-        # num_moves set to 20 to draw on 13 by 13 board
+        # num_moves set to 200 to draw on 13 by 13 board
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=200, node=node)
     elif board_size == 9:
         star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
-        # num_moves set to 12 to draw on 9 by 9 board
+        # num_moves set to 120 to draw on 9 by 9 board
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=120, node=node)
