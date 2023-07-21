@@ -177,7 +177,7 @@ def generatePreview(sgf_data):
                    # added draw=draw here in all the board sizes
                    num_moves=50, node=node, draw=draw)
         # Add a print statement here to see if the draw_board function executed correctly
-        print('Finished calling draw_board')
+        # print('Finished calling draw_board')
 
     elif board_size == 13:
         star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
@@ -186,7 +186,7 @@ def generatePreview(sgf_data):
                    star_points=star_points,
                    num_moves=20, node=node, draw=draw)
         # Add a print statement here to see if the draw_board function executed correctly
-        print('Finished calling draw_board')
+        # print('Finished calling draw_board')
 
     elif board_size == 9:
         star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
@@ -195,7 +195,7 @@ def generatePreview(sgf_data):
                    star_points=star_points,
                    num_moves=12, node=node, draw=draw)
         # Add a print statement here to see if the draw_board function executed correctly
-        print('Finished calling draw_board')
+        # print('Finished calling draw_board')
 
     # Save image to in-memory buffer
     buffer = BytesIO()

@@ -132,6 +132,7 @@ router.post("/current", requireAuth, async (req, res) => {
         white_rank: whiteRank,
         result: result,
         sgf_data: data,
+        // remember that the left side is the COLUMN name, so it must exactly match the one in the database or it won't work...
         thumbnail: thumbnail,
       });
 
