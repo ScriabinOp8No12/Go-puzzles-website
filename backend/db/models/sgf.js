@@ -77,6 +77,9 @@ module.exports = (sequelize, DataTypes) => {
           len: [0, 30],
         },
       },
+      thumbnail: {
+        type: DataTypes.TEXT,
+      },
     },
     {
       sequelize,

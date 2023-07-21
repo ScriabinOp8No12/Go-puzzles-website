@@ -21,10 +21,14 @@ def position_to_katago(input_file, player_turn):
     # Convert coordinates to KataGo 1 line JSON dictionary format
     def convert_coord(coord):
         x, y = coord
+        # Convert the y-coordinate into a column character on a Go board. The ord('A') part returns the ASCII code for the character ‘A’, which is 65.
+        # This value is then added to the y-coordinate, and the result is passed to the chr() function to obtain the corresponding column character.
+        # For example, if y is 0, then ord('A') + y would be 65, and chr(ord('A') + y) would return ‘A’.
+        # If y is 1, then ord('A') + y would be 66, and chr(ord('A') + y) would return ‘B’, and so on.
         col = chr(ord('A') + y)
+        # Since Go boards typically skip the letter I, we adjust for this by shifting all character values up by 1
         if col >= 'I':
             col = chr(ord(col) + 1)
-            # It used to have size below, but now it's kind of hard coded?  Actually it seems fine
         row = x + 1
         return col + str(row)
 
