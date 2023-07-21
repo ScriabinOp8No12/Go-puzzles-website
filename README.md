@@ -339,6 +339,7 @@ Upload new SGFs to the current user's SGF table
       [
       "id": 1,
       "user_id": 1,
+      "thumbnail": "<base64 encoded image data>",
       "sgf_data": "sgf data user sent",
       "sgf_name": "Nathan 6d vs. Matthew 9d",
       "black_player": "Nathan",
@@ -351,6 +352,7 @@ Upload new SGFs to the current user's SGF table
       //
       "id": 2,
       "user_id": 1,
+      "thumbnail": "<base64 encoded image data>",
       "sgf_data": "sgf data user sent",
       "sgf_name": "Nathan 6d vs. Matthew 9d",
       "black_player": "Nathan",
