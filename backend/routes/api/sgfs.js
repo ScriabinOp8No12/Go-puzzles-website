@@ -1,11 +1,10 @@
 const express = require("express");
 const smartgame = require("smartgame");
-// const sgf2img = require("../../sgf2img.py");
+const { python } = require("pythonia");
+const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { User, Puzzle, Sgf } = require("../../db/models");
-const { Sequelize } = require("sequelize");
-const { Op } = require("sequelize");
 
 const router = express.Router();
 // Get all SGFs of the current user (format like go4go.net)
@@ -80,6 +79,11 @@ router.post("/current", requireAuth, async (req, res) => {
       return res.status(400).json({ error: "SGF data needs to be an array!" });
     }
 
+    // Import the sgf2img module using JSPyBridge
+    const sgf2img = await python(
+      path.join(__dirname, "..", "..", "..", "sgf2img.py")
+    );
+
     // Process each SGF in the array
     const response = [];
     for (const data of sgf_data) {
@@ -113,16 +117,13 @@ router.post("/current", requireAuth, async (req, res) => {
       // Generate the SGF name
       const sgfName = `${blackPlayer} vs ${whitePlayer}`;
 
-      // Generate the preview image (how do we use the python script we wrote to do this in this javascript file?)
-      // const previewImage = await sgf2img.generatePreview(data);
+      // Generate the preview image using the sgf2img module we imported
+      const thumbnail = await sgf2img.generatePreview(data);
 
       // Create a new Sgf record in the database
       const sgfRecord = await Sgf.create({
         // return the sgfdata back so user can click on it to view the sgf
         // need it to execute the wgo.js code that opens the sgf player with the sgf rendered in the browser
-        sgf_data: data,
-        // execute python script when data enters database, different syntax for postgres and sqlite3
-        // maybe a simple confirmation in the response body here is good enough
         user_id: req.user.id,
         sgf_name: sgfName,
         black_player: blackPlayer,
@@ -130,15 +131,15 @@ router.post("/current", requireAuth, async (req, res) => {
         black_rank: blackRank,
         white_rank: whiteRank,
         result: result,
+        sgf_data: data,
+        thumbnail: thumbnail,
       });
 
       // Add the new Sgf record to the response array
       response.push(sgfRecord);
     }
-
     // Send a success response
     return res.status(201).json(response);
-    // return res.status(201).json(sgfRecord);
   } catch (err) {
     console.error(err);
     res

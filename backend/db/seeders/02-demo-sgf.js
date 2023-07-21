@@ -66,6 +66,7 @@ module.exports = {
           black_rank: "6d",
           white_rank: "9d",
           result: "Black + Resign",
+          thumbnail: "test",
         },
         {
           user_id: 2,
@@ -76,6 +77,7 @@ module.exports = {
           black_rank: "6d",
           white_rank: "9d",
           result: "Black + 5.5",
+          thumbnail: "test",
         },
         {
           user_id: 3,
@@ -86,6 +88,7 @@ module.exports = {
           black_rank: "6d",
           white_rank: "9d",
           result: "White + 3.5",
+          thumbnail: "test",
         },
         // null test for player/rank/result
         {
@@ -97,6 +100,7 @@ module.exports = {
           black_rank: null,
           white_rank: "",
           result: null,
+          thumbnail: "test",
         },
       ],
       {}

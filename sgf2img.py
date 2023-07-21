@@ -1,9 +1,13 @@
 from sgfmill import sgf, boards
 from PIL import Image, ImageDraw
 import os
+import base64
+from io import BytesIO
+
+# added draw parameter here for the generate preview function later
 
 
-def draw_board(board_size, star_points, num_moves, node):
+def draw_board(board_size, star_points, num_moves, node, draw):
     # Draw the star points on the Go board
     # 19 by 19 board uses 9 star points, 13 by 13 and 9 by 9 board use 5 star points
     # Iterate over each tuple in star_points list
@@ -69,7 +73,8 @@ def draw_board(board_size, star_points, num_moves, node):
 
 
 # Set the directory containing the SGF files
-sgf_dir = 'backend/uploads'
+# sgf_dir = 'backend/uploads'
+sgf_dir = '/backend/uploads'
 
 # Set the directory for saving the generated images
 output_dir = 'sgfThumbnails'
@@ -140,3 +145,67 @@ for filename in os.listdir(sgf_dir):
 
     # Save image to file
     img.save(output_file)
+
+
+def generatePreview(sgf_data):
+    # Load the SGF data
+    game = sgf.Sgf_game.from_string(sgf_data)
+
+    # Get the root node of the game tree
+    node = game.get_root()
+
+    # Get the size of the Go board from the SGF file (more dynamic than hard coding in board size of 19)
+    board_size = game.get_size()
+
+    # Create a new image for the Go board
+    img_size = cell_size * (board_size + 1)
+    img = Image.new('RGB', (img_size, img_size), board_color)
+    draw = ImageDraw.Draw(img)
+
+    # Draw the grid lines on the Go board
+    for i in range(board_size):
+        x = y = (i + 1) * cell_size
+        draw.line((x, cell_size, x, img_size - cell_size), fill=0)
+        draw.line((cell_size, y, img_size - cell_size, y), fill=0)
+
+    if board_size == 19:
+        star_points = [(4, 4), (4, 10), (4, 16), (10, 4),
+                       (10, 10), (10, 16), (16, 4), (16, 10), (16, 16)]
+        # num_moves set to 50 to draw on 19 by 19 board
+        draw_board(board_size=board_size,
+                   star_points=star_points,
+                   # added draw=draw here in all the board sizes
+                   num_moves=50, node=node, draw=draw)
+        # Add a print statement here to see if the draw_board function executed correctly
+        print('Finished calling draw_board')
+
+    elif board_size == 13:
+        star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
+        # num_moves set to 20 to draw on 13 by 13 board
+        draw_board(board_size=board_size,
+                   star_points=star_points,
+                   num_moves=20, node=node, draw=draw)
+        # Add a print statement here to see if the draw_board function executed correctly
+        print('Finished calling draw_board')
+
+    elif board_size == 9:
+        star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
+        # num_moves set to 12 to draw on 9 by 9 board
+        draw_board(board_size=board_size,
+                   star_points=star_points,
+                   num_moves=12, node=node, draw=draw)
+        # Add a print statement here to see if the draw_board function executed correctly
+        print('Finished calling draw_board')
+
+    # Save image to in-memory buffer
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    img_data = buffer.getvalue()
+
+    # Encode image data as base64 string
+    img_base64 = base64.b64encode(img_data).decode("utf-8")
+
+    # Add a print statement here to see what the function is returning
+    # print('Returning from generatePreview:', img_base64)
+
+    return img_base64
