@@ -1,6 +1,8 @@
 from sgfmill import sgf
 import json
 
+# Do different board sizes have DIFFERENT coordinate systems for the one line JSON dictionary?
+
 
 def position_to_katago(input_file, player_turn):
     # Load the SGF file
@@ -16,7 +18,7 @@ def position_to_katago(input_file, player_turn):
     black_stones = root_node.get('AB')
     white_stones = root_node.get('AW')
 
-    # Convert coordinates to KataGo format (currently rotated 90 degrees for some reason)
+    # Convert coordinates to KataGo 1 line JSON dictionary format
     def convert_coord(coord):
         x, y = coord
         col = chr(ord('A') + y)
@@ -52,7 +54,7 @@ def position_to_katago(input_file, player_turn):
 
 
 # Change path to input position / sgf
-input_file = 'katago/positions/puzzle1_heuristic14_7_20_23.sgf'
+input_file = 'katago/positions/puzzle1_7_20_23.sgf'
 # Change player's turn to W or B
 player_turn = 'W'
 result = position_to_katago(input_file, player_turn)
