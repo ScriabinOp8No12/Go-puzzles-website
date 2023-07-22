@@ -299,6 +299,7 @@ Get all SGFs of the current user (format like go4go.net)
           "black_rank": "6d",
           "white_player": "9d",
           "result": "B+Resign",
+          "thumbnail": "base 64 encoded string"
         }
       ]
       "numberOfSGFs": 8,

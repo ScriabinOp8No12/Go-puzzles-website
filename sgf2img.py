@@ -69,20 +69,13 @@ def draw_board(board_size, star_points, num_moves, node, draw):
                 r = stone_size//2
                 draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=white_stone_color)
 
+# But Render can't find /backend/uploads now! so 2 line solution below
 
-# Set the directory containing the SGF files
-# sgf_dir = 'backend/uploads'
-# Below line fixed the local issue with JSPyBridge not finding the folder
-# sgf_dir = '/backend/uploads'
-
-# BUT RENDER CAN'T FIND /backend/uploads now!!! so 2 line solution below
 
 # Get the directory containing this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # Construct the path to the uploads directory
 sgf_dir = os.path.join(script_dir, 'backend', 'uploads')
-
-# *******
 
 # Set the directory for saving the generated images
 output_dir = 'sgfThumbnails'
@@ -149,7 +142,7 @@ for filename in os.listdir(sgf_dir):
                    star_points=star_points,
                    num_moves=12, node=node, draw=draw)
     # Resize the image to the desired size while preserving aspect ratio (for improving performance, lose a little quality though)
-    # img = img.resize((400, 400), resample=Image.LANCZOS)
+    # img = img.resize((200, 200), resample=Image.LANCZOS)
 
     # Save image to file
     img.save(output_file)
@@ -184,8 +177,6 @@ def generatePreview(sgf_data):
                    star_points=star_points,
                    # added draw=draw here in all the board sizes
                    num_moves=50, node=node, draw=draw)
-        # Add a print statement here to see if the draw_board function executed correctly
-        # print('Finished calling draw_board')
 
     elif board_size == 13:
         star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
@@ -193,8 +184,6 @@ def generatePreview(sgf_data):
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=20, node=node, draw=draw)
-        # Add a print statement here to see if the draw_board function executed correctly
-        # print('Finished calling draw_board')
 
     elif board_size == 9:
         star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
@@ -202,18 +191,16 @@ def generatePreview(sgf_data):
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=12, node=node, draw=draw)
-        # Add a print statement here to see if the draw_board function executed correctly
-        # print('Finished calling draw_board')
 
     # Save image to in-memory buffer
     buffer = BytesIO()
     img.save(buffer, format="PNG")
+    # resizing the png image (2 lines below)
+    new_size = (200, 200)
+    img = img.resize(new_size, Image.ANTIALIAS)
     img_data = buffer.getvalue()
 
     # Encode image data as base64 string
     img_base64 = base64.b64encode(img_data).decode("utf-8")
-
-    # Add a print statement here to see what the function is returning
-    # print('Returning from generatePreview:', img_base64)
 
     return img_base64

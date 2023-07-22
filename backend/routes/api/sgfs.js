@@ -30,6 +30,7 @@ router.get("/current", requireAuth, async (req, res) => {
       "black_rank",
       "white_rank",
       "result",
+      "thumbnail",
     ],
   });
   // use count aggregate function to get the total number of SGFs
@@ -49,6 +50,8 @@ router.get("/current", requireAuth, async (req, res) => {
       black_rank: sgf.black_rank,
       white_rank: sgf.white_rank,
       result: sgf.result,
+      // added thumbnail here
+      thumbnail: sgf.thumbnail,
     })),
     // put count of SGFs outside of sgf array
     numberOfSGFs,
