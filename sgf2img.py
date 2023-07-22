@@ -1,8 +1,12 @@
-from sgfmill import sgf, boards
-from PIL import Image, ImageDraw
-import os
-import base64
+# 2 lines for Render!
 from io import BytesIO
+import base64
+import os
+from PIL import Image, ImageDraw
+from sgfmill import sgf, boards
+import sys
+sys.path.append('/opt/render/.local/lib/python3.7/site-packages')
+
 
 # added draw parameter here for the generate preview function later
 
