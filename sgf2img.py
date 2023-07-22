@@ -72,7 +72,17 @@ def draw_board(board_size, star_points, num_moves, node, draw):
 
 # Set the directory containing the SGF files
 # sgf_dir = 'backend/uploads'
-sgf_dir = '/backend/uploads'
+# Below line fixed the local issue with JSPyBridge not finding the folder
+# sgf_dir = '/backend/uploads'
+
+# BUT RENDER CAN'T FIND /backend/uploads now!!! so 2 line solution below
+
+# Get the directory containing this script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Construct the path to the uploads directory
+sgf_dir = os.path.join(script_dir, 'backend', 'uploads')
+
+# *******
 
 # Set the directory for saving the generated images
 output_dir = 'sgfThumbnails'
