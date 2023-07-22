@@ -1,12 +1,15 @@
 # 2 lines for Render!
-import sys
-sys.path.append('/opt/render/.local/lib/python3.7/site-packages')
 
-from sgfmill import sgf, boards
-from PIL import Image, ImageDraw
-import os
-import base64
+# fmt: on
+# import sys
+# sys.path.append('/opt/render/.local/lib/python3.7/site-packages')
+# # fmt: off
 from io import BytesIO
+import base64
+import os
+from PIL import Image, ImageDraw
+from sgfmill import sgf, boards
+
 
 def draw_board(board_size, star_points, num_moves, node, draw):
     # Draw the star points on the Go board
