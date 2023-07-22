@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         otherKey: "puzzle_id",
       });
-      User.hasMany(models.Sgf, { foreignKey: "user_Id" });
+      // oh yikers, the below foreignKey was referencing user_Id with a capital I, yikes yikes yikes
+      User.hasMany(models.Sgf, { foreignKey: "user_id" });
     }
   }
   User.init(
