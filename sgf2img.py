@@ -9,6 +9,7 @@ import os
 from PIL import Image, ImageDraw
 from sgfmill import sgf, boards
 
+print("HEEELLLO WORLD!")
 
 
 def draw_board(board_size, star_points, num_moves, node, draw):
