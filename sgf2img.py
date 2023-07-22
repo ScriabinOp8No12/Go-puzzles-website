@@ -135,19 +135,19 @@ for filename in os.listdir(sgf_dir):
         # num_moves set to 50 to draw on 19 by 19 board
         draw_board(board_size=board_size,
                    star_points=star_points,
-                   num_moves=50, node=node)
+                   num_moves=50, node=node, draw=draw)
     elif board_size == 13:
         star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
         # num_moves set to 20 to draw on 13 by 13 board
         draw_board(board_size=board_size,
                    star_points=star_points,
-                   num_moves=20, node=node)
+                   num_moves=20, node=node, draw=draw)
     elif board_size == 9:
         star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
         # num_moves set to 12 to draw on 9 by 9 board
         draw_board(board_size=board_size,
                    star_points=star_points,
-                   num_moves=12, node=node)
+                   num_moves=12, node=node, draw=draw)
     # Resize the image to the desired size while preserving aspect ratio (for improving performance, lose a little quality though)
     # img = img.resize((400, 400), resample=Image.LANCZOS)
 
