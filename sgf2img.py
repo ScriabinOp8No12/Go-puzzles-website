@@ -1,17 +1,8 @@
-print("HEEELLLO WORLD!")
-
-import sys
-import PIL
-print(sys.path)
-print(PIL.__file__)
-
 from io import BytesIO
 import base64
 import os
 from PIL import Image, ImageDraw
 from sgfmill import sgf, boards
-
-
 
 
 def draw_board(board_size, star_points, num_moves, node, draw):
