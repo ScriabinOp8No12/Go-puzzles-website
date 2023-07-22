@@ -1,9 +1,3 @@
-# 2 lines for Render!
-
-# fmt: on
-# import sys
-# sys.path.append('/opt/render/.local/lib/python3.7/site-packages')
-# # fmt: off
 from io import BytesIO
 import base64
 import os
