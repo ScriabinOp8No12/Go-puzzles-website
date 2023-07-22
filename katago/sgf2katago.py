@@ -102,7 +102,7 @@ def sgf_to_katago(input_file, player_turn):
 
 
 # Change path to input position / sgf
-input_file = 'katago/positionsAsSGFs/puzzle3_7_20_23.sgf'
+input_file = 'katago/positionsWithMoveOrder/puzzle9_7_20_23.sgf'
 # Change player's turn to W or B (hard coded for games that are positions and turn not specified)
 player_turn = 'B'
 result = sgf_to_katago(input_file, player_turn)
@@ -111,8 +111,7 @@ result = sgf_to_katago(input_file, player_turn)
 result_string = json.dumps(result)
 
 # Save JSON-formatted string to file
-
-output_file = 'katago/jsonDictionaryOutput/output3a.json'
+output_file = 'katago/jsonDictionaryOutput/output9a.json'
 with open(output_file, 'w') as f:
     f.write(result_string)
 
