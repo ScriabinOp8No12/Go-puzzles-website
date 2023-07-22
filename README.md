@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: schema/Go_website_schema_updated_7_19_23.png
+[db-schema]: schema/Go_website_schema_updated_7_23_23.png
 
 ## API Documentation
 
@@ -299,7 +299,7 @@ Get all SGFs of the current user (format like go4go.net)
           "black_rank": "6d",
           "white_player": "9d",
           "result": "B+Resign",
-          "thumbnail": "base 64 encoded string"
+          "thumbnail": "<base64 encoded image data>"
         }
       ]
       "numberOfSGFs": 8,
@@ -340,7 +340,6 @@ Upload new SGFs to the current user's SGF table
       [
       "id": 1,
       "user_id": 1,
-      "thumbnail": "<base64 encoded image data>",
       "sgf_data": "sgf data user sent",
       "sgf_name": "Nathan 6d vs. Matthew 9d",
       "black_player": "Nathan",
@@ -350,10 +349,10 @@ Upload new SGFs to the current user's SGF table
       "result": "B+Resign",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
+      "thumbnail": "<base64 encoded image data>",
       //
       "id": 2,
       "user_id": 1,
-      "thumbnail": "<base64 encoded image data>",
       "sgf_data": "sgf data user sent",
       "sgf_name": "Nathan 6d vs. Matthew 9d",
       "black_player": "Nathan",
@@ -363,6 +362,7 @@ Upload new SGFs to the current user's SGF table
       "result": "W + 3.5",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
+      "thumbnail": "<base64 encoded image data>",
       ]
     }
     ```

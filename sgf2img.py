@@ -195,9 +195,10 @@ def generatePreview(sgf_data):
     # Save image to in-memory buffer
     buffer = BytesIO()
     img.save(buffer, format="PNG")
+
     # resizing the png image (2 lines below)
-    new_size = (200, 200)
-    img = img.resize(new_size, Image.ANTIALIAS)
+    # new_size = (200, 200)
+    # img = img.resize(new_size, Image.ANTIALIAS)
     img_data = buffer.getvalue()
 
     # Encode image data as base64 string
