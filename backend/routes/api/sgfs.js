@@ -1,7 +1,6 @@
 const express = require("express");
 const smartgame = require("smartgame");
 const { python } = require("pythonia");
-console.log("Python version used by pythonia:", pythonia.pythonVersion);
 const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
