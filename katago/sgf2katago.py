@@ -65,13 +65,21 @@ def sgf_to_katago(input_file, player_turn):
             if move is not None:
                 moves.append(['W', convert_coord(move)])
 
+    # Determine next player based on SGF file
+    # Default to the hard coded value lower down if there are no moves in the SGF
+    next_player = player_turn
+    if moves:
+        last_move = moves[-1]
+        last_player = last_move[0]
+        next_player = 'B' if last_player == 'W' else 'W'
+
     # Create JSON dictionary
     result = {
         'id': 'sgfTest',
         'rules': rules,
         'boardXSize': size,
         'boardYSize': size,
-        'initialPlayer': player_turn
+        'initialPlayer': next_player
     }
 
     # Add initial stones or moves to JSON dictionary
@@ -81,17 +89,21 @@ def sgf_to_katago(input_file, player_turn):
         result['initialStones'] = initial_stones
 
     # Set komi in JSON dictionary
-    if komi and float(komi) > 50:
+    if komi and float(komi) > 150:
         result['komi'] = 7.5
+    # Fox games sometimes take the komi and set it to 0.25, which shows up as 0.0 in the SGF
+    # Also when forking from a puzzle or downloading it without the moves, it will set the komi to 0.0
+    elif 0 <= float(komi) < 0.5:
+        result['komi'] = 0.5
     else:
-        result['komi'] = komi
+        result['komi'] = float(komi)
 
     return result
 
 
 # Change path to input position / sgf
-input_file = 'katago/positionsAsSGFs/puzzle4_7_20_23.sgf'
-# Change player's turn to W or B
+input_file = 'katago/positionsAsSGFs/puzzle3_7_20_23.sgf'
+# Change player's turn to W or B (hard coded for games that are positions and turn not specified)
 player_turn = 'B'
 result = sgf_to_katago(input_file, player_turn)
 
@@ -100,7 +112,7 @@ result_string = json.dumps(result)
 
 # Save JSON-formatted string to file
 
-output_file = 'katago/jsonDictionaryOutput/output4.json'
+output_file = 'katago/jsonDictionaryOutput/output3a.json'
 with open(output_file, 'w') as f:
     f.write(result_string)
 
