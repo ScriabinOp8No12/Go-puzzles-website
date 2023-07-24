@@ -54,7 +54,7 @@ def draw_board(board_size, star_points, num_moves, node):
 
 
 # Set the directory containing the SGF files
-sgf_dir = 'katago/positionsAsSGFs'
+sgf_dir = 'katago/positionsWithMoveOrder'
 
 # Set the directory for saving the generated images
 output_dir = 'sgfPuzzles'

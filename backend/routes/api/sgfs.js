@@ -84,7 +84,14 @@ router.post("/current", requireAuth, async (req, res) => {
 
     // Import the sgf2img module using JSPyBridge
     const sgf2img = await python(
-      path.join(__dirname, "..", "..", "..", "sgf2img.py")
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "thumbnail_python_scripts",
+        "sgf2img.py"
+      )
     );
 
     // Process each SGF in the array

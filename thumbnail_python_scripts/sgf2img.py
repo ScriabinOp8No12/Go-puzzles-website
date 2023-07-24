@@ -75,10 +75,10 @@ def draw_board(board_size, star_points, num_moves, node, draw):
 # Get the directory containing this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # Construct the path to the uploads directory
-sgf_dir = os.path.join(script_dir, 'backend', 'uploads')
+sgf_dir = os.path.join(script_dir, '..', 'backend', 'uploads')
 
 # Set the directory for saving the generated images
-output_dir = 'sgfThumbnails'
+output_dir = os.path.join('sgfThumbnails')
 
 # Create the output directory if it doesn't exist
 os.makedirs(output_dir, exist_ok=True)

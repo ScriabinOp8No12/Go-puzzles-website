@@ -6,4 +6,3 @@ build
 *.db
 package.json
 __pycache__
-planNotes.md
