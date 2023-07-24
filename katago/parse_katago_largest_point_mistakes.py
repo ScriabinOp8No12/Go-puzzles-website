@@ -5,26 +5,43 @@ from heapq import heappush, heappop
 startTime = time.time()
 
 
+# Finds mistakes based on largest point loss, with mistakes grabbed from each stage of the game
+
+
 def find_mistakes(katago_output, num_mistakes, start_turn, end_turn):
     mistakes = []
+    # Initialize an empty heap to store the score
     heap = []
     prev_score = None
+    # Iterate over each line in the katago_output
     for line in katago_output.split('\n'):
+        # If the line is empty, skip it
         if not line:
             continue
+        # Load the data from the line as a JSON object
         data = json.loads(line)
+        # Get the turn number from the data
         turn_number = data['turnNumber']
+        # If the turn number is within the specified range
         if turn_number >= start_turn and turn_number <= end_turn:
+            # Get the score lead value from the root info data
             score_lead = data['rootInfo']['scoreLead']
+            # If there is a previous score, calculate the absolute difference between previous and current score
+            # then push the score difference into the heap
             if prev_score is not None:
                 score_diff = abs(prev_score - score_lead)
                 heappush(heap, (score_diff, turn_number))
+                # If the heap has more than the number of mistakes specified, remove the smallest element (point mistake) from the heap
                 if len(heap) > num_mistakes:
                     heappop(heap)
+            # Set the previous score (starts initially at None) to the current score lead
             prev_score = score_lead
+    # While there are elements in the heap, pop an element from the heap and append a tuple of:
+    # (turn number, score difference) to the mistakes list
     while heap:
         score = heappop(heap)
         mistakes.append((score[1], score[0]))
+    # Return the mistake list in reverse order (desc.) so the largest mistakes are outputted first
     return list(reversed(mistakes))
 
 
@@ -182,21 +199,31 @@ katago_output = """
 {"id":"fullgametest","isDuringSearch":false,"moveInfos":[{"lcb":0.85670244,"move":"J8","order":0,"prior":0.0506323352,"pv":["J8","K7","N7","G10"],"scoreLead":7.50221344,"scoreMean":7.50221344,"scoreSelfplay":6.84586625,"scoreStdev":23.6958702,"utility":0.306431937,"utilityLcb":0.825561582,"visits":4,"weight":1.5184602922399548,"winrate":0.671298996},{"lcb":0.906242492,"move":"K8","order":1,"prior":0.200724706,"pv":["K8","G10","N7","K7","S7","R7"],"scoreLead":9.36509341,"scoreMean":9.36509341,"scoreSelfplay":9.06159329,"scoreStdev":21.4162688,"utility":0.727760905,"utilityLcb":1.14300881,"visits":9,"weight":4.02824915565103,"winrate":0.757939669},{"lcb":1.14572603,"move":"S7","order":2,"prior":0.311374664,"pv":["S7","R7","S6","S11"],"scoreLead":12.0547215,"scoreMean":12.0547215,"scoreSelfplay":11.1578102,"scoreStdev":17.0472285,"utility":0.884878202,"utilityLcb":1.74185487,"visits":4,"weight":2.365115102131965,"winrate":0.839662938},{"lcb":0.948862285,"move":"N7","order":3,"prior":0.0723011866,"pv":["N7","K8","S7","R7","S6"],"scoreLead":8.21036119,"scoreMean":8.21036119,"scoreSelfplay":7.40235766,"scoreStdev":22.1341838,"utility":0.687150314,"utilityLcb":1.41196912,"visits":5,"weight":2.0208698582347,"winrate":0.689998426},{"lcb":1.43926975,"move":"S11","order":4,"prior":0.193639189,"pv":["S11","S7"],"scoreLead":19.3573982,"scoreMean":19.3573982,"scoreSelfplay":18.0351427,"scoreStdev":19.4181538,"utility":0.936895773,"utilityLcb":2.42659056,"visits":2,"weight":1.4893410338220217,"winrate":0.907235893},{"lcb":1.56745461,"move":"Q7","order":5,"prior":0.0773258135,"pv":["Q7","R9"],"scoreLead":11.8462626,"scoreMean":11.8462626,"scoreSelfplay":11.0811388,"scoreStdev":16.2480191,"utility":0.894181906,"utilityLcb":2.84783138,"visits":2,"weight":1.322924225969671,"winrate":0.869722653}],"rootInfo":{"currentPlayer":"W","rawStScoreError":8.62759304,"rawStWrError":0.243450105,"rawVarTimeLeft":7.91576672,"scoreLead":10.2298006,"scoreSelfplay":9.50048005,"scoreStdev":21.0744215,"symHash":"163CFEEBEC47906C94F635B0F70A8500","thisHash":"C8B9BAC5BB8B1D26AA1C7439429E5AE3","utility":0.692682666,"visits":27,"weight":13.130889837095788,"winrate":0.760211939},"turnNumber":147}
 
 """
+
+# Find 3 mistakes from moves 0 - 50 (opening)
 first_50 = find_mistakes(katago_output, 3, 0, 50)
-next_100 = find_mistakes(katago_output, 10, 51, 150)
+# Find 5 mistakes from moves 51 - 100 (early middlegame)
+next_50_100 = find_mistakes(katago_output, 5, 51, 100)
+# Find 5 mistakes from moves 101 - 150 (mid middlegame)
+next_100_150 = find_mistakes(katago_output, 5, 101, 150)
+# Find 3 mistakes from the remainder of the game (late middlegame and endgame)
 last = find_mistakes(katago_output, 3, 151, float('inf'))
 
 endTime = time.time()
 print("time to execute code: ", endTime-startTime)
 
-print("Moves 0 - 50 moves:")
+print("Moves 0 - 50 moves (Opening):")
 for turn, points in first_50:
-    print(f"Turn: {turn}, Points lost: {points:.2f}")
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
 
-print("Moves 50 - 150 moves:")
-for turn, points in next_100:
-    print(f"Turn: {turn}, Points lost: {points:.2f}")
+print("Moves 51 - 100 moves (Early middlegame):")
+for turn, points in next_50_100:
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
 
-print("Moves after 150:")
+print("Moves 101 - 150 moves (Mid middlegame):")
+for turn, points in next_100_150:
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
+
+print("Moves after 150 (Late middlegame and endgame):")
 for turn, points in last:
-    print(f"Turn: {turn}, Points lost: {points:.2f}")
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
