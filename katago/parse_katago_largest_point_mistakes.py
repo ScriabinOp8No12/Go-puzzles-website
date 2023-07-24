@@ -183,20 +183,25 @@ katago_output = """
 
 """
 first_50 = find_mistakes(katago_output, 3, 0, 50)
-next_100 = find_mistakes(katago_output, 10, 51, 150)
+next_50_100 = find_mistakes(katago_output, 5, 51, 100)
+next_100_150 = find_mistakes(katago_output, 5, 101, 150)
 last = find_mistakes(katago_output, 3, 151, float('inf'))
 
 endTime = time.time()
 print("time to execute code: ", endTime-startTime)
 
-print("Moves 0 - 50 moves:")
+print("Moves 0 - 50 moves (Opening):")
 for turn, points in first_50:
-    print(f"Turn: {turn}, Points lost: {points:.2f}")
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
 
-print("Moves 50 - 150 moves:")
-for turn, points in next_100:
-    print(f"Turn: {turn}, Points lost: {points:.2f}")
+print("Moves 51 - 100 moves (Early middlegame):")
+for turn, points in next_50_100:
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
 
-print("Moves after 150:")
+print("Moves 101 - 150 moves (Mid middlegame):")
+for turn, points in next_100_150:
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
+
+print("Moves after 150 (Late middlegame and endgame):")
 for turn, points in last:
-    print(f"Turn: {turn}, Points lost: {points:.2f}")
+    print(f"Turn: {turn}, Points lost: {points:.1f}")
