@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     await Promise.all([
-      options.tableName = "UserPuzzles";
+      (options.tableName = "UserPuzzles"),
       queryInterface.addColumn(options, "move_number", {
         type: Sequelize.INTEGER,
         allowNull: false,
