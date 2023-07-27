@@ -10,27 +10,27 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await Promise.all([
       queryInterface.addColumn(
-        "Userpuzzles",
+        "UserPuzzles",
         "move_number",
         { type: Sequelize.INTEGER, allowNull: false },
         options
       ),
       queryInterface.addColumn(
-        "Userpuzzles",
+        "UserPuzzles",
         "completed",
         { type: Sequelize.BOOLEAN, allowNull: false },
         options
       ),
       queryInterface.addColumn(
-        "Userpuzzles",
+        "UserPuzzles",
         "thumbnail",
         { type: Sequelize.TEXT, allowNull: false },
         options
       ),
     ]);
-    // Add a unique constraint to the combination of user_id and puzzle_id column, if the user adds the same puzzle, it won't let them do it
+    // Add a unique constraint to the combination of user_id and puzzle_id columns, if the user adds the same puzzle, it won't let them do it
     return queryInterface.addConstraint(
-      "Userpuzzles",
+      "UserPuzzles",
       {
         fields: ["user_id", "puzzle_id"],
         type: "unique",
@@ -42,14 +42,14 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.removeConstraint(
-      "Userpuzzles",
+      "UserPuzzles",
       "unique_user_puzzle",
       options
     );
     return Promise.all([
-      queryInterface.removeColumn("Userpuzzles", "move_number", options),
-      queryInterface.removeColumn("Userpuzzles", "completed", options),
-      queryInterface.removeColumn("Userpuzzles", "thumbnail", options),
+      queryInterface.removeColumn("UserPuzzles", "move_number", options),
+      queryInterface.removeColumn("UserPuzzles", "completed", options),
+      queryInterface.removeColumn("UserPuzzles", "thumbnail", options),
     ]);
   },
 };
