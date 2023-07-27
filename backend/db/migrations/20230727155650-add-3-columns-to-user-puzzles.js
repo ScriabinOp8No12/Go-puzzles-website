@@ -10,46 +10,46 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await Promise.all([
       queryInterface.addColumn(
-        "UserPuzzles",
+        "Userpuzzles",
         "move_number",
         { type: Sequelize.INTEGER, allowNull: false },
         options
       ),
       queryInterface.addColumn(
-        "UserPuzzles",
+        "Userpuzzles",
         "completed",
         { type: Sequelize.BOOLEAN, allowNull: false },
         options
       ),
       queryInterface.addColumn(
-        "UserPuzzles",
+        "Userpuzzles",
         "thumbnail",
         { type: Sequelize.TEXT, allowNull: false },
         options
       ),
     ]);
     // Add a unique constraint to the combination of user_id and puzzle_id column, if the user adds the same puzzle, it won't let them do it
-    // return queryInterface.addConstraint(
-    //   "UserPuzzles",
-    //   {
-    //     fields: ["user_id", "puzzle_id"],
-    //     type: "unique",
-    //     name: "unique_user_puzzle",
-    //   },
-    //   options
-    // );
+    return queryInterface.addConstraint(
+      "Userpuzzles",
+      {
+        fields: ["user_id", "puzzle_id"],
+        type: "unique",
+        name: "unique_user_puzzle",
+      },
+      options
+    );
   },
 
   async down(queryInterface, Sequelize) {
-    // await queryInterface.removeConstraint(
-    //   "UserPuzzles",
-    //   "unique_user_puzzle",
-    //   options
-    // );
+    await queryInterface.removeConstraint(
+      "Userpuzzles",
+      "unique_user_puzzle",
+      options
+    );
     return Promise.all([
-      queryInterface.removeColumn("UserPuzzles", "move_number", options),
-      queryInterface.removeColumn("UserPuzzles", "completed", options),
-      queryInterface.removeColumn("UserPuzzles", "thumbnail", options),
+      queryInterface.removeColumn("Userpuzzles", "move_number", options),
+      queryInterface.removeColumn("Userpuzzles", "completed", options),
+      queryInterface.removeColumn("Userpuzzles", "thumbnail", options),
     ]);
   },
 };
