@@ -25,7 +25,11 @@ const validateSignup = [
   check("password")
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
-    .withMessage("Password must be 6 characters or more."),
+    .withMessage("Password must be 6 characters or more.")
+    .isAlphanumeric()
+    .withMessage(
+      "Password can only contain alphanumeric characters, no spaces allowed!"
+    ),
   handleValidationErrors,
 ];
 

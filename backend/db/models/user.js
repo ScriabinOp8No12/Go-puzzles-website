@@ -19,6 +19,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
+          // force username to be a combination of letters, numbers, and optionally spaces
+          isAlphaNumbericWithSpaces(value) {
+            if (
+              // regex that allows only letters and numbers, it can have spaces too
+              !Validator.matches(value, /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s]*$/)
+            ) {
+              throw new Error(
+                "Username must contain a combination of letters and numbers. White spaces are allowed too!"
+              );
+            }
+          },
           len: [4, 30],
           isNotEmail(value) {
             // use Validator.isEmail (Validator package contains isEmail())
@@ -26,8 +37,6 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("Cannot be an email.");
             }
           },
-          // empty string model validation
-          notEmpty: true,
         },
       },
       email: {
@@ -36,7 +45,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [3, 256],
           isEmail: true,
-          notEmpty: true,
         },
       },
       hashedPassword: {
@@ -56,6 +64,11 @@ module.exports = (sequelize, DataTypes) => {
           // user elo ranking constraints same as puzzles (treat puzzles as users effectively)
           min: 100,
           max: 3000,
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
         },
       },
       solved_puzzles: {
@@ -63,9 +76,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         // solved number of puzzles must be between 0 and 1 billion (can't be negative)
         validate: {
-          notEmpty: true,
           min: 0,
           max: 1000000000,
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
         },
       },
     },
