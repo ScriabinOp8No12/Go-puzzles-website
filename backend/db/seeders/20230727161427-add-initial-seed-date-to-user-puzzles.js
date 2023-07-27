@@ -14,7 +14,7 @@ module.exports = {
       [
         {
           user_id: 1,
-          puzzle_id: 4,
+          puzzle_id: 1,
           move_number: 50,
           completed: true,
           thumbnail: "base64 encoded string",
@@ -23,7 +23,7 @@ module.exports = {
         },
         {
           user_id: 1,
-          puzzle_id: 5,
+          puzzle_id: 2,
           move_number: 50,
           completed: false,
           thumbnail: "base64 encoded string",
@@ -32,7 +32,7 @@ module.exports = {
         },
         {
           user_id: 1,
-          puzzle_id: 6,
+          puzzle_id: 3,
           move_number: 50,
           completed: true,
           thumbnail: "base64 encoded string",
