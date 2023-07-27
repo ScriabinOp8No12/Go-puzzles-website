@@ -18,6 +18,41 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
+      move_number: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        validate: {
+          min: 1,
+          max: 1000,
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
+        },
+      },
+      completed: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        validate: {
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
+        },
+      },
+      thumbnail: {
+        allowNull: false,
+        type: DataTypes.TEXT,
+        validate: {
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
+        },
+      },
     },
     {
       sequelize,
