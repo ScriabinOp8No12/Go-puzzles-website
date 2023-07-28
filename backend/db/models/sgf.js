@@ -57,24 +57,44 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         validate: {
           len: [0, 100],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
         },
       },
       white_player: {
         type: DataTypes.STRING,
         validate: {
           len: [0, 100],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
         },
       },
       black_rank: {
         type: DataTypes.STRING,
         validate: {
           len: [0, 10],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
         },
       },
       white_rank: {
         type: DataTypes.STRING,
         validate: {
           len: [0, 10],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
         },
       },
       result: {
@@ -82,6 +102,11 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           // length of 30 characters should cover all combinations of result strings
           len: [0, 30],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
         },
       },
       thumbnail: {

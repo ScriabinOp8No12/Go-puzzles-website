@@ -66,22 +66,22 @@ router.post("/current", requireAuth, async (req, res) => {
 
   // Grab the data from the req.body
   const { sgf_data } = req.body;
-
-  // Check if the sgf_data array contains more than 10 elements
-  if (sgf_data.length > 10) {
-    return res.status(400).json({
-      message: "Bad Request",
-      errors: {
-        sgf_data: ["Can only upload up to 10 SGFs at once!"],
-      },
-    });
-  }
+  // moved array check before length check, otherwise the length won't be checking the array length,
+  // it'll be checking the length of the string passed in, which means 10 characters will trigger the error!
   try {
     // Validate the sgf_data in the req.body
     if (!Array.isArray(sgf_data)) {
       return res.status(400).json({ error: "SGF data needs to be an array!" });
     }
-
+    // Check if the sgf_data array contains more than 10 SGFs
+    if (sgf_data.length > 10) {
+      return res.status(400).json({
+        message: "Bad Request",
+        errors: {
+          sgf_data: ["Can only upload up to 10 SGFs at once!"],
+        },
+      });
+    }
     // Import the sgf2img module using JSPyBridge
     const sgf2img = await python(
       path.join(
@@ -118,11 +118,11 @@ router.post("/current", requireAuth, async (req, res) => {
       // sgf[0] contains the game info, which we can then access the SGF properties using dot notation
       // sgf[1] doesn't exist
       const gameInfo = sgf[0];
-      const blackPlayer = gameInfo.PB;
-      const whitePlayer = gameInfo.PW;
-      const blackRank = gameInfo.BR;
-      const whiteRank = gameInfo.WR;
-      const result = gameInfo.RE;
+      const blackPlayer = gameInfo.PB || "?";
+      const whitePlayer = gameInfo.PW || "?";
+      const blackRank = gameInfo.BR || "?";
+      const whiteRank = gameInfo.WR || "?";
+      const result = gameInfo.RE || "?";
 
       // Generate the SGF name
       const sgfName = `${blackPlayer} vs ${whitePlayer}`;
@@ -142,7 +142,7 @@ router.post("/current", requireAuth, async (req, res) => {
         white_rank: whiteRank,
         result: result,
         sgf_data: data,
-        // remember that the left side is the COLUMN name, so it must exactly match the one in the database or it won't work...
+        // remember that the left side is the COLUMN name, so it must exactly match the column name in the database or it won't work...
         thumbnail: thumbnail,
       });
 
@@ -153,9 +153,10 @@ router.post("/current", requireAuth, async (req, res) => {
     return res.status(201).json(response);
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ error: "An error occurred while uploading the SGFs" });
+    res.status(500).json({
+      error:
+        "An error occurred while uploading the SGFs, please verify you are uploading a valid SGF!",
+    });
   }
 });
 
