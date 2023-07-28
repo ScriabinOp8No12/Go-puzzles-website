@@ -35,21 +35,32 @@ module.exports = {
         },
         // player, rank, and result can all be empty or null
         black_player: {
+          allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "?",
         },
         white_player: {
+          allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "?",
         },
         black_rank: {
+          allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "?",
         },
         white_rank: {
+          allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "?",
         },
         result: {
+          allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "?",
         },
         thumbnail: {
+          allowNull: false,
           type: Sequelize.TEXT,
         },
         createdAt: {

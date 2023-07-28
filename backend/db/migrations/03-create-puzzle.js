@@ -31,11 +31,10 @@ module.exports = {
         move_number: {
           // we are assuming that a puzzle is created, then it must have a move number specifying where the puzzle is in the SGF
           allowNull: false,
-          // we always need to specify the datatype within the array, use parenthesis
           type: Sequelize.INTEGER,
         },
         difficulty_rank: {
-          // can be null initially if there's not enough user data
+          allowNull: false,
           type: Sequelize.INTEGER,
         },
         description: {
@@ -49,6 +48,10 @@ module.exports = {
           allowNull: false,
           type: Sequelize.BOOLEAN,
         },
+        thumbnail: {
+          allowNull: false,
+          type: Sequelize.TEXT,
+        },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -60,7 +63,6 @@ module.exports = {
           defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
       },
-      // need options here?
       options
     );
     // add index and unique property to ensure user can only add one puzzle per move!

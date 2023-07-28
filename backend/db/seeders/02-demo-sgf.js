@@ -90,18 +90,6 @@ module.exports = {
           result: "White + 3.5",
           thumbnail: "test",
         },
-        // null test for player/rank/result
-        {
-          user_id: 1,
-          sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
-          sgf_name: "Nathan vs. Matthew",
-          black_player: null,
-          white_player: "",
-          black_rank: null,
-          white_rank: "",
-          result: null,
-          thumbnail: "test",
-        },
       ],
       {}
     );

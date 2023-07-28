@@ -24,7 +24,7 @@ module.exports = {
         {
           user_id: 1,
           puzzle_id: 2,
-          move_number: 50,
+          move_number: 88,
           completed: false,
           thumbnail: "base64 encoded string",
           createdAt: new Date(),
@@ -33,7 +33,7 @@ module.exports = {
         {
           user_id: 1,
           puzzle_id: 3,
-          move_number: 50,
+          move_number: 66,
           completed: true,
           thumbnail: "base64 encoded string",
           createdAt: new Date(),
