@@ -25,7 +25,11 @@ module.exports = (sequelize, DataTypes) => {
           // don't let the sgf_data be more than 500,000 characters (each SGF is roughly between 500 and 5000 characters)
           len: [1, 500000],
           // does not take in an empty sgf either
-          notEmpty: true,
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
           // accept only valid .sgf files
           isSgf(value) {
             try {
@@ -40,8 +44,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
         validate: {
-          // does not take in an empty name
-          notEmpty: true,
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
           // length of sgf_name is capped at 150 characters
           len: [1, 150],
         },
@@ -78,7 +85,14 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       thumbnail: {
+        // need to make a new migration to not allow null in this sgf thumbnail column
+        allowNull: false,
         type: DataTypes.TEXT,
+        notEmptyString(value) {
+          if (value.length === 0 || value.trim().length === 0) {
+            throw new Error("Cannot be empty.");
+          }
+        },
       },
     },
     {
