@@ -2,8 +2,8 @@ const express = require("express");
 require("express-async-errors");
 const morgan = require("morgan");
 const cors = require("cors");
-// csurf breaks the upload button from localhost:5500, but it works if we don't make that request
-// const csurf = require("csurf");
+
+const csurf = require("csurf");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const { environment } = require("./config");
@@ -11,12 +11,14 @@ const isProduction = environment === "production";
 // we need to require path for serving static files from the wgo directory
 const path = require("path");
 // ***************************************
+
 // these 2 below are mine!
-const multer = require("multer");
+// const multer = require("multer");
 // IT GIVES PERMISSION DENIED if I changed dest below to "/backend/uploads/"
 // needs to be relative to the current folder, which is backend
 // ./uploads works great!
-const upload = multer({ dest: "./uploads" });
+// const upload = multer({ dest: "./uploads" });
+
 // ***************************************
 // we are already getting all the routes from the folder, so no need to require individual routes
 const routes = require("./routes");
@@ -50,36 +52,36 @@ app.use(
 );
 
 // Set the _csrf token and create req.csrfToken method
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "Lax",
-//       httpOnly: true,
-//     },
-//   })
-// );
+app.use(
+  csurf({
+    cookie: {
+      secure: isProduction,
+      sameSite: isProduction && "Lax",
+      httpOnly: true,
+    },
+  })
+);
 
 // simple in-memory database
-const sgfs = [];
+// const sgfs = [];
 
-app.post("/upload", upload.array("file", 10), (req, res) => {
-  // req.files is an array of files uploaded
-  // req.body will contain the text fields, if there were any
-  console.log(req.files); // output is seen in the terminal
+// app.post("/upload", upload.array("file", 10), (req, res) => {
+//   // req.files is an array of files uploaded
+//   // req.body will contain the text fields, if there were any
+//   console.log(req.files); // output is seen in the terminal
 
-  // add each uploaded file to the database
-  req.files.forEach((file) => {
-    sgfs.push({
-      // below line was this (parsing text file instead of SGF kept the special Chinese characters!):
-      // originalname: file.originalname,
-      originalname: file.originalname.replace(".sgf", ".txt"),
-      uploadDate: new Date(),
-    });
-  });
+//   // add each uploaded file to the database
+//   req.files.forEach((file) => {
+//     sgfs.push({
+//       // below line was this (parsing text file instead of SGF kept the special Chinese characters!):
+//       // originalname: file.originalname,
+//       originalname: file.originalname.replace(".sgf", ".txt"),
+//       uploadDate: new Date(),
+//     });
+//   });
 
-  // res.json({ message: "File(s) uploaded!", count: req.files.length });
-});
+//   // res.json({ message: "File(s) uploaded!", count: req.files.length });
+// });
 
 app.use(routes);
 app.use((_req, _res, next) => {
