@@ -64,11 +64,6 @@ module.exports = (sequelize, DataTypes) => {
           // user elo ranking constraints same as puzzles (treat puzzles as users effectively)
           min: 100,
           max: 3000,
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
-            }
-          },
         },
       },
       solved_puzzles: {
@@ -78,11 +73,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           min: 0,
           max: 1000000000,
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
-            }
-          },
         },
       },
     },
