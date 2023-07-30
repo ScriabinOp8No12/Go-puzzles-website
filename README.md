@@ -27,11 +27,9 @@
 - `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (requires priviledges / reputation)
 - `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
 
-### UserPuzzles (Endpoints for the user's puzzles)
-
-- `Get /api/userPuzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
-
 ### Users (Endpoints of user specific info. Includes the user's account information like user's rank, and count of solved puzzles by category)
+
+- `Get /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
 
 - `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed, and a count of puzzle completed for each category
 
