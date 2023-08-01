@@ -13,6 +13,8 @@ def find_mistakes(katago_output, num_mistakes, start_turn, end_turn):
     # Initialize an empty heap to store the score
     heap = []
     prev_score = None
+    # Create a list to store all data (for sorting turnNumber b/c multiple analysis at same time might make it go out of order)
+    data_list = []
     # Iterate over each line in the katago_output
     for line in katago_output.split('\n'):
         # If the line is empty, skip it
@@ -21,6 +23,15 @@ def find_mistakes(katago_output, num_mistakes, start_turn, end_turn):
         # Load the data from the line as a JSON object
         data = json.loads(line)
         # Get the turn number from the data
+        turn_number = data['turnNumber']
+        # append the turn_number and data as a tuple into data_list
+        data_list.append((turn_number, data))
+    # Sort data by turn number, Python uses Timsort, which is hybrid sorting algorithm derived from merge sort and insertion sort
+    # Worst case time complexity is O(nlogn) where n is the number of elements in the list
+    data_list.sort()
+    # Proceed with processing, the _ means a throwaway variable that we don't need to loop over
+    # We already used it for sorting
+    for _, data in data_list:
         turn_number = data['turnNumber']
         # If the turn number is within the specified range
         if turn_number >= start_turn and turn_number <= end_turn:
