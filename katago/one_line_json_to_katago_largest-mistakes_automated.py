@@ -15,7 +15,7 @@ json_folder_path = 'katago/json_Dict_ALL_TURNS'
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
 # Set the path to the output text file
-output_file_path = 'katago/mistake_move_numbers_output.txt'
+output_file_path = 'katago/mistake_move_numbers_output50.txt'
 
 # Open the output text file for writing
 with open(output_file_path, 'w') as output_file:

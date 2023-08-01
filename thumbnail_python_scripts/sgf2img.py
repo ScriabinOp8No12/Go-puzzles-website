@@ -39,7 +39,7 @@ def draw_board(board_size, star_points, num_moves, node, draw):
         # Indicates that the move is a "pass", if so, the loop continues to the next iteration without playing a move
         if move is None:
             continue
-        # Unpack the move coordinates into separate variables row and column
+        # Unpack (destructure in JS) the move coordinates (tuple) into separate variables row and column
         row, col = move
         # This line attempts to play a stone of the specified color at the specified row and column on the Go board by calling its play() method
         try:

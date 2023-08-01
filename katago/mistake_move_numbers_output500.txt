@@ -1,0 +1,17 @@
+Moves 0 - 50 moves (Opening):
+Turn: 35, Points lost: 5.8
+Turn: 31, Points lost: 3.9
+Turn: 39, Points lost: 3.1
+Moves 51 - 100 moves (Early middlegame):
+Turn: 93, Points lost: 16.6
+Turn: 95, Points lost: 15.4
+Turn: 78, Points lost: 8.5
+Turn: 97, Points lost: 8.0
+Turn: 94, Points lost: 7.5
+Moves 101 - 150 moves (Mid middlegame):
+Turn: 127, Points lost: 60.2
+Turn: 128, Points lost: 46.8
+Turn: 102, Points lost: 41.4
+Turn: 122, Points lost: 31.5
+Turn: 119, Points lost: 21.9
+Moves after 150 (Late middlegame and endgame):
