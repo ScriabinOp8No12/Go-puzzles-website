@@ -160,4 +160,8 @@ router.post("/current", requireAuth, async (req, res) => {
   }
 });
 
+// Get AI recommended mistakes from KataGo
+
+
+
 module.exports = router;

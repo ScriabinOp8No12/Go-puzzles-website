@@ -6,3 +6,5 @@ build
 *.db
 package.json
 __pycache__
+analysis_logs
+text_Outputs
