@@ -1,3 +1,4 @@
+const moment = require('moment');
 const express = require("express");
 const smartgame = require("smartgame");
 const { python } = require("pythonia");
@@ -41,17 +42,19 @@ router.get("/current", requireAuth, async (req, res) => {
     SGFs: sgfs.map((sgf) => ({
       id: sgf.id,
       user_id: sgf.user_id,
-      createdAt: sgf.createdAt,
-      updatedAt: sgf.updatedAt,
       sgf_name: sgf.sgf_name,
-      sgf_data: sgf.sgf_data,
+      // sgf_data: sgf.sgf_data,
+      sgf_data: "sgf_data placeholder",
       black_player: sgf.black_player,
       white_player: sgf.white_player,
       black_rank: sgf.black_rank,
       white_rank: sgf.white_rank,
       result: sgf.result,
-      // added thumbnail here
-      thumbnail: sgf.thumbnail,
+      // real thumbnail is sgf.thumbnail below, however, it's too long in postman, so I'm commenting it out for now until React frontend is working
+      // thumbnail: sgf.thumbnail,
+      thumbnail: "thumbnail placeholder",
+      createdAt: moment(sgf.createdAt).format('YYYY-MM-DD HH:mm:ss'), // formatted with moment.js
+      updatedAt: moment(sgf.updatedAt).format('YYYY-MM-DD HH:mm:ss'), // formatted with moment.js
     })),
     // put count of SGFs outside of sgf array
     numberOfSGFs,
@@ -147,7 +150,12 @@ router.post("/current", requireAuth, async (req, res) => {
       });
 
       // Add the new Sgf record to the response array
-      response.push(sgfRecord);
+      response.push({
+        ...sgfRecord.toJSON(),
+        // use a placeholder instead of the giant blob of sgf_data/thumbnail in the response for now
+        sgf_data: "sgf_data placeholder",
+        thumbnail: "thumbnail placeholder"
+      });
     }
     // Send a success response
     return res.status(201).json(response);
