@@ -30,10 +30,12 @@ with open(output_file_path, 'w') as output_file:
         json_dict = json.loads(file_contents)
 
         # Pass the JSON dictionary to KataGo for analysis
+        # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
         p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
 
-        # Define a function to process a given range of turns
+        # Define a function to process a given range of turns, we pass in the stdout_data we got from KataGo above
+        # stderr_data is standard error data
         def process_range(stdout_data, n, start, end):
             # This function should find the top n mistakes in the range from start to end (inclusive),
             # along with the corresponding correct moves from the turn before each mistake.
@@ -41,14 +43,19 @@ with open(output_file_path, 'w') as output_file:
             # where turn is the turn number, points_lost is the number of points lost on that turn,
             # and correct_moves is a list of the correct moves from the previous turn.
 
+            # This is known as "value unpacking" since our function will return 2 lists of tuples, unpacking = destructuring in JavaScript
             mistakes, correct_moves = find_mistakes_and_correct_moves(stdout_data, n, start, end)
 
             # Assuming that mistakes and correct_moves are lists of tuples of the form (turn, value),
             # where turn is the turn number and value is the points lost or the correct moves, respectively,
             # we first need to sort mistakes in descending order of points lost
+            # lambda functions are anonymous functions, which are equivalent to anonymous functions in JavaScript!
+            # We are sorting the list by the 2nd element of each tuple, which in this case is the points lost value of the tuple -> (mistakes, points lost)
             mistakes.sort(key=lambda x: x[1], reverse=True)
 
-            # Then we create a dictionary mapping turn numbers to correct moves
+            # Then we create a dictionary mapping turn numbers to correct moves,
+            # Use dictionary comprehension (similar to list comprehension),
+            # dictionary name = {<key>: <value> for (tuple unpacking) in list of tuples}
             correct_moves_dict = {turn: moves for turn, moves in correct_moves}
 
             # Now we can create our result list
@@ -68,7 +75,7 @@ with open(output_file_path, 'w') as output_file:
         for start, end, n, name in ranges:
             data = process_range(stdout_data.decode('utf-8'), n, start, end)
             end_text = "end" if end == float('inf') else str(end)
-            # Write the data to the output file
+            # Write the data to the output file, ensuring that the puzzle starts on the previous turn before the mistake
             output_file.write(f"Moves {start} - {end_text} moves ({name}):\n")
             for turn, points, moves in data:
                 output_file.write(f"Turn: {turn-1}, Points lost on next move: {points:.1f}, Correct moves: {', '.join(moves)}\n")
