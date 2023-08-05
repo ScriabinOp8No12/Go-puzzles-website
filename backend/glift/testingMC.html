@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testing MC</title>
+    <script src="../glift.js"></script>
+    <link rel ="stylesheet" href="test.css">
+  </head>
+  <body>
+    <div id="gliftContainer"></div>
+    <script>
+      gliftWidget = glift.create({
+        divId: "gliftContainer",
+        sgf: {
+          // Arthur's chaotic capturing race game
+          url: '../uploads/arthur_game_kgs.sgf',
+          // we can use the initialPosition property to render the SGF at the specific move, looks like we just pass in an integer
+          initialPosition: 34,
+          problemConditions: {
+            // Need to modify the SGF itself and add a Comment to a move and say it's correct
+            C: ['Correct']
+          },
+          widgetType: 'STANDARD_PROBLEM'},
+});
+
+    </script>
+  </body>
+</html>
