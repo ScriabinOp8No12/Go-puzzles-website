@@ -168,7 +168,84 @@ router.post("/current", requireAuth, async (req, res) => {
   }
 });
 
-// Get AI recommended mistakes from KataGo
+// Edit the SGF name, player names, or player ranks
+
+router.put("/:sgf_id/current", requireAuth, async (req, res) => {
+  try {
+    // Validation checks
+    const { sgf_name, black_player, white_player, black_rank, white_rank, result } = req.body;
+
+    if (!sgf_name || sgf_name === "" || sgf_name.length > 150) {
+      let errors = {
+        sgf_name: []
+      };
+
+      if (!sgf_name || sgf_name === "") {
+        errors.sgf_name.push("sgf name is required");
+      }
+      if (sgf_name.length > 150) {
+        errors.sgf_name.push("maximum length is 150 characters!");
+      }
+
+      return res.status(400).json({
+        message: "Bad Request",
+        errors
+      });
+    }
+
+    // Check authorization
+    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
+    if (!sgfRecord) {
+      return res.status(404).json({ error: "SGF not found!" });
+    }
+    if (sgfRecord.user_id !== req.user.id) {
+      return res.status(403).json({ error: "Not authorized!" });
+    }
+
+    // Update SGF data
+    sgfRecord.sgf_name = sgf_name;
+    sgfRecord.black_player = black_player || sgfRecord.black_player;
+    sgfRecord.white_player = white_player || sgfRecord.white_player;
+    sgfRecord.black_rank = black_rank || sgfRecord.black_rank;
+    sgfRecord.white_rank = white_rank || sgfRecord.white_rank;
+    sgfRecord.result = result || sgfRecord.result;
+
+    await sgfRecord.save();
+
+    // Send the updated record in response
+    res.status(200).json({
+      sgf_id: sgfRecord.id.toString(),
+      sgf_name: sgfRecord.sgf_name,
+      black_player: sgfRecord.black_player,
+      white_player: sgfRecord.white_player,
+      black_rank: sgfRecord.black_rank,
+      white_rank: sgfRecord.white_rank,
+      result: sgfRecord.result,
+      updatedAt: moment(sgfRecord.updatedAt).format('YYYY-MM-DD HH:mm:ss'), // formatted with moment.js
+    });
+  } catch (err) {
+    console.error(err);
+
+    // Handle potential Sequelize validation errors
+    if (err.name && err.name === 'SequelizeValidationError') {
+      let errors = {};
+
+      err.errors.forEach(error => {
+        if (!errors[error.path]) {
+          errors[error.path] = [];
+        }
+        errors[error.path].push(error.message);
+      });
+
+      return res.status(400).json({
+        message: "Validation error",
+        errors
+      });
+    }
+
+    res.status(500).json({ error: "Internal Server Error!" });
+  }
+});
 
 
 
