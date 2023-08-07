@@ -5,36 +5,41 @@ import os
 import json
 import subprocess
 from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
-from sgf2OneLineJSON_ALL_MOVES import sgf_to_one_line_json
+from sgf2OneLineJson_all_moves import sgf_to_one_line_json
 
-# Set the path to the jsonDictionaryOutput folder
-json_folder_path = 'katago/json_Dict_ALL_TURNS'
+# Set the path to the SGF files
+sgf_folder_path = 'katago/positionsWithMoveOrder'
 
 # Set the command to run KataGo
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
-# Set the path to the output text file
-output_file_path = 'katago/text_Outputs/mistake_move_numbers_output15_4_16_mistakes_2.txt'
+# Iterate over each file in the SGF files folder
+for filename in os.listdir(sgf_folder_path):
+    # Enforce SGF as the only format allowed
+    if not filename.endswith(".sgf"):
+        print(f"Skipping non-SGF file: {filename}")
+        continue
 
-# Open the output text file for writing
-with open(output_file_path, 'w') as output_file:
-    # Iterate over each file in the jsonDictionaryOutput folder
-    for filename in os.listdir(json_folder_path):
-        # Construct the full path to the file
-        file_path = os.path.join(json_folder_path, filename)
+    # Construct the full path to the file
+    file_path = os.path.join(sgf_folder_path, filename)
 
-        # Open the file and read its contents
-        with open(file_path, 'r') as f:
-            file_contents = f.read()
-            print(file_contents)
-        # Load the JSON dictionary from the file contents
-        json_dict = json.loads(file_contents)
+    # Set the path to the output text file for the current SGF
+    output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
+    output_file_path = os.path.join('katago/text_Outputs', output_file_name)
 
-        # Pass the JSON dictionary to KataGo for analysis
-        # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
-        p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
+    # Convert the SGF to a JSON dictionary
+    json_dict = sgf_to_one_line_json(file_path, 'B')  # Set player_turn as needed
 
+    # Open the current output text file for writing
+    with open(output_file_path, 'w') as output_file:
+        # wrap KataGo subprocess in a try catch block
+        try:
+          # Pass the JSON dictionary to KataGo for analysis
+          # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
+          p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+          stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
+        except Exception as e:
+          print(f"Error processing file {filename}: {e}")
         # Define a function to process a given range of turns, we pass in the stdout_data we got from KataGo above
         # stderr_data is standard error data
         def process_range(stdout_data, n, start, end):
@@ -50,7 +55,7 @@ with open(output_file_path, 'w') as output_file:
             # Assuming that mistakes and correct_moves are lists of tuples of the form (turn, value),
             # where turn is the turn number and value is the points lost or the correct moves, respectively,
             # we first need to sort mistakes in descending order of points lost
-            # lambda functions are anonymous functions, which are equivalent to anonymous functions in JavaScript!
+            # lambda functions are anonymous functions, which are equivalent to anonymous functions in JavaScript
             # We are sorting the list by the 2nd element of each tuple, which in this case is the points lost value of the tuple -> (mistakes, points lost)
             mistakes.sort(key=lambda x: x[1], reverse=True)
 
@@ -80,7 +85,6 @@ with open(output_file_path, 'w') as output_file:
             output_file.write(f"Moves {start} - {end_text} moves ({name}):\n")
             for turn, points, moves in data:
                 output_file.write(f"Turn: {turn-1}, Points lost on next move: {points:.1f}, Correct moves: {', '.join(moves)}\n")
-
 
 endTime = time.time()
 print("time to execute code: ", endTime-startTime)

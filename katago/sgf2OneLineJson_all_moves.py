@@ -1,8 +1,6 @@
 from sgfmill import sgf
-import json
 
 # Converts a SGF into a single line JSON dictionary to feed into the Katago analysis engine on the command line
-
 
 def sgf_to_one_line_json(input_file, player_turn):
     # Load the SGF file
@@ -70,7 +68,6 @@ def sgf_to_one_line_json(input_file, player_turn):
         'boardXSize': size,
         'boardYSize': size,
         'initialPlayer': next_player,
-        # analyzeTurns list gets added to the JSON dictionary result
         'analyzeTurns': analyzeTurns
     }
 
@@ -83,7 +80,7 @@ def sgf_to_one_line_json(input_file, player_turn):
     # Set komi in JSON dictionary
     if komi and float(komi) > 150:
         result['komi'] = 7.5
-    # Fox games sometimes take the komi and set it to 0.25, which shows up as 0.0 in the SGF
+    # Fox games sometimes take the komi and sets it to 0.25, which shows up as 0.0 in the SGF
     # Also when forking from a puzzle or downloading it without the moves, it will set the komi to 0.0
     elif 0 <= float(komi) < 0.5:
         result['komi'] = 0.5
@@ -91,23 +88,3 @@ def sgf_to_one_line_json(input_file, player_turn):
         result['komi'] = float(komi)
 
     return result
-
-
-# TESTING THE FUNCTION ABOVE in the below code -> the function works!
-
-# Change path to input position / sgf
-input_file = 'katago/positionsWithMoveOrder/puzzle8_7_20_23.sgf'
-# Change player's turn to W or B (hard coded for games that are positions and turn not specified)
-player_turn = 'B'
-result = sgf_to_one_line_json(input_file, player_turn)
-
-# Convert dictionary to JSON-formatted string
-result_string = json.dumps(result)
-
-# Save JSON-formatted string to file
-output_file = 'katago/jsonDictionaryOutput/output8_analyze_entire_game.json'
-with open(output_file, 'w') as f:
-    f.write(result_string)
-
-# Print JSON-formatted string
-print(result_string)
