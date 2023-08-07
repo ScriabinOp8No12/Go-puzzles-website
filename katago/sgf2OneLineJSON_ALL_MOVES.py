@@ -4,7 +4,7 @@ import json
 # Converts a SGF into a single line JSON dictionary to feed into the Katago analysis engine on the command line
 
 
-def sgf_to_katago(input_file, player_turn):
+def sgf_to_one_line_json(input_file, player_turn):
     # Load the SGF file
     with open(input_file, 'r') as f:
         sgf_game = sgf.Sgf_game.from_string(f.read())
@@ -93,11 +93,13 @@ def sgf_to_katago(input_file, player_turn):
     return result
 
 
+# TESTING THE FUNCTION ABOVE in the below code -> the function works!
+
 # Change path to input position / sgf
 input_file = 'katago/positionsWithMoveOrder/puzzle8_7_20_23.sgf'
 # Change player's turn to W or B (hard coded for games that are positions and turn not specified)
 player_turn = 'B'
-result = sgf_to_katago(input_file, player_turn)
+result = sgf_to_one_line_json(input_file, player_turn)
 
 # Convert dictionary to JSON-formatted string
 result_string = json.dumps(result)
