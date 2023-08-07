@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
           // does not take in an empty sgf either
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+              throw new Error("SGF data cannot be empty.");
             }
           },
           // accept only valid .sgf files
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
             try {
               smartgame.parse(value);
             } catch (error) {
-              throw new Error("Invalid file type. Only sgf files are allowed.");
+              throw new Error("Invalid file type. Only SGF files are allowed.");
             }
           },
         },
@@ -46,11 +46,11 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+              throw new Error("SGF name cannot be empty.");
             }
           },
           // length of sgf_name is capped at 150 characters
-          len: [1, 150],
+          len: [1, 100],
         },
       },
       black_player: {
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [0, 100],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+              throw new Error("Black player name cannot be empty.");
             }
           },
         },
@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [0, 100],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+              throw new Error("White player name cannot be empty.");
             }
           },
         },
@@ -81,7 +81,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [0, 10],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+              throw new Error("Black rank cannot be empty.");
             }
           },
         },
@@ -92,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [0, 10],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+              throw new Error("White rank cannot be empty.");
             }
           },
         },

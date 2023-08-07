@@ -70,7 +70,7 @@ router.post("/current", requireAuth, async (req, res) => {
   // Grab the data from the req.body
   const { sgf_data } = req.body;
   // moved array check before length check, otherwise the length won't be checking the array length,
-  // it'll be checking the length of the string passed in, which means 10 characters will trigger the error!
+  // it'll be checking the length of the string passed in, which means 11+ characters will trigger the error!
   try {
     // Validate the sgf_data in the req.body
     if (!Array.isArray(sgf_data)) {
@@ -181,10 +181,10 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
       };
 
       if (!sgf_name || sgf_name === "") {
-        errors.sgf_name.push("sgf name is required");
+        errors.sgf_name.push("SGF name is required");
       }
-      if (sgf_name.length > 150) {
-        errors.sgf_name.push("maximum length is 150 characters!");
+      if (sgf_name.length > 100) {
+        errors.sgf_name.push("Maximum SGF name length is 100 characters!");
       }
 
       return res.status(400).json({
@@ -244,6 +244,35 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
     }
 
     res.status(500).json({ error: "Internal Server Error!" });
+  }
+});
+
+// Delete an SGF (do NOT delete the puzzles with it)
+
+router.delete("/:sgf_id/current", requireAuth, async (req, res) => {
+  try {
+    // Fetch the SGF record based on the provided sgf_id
+    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
+
+    // If the SGF doesn't exist, return a 404 error
+    if (!sgfRecord) {
+      return res.status(404).json({ message: "SGF couldn't be found" });
+    }
+
+    // Check for authorization
+    if (sgfRecord.user_id !== req.user.id) {
+      return res.status(403).json({ message: "Not authorized!" });
+    }
+
+    // Delete the SGF record
+    await sgfRecord.destroy();
+
+    // Return a success response
+    res.status(204).json({ message: "Successfully deleted" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error!" });
   }
 });
 
