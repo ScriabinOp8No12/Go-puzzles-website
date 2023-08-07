@@ -175,18 +175,19 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
     // Validation checks
     const { sgf_name, black_player, white_player, black_rank, white_rank, result } = req.body;
 
-    if (!sgf_name || sgf_name === "" || sgf_name.length > 150) {
-      let errors = {
-        sgf_name: []
-      };
+    let errors = {};
 
-      if (!sgf_name || sgf_name === "") {
-        errors.sgf_name.push("SGF name is required");
-      }
-      if (sgf_name.length > 100) {
-        errors.sgf_name.push("Maximum SGF name length is 100 characters!");
-      }
+    if (!sgf_name || sgf_name.trim() === "") {
+      errors.sgf_name = ["SGF name is required"];
+    } else if (sgf_name.length > 100) {
+      errors.sgf_name = ["Maximum SGF name length is 100 characters."];
+    }
 
+    if (result && result.trim() !== "" && result.length > 30) {
+      errors.result = ["Maximum result length is 30 characters."];
+    }
+
+    if (Object.keys(errors).length > 0) {
       return res.status(400).json({
         message: "Bad Request",
         errors
@@ -228,30 +229,31 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
 
     // Handle potential Sequelize validation errors
     if (err.name && err.name === 'SequelizeValidationError') {
-      let errors = {};
+        let errors = {};
 
-      err.errors.forEach(error => {
-        if (!errors[error.path]) {
-          errors[error.path] = [];
-        }
-        errors[error.path].push(error.message);
-      });
+        err.errors.forEach(error => {
+            if (!errors[error.path]) {
+                errors[error.path] = [];
+            }
+            errors[error.path].push(error.message);
+        });
 
-      return res.status(400).json({
-        message: "Validation error",
-        errors
-      });
+        return res.status(400).json({
+            message: "Validation error",
+            errors
+        });
     }
 
     res.status(500).json({ error: "Internal Server Error!" });
-  }
+}
+
 });
 
 // Delete an SGF (do NOT delete the puzzles with it)
 
 router.delete("/:sgf_id/current", requireAuth, async (req, res) => {
   try {
-    // Fetch the SGF record based on the provided sgf_id
+    // Find the SGF record based on the provided sgf_id
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
 
     // If the SGF doesn't exist, return a 404 error
@@ -268,14 +270,13 @@ router.delete("/:sgf_id/current", requireAuth, async (req, res) => {
     await sgfRecord.destroy();
 
     // Return a success response
-    res.status(204).json({ message: "Successfully deleted" });
+    res.status(200).json({ message: "Successfully deleted SGF" });
 
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 });
-
 
 
 module.exports = router;

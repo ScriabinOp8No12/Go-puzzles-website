@@ -643,14 +643,14 @@ Delete an SGF (do NOT delete the puzzles with it)
 
 - Successful Response
 
-  - Status Code: 204
+  - Status Code: 200
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "message": "Successfully deleted"
+      "message": "Successfully deleted SGF"
     }
     ```
 

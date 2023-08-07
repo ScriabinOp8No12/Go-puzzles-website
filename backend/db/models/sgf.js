@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("SGF name cannot be empty.");
             }
           },
-          // length of sgf_name is capped at 150 characters
+          // length of sgf_name is capped at 100 characters
           len: [1, 100],
         },
       },
@@ -100,13 +100,13 @@ module.exports = (sequelize, DataTypes) => {
       result: {
         type: DataTypes.STRING,
         validate: {
-          // length of 30 characters should cover all combinations of result strings
-          len: [0, 30],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+              throw new Error("Result cannot be empty.");
             }
           },
+           // length of 30 characters should cover all combinations of result strings
+           len: [0, 30],
         },
       },
       thumbnail: {
@@ -115,7 +115,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         notEmptyString(value) {
           if (value.length === 0 || value.trim().length === 0) {
-            throw new Error("Cannot be empty.");
+            throw new Error("Thumbnail cannot be empty.");
           }
         },
       },
