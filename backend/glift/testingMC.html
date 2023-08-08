@@ -12,11 +12,11 @@
         divId: "gliftContainer",
         sgf: {
           // Arthur's chaotic capturing race game
-          url: '../uploads/arthur_game_kgs.sgf',
+          url: '../uploads/arthur_game_comments.sgf',
           // we can use the initialPosition property to render the SGF at the specific move, looks like we just pass in an integer
           initialPosition: 34,
           problemConditions: {
-            // Need to modify the SGF itself and add a Comment to a move and say it's correct
+            // Need to modify the SGF itself and add comment(s) to a move with text "CORRECT"
             C: ['CORRECT']
           },
           widgetType: 'CORRECT_VARIATIONS_PROBLEM'},
