@@ -2,6 +2,8 @@
 
 # Steps:
 
+# 0. Read from the SGF, then write stuff to it at specific points (mistake move numbers, and comments at the end)
+
 # 1. Add ( in front of the move number where we need a comment for the correct move, this will be a branch
 # Ex. if move 3 is where the player made the mistake, we need to add the ( in front of the ; symbol for that move
 
@@ -17,3 +19,8 @@
 # to be one move before the puzzle happens.
 
 # Ex. If move 3 is the mistake, we need to do this (go one move before the mistake).  initialPosition: 2
+
+def injectSGF(mistake_moves, correct_moves, comment):
+
+  # grab the SGFs from the same place we grabbed them from to analyze, in this case, the uploads folder
+  sgf_folder_path = 'backend/uploads'

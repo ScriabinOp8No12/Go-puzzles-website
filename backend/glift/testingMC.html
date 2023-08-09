@@ -9,13 +9,35 @@
     <div id="gliftContainer"></div>
     <script>
 
+      function disableBoardClicks() {
+        document.getElementById('gliftContainer').style.pointerEvents = 'none';
+      }
+
+      let problemSolved = false
+
+      // alert is stopped after we either click a correct or incorrect move
       function onProblemCorrect() {
-          alert("Correct answer!");
+        if (!problemSolved) {
+          alert("Correct!");
+          problemSolved = true; // Set the flag to true
+          // update user ranking within this if block, so that it only triggers once
+          updateUserRanking(true)
         }
+      }
 
       function onProblemIncorrect() {
-          alert("Incorrect answer!");
+        if (!problemSolved) {
+          alert("Incorrect!");
+          problemSolved = true; // Set the flag to true
+          // update user ranking within this if block, so that it only triggers once
+          updateUserRanking(false)
         }
+      }
+
+      function updateUserRanking(isCorrect) {
+        if (isCorrect === true) console.log("ranking goes up")
+        else if (isCorrect === false) console.log("ranking goes down")
+      }
 
       let checkCorrectHook = new glift.api.HookOptions({
         problemCorrect: onProblemCorrect,
@@ -27,28 +49,19 @@
         sgf: {
           // Arthur's chaotic capturing race game
           url: '../uploads/arthur_game_comments.sgf',
-          // url: '../uploads/55012684-sgf-saucypizza-脂砚斋0102.sgf',
           // we can use the initialPosition property to render the SGF at the specific move, looks like we just pass in an integer
           initialPosition: 34,
           problemConditions: {
             // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
             C: ['CORRECT']
           },
+          // Changing it back to "STANDARD_PROBLEM" from "CORRECT_ANSWER_VARIATIONS" got rid of all the bugs it seems
           widgetType: 'STANDARD_PROBLEM'
         },
-        hooks: checkCorrectHook
+        // hooks go here, need to stop all clicks on board afterward
+        hooks: checkCorrectHook,
+
       });
     </script>
   </body>
 </html>
-
-check if element exists first in bottom right, if after a click, there's now a red x there (use inspect in browser)
-then the user clicked a wrong move, otherwise they got the right move
-
-and / or
-check if slash exists
-if 0th index is greater than 0, they got it correct
-
-----
-
-statusBar look it up (UI component)
