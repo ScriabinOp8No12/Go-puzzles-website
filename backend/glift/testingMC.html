@@ -8,6 +8,20 @@
   <body>
     <div id="gliftContainer"></div>
     <script>
+
+      function onProblemCorrect() {
+          alert("Correct answer!");
+        }
+
+      function onProblemIncorrect() {
+          alert("Incorrect answer!");
+        }
+
+      let checkCorrectHook = new glift.api.HookOptions({
+        problemCorrect: onProblemCorrect,
+        problemIncorrect: onProblemIncorrect
+      })
+
       gliftWidget = glift.create({
         divId: "gliftContainer",
         sgf: {
@@ -17,13 +31,13 @@
           // we can use the initialPosition property to render the SGF at the specific move, looks like we just pass in an integer
           initialPosition: 34,
           problemConditions: {
-            // Need to modify the SGF itself and add comment(s) to a move with text "CORRECT"
+            // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
             C: ['CORRECT']
           },
-          widgetType: 'CORRECT_VARIATIONS_PROBLEM'},
-        // }
-});
-
+          widgetType: 'STANDARD_PROBLEM'
+        },
+        hooks: checkCorrectHook
+      });
     </script>
   </body>
 </html>
