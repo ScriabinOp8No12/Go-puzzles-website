@@ -48,17 +48,19 @@
         divId: "gliftContainer",
         sgf: {
           // Arthur's chaotic capturing race game
-          url: '../uploads/arthur_game_comments.sgf',
+          // url: '../uploads/arthur_game_comments.sgf',
+          url: '../uploads/manipulating arthur sgf to have comments 8_10_23.txt',
           // we can use the initialPosition property to render the SGF at the specific move, looks like we just pass in an integer
           initialPosition: 34,
           problemConditions: {
             // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
+            // Bug where it'll let the user click the move played in the game, and it won't mark it as wrong and will instead play the continuation the opponent played
             C: ['CORRECT']
           },
           // Changing it back to "STANDARD_PROBLEM" from "CORRECT_ANSWER_VARIATIONS" got rid of all the bugs it seems
           widgetType: 'STANDARD_PROBLEM'
         },
-        // hooks go here, need to stop all clicks on board afterward
+        // hooks go here
         hooks: checkCorrectHook,
 
       });
