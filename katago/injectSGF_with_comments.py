@@ -35,82 +35,97 @@
 
 # Ex. If move 3 is the mistake, we need to do this (go one move before the mistake).  initialPosition: 2
 
-# def reverse_convert_coord(coord):
-#     col = ord(coord[0]) - ord('A')
-#     if col >= 8:
-#         col -= 1
-#     row = int(coord[1:]) - 1
-#     return row, col
-def convert_to_sgf(coord):
-    col, row = coord[0], int(coord[1:])
-    x = ord(col) - ord('A')
-    if col > 'I':
-        x -= 1
-    y = 19 - row
+# Works, but is hard coded to 19 by 19 board
+# def convert_to_sgf(coord):
+#     col, row = coord[0], int(coord[1:])
+#     x = ord(col) - ord('A')
+#     if col > 'I':
+#         x -= 1
+#     y = 19 - row
 
-    sgf_col = chr(ord('a') + x)
-    sgf_row = chr(ord('a') + y)
-    return sgf_col + sgf_row
+#     sgf_col = chr(ord('a') + x)
+#     sgf_row = chr(ord('a') + y)
+#     return sgf_col + sgf_row
+
+def convert_to_sgf(kata_coord):
+
+  col, row_str = kata_coord[0], kata_coord[1:]
+  row = int(row_str)
+
+  max_row = row
+
+  ord_col = ord(col)
+  if ord_col >= ord('I'):
+    ord_col += 1
+
+  sgf_col = chr(ord_col)
+  sgf_col = sgf_col.lower()
+
+  y = max_row - row
+  sgf_row = chr(ord('A') + y)
+  sgf_row = sgf_row.lower()
+
+  return sgf_col + sgf_row
+
+kata_coord = "D16"
+col_letter, row_letter = convert_to_sgf(kata_coord)
+print(col_letter, row_letter)
 
 
-# coord = "D16"
-# col_letter, row_letter = convert_to_sgf(coord)
-# print(col_letter, row_letter)
+# def process_katago_output(output):
+#     lines = output.strip().split("\n")
+#     mistake_moves = []
+#     correct_moves_list = []
 
+#     for line in lines:
+#         if line.startswith("Turn:"):
+#             parts = line.split(',')
+#             # should be +1 instead of -1 right?
+#             turn = int(parts[0].split(':')[1].strip()) + 1
+#             correct_moves = parts[2].split(':')[1].strip().split(', ')
+#             print("correct_moves: ", correct_moves)
+#             mistake_moves.append(turn)
+#             correct_moves_list.append(correct_moves)
 
-def process_katago_output(output):
-    lines = output.strip().split("\n")
-    mistake_moves = []
-    correct_moves_list = []
+#     return mistake_moves, correct_moves_list
 
-    for line in lines:
-        if line.startswith("Turn:"):
-            parts = line.split(',')
-            # should be +1 instead of -1 right?
-            turn = int(parts[0].split(':')[1].strip()) + 1
-            correct_moves = parts[2].split(':')[1].strip().split(', ')
-            mistake_moves.append(turn)
-            correct_moves_list.append(correct_moves)
+# def inject_sgf(file_path, mistake_moves, correct_moves_list):
+#     with open(file_path, 'r') as file:
+#         sgf_content = file.read()
 
-    return mistake_moves, correct_moves_list
+#     mistake_moves_with_color = []
 
-def inject_sgf(file_path, mistake_moves, correct_moves_list):
-    with open(file_path, 'r') as file:
-        sgf_content = file.read()
+#     for move_number in mistake_moves:
+#         index = sgf_content.find(';')
+#         for _ in range(move_number):
+#             index = sgf_content.find(';', index + 1)
 
-    mistake_moves_with_color = []
+#         color = sgf_content[index + 1]
+#         mistake_moves_with_color.append((move_number, color))
+#         sgf_content = sgf_content[:index] + '(' + sgf_content[index:]
 
-    for move_number in mistake_moves:
-        index = sgf_content.find(';')
-        for _ in range(move_number):
-            index = sgf_content.find(';', index + 1)
+#     correct_comments = []
+#     last_color_added = None
 
-        color = sgf_content[index + 1]
-        mistake_moves_with_color.append((move_number, color))
-        sgf_content = sgf_content[:index] + '(' + sgf_content[index:]
+#     # Loop through the mistakes and correct moves in the original order
+#     for (move_number, color), correct_moves in list(zip(mistake_moves_with_color, correct_moves_list)):
+#         for move in correct_moves:
+#             correct_move = convert_to_sgf(move)
 
-    correct_comments = []
-    last_color_added = None
+#             # If it's the first comment of that color, it gets two )), otherwise one )
+#             if color != last_color_added:
+#                 comment_format = '))'
+#             else:
+#                 comment_format = ')'
 
-    # Loop through the mistakes and correct moves in the original order
-    for (move_number, color), correct_moves in list(zip(mistake_moves_with_color, correct_moves_list)):
-        for move in correct_moves:
-            correct_move = convert_to_sgf(move)
+#             correct_comments.append('(;{}[{}{}]C[CORRECT]{}'.format(color, correct_move[1], correct_move[0], comment_format))
+#             last_color_added = color
 
-            # If it's the first comment of that color, it gets two )), otherwise one )
-            if color != last_color_added:
-                comment_format = '))'
-            else:
-                comment_format = ')'
+#     correct_comments.reverse()  # Reverse the correct comments to be in the original order
+#     sgf_content += '\n'.join(correct_comments)
 
-            correct_comments.append('(;{}[{}{}]C[CORRECT]{}'.format(color, correct_move[1], correct_move[0], comment_format))
-            last_color_added = color
-
-    correct_comments.reverse()  # Reverse the correct comments to be in the original order
-    sgf_content += '\n'.join(correct_comments)
-
-    with open(file_path, 'w') as file:
-        file.write(sgf_content)
+#     with open(file_path, 'w') as file:
+#         file.write(sgf_content)
 
 
 # Example usage
@@ -133,10 +148,13 @@ Turn: 118, Points lost on next move: 26.4, Correct moves: F8
 Turn: 101, Points lost on next move: 24.3, Correct moves: J10
 Moves 151 - end moves (Late middlegame and endgame):
 """
-file_path = 'katago/injection_sgf_test/arthur_game_inject_comment copy 4.sgf'
 
-mistake_moves, correct_moves_list = process_katago_output(katago_output)
-inject_sgf(file_path, mistake_moves, correct_moves_list)
+# process_katago_output(katago_output)
+
+# file_path = 'katago/injection_sgf_test/arthur_game_inject_comment copy 4.sgf'
+
+# mistake_moves, correct_moves_list = process_katago_output(katago_output)
+# inject_sgf(file_path, mistake_moves, correct_moves_list)
 
 # ------------------------
 

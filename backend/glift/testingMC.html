@@ -9,10 +9,6 @@
     <div id="gliftContainer"></div>
     <script>
 
-      function disableBoardClicks() {
-        document.getElementById('gliftContainer').style.pointerEvents = 'none';
-      }
-
       let problemSolved = false
 
       // alert is stopped after we either click a correct or incorrect move
@@ -55,15 +51,18 @@
           problemConditions: {
             // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
             // Bug where it'll let the user click the move played in the game, and it won't mark it as wrong and will instead play the continuation the opponent played
-            C: ['CORRECT']
+            C: ['CORRECT'],
+
           },
-          // Changing it back to "STANDARD_PROBLEM" from "CORRECT_ANSWER_VARIATIONS" got rid of all the bugs it seems
+          // Changing it back to "STANDARD_PROBLEM" from "CORRECT_VARIATIONS_PROBLEM" got rid of all the bugs it seems
           widgetType: 'STANDARD_PROBLEM'
+          // widgetType: 'CORRECT_VARIATIONS_PROBLEM'
         },
         // hooks go here
         hooks: checkCorrectHook,
 
       });
+
     </script>
   </body>
 </html>
