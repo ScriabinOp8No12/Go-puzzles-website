@@ -1,4 +1,6 @@
 (;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]
+RU[Chinese]SZ[19]KM[375.00]TM[300]
+GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]RE[B+Resign]RL[0]RN[3]TC[3]TT[30]
 ;B[qd]
 ;W[dp]
 ;B[pq]
@@ -33,7 +35,7 @@
 ;W[rr]
 ;B[lr]
 ;W[kr]
-(;B[nq]
+;B[nq]
 ;W[on]
 ;B[jp]
 ;W[iq]
@@ -300,5 +302,3 @@
 ;B[jd]
 ;W[mf]
 ;B[ed])
-(;B[jp]C[CORRECT])
-(;B[ip]C[CORRECT]))
