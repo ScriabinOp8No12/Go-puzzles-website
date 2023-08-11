@@ -1,19 +1,66 @@
 
 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testing MC</title>
+    <script src="../glift.js"></script>
+    <link rel ="stylesheet" href="test.css">
+  </head>
+  <body>
+    <div id="gliftContainer"></div>
+    <script>
 
-const actualMoveX = 0;
-const actualMoveY = 0;
+      const correctMoves = [
+        {x: 0, y: 0},
+        {x: 1, y: 1}
+      ]
 
-function onProblemIncorrect(clickedInt) {
+      let problemSolved = false
 
-  // Get coordinates by calling x() and y()
-  const x = clickedInt.x();
-  const y = clickedInt.y();
+      // alert is stopped after we either click a correct or incorrect move
+      function onProblemCorrect() {
+        if (!problemSolved) {
+          alert("Correct!");
+          problemSolved = true; // Set the flag to true
+          // update user ranking within this if block, so that it only triggers once
+          updateUserRanking(true)
+        }
+      }
 
-  if (x === actualMoveX && y === actualMoveY) {
-    // Actual move logic
-  } else {
-    // Default logic
-  }
+      function onProblemIncorrect() {
+        if (!problemSolved) {
+          alert("Incorrect!");
+          problemSolved = true; // Set the flag to true
+          // update user ranking within this if block, so that it only triggers once
+          updateUserRanking(false)
+        }
+      }
 
-}
+      function updateUserRanking(isCorrect) {
+        if (isCorrect === true) console.log("ranking goes up")
+        else if (isCorrect === false) console.log("ranking goes down")
+      }
+
+      let checkCorrectHook = new glift.api.HookOptions({
+        problemCorrect: onProblemCorrect,
+        problemIncorrect: onProblemIncorrect
+      })
+
+      gliftWidget = glift.create({
+        divId: "gliftContainer",
+        sgf: {
+          url: '../uploads/manipulating arthur sgf to have comments 8_10_23.txt',
+          initialPosition: 34,
+          problemConditions: {
+
+          },
+        },
+        // hooks go here
+        hooks: checkCorrectHook,
+      });
+
+
+    </script>
+  </body>
+</html>
