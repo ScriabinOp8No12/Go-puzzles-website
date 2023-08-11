@@ -33,7 +33,7 @@
 ;W[rr]
 ;B[lr]
 ;W[kr]
-(;B[nq]
+(;B[nq]C[CORRECT]
 ;W[on]
 ;B[jp]
 ;W[iq]
