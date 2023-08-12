@@ -1,74 +1,19 @@
-# Inject SGF with comment so glift can determine if the puzzle is right or wrong
+from sgfmill import sgf
 
-# Steps:
+# Remember to dynamically add the board size in!
+def convert_to_sgf(coord, board_size):
+    col, row = coord[0], int(coord[1:])
+    x = ord(col) - ord('A')
+    if col > 'I':
+        x -= 1
+    y = board_size - row
 
-# 0. Read from the SGF, then write stuff to it at specific points (mistake move numbers, and comments at the end)
+    sgf_col = chr(ord('a') + x)
+    sgf_row = chr(ord('a') + y)
+    return sgf_col + sgf_row
 
-# 1. Add ( in front of the move number where we need a comment for the correct move, this will be a branch
-# Ex. if move 3 is where the player made the mistake, we need to add the ( in front of the ; symbol for that move
-
-# 2. Inject this format at the very bottom of the file, after the last )
-# We can add them all in order at the end, then reverse the order of the comments at the very end
-
-# (;B[jp]C[CORRECT])
-# (;B[ip]C[CORRECT]))
-
-# 2a. If there's only 1 comment, it still needs )) so basically the first comment we add will be in this format (move info and C[CORRECT]))
-# 2b. We need to reconvert the KataGo coordinate output back to the SGF output for the moves, ex. [jp]
-
-# Need to reverse this function below, which converted SGF formatting of moves to KataGo formatting of moves:
-
-  # Convert coordinates to KataGo 1 line JSON dictionary format
-    # def convert_coord(coord):
-    #     x, y = coord
-    #     col = chr(ord('A') + y)
-    #     if col >= 'I':
-    #         col = chr(ord(col) + 1)
-    #     row = x + 1
-    #     return col + str(row)
-
-
-# Next steps:
-
-# 3. Create an html page with the injected javascript in it, remember to set the initialPosition: property value
-# to be one move before the puzzle happens.
-
-# Ex. If move 3 is the mistake, we need to do this (go one move before the mistake).  initialPosition: 2
-
-# Works, but is hard coded to 19 by 19 board
-# def convert_to_sgf(coord):
-#     col, row = coord[0], int(coord[1:])
-#     x = ord(col) - ord('A')
-#     if col > 'I':
-#         x -= 1
-#     y = 19 - row
-
-#     sgf_col = chr(ord('a') + x)
-#     sgf_row = chr(ord('a') + y)
-#     return sgf_col + sgf_row
-
-def convert_to_sgf(kata_coord):
-
-  col, row_str = kata_coord[0], kata_coord[1:]
-  row = int(row_str)
-
-  max_row = row
-
-  ord_col = ord(col)
-  if ord_col >= ord('I'):
-    ord_col += 1
-
-  sgf_col = chr(ord_col)
-  sgf_col = sgf_col.lower()
-
-  y = max_row - row
-  sgf_row = chr(ord('A') + y)
-  sgf_row = sgf_row.lower()
-
-  return sgf_col + sgf_row
-
-kata_coord = "D16"
-col_letter, row_letter = convert_to_sgf(kata_coord)
+kata_coord = "C7"
+col_letter, row_letter = convert_to_sgf(kata_coord, 19)
 print(col_letter, row_letter)
 
 
@@ -181,6 +126,9 @@ Moves 151 - end moves (Late middlegame and endgame):
 #     # Loop through the mistakes and correct moves in reverse order
 #     for (move_number, color), correct_moves in reversed(list(zip(mistake_moves_with_color, correct_moves_list))):
 #         for move in correct_moves:
+
+    # ADD CONVERT_TO_SGF 2nd PARAMETER, DYNAMICALLY INPUT BOARD SIZE BASED ON SGFMILL PARSING IT
+    # REMEMBER TO HANDLE ERRORS IF SIZE ISN'T DETERMINED, THROW AN ERROR AND TOSS SGF?
 #             correct_move = convert_to_sgf(move)
 
 #             # If the previous move's color is the same, use only one closing parenthesis
@@ -201,3 +149,42 @@ Moves 151 - end moves (Late middlegame and endgame):
 
 #     with open(file_path, 'w') as file:
 #         file.write(sgf_content)
+
+# ---------- Plan below
+
+# Inject SGF with comment so glift can determine if the puzzle is right or wrong
+
+# Steps:
+
+# 0. Read from the SGF, then write stuff to it at specific points (mistake move numbers, and comments at the end)
+
+# 1. Add ( in front of the move number where we need a comment for the correct move, this will be a branch
+# Ex. if move 3 is where the player made the mistake, we need to add the ( in front of the ; symbol for that move
+
+# 2. Inject this format at the very bottom of the file, after the last )
+# We can add them all in order at the end, then reverse the order of the comments at the very end
+
+# (;B[jp]C[CORRECT])
+# (;B[ip]C[CORRECT]))
+
+# 2a. If there's only 1 comment, it still needs )) so basically the first comment we add will be in this format (move info and C[CORRECT]))
+# 2b. We need to reconvert the KataGo coordinate output back to the SGF output for the moves, ex. [jp]
+
+# Need to reverse this function below, which converted SGF formatting of moves to KataGo formatting of moves:
+
+  # Convert coordinates to KataGo 1 line JSON dictionary format
+    # def convert_coord(coord):
+    #     x, y = coord
+    #     col = chr(ord('A') + y)
+    #     if col >= 'I':
+    #         col = chr(ord(col) + 1)
+    #     row = x + 1
+    #     return col + str(row)
+
+
+# Next steps:
+
+# 3. Create an html page with the injected javascript in it, remember to set the initialPosition: property value
+# to be one move before the puzzle happens.
+
+# Ex. If move 3 is the mistake, we need to do this (go one move before the mistake).  initialPosition: 2
