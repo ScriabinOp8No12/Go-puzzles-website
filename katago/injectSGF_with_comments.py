@@ -12,7 +12,7 @@ def convert_to_sgf(coord, board_size):
     sgf_row = chr(ord('a') + y)
     return sgf_col + sgf_row
 
-kata_coord = "C7"
+kata_coord = "J4"
 col_letter, row_letter = convert_to_sgf(kata_coord, 19)
 print(col_letter, row_letter)
 
