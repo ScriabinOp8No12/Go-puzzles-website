@@ -1,6 +1,8 @@
 from sgfmill import sgf
 
 # Converts a SGF into a single line JSON dictionary to feed into the Katago analysis engine on the command line
+# NOTE: the convert_coord function takes in a tuple of INTEGERS, not letters.
+
 
 def sgf_to_one_line_json(input_file, player_turn):
     # Load the SGF file
@@ -10,16 +12,23 @@ def sgf_to_one_line_json(input_file, player_turn):
     root_node = sgf_game.get_root()
 
     # Extract relevant properties from SGF
-    size = sgf_game.get_size()
-    komi = root_node.get('KM')
-    rules = root_node.get('RU').lower()
+    try:
+      size = sgf_game.get_size()
+      # if no size property found in SGF, default size to 19 by 19
+    except ValueError:
+      size = 19
+    komi = root_node.get('KM') if root_node.has_property('KM') else 0.5
+    rules = root_node.get('RU').lower() if root_node.has_property('RU') else "?"
     # Need to make sure that if there's no AB or AW property (like in an even game) that there's no error
+    # *** This must be converting the stones into integer coordinates instead of using sgf letter coordinates
     black_stones = root_node.get(
         'AB') if root_node.has_property('AB') else None
+    print("black stones: ", black_stones)
     white_stones = root_node.get(
         'AW') if root_node.has_property('AW') else None
 
     # Convert coordinates to KataGo 1 line JSON dictionary format
+    # coord is now in integers, not letters!
     def convert_coord(coord):
         x, y = coord
         col = chr(ord('A') + y)
@@ -42,8 +51,10 @@ def sgf_to_one_line_json(input_file, player_turn):
     main_sequence = sgf_game.get_main_sequence()
     for node in main_sequence:
         if node.has_property('B'):
+            # Move is in number format, like this: (15, 16), (13, 0) (15, 18)
             move = node.get('B')
             if move is not None:
+                # print("move: ", move)
                 moves.append(['B', convert_coord(move)])
         elif node.has_property('W'):
             move = node.get('W')
@@ -88,3 +99,7 @@ def sgf_to_one_line_json(input_file, player_turn):
         result['komi'] = float(komi)
 
     return result
+
+result = sgf_to_one_line_json('backend/uploads/manipulating arthur sgf to have comments 8_10_23.sgf', 'B')
+
+print(result)
