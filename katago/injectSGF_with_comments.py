@@ -1,4 +1,30 @@
 from sgfmill import sgf
+import shutil
+
+def copy_and_remove_comments_sgf(input_path, output_path):
+
+  # Make a complete copy first
+  shutil.copy2(input_path, output_path)
+
+  # Open and remove comments from the copy
+  with open(output_path, encoding='utf-8') as f:
+    game = sgf.Sgf_game.from_bytes(f.read().encode('utf-8'))
+
+  new_game = sgf.Sgf_game()
+
+  # Copy game info
+  for node in game.get_root():
+    if node.properties[0] not in ['C', 'CM']:
+      new_game.get_root().append(node)
+
+  # Copy main game branch
+  for node in game.get_main_branch():
+    if 'C' not in node.properties:
+      new_game.extend_main_sequence(node)
+
+  # Overwrite file with no comments
+  with open(output_path, 'w', encoding='utf-8') as f:
+    f.write(new_game.serialise())
 
 # Remember to dynamically add the board size in!
 def convert_to_sgf(coord, board_size):
@@ -12,65 +38,69 @@ def convert_to_sgf(coord, board_size):
     sgf_row = chr(ord('a') + y)
     return sgf_col + sgf_row
 
-kata_coord = "J4"
-col_letter, row_letter = convert_to_sgf(kata_coord, 19)
-print(col_letter, row_letter)
+# kata_coord = "J4"
+# col_letter, row_letter = convert_to_sgf(kata_coord, 19)
+# print(col_letter, row_letter)
+
+def process_katago_output(output):
+    lines = output.strip().split("\n")
+    mistake_moves = []
+    correct_moves_list = []
+
+    for line in lines:
+        if line.startswith("Turn:"):
+            parts = line.split(',')
+            # add 1 to turn number, and that's the mistake move that we need to remove that line and rest of SGF from
+            turn = int(parts[0].split(':')[1].strip()) + 1
+
+            # print("turn: ", turn)
+
+            correct_moves = line.split("moves:")[1].strip()
+            # print(correct_moves)
+
+            mistake_moves.append(turn)
+            correct_moves_list.append(correct_moves)
+    print(correct_moves_list)
+
+    return mistake_moves, correct_moves_list
 
 
-# def process_katago_output(output):
-#     lines = output.strip().split("\n")
-#     mistake_moves = []
-#     correct_moves_list = []
+def inject_sgf_copy(file_path, mistake_moves, correct_moves_list):
+    with open(file_path, 'r') as file:
+        sgf_content = file.read()
 
-#     for line in lines:
-#         if line.startswith("Turn:"):
-#             parts = line.split(',')
-#             # should be +1 instead of -1 right?
-#             turn = int(parts[0].split(':')[1].strip()) + 1
-#             correct_moves = parts[2].split(':')[1].strip().split(', ')
-#             print("correct_moves: ", correct_moves)
-#             mistake_moves.append(turn)
-#             correct_moves_list.append(correct_moves)
+    mistake_moves_with_color = []
 
-#     return mistake_moves, correct_moves_list
+    for move_number in mistake_moves:
+        index = sgf_content.find(';')
+        for _ in range(move_number):
+            index = sgf_content.find(';', index + 1)
 
-# def inject_sgf(file_path, mistake_moves, correct_moves_list):
-#     with open(file_path, 'r') as file:
-#         sgf_content = file.read()
+        color = sgf_content[index + 1]
+        mistake_moves_with_color.append((move_number, color))
+        sgf_content = sgf_content[:index] + '(' + sgf_content[index:]
 
-#     mistake_moves_with_color = []
+    correct_comments = []
+    last_color_added = None
 
-#     for move_number in mistake_moves:
-#         index = sgf_content.find(';')
-#         for _ in range(move_number):
-#             index = sgf_content.find(';', index + 1)
+    # Loop through the mistakes and correct moves in the original order
+    for (move_number, color), correct_moves in list(zip(mistake_moves_with_color, correct_moves_list)):
+        for move in correct_moves:
+            correct_move = convert_to_sgf(move)
 
-#         color = sgf_content[index + 1]
-#         mistake_moves_with_color.append((move_number, color))
-#         sgf_content = sgf_content[:index] + '(' + sgf_content[index:]
+            # If it's the first comment of that color, it gets two )), otherwise one )
+            if color != last_color_added:
+                comment_format = '))'
+            else:
+                comment_format = ')'
 
-#     correct_comments = []
-#     last_color_added = None
+            correct_comments.append('(;{}[{}{}]C[CORRECT]{}'.format(color, correct_move[1], correct_move[0], comment_format))
+            last_color_added = color
 
-#     # Loop through the mistakes and correct moves in the original order
-#     for (move_number, color), correct_moves in list(zip(mistake_moves_with_color, correct_moves_list)):
-#         for move in correct_moves:
-#             correct_move = convert_to_sgf(move)
+    sgf_content += '\n'.join(correct_comments)
 
-#             # If it's the first comment of that color, it gets two )), otherwise one )
-#             if color != last_color_added:
-#                 comment_format = '))'
-#             else:
-#                 comment_format = ')'
-
-#             correct_comments.append('(;{}[{}{}]C[CORRECT]{}'.format(color, correct_move[1], correct_move[0], comment_format))
-#             last_color_added = color
-
-#     correct_comments.reverse()  # Reverse the correct comments to be in the original order
-#     sgf_content += '\n'.join(correct_comments)
-
-#     with open(file_path, 'w') as file:
-#         file.write(sgf_content)
+    with open(file_path, 'w') as file:
+        file.write(sgf_content)
 
 
 # Example usage
@@ -98,7 +128,7 @@ Moves 151 - end moves (Late middlegame and endgame):
 
 # file_path = 'katago/injection_sgf_test/arthur_game_inject_comment copy 4.sgf'
 
-# mistake_moves, correct_moves_list = process_katago_output(katago_output)
+mistake_moves, correct_moves_list = process_katago_output(katago_output)
 # inject_sgf(file_path, mistake_moves, correct_moves_list)
 
 # ------------------------

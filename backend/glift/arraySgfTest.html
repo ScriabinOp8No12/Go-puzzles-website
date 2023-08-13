@@ -1,80 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Testing MC</title>
+    <title>Testing SGF Array</title>
     <script src="../glift.js"></script>
-    <link rel ="stylesheet" href="test.css">
+    <link rel="stylesheet" href="test.css" />
   </head>
   <body>
     <div id="gliftContainer"></div>
-    <script>
-
-      const sgf1 = {
-        sgfString: '(;GM[1]FF[4]CA[UTF-8])',
-        // initialPosition: 34,
-        problemConditions: {
-        // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
-        C: ['CORRECT']},
-        widgetType: 'STANDARD_PROBLEM'};
-
-      const sgf2 = {
-        sgfString: '(;GM[1]FF[4]CA[UTF-8])',
-        // initialPosition: 34,
-        problemConditions: {
-        // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
-        C: ['CORRECT']},
-        widgetType: 'STANDARD_PROBLEM'};
-
-      const sgfCollection = [sgf1, sgf2];
-
-      let problemSolved = false
-
-      // alert is stopped after we either click a correct or incorrect move
-      function onProblemCorrect() {
-        if (!problemSolved) {
-          alert("Correct!");
-          problemSolved = true; // Set the flag to true
-          // update user ranking within this if block, so that it only triggers once
-          updateUserRanking(true)
-        }
-      }
-
-      function onProblemIncorrect() {
-        if (!problemSolved) {
-          alert("Incorrect!");
-          problemSolved = true; // Set the flag to true
-          // update user ranking within this if block, so that it only triggers once
-          updateUserRanking(false)
-        }
-      }
-
-      function updateUserRanking(isCorrect) {
-        if (isCorrect === true) console.log("ranking goes up")
-        else if (isCorrect === false) console.log("ranking goes down")
-      }
-
-      let checkCorrectHook = new glift.api.HookOptions({
-        problemCorrect: onProblemCorrect,
-        problemIncorrect: onProblemIncorrect
-      })
-
-      gliftWidget = glift.create({
-        // pass sgfCollection in here
-        sgfCollection,
-        divId: "gliftContainer",
-        hooks: checkCorrectHook,
-      });
-
-      const iconActions = {
-        arrowRight: {
-          click: () => {
-            let index = gliftWidget.getSgfCollectionIndex();
-            gliftWidget.goToSgf(index + 1);
-          }
-        }
-      }
-
-      gliftWidget.iconActions(iconActions);
-    </script>
+    <script src="sgfArrayArthurProblem.js"></script>
   </body>
 </html>
