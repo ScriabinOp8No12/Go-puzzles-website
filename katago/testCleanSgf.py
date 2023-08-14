@@ -1,27 +1,63 @@
-(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]
+from sgfmill import sgf
+
+def clean_sgf(sgf_text):
+    game = sgf.Sgf_game.from_string(sgf_text)
+    cleaned_sgf = []
+
+    # Add root properties
+    cleaned_sgf.append("(")
+    root_node = game.get_root()
+    cleaned_sgf.append(";")
+    for prop, values in root_node.get_raw_property_map().items():
+        if prop not in ['C', 'GC', 'GB', 'GW', 'AW', 'AB', 'TR', 'AE']:  # Exclude comments, added stones, etc.
+            for value in values:
+                cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")  # Decode bytes object
+
+    # Add main branch nodes
+    node = root_node
+    while node:
+        if node:  # Check if node has children
+            child = node[0]  # Consider only the first child (main branch)
+            cleaned_sgf.append(";")
+            for prop, values in child.get_raw_property_map().items():
+                if prop not in ['C', 'GC', 'GB', 'GW', 'AW', 'AB', 'TR', 'AE']:  # Exclude comments, added stones, etc.
+                    for value in values:
+                        cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")  # Decode bytes object
+            node = child
+        else:
+            node = None
+
+    cleaned_sgf.append(")")
+
+    cleaned_sgf_str = "".join(cleaned_sgf)
+    print(cleaned_sgf_str)  # Print the cleaned SGF string
+    return cleaned_sgf_str
+
+
+sgf_string = """(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]
 RU[Chinese]SZ[19]KM[375.00]TM[300]
-GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]C[test]RE[B+Resign]RL[0]RN[3]TC[3]TT[30]
+GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]RE[B+Resign]RL[0]RN[3]TC[3]TT[30]
 ;B[qd]
 ;W[dp]
 ;B[pq]
 ;W[dd]
 ;B[cc]
-(;W[dc]
+;W[dc]
 ;B[cd]
 ;W[ce]
 ;B[be]
-(;W[bf]
+;W[bf]
 ;B[cf]
 ;W[de]
 ;B[bg]
 ;W[bd]
 ;B[af]
-(;W[bc]
+;W[bc]
 ;B[nc]
 ;W[qo]
 ;B[ql]
 ;W[op]
-(;B[oq]
+;B[oq]
 ;W[np]
 ;B[mr]
 ;W[lq]
@@ -31,11 +67,11 @@ GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]C[test]RE[B+Resign]RL[
 ;W[kq]
 ;B[lo]
 ;W[rq]
-(;B[qr]C[CORRECT]
+;B[qr]
 ;W[rr]
-;B[lr]
-;W[kr]C[CORRECT]
-;B[nq]C[CORRECT]
+;B[lr]TR[io][ip]
+(;W[kr]
+(;B[nq]C[COMMENT CORRECT]
 ;W[on]
 ;B[jp]
 ;W[iq]
@@ -55,7 +91,7 @@ GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]C[test]RE[B+Resign]RL[
 ;W[rb]
 ;B[sd]
 ;W[pe]
-;B[pc]
+(;B[pc]
 ;W[oc]
 ;B[qb]
 ;W[nd]
@@ -203,7 +239,7 @@ GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]C[test]RE[B+Resign]RL[
 ;W[hb]
 ;B[jb]
 ;W[ea]
-(;B[fa]
+;B[fa]
 ;W[da]
 ;B[ha]
 ;W[ia]
@@ -284,7 +320,7 @@ GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]C[test]RE[B+Resign]RL[
 ;B[ja]
 ;W[bf]
 ;B[ih]
-;W[df]C[hiello]
+;W[df]
 ;B[mm]
 ;W[mn]
 ;B[fh]
@@ -301,35 +337,11 @@ GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]C[test]RE[B+Resign]RL[
 ;W[eb]
 ;B[jd]
 ;W[mf]
-;B[ed]C[hihaisdfhaiosdhfoashdf correct hi])
-(;AW[ch][dh][eh][ci][ei][cj]AB[di][dj][ej][dk][ek]C[TEST]))
-(;B[qp]
-;W[rp]
-;B[po]
-;W[pp]
-;B[qq]C[CORRECT]))
-(;B[pp]
-;W[po]
-;B[oo]
-;W[oq]
-;B[or]
-;W[nr]
-;B[pr]
-;W[mq]
-;B[rp]TR[oo][po][qo][op][pp][oq][pq][or][pr]C[YES CORRECT]))
-(;W[df]))
-(;W[de]
-;B[cf]
-;W[df]
-;B[cg]
-;W[dg]
-;B[bf]
-;W[bg]C[CORRECT]))
-(;W[id]
-;B[jc]
-;W[jd]
-;B[ic]
-;W[hd]
-;B[hc]
-;W[kc]C[hi]
-;B[kd]C[CORRECT]))
+;B[ed])
+(;AW[ne][nf][of][ng][qg]AB[pf][og][pg][oh][ph][qh]))
+(;AW[kn][ln][mn][nn][ko][no]AB[oo][po][pp][nq]TR[ln][mn]))
+(;AW[ii][gk][pl][pm][gn][nq]AB[nl][mm]))
+"""
+
+
+clean_sgf(sgf_string)
