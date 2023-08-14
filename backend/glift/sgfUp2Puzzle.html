@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Testing MC</title>
+    <title>Testing Cleaned SGF and automated comments!</title>
     <script src="../glift.js"></script>
     <link rel ="stylesheet" href="test.css">
   </head>
@@ -43,9 +43,10 @@
       gliftWidget = glift.create({
         divId: "gliftContainer",
         sgf: {
-          url: '../uploads/arthur_game_test_b4_inject.sgf',
+          // url: '../uploads/arthur_game_test_b4_inject.sgf',
+          url: 'puzzle_outputs_for_glift1/cleaned_adding_random_comments_to_arthur_game_for_testing_move_31.sgf',
           // we can use the initialPosition property to render the SGF at the specific move, looks like we just pass in an integer
-          initialPosition: 34,
+          initialPosition: 30,
           problemConditions: {
             // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
             C: ['CORRECT'],

@@ -9,7 +9,7 @@ def generate_cleaned_filename(original_sgf_name):
 
 def generate_output_filename(original_sgf_name, move_number):
     # Folder to save the files to
-    output_folder = 'backend/glift/puzzle_outputs_for_glift2'
+    output_folder = 'backend/glift/puzzle_outputs_for_glift3'
 
     # Create the folder if it doesn't exist
     if not os.path.exists(output_folder):
@@ -118,7 +118,9 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
           # find method 2nd argument takes in the starting index for the search, so when we do
           # index + 1, this starts the search just after the current index of the semicolon that was found in the previous loop
           index = sgf_content.find(';', index + 1)
-
+        # save the value of this last index so we can add an opening parenthesis in our final sgf format without
+        # index getting a new value lower down in our code (index number will be the last ; for our last move)
+        semicolon_index = index
         # Extracting the player's color from the mistake move and storing it
         color = sgf_content[index + 1]
         # print(color)
@@ -126,7 +128,7 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
         index = sgf_content.find(']', index)
         # slice and grab the first half of the sgf at that index + 1 (for move 35 in our example, index is at 397)
         # then add a comment saying that this move is incorrect and it was the move played in the actual game
-        new_sgf_content = sgf_content[:index + 1] + "C[Incorrect - This was the actual move played in the game!])"
+        new_sgf_content = sgf_content[:semicolon_index] + "(" + sgf_content[semicolon_index:index + 1] + "C[Incorrect - This was the actual move played in the game!])"
         # print(new_sgf_content)
 
         correct_moves = correct_moves_dictionary[key].split(', ')
@@ -137,7 +139,7 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
             sgf_move = convert_to_sgf(move, board_size)
             correct_comments.append('(;{}[{}]C[CORRECT])'.format(color, sgf_move))
 
-        # Reverse the order of the comments, so that glift has lower numbers for the slightly preferred AI moves
+        # Reverse the order of the comments, so that glift has lower numbers for the slightly more preferred AI moves
         correct_comments.reverse()
 
         # Final content needs to add the correct move comments at the end of the file, then include an extra closing )
