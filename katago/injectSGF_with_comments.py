@@ -1,36 +1,47 @@
+import os
 import re
 from sgfmill import sgf
 
-# def create_moves_only_sgf_copy(input_sgf, output_sgf):
-#     # Read the original SGF file
-#     with open(input_sgf, 'rb') as f:
-#         sgf_data = f.read()
 
-#     # Parse the SGF data
-#     original_sgf_game = sgf.Sgf_game.from_bytes(sgf_data)
-#     board_size = original_sgf_game.get_size()
+def generate_output_filename(original_sgf_name, move_number):
+    # Folder to save the files to
+    output_folder = 'backend/glift/puzzle_outputs_for_glift/'
 
-#     # Read the original SGF file as text
-#     with open(input_sgf, 'r') as f:
-#         sgf_text_data = f.read()
+    # Create the folder if it doesn't exist
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
 
-#     # Extract only the moves using regular expressions
-#     moves = re.findall(r';[BW]\[[a-z]+\]', sgf_text_data)
-#     moves_only_sgf_data = f"(;FF[4]CA[UTF-8]GM[1]SZ[{board_size}]" + "".join(moves) + ")"
+    # Extract the original filename without extension
+    filename, extension = os.path.splitext(os.path.basename(original_sgf_name))
 
-#     # print(moves_only_sgf_data)
+    # Combine the folder, original filename, and move number to create the new filename
+    output_filename = os.path.join(output_folder, f"{filename}_move_{move_number}{extension}")
 
-#     # Write the moves-only SGF data to a new file
-#     with open(output_sgf, 'w') as f:
-#         f.write(moves_only_sgf_data)
-
-# input_sgf = "backend/glift/aaron_game_with_comments.sgf"
-# output_sgf = "backend/glift/aaron_game_with_no_comments.sgf"
-
-# create_moves_only_sgf_copy(input_sgf, output_sgf)
+    return output_filename
 
 
-# # Convert KataGo solution coordinates into sgf coordinates
+def create_moves_only_sgf_copy(input_sgf, output_sgf):
+    # Read the original SGF file
+    with open(input_sgf, 'rb') as f:
+        sgf_data = f.read()
+
+    # Parse the SGF data
+    original_sgf_game = sgf.Sgf_game.from_bytes(sgf_data)
+    board_size = original_sgf_game.get_size()
+
+    # Read the original SGF file as text
+    with open(input_sgf, 'r') as f:
+        sgf_text_data = f.read()
+
+    # Extract only the moves using regular expressions
+    moves = re.findall(r';[BW]\[[a-z]+\]', sgf_text_data)
+    moves_only_sgf_data = f"(;FF[4]CA[UTF-8]GM[1]SZ[{board_size}]" + "".join(moves) + ")"
+
+    # Write the moves-only SGF data to a new file
+    with open(output_sgf, 'w') as f:
+        f.write(moves_only_sgf_data)
+
+# Convert KataGo solution coordinates into sgf coordinates
 def convert_to_sgf(coord, board_size):
 
     col, row = coord[0], int(coord[1:])
@@ -42,10 +53,6 @@ def convert_to_sgf(coord, board_size):
     sgf_col = chr(ord('a') + x)
     sgf_row = chr(ord('a') + y)
     return sgf_col + sgf_row
-
-# kata_coord = "J4"
-# col_letter, row_letter = convert_to_sgf(kata_coord, 19)
-# print(col_letter, row_letter)
 
 def process_katago_output(output):
     lines = output.strip().split("\n")
@@ -68,33 +75,12 @@ def process_katago_output(output):
 
     return correct_moves_dictionary
 
-# Example usage
-katago_output = """
-Moves 0 - 50 moves (Opening):
-Turn: 34, Points lost on next move: 6.5, Correct moves: J4
-Turn: 30, Points lost on next move: 3.5, Correct moves: K4, C18, S2, O6, R3, P6
-Turn: 38, Points lost on next move: 2.9, Correct moves: S5, E4, E3, R4, C18
-Moves 51 - 100 moves (Early middlegame):
-Turn: 92, Points lost on next move: 20.8, Correct moves: N8
-Turn: 93, Points lost on next move: 16.8, Correct moves: N8
-Turn: 90, Points lost on next move: 9.1, Correct moves: O9
-Turn: 95, Points lost on next move: 7.0, Correct moves: L9
-Turn: 78, Points lost on next move: 7.0, Correct moves: M13
-Moves 101 - 150 moves (Mid middlegame):
-Turn: 126, Points lost on next move: 67.1, Correct moves: G10, K10, Q11, R12
-Turn: 127, Points lost on next move: 58.0, Correct moves: K7
-Turn: 121, Points lost on next move: 30.8, Correct moves: F10
-Turn: 118, Points lost on next move: 26.4, Correct moves: F8
-Turn: 101, Points lost on next move: 24.3, Correct moves: J10
-Moves 151 - end moves (Late middlegame and endgame):
-"""
-
-correct_moves_list = process_katago_output(katago_output)
-
 def inject_sgf_copy(file_path, correct_moves_dictionary):
     with open(file_path, 'rb') as file:
         sgf_content_bytes = file.read()
+
     original_sgf_game = sgf.Sgf_game.from_bytes(sgf_content_bytes)
+    # dynamically get the board size
     board_size = original_sgf_game.get_size()
     sgf_content = sgf_content_bytes.decode('utf-8')
 
@@ -102,7 +88,6 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
     # loop through dictionary's keys, for each key, create a copy of an SGF that includes moves up to and including that number
     for key in correct_moves_dictionary:
         index = sgf_content.find(';')
-
         # each key in the dictionary is an integer representing the move where the mistake was made
         # this key has values of the correct moves
         for _ in range(key):
@@ -129,9 +114,36 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
             correct_comments.append('(;{}[{}]C[CORRECT])'.format(color, sgf_move))
 
         final_sgf_content = new_sgf_content + '\n' + '\n'.join(correct_comments)
-        print(final_sgf_content)
 
-sgf_file = 'backend/glift/arthur_game_blank.sgf'
+        # write each file to a name name, which is given by a combination of the file path and the key (turn number)
+        output_filename = generate_output_filename(file_path, key)
+        with open(output_filename, 'w') as f:
+            f.write(final_sgf_content)
+
+
+# Example usage
+# input_sgf = "backend/glift/random_comments_added_arthur_testing.sgf"
+input_sgf = "backend/glift/arthur_game_blank.sgf"
+
+katago_output = """
+Moves 0 - 50 moves (Opening):
+Turn: 34, Points lost on next move: 6.5, Correct moves: J4
+Turn: 30, Points lost on next move: 3.5, Correct moves: K4, C18, S2, O6, R3, P6
+Turn: 38, Points lost on next move: 2.9, Correct moves: S5, E4, E3, R4, C18
+Moves 51 - 100 moves (Early middlegame):
+Turn: 92, Points lost on next move: 20.8, Correct moves: N8
+Turn: 93, Points lost on next move: 16.8, Correct moves: N8
+Turn: 90, Points lost on next move: 9.1, Correct moves: O9
+Turn: 95, Points lost on next move: 7.0, Correct moves: L9
+Turn: 78, Points lost on next move: 7.0, Correct moves: M13
+Moves 101 - 150 moves (Mid middlegame):
+Turn: 126, Points lost on next move: 67.1, Correct moves: G10, K10, Q11, R12
+Turn: 127, Points lost on next move: 58.0, Correct moves: K7
+Turn: 121, Points lost on next move: 30.8, Correct moves: F10
+Turn: 118, Points lost on next move: 26.4, Correct moves: F8
+Turn: 101, Points lost on next move: 24.3, Correct moves: J10
+Moves 151 - end moves (Late middlegame and endgame):
+"""
 
 correct_moves = process_katago_output(katago_output)
-inject_sgf_copy(sgf_file, correct_moves)
+inject_sgf_copy(input_sgf, correct_moves)
