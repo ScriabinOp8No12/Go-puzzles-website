@@ -19,7 +19,7 @@ def generate_output_filename(original_sgf_name, move_number):
 
     return output_filename
 
-
+# regex doesn't remove comments, it might remove
 def create_moves_only_sgf_copy(input_sgf, output_sgf):
     # Read the original SGF file
     with open(input_sgf, 'rb') as f:
@@ -121,9 +121,13 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
             f.write(final_sgf_content)
 
 
-# Example usage
+# Example usages
+
+# VERIFY BELOW BLANK SGF SENT IN ACTUALLY WORKS WITH GLIFT
+# input_sgf = "backend/glift/arthur_game_blank.sgf"
+# ------------------------------------------------------------
 # input_sgf = "backend/glift/random_comments_added_arthur_testing.sgf"
-input_sgf = "backend/glift/arthur_game_blank.sgf"
+input_sgf = "random_comments_and_branches_added_arthur_testing.sgf"
 
 katago_output = """
 Moves 0 - 50 moves (Opening):
