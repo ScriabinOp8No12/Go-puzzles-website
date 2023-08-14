@@ -8,8 +8,8 @@ def generate_cleaned_filename(original_sgf_name):
     return cleaned_filename
 
 def generate_output_filename(original_sgf_name, move_number):
-    # Folder to save the files to
-    output_folder = 'backend/glift/puzzle_outputs_for_glift3'
+    # ******************** Folder to save the files to ******************************
+    output_folder = 'backend/glift/puzzle_outputs_for_glift2'
 
     # Create the folder if it doesn't exist
     if not os.path.exists(output_folder):
@@ -128,7 +128,7 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
         index = sgf_content.find(']', index)
         # slice and grab the first half of the sgf at that index + 1 (for move 35 in our example, index is at 397)
         # then add a comment saying that this move is incorrect and it was the move played in the actual game
-        new_sgf_content = sgf_content[:semicolon_index] + "(" + sgf_content[semicolon_index:index + 1] + "C[Incorrect - This was the actual move played in the game!])"
+        new_sgf_content = sgf_content[:semicolon_index] + "\n(" + sgf_content[semicolon_index:index + 1] + "C[Incorrect - This was the actual move played in the game!])"
         # print(new_sgf_content)
 
         correct_moves = correct_moves_dictionary[key].split(', ')
@@ -151,14 +151,7 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
         with open(output_filename, 'w') as f:
             f.write(final_sgf_content)
 
-
-# Example usages
-
-# VERIFY BELOW BLANK SGF SENT IN ACTUALLY WORKS WITH GLIFT
-# input_sgf = "backend/glift/arthur_game_blank.sgf"
-# ------------------------------------------------------------
-# input_sgf = "backend/glift/random_comments_added_arthur_testing.sgf"
-# input_sgf = "random_comments_and_branches_added_arthur_testing.sgf"
+# Example usage
 
 katago_output = """
 Moves 0 - 50 moves (Opening):
@@ -180,7 +173,7 @@ Turn: 101, Points lost on next move: 24.3, Correct moves: J10
 Moves 151 - end moves (Late middlegame and endgame):
 """
 
-input_sgf = "backend/glift/adding_random_comments_to_arthur_game_for_testing.sgf"
+input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
 correct_moves = process_katago_output(katago_output)
 
 # Clean the SGF file and get the path to the cleaned file
