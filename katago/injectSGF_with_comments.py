@@ -1,11 +1,15 @@
 import os
-import re
 from sgfmill import sgf
 
+def generate_cleaned_filename(original_sgf_name):
+    directory, filename_with_extension = os.path.split(original_sgf_name)
+    filename, extension = os.path.splitext(filename_with_extension)
+    cleaned_filename = os.path.join(directory, f"cleaned_{filename}{extension}")
+    return cleaned_filename
 
 def generate_output_filename(original_sgf_name, move_number):
-    # Folder to save the files to
-    output_folder = 'backend/glift/puzzle_outputs_for_glift/'
+    # ******************** Folder to save the files to ******************************
+    output_folder = 'backend/glift/puzzle_outputs_for_glift2'
 
     # Create the folder if it doesn't exist
     if not os.path.exists(output_folder):
@@ -19,27 +23,47 @@ def generate_output_filename(original_sgf_name, move_number):
 
     return output_filename
 
-# regex doesn't remove comments, it might remove
-def create_moves_only_sgf_copy(input_sgf, output_sgf):
-    # Read the original SGF file
-    with open(input_sgf, 'rb') as f:
-        sgf_data = f.read()
+def clean_sgf(input_file_path):
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        sgf_text = file.read()
+    game = sgf.Sgf_game.from_string(sgf_text)
+    cleaned_sgf = []
 
-    # Parse the SGF data
-    original_sgf_game = sgf.Sgf_game.from_bytes(sgf_data)
-    board_size = original_sgf_game.get_size()
+    # Add root properties
+    cleaned_sgf.append("(")
+    root_node = game.get_root()
+    cleaned_sgf.append(";")
+    for prop, values in root_node.get_raw_property_map().items():
+        # exclude comments, game comment, good for black/white, add black/white stones, add empty (delete move in branch), triangle and square symbol
+        if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'AE', 'TR', 'SQ' ]:
+            for value in values:
+                cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")  # Decode bytes object
 
-    # Read the original SGF file as text
-    with open(input_sgf, 'r') as f:
-        sgf_text_data = f.read()
+    # Add main branch nodes
+    node = root_node
+    while node:
+        if node:  # Check if node has children
+            child = node[0]  # Consider only the first child (main branch)
+            cleaned_sgf.append(";")
+            for prop, values in child.get_raw_property_map().items():
+                # exclude comments, game comment, good for black/white, add black/white stones, triangle and square symbol, add empty (delete move in branch)
+                if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'TR', 'SQ', 'AE']:
+                    for value in values:
+                        cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")  # Decode bytes object
+            node = child
+        else:
+            node = None
 
-    # Extract only the moves using regular expressions
-    moves = re.findall(r';[BW]\[[a-z]+\]', sgf_text_data)
-    moves_only_sgf_data = f"(;FF[4]CA[UTF-8]GM[1]SZ[{board_size}]" + "".join(moves) + ")"
+    cleaned_sgf.append(")")
 
-    # Write the moves-only SGF data to a new file
-    with open(output_sgf, 'w') as f:
-        f.write(moves_only_sgf_data)
+    cleaned_sgf_str = "".join(cleaned_sgf)
+    # print(cleaned_sgf_str)  # Print the cleaned SGF string
+
+    cleaned_filename = generate_cleaned_filename(input_file_path)
+    with open(cleaned_filename, 'w', encoding='utf-8') as file:
+        file.write(cleaned_sgf_str)
+
+    return cleaned_filename
 
 # Convert KataGo solution coordinates into sgf coordinates
 def convert_to_sgf(coord, board_size):
@@ -94,7 +118,9 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
           # find method 2nd argument takes in the starting index for the search, so when we do
           # index + 1, this starts the search just after the current index of the semicolon that was found in the previous loop
           index = sgf_content.find(';', index + 1)
-
+        # save the value of this last index so we can add an opening parenthesis in our final sgf format without
+        # index getting a new value lower down in our code (index number will be the last ; for our last move)
+        semicolon_index = index
         # Extracting the player's color from the mistake move and storing it
         color = sgf_content[index + 1]
         # print(color)
@@ -102,7 +128,7 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
         index = sgf_content.find(']', index)
         # slice and grab the first half of the sgf at that index + 1 (for move 35 in our example, index is at 397)
         # then add a comment saying that this move is incorrect and it was the move played in the actual game
-        new_sgf_content = sgf_content[:index + 1] + "C[Incorrect - This was the actual move played in the game!])"
+        new_sgf_content = sgf_content[:semicolon_index] + "\n(" + sgf_content[semicolon_index:index + 1] + "C[Incorrect - This was the actual move played in the game!])"
         # print(new_sgf_content)
 
         correct_moves = correct_moves_dictionary[key].split(', ')
@@ -113,21 +139,19 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
             sgf_move = convert_to_sgf(move, board_size)
             correct_comments.append('(;{}[{}]C[CORRECT])'.format(color, sgf_move))
 
-        final_sgf_content = new_sgf_content + '\n' + '\n'.join(correct_comments)
+        # Reverse the order of the comments, so that glift has lower numbers for the slightly more preferred AI moves
+        correct_comments.reverse()
 
-        # write each file to a name name, which is given by a combination of the file path and the key (turn number)
+        # Final content needs to add the correct move comments at the end of the file, then include an extra closing )
+        # The last comment line of the SGF always needs to have two ))
+        final_sgf_content = new_sgf_content + '\n' + '\n'.join(correct_comments) + ')'
+
+        # write each file to a new name, which is given by a combination of the file path and the key (turn number)
         output_filename = generate_output_filename(file_path, key)
         with open(output_filename, 'w') as f:
             f.write(final_sgf_content)
 
-
-# Example usages
-
-# VERIFY BELOW BLANK SGF SENT IN ACTUALLY WORKS WITH GLIFT
-# input_sgf = "backend/glift/arthur_game_blank.sgf"
-# ------------------------------------------------------------
-# input_sgf = "backend/glift/random_comments_added_arthur_testing.sgf"
-input_sgf = "random_comments_and_branches_added_arthur_testing.sgf"
+# Example usage
 
 katago_output = """
 Moves 0 - 50 moves (Opening):
@@ -149,5 +173,11 @@ Turn: 101, Points lost on next move: 24.3, Correct moves: J10
 Moves 151 - end moves (Late middlegame and endgame):
 """
 
+input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
 correct_moves = process_katago_output(katago_output)
-inject_sgf_copy(input_sgf, correct_moves)
+
+# Clean the SGF file and get the path to the cleaned file
+cleaned_sgf_path = clean_sgf(input_sgf)
+
+# Inject the correct moves into the cleaned SGF file
+inject_sgf_copy(cleaned_sgf_path, correct_moves)
