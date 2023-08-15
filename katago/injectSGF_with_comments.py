@@ -80,7 +80,7 @@ def clean_sgf(input_file_path):
     return cleaned_filename
 
 
-# Convert KataGo output solution coordinates into sgf coordinates. Dynamically pass in the board_size, which we later parse using sgfmill
+# Convert KataGo output solution coordinates into sgf coordinates. Use sgfmill to find and then dynamically pass in the board_size
 def convert_to_sgf(coord, board_size):
 
     col, row = coord[0], int(coord[1:])
