@@ -1,43 +1,57 @@
 import os
 from sgfmill import sgf
 
-def generate_cleaned_filename(original_sgf_name):
+# This python module takes an uploaded SGF, creates a new clean copy that has no comments, symbols, or branches, etc.
+# Then determines where the puzzles should be based on KataGo's analysis (largest point mistakes per section of game, correct moves are within 1 point KataGo best move),
+# Remove the rest of the SGF after that puzzle / point in SGF to avoid weird behavior with the glift library
+# Add the comment "Incorrect - This was the actual move played in the game!" to the move played in the game
+# Add the comment "CORRECT" to the very end of the SGF, with the correct move(s) determined by Katago.
+# These go in reverse order so that lower number on glift will correspond with a better move
+# The glift library takes a problemConditions object, where we can tell it to look for the comment with the keyword "CORRECT" so it can mark these moves as correct, everything else is therefore considered incorrect
+# Since KataGo takes in different coordinates for the moves, we need to convert these KataGo coordinates back into SGF format - this is done before adding the comment
+
+
+# Add "puzzle" to the end of the file name, later we append the move number after "puzzle" in the file name
+def generate_puzzle_filename(original_sgf_name):
     directory, filename_with_extension = os.path.split(original_sgf_name)
     filename, extension = os.path.splitext(filename_with_extension)
-    cleaned_filename = os.path.join(directory, f"cleaned_{filename}{extension}")
+    cleaned_filename = os.path.join(directory, f"{filename}_puzzle{extension}")
     return cleaned_filename
 
-def generate_output_filename(original_sgf_name, move_number):
-    # ******************** Folder to save the files to ******************************
-    output_folder = 'backend/glift/puzzle_outputs_for_glift2'
 
+# Add "move_number" to end of file name and save the sgf puzzle to the output_folder specified below
+def generate_output_filename(original_sgf_name, move_number):
+    # ******************** Folder to save the sgf puzzles to ******************************
+    output_folder = 'backend/glift/puzzle_outputs_for_glift3'
     # Create the folder if it doesn't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
-
     # Extract the original filename without extension
     filename, extension = os.path.splitext(os.path.basename(original_sgf_name))
-
     # Combine the folder, original filename, and move number to create the new filename
-    output_filename = os.path.join(output_folder, f"{filename}_move_{move_number}{extension}")
-
+    output_filename = os.path.join(
+        output_folder, f"{filename}_move_{move_number}{extension}")
     return output_filename
 
+
+# Reads sgf data using sgfmill, takes sgf in as a string, removes comments, good for black/white add black/white stones, etc.
+# so that there isn't interference when using glift to render the sgf and create a working puzzle
 def clean_sgf(input_file_path):
     with open(input_file_path, 'r', encoding='utf-8') as file:
         sgf_text = file.read()
     game = sgf.Sgf_game.from_string(sgf_text)
-    cleaned_sgf = []
 
-    # Add root properties
+    cleaned_sgf = []
+    # Add root properties (build cleaned_sgf from scratch / nodes)
     cleaned_sgf.append("(")
     root_node = game.get_root()
     cleaned_sgf.append(";")
     for prop, values in root_node.get_raw_property_map().items():
         # exclude comments, game comment, good for black/white, add black/white stones, add empty (delete move in branch), triangle and square symbol
-        if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'AE', 'TR', 'SQ' ]:
+        if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'AE', 'TR', 'SQ']:
             for value in values:
-                cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")  # Decode bytes object
+                # Decode bytes object
+                cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
 
     # Add main branch nodes
     node = root_node
@@ -46,30 +60,32 @@ def clean_sgf(input_file_path):
             child = node[0]  # Consider only the first child (main branch)
             cleaned_sgf.append(";")
             for prop, values in child.get_raw_property_map().items():
-                # exclude comments, game comment, good for black/white, add black/white stones, triangle and square symbol, add empty (delete move in branch)
+                # exclude comments, game comment, good for black/white, add black/white stones, add empty (delete move in branch), triangle and square symbol
                 if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'TR', 'SQ', 'AE']:
                     for value in values:
-                        cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")  # Decode bytes object
+                        # Decode bytes object
+                        cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
             node = child
         else:
             node = None
-
+    # add a final ) because that's required for proper SGF format
     cleaned_sgf.append(")")
 
     cleaned_sgf_str = "".join(cleaned_sgf)
-    # print(cleaned_sgf_str)  # Print the cleaned SGF string
 
-    cleaned_filename = generate_cleaned_filename(input_file_path)
+    cleaned_filename = generate_puzzle_filename(input_file_path)
     with open(cleaned_filename, 'w', encoding='utf-8') as file:
         file.write(cleaned_sgf_str)
 
     return cleaned_filename
 
-# Convert KataGo solution coordinates into sgf coordinates
+
+# Convert KataGo output solution coordinates into sgf coordinates. Dynamically pass in the board_size, which we later parse using sgfmill
 def convert_to_sgf(coord, board_size):
 
     col, row = coord[0], int(coord[1:])
     x = ord(col) - ord('A')
+    # SGF format has the letter I, but KataGo coordinates skip the letter I because it looks too similar to L
     if col > 'I':
         x -= 1
     y = board_size - row
@@ -78,27 +94,29 @@ def convert_to_sgf(coord, board_size):
     sgf_row = chr(ord('a') + y)
     return sgf_col + sgf_row
 
-def process_katago_output(output):
-    lines = output.strip().split("\n")
-    # {turn#: coordinates}
-    # mistake_moves = {}
+
+# Process KataGo output and convert output into a dictionary with: turn number as the key, and the KataGo coordinates of the answers as the value
+def process_katago_output(output_file_path):
+
+    with open(output_file_path) as f:
+        katago_output = f.read()
+
+    lines = katago_output.strip().split("\n")
     correct_moves_dictionary = {}
 
     for line in lines:
         if line.startswith("Turn:"):
             parts = line.split(',')
-            # add 1 to turn number, and that's the mistake move that we need to remove every line in the SGF after that
+            # add 1 to turn number, because the mistake occurs on the move after
+            # we will remove the rest of the SGF after the mistake (not including the mistake turn number)
             turn = int(parts[0].split(':')[1].strip()) + 1
-            # print("turn: ", turn)
-
             correct_moves = line.split("moves:")[1].strip()
-            # print(correct_moves)
-
             correct_moves_dictionary[turn] = correct_moves
-    # print(correct_moves_dictionary)
 
     return correct_moves_dictionary
 
+
+# Add comments of "CORRECT" to end of SGF file for glift, and "Incorrect - This was the actual move played in the game!" for the move played in the actual game
 def inject_sgf_copy(file_path, correct_moves_dictionary):
     with open(file_path, 'rb') as file:
         sgf_content_bytes = file.read()
@@ -109,27 +127,27 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
     sgf_content = sgf_content_bytes.decode('utf-8')
 
     # create new copy of this blank SGF up to first move in the move_number with mistake (include it)
-    # loop through dictionary's keys, for each key, create a copy of an SGF that includes moves up to and including that number
+    # loop through dictionary's keys, for each key, create a copy of an SGF that includes moves up to and including that move
     for key in correct_moves_dictionary:
         index = sgf_content.find(';')
         # each key in the dictionary is an integer representing the move where the mistake was made
         # this key has values of the correct moves
         for _ in range(key):
-          # find method 2nd argument takes in the starting index for the search, so when we do
-          # index + 1, this starts the search just after the current index of the semicolon that was found in the previous loop
-          index = sgf_content.find(';', index + 1)
+            # find method 2nd argument takes in the starting index for the search, so when we do
+            # index + 1, this starts the search just after the current index of the semicolon that was found in the previous loop
+            index = sgf_content.find(';', index + 1)
         # save the value of this last index so we can add an opening parenthesis in our final sgf format without
         # index getting a new value lower down in our code (index number will be the last ; for our last move)
         semicolon_index = index
         # Extracting the player's color from the mistake move and storing it
         color = sgf_content[index + 1]
-        # print(color)
-        # index of closing bracket for specified move
+        # index of closing BRACKET for specified move
         index = sgf_content.find(']', index)
         # slice and grab the first half of the sgf at that index + 1 (for move 35 in our example, index is at 397)
         # then add a comment saying that this move is incorrect and it was the move played in the actual game
-        new_sgf_content = sgf_content[:semicolon_index] + "\n(" + sgf_content[semicolon_index:index + 1] + "C[Incorrect - This was the actual move played in the game!])"
-        # print(new_sgf_content)
+        new_sgf_content = sgf_content[:semicolon_index] + \
+            "\n(" + sgf_content[semicolon_index:index + 1] + \
+            "C[Incorrect - This was the actual move played in the game!])"
 
         correct_moves = correct_moves_dictionary[key].split(', ')
         correct_comments = []
@@ -137,44 +155,27 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
         for move in correct_moves:
             # This should dynamically add 19 here, not manually input it
             sgf_move = convert_to_sgf(move, board_size)
-            correct_comments.append('(;{}[{}]C[CORRECT])'.format(color, sgf_move))
+            correct_comments.append(
+                '(;{}[{}]C[CORRECT])'.format(color, sgf_move))
 
-        # Reverse the order of the comments, so that glift has lower numbers for the slightly more preferred AI moves
+        # Reverse the order of the comments, so that glift uses lower numbers for the more preferred AI moves
         correct_comments.reverse()
 
         # Final content needs to add the correct move comments at the end of the file, then include an extra closing )
         # The last comment line of the SGF always needs to have two ))
-        final_sgf_content = new_sgf_content + '\n' + '\n'.join(correct_comments) + ')'
+        final_sgf_content = new_sgf_content + \
+            '\n' + '\n'.join(correct_comments) + ')'
 
         # write each file to a new name, which is given by a combination of the file path and the key (turn number)
         output_filename = generate_output_filename(file_path, key)
         with open(output_filename, 'w') as f:
             f.write(final_sgf_content)
 
-# Example usage
-
-katago_output = """
-Moves 0 - 50 moves (Opening):
-Turn: 34, Points lost on next move: 6.5, Correct moves: J4
-Turn: 30, Points lost on next move: 3.5, Correct moves: K4, C18, S2, O6, R3, P6
-Turn: 38, Points lost on next move: 2.9, Correct moves: S5, E4, E3, R4, C18
-Moves 51 - 100 moves (Early middlegame):
-Turn: 92, Points lost on next move: 20.8, Correct moves: N8
-Turn: 93, Points lost on next move: 16.8, Correct moves: N8
-Turn: 90, Points lost on next move: 9.1, Correct moves: O9
-Turn: 95, Points lost on next move: 7.0, Correct moves: L9
-Turn: 78, Points lost on next move: 7.0, Correct moves: M13
-Moves 101 - 150 moves (Mid middlegame):
-Turn: 126, Points lost on next move: 67.1, Correct moves: G10, K10, Q11, R12
-Turn: 127, Points lost on next move: 58.0, Correct moves: K7
-Turn: 121, Points lost on next move: 30.8, Correct moves: F10
-Turn: 118, Points lost on next move: 26.4, Correct moves: F8
-Turn: 101, Points lost on next move: 24.3, Correct moves: J10
-Moves 151 - end moves (Late middlegame and endgame):
-"""
 
 input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
-correct_moves = process_katago_output(katago_output)
+katago_output_path = "katago/text_Outputs/mistake_move_numbers_output15_4_16_mistakes.txt"
+
+correct_moves = process_katago_output(katago_output_path)
 
 # Clean the SGF file and get the path to the cleaned file
 cleaned_sgf_path = clean_sgf(input_sgf)
