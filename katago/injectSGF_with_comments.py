@@ -47,8 +47,8 @@ def clean_sgf(input_file_path):
     root_node = game.get_root()
     cleaned_sgf.append(";")
     for prop, values in root_node.get_raw_property_map().items():
-        # exclude comments, game comment, good for black/white, add black/white stones, add empty (delete move in branch), triangle and square symbol
-        if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'AE', 'TR', 'SQ']:
+        # exclude comments, game comment, good for black/white, triangle and square symbol
+        if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ']:
             for value in values:
                 # Decode bytes object
                 cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
@@ -60,8 +60,8 @@ def clean_sgf(input_file_path):
             child = node[0]  # Consider only the first child (main branch)
             cleaned_sgf.append(";")
             for prop, values in child.get_raw_property_map().items():
-                # exclude comments, game comment, good for black/white, add black/white stones, add empty (delete move in branch), triangle and square symbol
-                if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'TR', 'SQ', 'AE']:
+                # exclude comments, game comment, good for black/white, triangle and square symbol
+                if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ']:
                     for value in values:
                         # Decode bytes object
                         cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
