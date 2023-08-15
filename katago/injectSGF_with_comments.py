@@ -2,10 +2,10 @@ import os
 from sgfmill import sgf
 
 # This python module takes an uploaded SGF, creates a new clean copy that has no comments, symbols, or branches, etc.
-# Then determines where the puzzles should be based on KataGo's analysis (largest point mistakes per section of game, correct moves are within 1 point KataGo best move),
-# Remove the rest of the SGF after that puzzle / point in SGF to avoid weird behavior with the glift library
-# Add the comment "Incorrect - This was the actual move played in the game!" to the move played in the game
-# Add the comment "CORRECT" to the very end of the SGF, with the correct move(s) determined by Katago.
+# Determines where the puzzles should be based on KataGo's analysis (largest point mistakes per section of game, correct moves are within 1 point KataGo best move),
+# Removes the rest of the SGF after that puzzle / point in SGF to avoid weird behavior with the glift library
+# Adds the comment "Incorrect - This was the actual move played in the game!" to the move played in the game
+# Adds the comment "CORRECT" to the very end of the SGF, with the correct move(s) determined by Katago.
 # These go in reverse order so that lower number on glift will correspond with a better move
 # The glift library takes a problemConditions object, where we can tell it to look for the comment with the keyword "CORRECT" so it can mark these moves as correct, everything else is therefore considered incorrect
 # Since KataGo takes in different coordinates for the moves, we need to convert these KataGo coordinates back into SGF format - this is done before adding the comment
@@ -47,8 +47,8 @@ def clean_sgf(input_file_path):
     root_node = game.get_root()
     cleaned_sgf.append(";")
     for prop, values in root_node.get_raw_property_map().items():
-        # exclude comments, game comment, good for black/white, add black/white stones, add empty (delete move in branch), triangle and square symbol
-        if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'AE', 'TR', 'SQ']:
+        # exclude comments, game comment, good for black/white, triangle and square symbol
+        if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ']:
             for value in values:
                 # Decode bytes object
                 cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
@@ -60,8 +60,8 @@ def clean_sgf(input_file_path):
             child = node[0]  # Consider only the first child (main branch)
             cleaned_sgf.append(";")
             for prop, values in child.get_raw_property_map().items():
-                # exclude comments, game comment, good for black/white, add black/white stones, add empty (delete move in branch), triangle and square symbol
-                if prop not in ['C', 'GC', 'GB', 'GW', 'AB', 'AW', 'TR', 'SQ', 'AE']:
+                # exclude comments, game comment, good for black/white, triangle and square symbol
+                if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ']:
                     for value in values:
                         # Decode bytes object
                         cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
@@ -80,7 +80,7 @@ def clean_sgf(input_file_path):
     return cleaned_filename
 
 
-# Convert KataGo output solution coordinates into sgf coordinates. Dynamically pass in the board_size, which we later parse using sgfmill
+# Convert KataGo output solution coordinates into sgf coordinates. Use sgfmill to find and then dynamically pass in the board_size
 def convert_to_sgf(coord, board_size):
 
     col, row = coord[0], int(coord[1:])
@@ -174,11 +174,6 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
 
 input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
 katago_output_path = "katago/text_Outputs/mistake_move_numbers_output15_4_16_mistakes.txt"
-
 correct_moves = process_katago_output(katago_output_path)
-
-# Clean the SGF file and get the path to the cleaned file
 cleaned_sgf_path = clean_sgf(input_sgf)
-
-# Inject the correct moves into the cleaned SGF file
 inject_sgf_copy(cleaned_sgf_path, correct_moves)

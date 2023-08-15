@@ -1,6 +1,7 @@
 const sgf1 = {
-  sgfString: "(;GM[1]FF[4]CA[UTF-8])",
-  // initialPosition: 34,
+  sgfString:
+    "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Chinese]SZ[19]KM[375.00];B[qd];W[dp];B[pq];W[dd];B[cc];W[dc];B[cd];W[ce];B[be];W[bf];B[cf];W[de];B[bg];W[bd];B[af];W[bc];B[nc];W[qo];B[ql];W[op];B[oq];W[np];B[mr];W[lq];B[mq];W[mp];B[lp];W[kq];B[lo];W[rq](;B[qr]C[Incorrect - This was the actual move played in the game!])(;B[on]C[CORRECT])(;B[qq]C[CORRECT])(;B[nn]C[CORRECT])(;B[rr]C[CORRECT])(;B[cb]C[CORRECT])(;B[jp]C[CORRECT]))",
+  initialPosition: 30,
   problemConditions: {
     // If move / branch has a comment with the text "CORRECT", it is a correct move!
     C: ["CORRECT"],
@@ -9,8 +10,9 @@ const sgf1 = {
 };
 
 const sgf2 = {
-  sgfString: "(;GM[1]FF[4]CA[UTF-8])",
-  // initialPosition: 34,
+  sgfString:
+    "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Chinese]SZ[19]KM[375.00];B[qd];W[dp];B[pq];W[dd];B[cc];W[dc];B[cd];W[ce];B[be];W[bf];B[cf];W[de];B[bg];W[bd];B[af];W[bc];B[nc];W[qo];B[ql];W[op];B[oq];W[np];B[mr];W[lq];B[mq];W[mp];B[lp];W[kq];B[lo];W[rq];B[qr];W[rr];B[lr];W[kr](;B[nq]C[Incorrect - This was the actual move played in the game!])(;B[ip]C[CORRECT]))",
+  initialPosition: 34,
   problemConditions: {
     C: ["CORRECT"],
   },
@@ -19,10 +21,12 @@ const sgf2 = {
 
 const sgfCollection = [sgf1, sgf2];
 
+// *************** this block below doesn't need to be here, but it's good for testing *********************
 let problemSolved = false;
 
 // alert is stopped after we either click a correct or incorrect move
 function onProblemCorrect() {
+  console.log("onProblemCorrect called"); // add logging
   if (!problemSolved) {
     alert("Correct!");
     problemSolved = true; // Set the flag to true
@@ -32,6 +36,7 @@ function onProblemCorrect() {
 }
 
 function onProblemIncorrect() {
+  console.log("onProblemIncorrect called"); // add logging
   if (!problemSolved) {
     alert("Incorrect!");
     problemSolved = true;
@@ -50,20 +55,12 @@ let checkCorrectHook = new glift.api.HookOptions({
   problemIncorrect: onProblemIncorrect,
 });
 
+// *************** this block above doesn't need to be here, but it's good for testing *********************
+
+// use redux to manage state, need to reset problemSolved back to false after we go to the next sgf?
 gliftWidget = glift.create({
-  // pass sgfCollection here
+  // pass sgfCollection here, it has default behavior that gives us the arrow keys to navigate between the sgfs in the collection
   sgfCollection,
   divId: "gliftContainer",
   hooks: checkCorrectHook,
 });
-
-const iconActions = {
-  arrowRight: {
-    click: () => {
-      let index = gliftWidget.getSgfCollectionIndex();
-      gliftWidget.goToSgf(index + 1);
-    },
-  },
-};
-
-gliftWidget.iconActions(iconActions);
