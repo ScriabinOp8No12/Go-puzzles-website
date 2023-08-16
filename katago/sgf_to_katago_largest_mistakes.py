@@ -8,9 +8,10 @@ from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
 from sgf2OneLineJson_all_moves import sgf_to_one_line_json
 
 # Set the path to the SGF files
-sgf_folder_path = 'katago/positionsWithMoveOrder'
+# sgf_folder_path = 'katago/positionsWithMoveOrder'
+sgf_folder_path = 'katago/positions'
 
-# Set the command to run KataGo
+# Set the command to run KataGo (this will be a subprocess)
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
 # Iterate over each file in the SGF files folder
@@ -24,11 +25,13 @@ for filename in os.listdir(sgf_folder_path):
     file_path = os.path.join(sgf_folder_path, filename)
 
     # Set the path to the output text file for the current SGF
-    output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
+    # output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
+    output_file_name = filename.split('.')[0] + '_mistakes2.txt'  # This will give names like puzzle8_7_20_23_mistakes2.txt
     output_file_path = os.path.join('katago/text_Outputs', output_file_name)
 
-    # Convert the SGF to a JSON dictionary
-    json_dict = sgf_to_one_line_json(file_path, 'B')  # Set player_turn as needed
+    # Convert the SGF to a JSON dictionary (removed second arg specifying player_turn)
+    json_dict = sgf_to_one_line_json(file_path)
+    print(json_dict)
 
     # Open the current output text file for writing
     with open(output_file_path, 'w') as output_file:

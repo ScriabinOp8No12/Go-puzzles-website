@@ -1,7 +1,7 @@
 import os
 from sgfmill import sgf
 
-# This python module takes an uploaded SGF, creates a new clean copy that has no comments, symbols, or branches, etc.
+# This python module takes an uploaded SGF, creates a new clean copy that has no comments, good for black/white, symbols, or branches
 # Determines where the puzzles should be based on KataGo's analysis (largest point mistakes per section of game, correct moves are within 1 point KataGo best move),
 # Removes the rest of the SGF after that puzzle / point in SGF to avoid weird behavior with the glift library
 # Adds the comment "Incorrect - This was the actual move played in the game!" to the move played in the game
@@ -34,7 +34,7 @@ def generate_output_filename(original_sgf_name, move_number):
     return output_filename
 
 
-# Reads sgf data using sgfmill, takes sgf in as a string, removes comments, good for black/white add black/white stones, etc.
+# Reads sgf data using sgfmill, takes sgf in as a string, removes comments, good for black/white, symbols, and branches
 # so that there isn't interference when using glift to render the sgf and create a working puzzle
 def clean_sgf(input_file_path):
     with open(input_file_path, 'r', encoding='utf-8') as file:
