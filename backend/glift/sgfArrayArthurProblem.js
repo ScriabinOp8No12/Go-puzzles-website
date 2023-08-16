@@ -23,13 +23,17 @@ const sgfCollection = [sgf1, sgf2];
 
 // *************** this block below doesn't need to be here, but it's good for testing *********************
 let problemSolved = false;
+// put problemSolved into a state, don't use a flag
 
+// second flag
+// try a flag for the alert too, then right arrow click resets this flag
+//
 // alert is stopped after we either click a correct or incorrect move
 function onProblemCorrect() {
   console.log("onProblemCorrect called"); // add logging
   if (!problemSolved) {
     alert("Correct!");
-    problemSolved = true; // Set the flag to true
+    // problemSolved = true; // Set the flag to true
     // update user ranking within this if block, so that it only triggers once
     updateUserRanking(true);
   }
@@ -39,6 +43,7 @@ function onProblemIncorrect() {
   console.log("onProblemIncorrect called"); // add logging
   if (!problemSolved) {
     alert("Incorrect!");
+    // flip boolean state, subscribe to store
     problemSolved = true;
     // update user ranking within this if block, so that it only triggers once
     updateUserRanking(false);
