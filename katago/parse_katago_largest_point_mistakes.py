@@ -23,7 +23,7 @@ def find_mistakes_and_correct_moves(katago_output, num_mistakes, start_turn, end
             continue
         # Load the data from the line as a JSON object
         data = json.loads(line)
-        # Get the turn number from the data
+        # Get the turn number from the data ************* If position setup, don't have a turn number, it'll be just one puzzle! *******************
         turn_number = data['turnNumber']
         # append the turn_number and data as a tuple into data_list
         data_list.append((turn_number, data))
