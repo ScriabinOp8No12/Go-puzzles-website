@@ -9,29 +9,26 @@ from sgf2OneLineJson_all_moves import sgf_to_one_line_json
 
 # Set the path to the SGF files
 # sgf_folder_path = 'katago/positionsWithMoveOrder'
-sgf_folder_path = 'katago/positions'
+sgf_folder_path = 'katago/positions_test'
 
 # Set the command to run KataGo (this will be a subprocess)
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
 # Iterate over each file in the SGF files folder
 for filename in os.listdir(sgf_folder_path):
-    # Enforce SGF as the only format allowed
-    if not filename.endswith(".sgf"):
-        print(f"Skipping non-SGF file: {filename}")
-        continue
 
     # Construct the full path to the file
     file_path = os.path.join(sgf_folder_path, filename)
 
     # Set the path to the output text file for the current SGF
-    # output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
-    output_file_name = filename.split('.')[0] + '_mistakes2.txt'  # This will give names like puzzle8_7_20_23_mistakes2.txt
+    output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
+    # output_file_name = filename.split('.')[0] + '_mistakesStaticPosition.txt'
     output_file_path = os.path.join('katago/text_Outputs', output_file_name)
 
     # Convert the SGF to a JSON dictionary (removed second arg specifying player_turn)
     json_dict = sgf_to_one_line_json(file_path)
-    print(json_dict)
+    # Katago analysis works on command line with the printed out json_dict below, so I'm not sure what the issue is...
+    print("json_dict: ", json_dict)
 
     # Open the current output text file for writing
     with open(output_file_path, 'w') as output_file:
@@ -40,7 +37,8 @@ for filename in os.listdir(sgf_folder_path):
           # Pass the JSON dictionary to KataGo for analysis
           # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
           p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-          stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
+          # stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
+          stdout_data, stderr_data = p.communicate(input=json_dict.encode('utf-8'))
         except Exception as e:
           print(f"Error processing file {filename}: {e}")
         # Define a function to process a given range of turns, we pass in the stdout_data we got from KataGo above

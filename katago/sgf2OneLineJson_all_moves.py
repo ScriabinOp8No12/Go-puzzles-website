@@ -95,15 +95,15 @@ def sgf_to_one_line_json(input_file):
 
     # Create JSON dictionary
     result = {
-        "id": 'sgfTest2',
+        "id": 'sgfTest3',
         "rules": rules,
         "komi": komi,
         "boardXSize": size,
         "boardYSize": size,
         # Json formatting below automatically converts initialPlayer to a capital B/W instead of a lowercase B/W
         "initialPlayer": next_player,
-        # we need analyzeTurns to be an empty list even if we don't want to analyze a specific move / moves
-        "analyzeTurns": analyzeTurns,
+        # We need analyzeTurns to be set to an empty list with the move 0 in it to analyze positions with no move property
+        "analyzeTurns": analyzeTurns or [0],
         "initialStones": initial_stones,
         "moves": moves
     }
@@ -118,5 +118,6 @@ def sgf_to_one_line_json(input_file):
 
 # result = sgf_to_one_line_json('katago/positions/puzzle2_7_20_23.sgf')
 
-result = sgf_to_one_line_json('katago/positionsWithMoveOrder/puzzle4_7_20_23.sgf')
-print(result)
+# result = sgf_to_one_line_json('katago/positionsWithMoveOrder/puzzle4_7_20_23.sgf')
+
+# print(result)
