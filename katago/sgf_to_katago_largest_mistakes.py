@@ -2,47 +2,53 @@ import time
 startTime = time.time()
 
 import os
-import json
 import subprocess
 from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
 from sgf2OneLineJson_all_moves import sgf_to_one_line_json
 
 # Set the path to the SGF files
 # sgf_folder_path = 'katago/positionsWithMoveOrder'
+# sgf_folder_path = 'katago/positions_test'
 sgf_folder_path = 'katago/positions'
 
 # Set the command to run KataGo (this will be a subprocess)
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
+# Output folder
+# output_folder = "katago/text_Outputs_move_order"
+output_folder = "katago/text_Outputs_Positions"
+
 # Iterate over each file in the SGF files folder
 for filename in os.listdir(sgf_folder_path):
-    # Enforce SGF as the only format allowed
-    if not filename.endswith(".sgf"):
-        print(f"Skipping non-SGF file: {filename}")
-        continue
 
     # Construct the full path to the file
     file_path = os.path.join(sgf_folder_path, filename)
 
-    # Set the path to the output text file for the current SGF
-    # output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
-    output_file_name = filename.split('.')[0] + '_mistakes2.txt'  # This will give names like puzzle8_7_20_23_mistakes2.txt
-    output_file_path = os.path.join('katago/text_Outputs', output_file_name)
+    # Check if folder exists, if not create it
+    if not os.path.exists(output_folder):
+      os.makedirs(output_folder)
 
-    # Convert the SGF to a JSON dictionary (removed second arg specifying player_turn)
-    json_dict = sgf_to_one_line_json(file_path)
-    print(json_dict)
+    # Set the path to the output text file for the current SGF, and add mistakes.txt to the end of it
+    output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
+    output_file_path = os.path.join(output_folder, output_file_name)
+
+    # ******** Try moving this outside of the loop later! *************
+    # Convert the SGF to a one line JSON object (removed second arg specifying player_turn)
+    json_obj = sgf_to_one_line_json(file_path)
+    # Katago analysis works on command line with the printed out json_dict below, so I'm not sure what the issue is...
+    # print("json_obj: ", json_obj)
 
     # Open the current output text file for writing
     with open(output_file_path, 'w') as output_file:
         # wrap KataGo subprocess in a try catch block
         try:
-          # Pass the JSON dictionary to KataGo for analysis
-          # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
-          p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-          stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
+            # Pass the JSON dictionary to KataGo for analysis
+            # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
+            p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            # stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
+            stdout_data, stderr_data = p.communicate(input=json_obj.encode('utf-8'))
         except Exception as e:
-          print(f"Error processing file {filename}: {e}")
+            print(f"Error processing file {filename}: {e}")
         # Define a function to process a given range of turns, we pass in the stdout_data we got from KataGo above
         # stderr_data is standard error data
         def process_range(stdout_data, n, start, end):
@@ -55,27 +61,37 @@ for filename in os.listdir(sgf_folder_path):
             # This is known as "value unpacking" since our function will return 2 lists of tuples, unpacking = destructuring in JavaScript
             mistakes, correct_moves = find_mistakes_and_correct_moves(stdout_data, n, start, end)
 
-            # Assuming that mistakes and correct_moves are lists of tuples of the form (turn, value),
-            # where turn is the turn number and value is the points lost or the correct moves, respectively,
-            # we first need to sort mistakes in descending order of points lost
-            # lambda functions are anonymous functions, which are equivalent to anonymous functions in JavaScript
-            # We are sorting the list by the 2nd element of each tuple, which in this case is the points lost value of the tuple -> (mistakes, points lost)
-            mistakes.sort(key=lambda x: x[1], reverse=True)
+            if not mistakes:
+                if correct_moves:
+                    print("mistakes, correct_moves: ", mistakes, correct_moves)
+                    moves = correct_moves[0][1]
+                    output_file.write("Turn: 0, Correct moves: {}\n".format(", ".join(moves)))
+                return []
 
-            # Then we create a dictionary mapping turn numbers to correct moves,
-            # Use dictionary comprehension (similar to list comprehension),
-            # dictionary name = {<key>: <value> for (tuple unpacking) in list of tuples}
-            correct_moves_dict = {turn: moves for turn, moves in correct_moves}
+            else:
+              # Assuming that mistakes and correct_moves are lists of tuples of the form (turn, value),
+              # where turn is the turn number and value is the points lost or the correct moves, respectively,
+              # we first need to sort mistakes in descending order of points lost
+              # lambda functions are anonymous functions, which are equivalent to anonymous functions in JavaScript
+              # We are sorting the list by the 2nd element of each tuple, which in this case is the points lost value of the tuple -> (mistakes, points lost)
+                mistakes.sort(key=lambda x: x[1], reverse=True)
 
-            # Now we can create our result list
-            result = []
-            for turn, points in mistakes[:n]:
-                # We use the get method to get the correct moves for the previous turn,
-                # or an empty list if there were no correct moves
-                moves = correct_moves_dict.get(turn-1, [])
-                result.append((turn, points, moves))
+                # Then we create a dictionary mapping turn numbers to correct moves,
+                # Use dictionary comprehension (similar to list comprehension),
+                # dictionary name = {<key>: <value> for (tuple unpacking) in list of tuples}
+                correct_moves_dict = {turn: moves for turn, moves in correct_moves}
 
-            return result
+                # Now we can create our result list
+                result = []
+                for turn, points in mistakes[:n]:
+                  # We use the get method to get the correct moves for the previous turn,
+                  # or an empty list if there were no correct moves
+                    moves = correct_moves_dict.get(turn-1, [])
+                    result.append((turn, points, moves))
+
+                return result
+
+        # ***************** EXAMPLE TEST BELOW: **********************
 
         # Define the ranges to process, specifying the number of mistakes to grab from each range, sorted in descending order from greatest to smallest
         ranges = [(0, 50, 3, 'Opening'), (51, 100, 5, 'Early middlegame'), (101, 150, 5, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
@@ -83,6 +99,9 @@ for filename in os.listdir(sgf_folder_path):
         # Process each range
         for start, end, n, name in ranges:
             data = process_range(stdout_data.decode('utf-8'), n, start, end)
+            # if data is empty then skip to the next iteration
+            if not data:
+                continue
             end_text = "end" if end == float('inf') else str(end)
             # Write the data to the output file, ensuring that the puzzle starts on the previous turn before the mistake
             output_file.write(f"Moves {start} - {end_text} moves ({name}):\n")
