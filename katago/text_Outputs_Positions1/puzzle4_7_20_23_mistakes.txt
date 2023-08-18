@@ -1,0 +1,10 @@
+Moves 1 - 50 moves (Opening):
+Turn: 34, Points lost on next move: 6.6, Correct moves: J4
+Turn: 36, Points lost on next move: 2.9, Correct moves: J4
+Turn: 30, Points lost on next move: 2.8, Correct moves: K4, S2
+Moves 51 - 100 moves (Early middlegame):
+Turn: 59, Points lost on next move: 4.9, Correct moves: P2
+Turn: 53, Points lost on next move: 2.9, Correct moves: P2
+Turn: 57, Points lost on next move: 2.4, Correct moves: P2
+Turn: 61, Points lost on next move: 1.7, Correct moves: P2
+Turn: 52, Points lost on next move: 1.0, Correct moves: T16, C18, S5
