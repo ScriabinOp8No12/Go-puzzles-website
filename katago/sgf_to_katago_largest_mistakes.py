@@ -3,20 +3,24 @@ startTime = time.time()
 
 import os
 import subprocess
+import json
 from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
 from sgf2OneLineJson_all_moves import sgf_to_one_line_json
 
-# Set the path to the SGF files
+# Set the path to the SGF files:
+
 # sgf_folder_path = 'katago/positionsWithMoveOrder'
 # sgf_folder_path = 'katago/positions_test'
-sgf_folder_path = 'katago/positions'
+# sgf_folder_path = 'katago/positions'
+
+sgf_folder_path = "katago/positions_both_test"
 
 # Set the command to run KataGo (this will be a subprocess)
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
 # Output folder
 # output_folder = "katago/text_Outputs_move_order"
-output_folder = "katago/text_Outputs_Positions"
+output_folder = "katago/text_Outputs_Positions2"
 
 # Iterate over each file in the SGF files folder
 for filename in os.listdir(sgf_folder_path):
@@ -34,8 +38,8 @@ for filename in os.listdir(sgf_folder_path):
 
     # ******** Try moving this outside of the loop later! *************
     # Convert the SGF to a one line JSON object (removed second arg specifying player_turn)
-    json_obj = sgf_to_one_line_json(file_path)
-    # Katago analysis works on command line with the printed out json_dict below, so I'm not sure what the issue is...
+    json_string = sgf_to_one_line_json(file_path)
+
     # print("json_obj: ", json_obj)
 
     # Open the current output text file for writing
@@ -46,9 +50,19 @@ for filename in os.listdir(sgf_folder_path):
             # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
             p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             # stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
-            stdout_data, stderr_data = p.communicate(input=json_obj.encode('utf-8'))
+            stdout_data, stderr_data = p.communicate(input=json_string.encode('utf-8'))
         except Exception as e:
             print(f"Error processing file {filename}: {e}")
+
+        # If the moves property is an empty list, then that means there was no move order, so we simply set our starting range to moves (0, 50) instead of from (1, 50)
+
+        katago_output_dictionary = json.loads(json_string)
+
+        if not katago_output_dictionary["moves"]:
+            startMove = 0
+        else:
+            startMove = 1
+
         # Define a function to process a given range of turns, we pass in the stdout_data we got from KataGo above
         # stderr_data is standard error data
         def process_range(stdout_data, n, start, end):
@@ -63,7 +77,7 @@ for filename in os.listdir(sgf_folder_path):
 
             if not mistakes:
                 if correct_moves:
-                    print("mistakes, correct_moves: ", mistakes, correct_moves)
+                    # print("mistakes, correct_moves: ", mistakes, correct_moves)
                     moves = correct_moves[0][1]
                     output_file.write("Turn: 0, Correct moves: {}\n".format(", ".join(moves)))
                 return []
@@ -94,7 +108,8 @@ for filename in os.listdir(sgf_folder_path):
         # ***************** EXAMPLE TEST BELOW: **********************
 
         # Define the ranges to process, specifying the number of mistakes to grab from each range, sorted in descending order from greatest to smallest
-        ranges = [(0, 50, 3, 'Opening'), (51, 100, 5, 'Early middlegame'), (101, 150, 5, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
+        # ranges = [(0, 50, 3, 'Opening'), (51, 100, 5, 'Early middlegame'), (101, 150, 5, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
+        ranges = [(startMove, 50, 3, 'Opening'), (51, 100, 5, 'Early middlegame'), (101, 150, 5, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
 
         # Process each range
         for start, end, n, name in ranges:
