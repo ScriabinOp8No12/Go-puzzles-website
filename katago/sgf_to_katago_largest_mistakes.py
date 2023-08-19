@@ -36,26 +36,25 @@ for filename in os.listdir(sgf_folder_path):
     output_file_name = filename.split('.')[0] + '_mistakes.txt'  # This will give names like puzzle8_7_20_23_mistakes.txt
     output_file_path = os.path.join(output_folder, output_file_name)
 
-    # ******** Try moving this outside of the loop later! *************
-    # Convert the SGF to a one line JSON object (removed second arg specifying player_turn)
+    # Convert the SGF to a one line JSON string
     json_string = sgf_to_one_line_json(file_path)
 
-    # print("json_obj: ", json_obj)
+    # print("json_string: ", json_string)
 
     # Open the current output text file for writing
     with open(output_file_path, 'w') as output_file:
         # wrap KataGo subprocess in a try catch block
         try:
-            # Pass the JSON dictionary to KataGo for analysis
-            # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis
+            # Pass the one line JSON string to KataGo for analysis
+            # stdout stands for standard output, it's the output we are getting from KataGo after we run the KataGo analysis, stderr_data is standard error data
             p = subprocess.Popen(katago_command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             # stdout_data, stderr_data = p.communicate(input=json.dumps(json_dict).encode('utf-8'))
             stdout_data, stderr_data = p.communicate(input=json_string.encode('utf-8'))
         except Exception as e:
             print(f"Error processing file {filename}: {e}")
 
-        # If the moves property is an empty list, then that means there was no move order, so we simply set our starting range to moves (0, 50) instead of from (1, 50)
-
+        # If the moves property is an empty list, then that means there was no move order, so we simply set our starting range to moves 0 in the (0, 50) range instead of from (1, 50)
+        # First convert the json string to a Python dictionary so we can key into the "moves" property to see if it contains an empty list or not
         katago_output_dictionary = json.loads(json_string)
 
         if not katago_output_dictionary["moves"]:
@@ -63,18 +62,16 @@ for filename in os.listdir(sgf_folder_path):
         else:
             startMove = 1
 
-        # Define a function to process a given range of turns, we pass in the stdout_data we got from KataGo above
-        # stderr_data is standard error data
+        # Process a given range of turns, we pass in the stdout_data we got from KataGo above
         def process_range(stdout_data, n, start, end):
-            # This function should find the top n mistakes in the range from start to end (inclusive),
-            # along with the corresponding correct moves from the turn before each mistake.
-            # It should return a list of tuples, each of the form (turn, points_lost, correct_moves),
-            # where turn is the turn number, points_lost is the number of points lost on that turn,
+            # This function finds the top n mistakes in the range from start to end (inclusive), along with the corresponding correct moves from the turn before each mistake.
+            # It should return a list of tuples, each of the form (turn, points_lost, correct_moves), where turn is the turn number, points_lost is the number of points lost on that turn,
             # and correct_moves is a list of the correct moves from the previous turn.
 
             # This is known as "value unpacking" since our function will return 2 lists of tuples, unpacking = destructuring in JavaScript
             mistakes, correct_moves = find_mistakes_and_correct_moves(stdout_data, n, start, end)
 
+            # If the mistakes list is empty, then we change the format of the text output to be a single line, instead of multiple lines of turns
             if not mistakes:
                 if correct_moves:
                     # print("mistakes, correct_moves: ", mistakes, correct_moves)
@@ -83,11 +80,11 @@ for filename in os.listdir(sgf_folder_path):
                 return []
 
             else:
-              # Assuming that mistakes and correct_moves are lists of tuples of the form (turn, value),
-              # where turn is the turn number and value is the points lost or the correct moves, respectively,
-              # we first need to sort mistakes in descending order of points lost
-              # lambda functions are anonymous functions, which are equivalent to anonymous functions in JavaScript
-              # We are sorting the list by the 2nd element of each tuple, which in this case is the points lost value of the tuple -> (mistakes, points lost)
+                # Assuming that mistakes and correct_moves are lists of tuples of the form (turn, value),
+                # where turn is the turn number and value is the points lost or the correct moves, respectively,
+                # we first need to sort mistakes in descending order of points lost
+                # lambda functions are anonymous functions, which are equivalent to anonymous functions in JavaScript
+                # We are sorting the list by the 2nd element of each tuple, which in this case is the points lost value of the tuple -> (mistakes, points lost)
                 mistakes.sort(key=lambda x: x[1], reverse=True)
 
                 # Then we create a dictionary mapping turn numbers to correct moves,
