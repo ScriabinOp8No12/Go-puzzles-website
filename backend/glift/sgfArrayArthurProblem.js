@@ -19,7 +19,18 @@ const sgf2 = {
   widgetType: "STANDARD_PROBLEM",
 };
 
-const sgfCollection = [sgf1, sgf2];
+const sgf3 = {
+  sgfString:
+    "(;GM[1]FF[4]SZ[19]GN[]DT[2023-07-09]PB[anning97]PW[青瓦楼阁]BR[2段]WR[2段]KM[7.5]HA[0]RU[Chinese]AP[KaTrain:1.12.3]RN[3]RE[B+R]TM[300]TC[3]TT[30]RL[0]CA[UTF-8]KTV[1.0];B[qd];W[dp];B[pq];W[dd];B[cc];W[dc];B[cd];W[ce];B[be];W[bf];B[cf];W[de];B[bg];W[bd];B[af];W[bc];B[nc];W[qo];B[ql];W[op];B[oq];W[np];B[mr];W[lq];B[mq];W[mp];B[lp];W[kq];B[lo];W[rq];B[qr];W[rr];B[lr];W[kr](;B[nq]C[Incorrect - This was the actual move played in the game!])(;B[ip]C[CORRECT]))",
+  initialPosition: 34,
+  problemConditions: {
+    C: ["CORRECT"],
+  },
+  widgetType: "STANDARD_PROBLEM",
+};
+
+// const sgfCollection = [sgf1, sgf2];
+const sgfCollection = [sgf1, sgf2, sgf3];
 
 // *************** this block below doesn't need to be here, but it's good for testing *********************
 let problemSolved = false;

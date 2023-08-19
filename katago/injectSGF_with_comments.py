@@ -172,8 +172,19 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
             f.write(final_sgf_content)
 
 
-input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
-katago_output_path = "katago/text_Outputs/mistake_move_numbers_output15_4_16_mistakes.txt"
+# input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
+# katago_output_path = "katago/text_Outputs/mistake_move_numbers_output15_4_16_mistakes.txt"
+# correct_moves = process_katago_output(katago_output_path)
+# cleaned_sgf_path = clean_sgf(input_sgf)
+# inject_sgf_copy(cleaned_sgf_path, correct_moves)
+
+# these 2 below lines didn't work, last line with comment slightly off!
+# input_sgf = "katago/positions_both_test/puzzle1_7_20_23.sgf"
+# katago_output_path = "katago/text_Outputs_both_REFACTORED/puzzle1_7_20_23_mistakes.txt"
+
+
+input_sgf = "backend/glift/testSgfsToConvert/puzzle1_7_20_23.sgf"
+katago_output_path = "katago/text_Outputs_both_REFACTORED/puzzle1_7_20_23_mistakes.txt"
 correct_moves = process_katago_output(katago_output_path)
 cleaned_sgf_path = clean_sgf(input_sgf)
 inject_sgf_copy(cleaned_sgf_path, correct_moves)
