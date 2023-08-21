@@ -16,10 +16,10 @@ sgf_folder_path = "katago/positions_both_test"
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
 # output_folder = "katago/text_Outputs_move_order"
-output_folder = "katago/text_Outputs_both_REFACTORED"
+output_folder = "katago/text_Outputs_both_REFACTORED2"
 
 # Process a given range of turns, we pass in the stdout_data we get from KataGo's analysis engine
-def process_range(stdout_data, n, start, end, output_file):
+def process_range(stdout_data, n, start, end, output_file, json_string):
     # This function finds the top n mistakes in the range from start to end (inclusive), along with the corresponding correct moves from the turn before each mistake.
     # It should return a list of tuples, each of the form (turn, points_lost, correct_moves), where turn is the turn number, points_lost is the number of points lost on that turn,
     # and correct_moves is a list of the correct moves from the previous turn.
@@ -30,9 +30,12 @@ def process_range(stdout_data, n, start, end, output_file):
     # If the mistakes list is empty, then we change the format of the text output to be a single line, instead of multiple lines of turns
     if not mistakes:
         if correct_moves:
+            # grab the initial player value from the returned result object of the imported function: sgf_to_one_line_json
+            katago_input_dictionary = json.loads(json_string)
+            next_player = katago_input_dictionary["initialPlayer"].upper()
             # print("mistakes, correct_moves: ", mistakes, correct_moves)
             moves = correct_moves[0][1]
-            output_file.write("Turn: 0, Correct moves: {}\n".format(", ".join(moves)))
+            output_file.write(f"Turn: 0, Player Turn: {next_player}, Correct moves: {', '.join(moves)}\n")
         return []
 
     else:
@@ -59,7 +62,7 @@ def process_range(stdout_data, n, start, end, output_file):
         return result
 
 
-def define_ranges(stdout_data, startMove, output_file):
+def define_ranges(stdout_data, startMove, output_file, json_string):
 
     # Define the ranges to process, specifying the number of mistakes to grab from each range, sorted in descending order from greatest to smallest
     # ranges = [(0, 50, 3, 'Opening'), (51, 100, 5, 'Early middlegame'), (101, 150, 5, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
@@ -67,7 +70,7 @@ def define_ranges(stdout_data, startMove, output_file):
 
     # Process each range
     for start, end, n, name in ranges:
-        data = process_range(stdout_data.decode('utf-8'), n, start, end, output_file)
+        data = process_range(stdout_data.decode('utf-8'), n, start, end, output_file, json_string)
         # if data is empty then skip to the next iteration
         if not data:
             continue
@@ -119,7 +122,7 @@ for filename in os.listdir(sgf_folder_path):
         else:
             startMove = 1
 
-        define_ranges(stdout_data, startMove, output_file)
+        define_ranges(stdout_data, startMove, output_file, json_string)
 
 endTime = time.time()
 print("time to execute code: ", endTime-startTime)
