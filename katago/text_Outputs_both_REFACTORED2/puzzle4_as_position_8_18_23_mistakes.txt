@@ -1,1 +1,1 @@
-Turn: 0, Player Turn: B, Correct moves: K4, O6
+Turn: 0, Player: B, Correct moves: K4, O6, S2

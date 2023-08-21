@@ -35,7 +35,7 @@ def process_range(stdout_data, n, start, end, output_file, json_string):
             next_player = katago_input_dictionary["initialPlayer"].upper()
             # print("mistakes, correct_moves: ", mistakes, correct_moves)
             moves = correct_moves[0][1]
-            output_file.write(f"Turn: 0, Player Turn: {next_player}, Correct moves: {', '.join(moves)}\n")
+            output_file.write(f"Turn: 0, Player: {next_player}, Correct moves: {', '.join(moves)}\n")
         return []
 
     else:

@@ -1,1 +1,1 @@
-Turn: 0, Player Turn: W, Correct moves: B7
+Turn: 0, Player: W, Correct moves: B7

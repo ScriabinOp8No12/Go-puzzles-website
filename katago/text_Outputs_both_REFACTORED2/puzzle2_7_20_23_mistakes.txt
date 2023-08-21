@@ -1,1 +1,1 @@
-Turn: 0, Player Turn: W, Correct moves: P18
+Turn: 0, Player: W, Correct moves: P18

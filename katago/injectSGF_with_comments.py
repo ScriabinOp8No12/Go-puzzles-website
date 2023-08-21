@@ -22,7 +22,7 @@ def generate_puzzle_filename(original_sgf_name):
 # Add "move_number" to end of file name and save the sgf puzzle to the output_folder specified below
 def generate_output_filename(original_sgf_name, move_number):
     # ******************** Folder to save the sgf puzzles to ******************************
-    output_folder = 'backend/glift/puzzle_outputs_for_glift3'
+    output_folder = 'backend/glift/puzzle_outputs_for_glift4'
     # Create the folder if it doesn't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
@@ -111,10 +111,13 @@ def process_katago_output(output_file_path):
             # we will remove the rest of the SGF after the mistake (not including the mistake turn number)
             turn = int(parts[0].split(':')[1].strip()) + 1
             correct_moves = line.split("moves:")[1].strip()
+            # player_turn = line.split("Player:")[1].strip() or ""
             correct_moves_dictionary[turn] = correct_moves
-    print(correct_moves_dictionary) # {1: 'K4, O6, R3'}
-    return correct_moves_dictionary
 
+    # print(correct_moves_dictionary) # {1: 'K4, O6, R3'}
+    # Also return the player_turn value, either B or W from this function
+    return correct_moves_dictionary
+    # return correct_moves_dictionary, player_turn
 
 # Add comments of "CORRECT" to end of SGF file for glift, and "Incorrect - This was the actual move played in the game!" for the move played in the actual game
 def inject_sgf_copy(file_path, correct_moves_dictionary):
