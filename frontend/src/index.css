@@ -1,1 +1,29 @@
-/* TODO Add site wide styles */
+/* Add site wide styles */
+#root {
+  margin-top: 150px;
+  min-width: 300px;
+}
+
+button {
+  font-family: "Manrope", sans-serif;
+  background-color: #464545;
+  border: 3px solid black;
+  color: white;
+  cursor: pointer;
+}
+
+/* Exclude the profile button to have a black background color and text color of white */
+.profile-button {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Give class of disabled button to buttons that have to be disabled */
+.disabled-review-button:disabled {
+  background: grey;
+  cursor: inherit;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+}

@@ -1,0 +1,47 @@
+body {
+  background-color: white;
+}
+
+.signupText {
+  text-align: center;
+  color: black;
+}
+
+.signup-form {
+  max-width: 400px;
+  max-height: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ebedef;
+  border: 3px solid black;
+  border-radius: 15px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Hiding scroll bar in FireFox*/
+  -ms-overflow-style: none; /* Hiding scroll bar in FireFox*/
+}
+
+/* Hiding scrollbar in Chrome in safari */
+.signup-form::-webkit-scrollbar {
+  display: none;
+}
+
+.emailField,
+.usernameField,
+.firstNameField,
+.lastNameField,
+.passwordField,
+.confirmPasswordField {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.signupButton {
+  /* background-color: #2ea44f; */
+  background-color: #d70466;
+  /* color: white; */
+  color: black;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+}
