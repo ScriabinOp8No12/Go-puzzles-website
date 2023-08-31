@@ -44,7 +44,7 @@ module.exports = {
           allowNull: false,
           type: Sequelize.BOOLEAN,
         },
-        is_public: {
+        is_user_puzzle: {
           allowNull: false,
           type: Sequelize.BOOLEAN,
         },

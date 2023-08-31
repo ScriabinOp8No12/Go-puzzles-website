@@ -2,7 +2,7 @@ import os
 from sgfmill import sgf
 
 # This python module takes an uploaded SGF, creates a new clean copy that has no comments, good for black/white, symbols, or branches
-# Determines where the puzzles should be based on KataGo's analysis (largest point mistakes per section of game, correct moves are within 1 point KataGo best move),
+# Determines where the puzzles should be based on KataGo's analysis (largest point mistakes per section of game, correct moves are within 1 point of KataGo's best move),
 # Removes the rest of the SGF after that puzzle / point in SGF to avoid weird behavior with the glift library
 # Adds the comment "Incorrect - This was the actual move played in the game!" to the move played in the game
 # Adds the comment "CORRECT" to the very end of the SGF, with the correct move(s) determined by Katago.
@@ -22,7 +22,7 @@ def generate_puzzle_filename(original_sgf_name):
 # Add "move_number" to end of file name and save the sgf puzzle to the output_folder specified below
 def generate_output_filename(original_sgf_name, move_number):
     # ******************** Folder to save the sgf puzzles to ******************************
-    output_folder = 'backend/glift/puzzle_outputs_for_glift3'
+    output_folder = 'backend/glift/puzzle_outputs_for_glift4'
     # Create the folder if it doesn't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
@@ -111,10 +111,13 @@ def process_katago_output(output_file_path):
             # we will remove the rest of the SGF after the mistake (not including the mistake turn number)
             turn = int(parts[0].split(':')[1].strip()) + 1
             correct_moves = line.split("moves:")[1].strip()
+            # player_turn = line.split("Player:")[1].strip() or ""
             correct_moves_dictionary[turn] = correct_moves
 
+    # print(correct_moves_dictionary) # {1: 'K4, O6, R3'}
+    # Also return the player_turn value, either B or W from this function
     return correct_moves_dictionary
-
+    # return correct_moves_dictionary, player_turn
 
 # Add comments of "CORRECT" to end of SGF file for glift, and "Incorrect - This was the actual move played in the game!" for the move played in the actual game
 def inject_sgf_copy(file_path, correct_moves_dictionary):
@@ -150,14 +153,15 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
             "C[Incorrect - This was the actual move played in the game!])"
 
         correct_moves = correct_moves_dictionary[key].split(', ')
-        correct_comments = []
+        print("correct moves: ", correct_moves) # ['K4', 'O6', 'R3']
+        correct_comments = [] # This is empty!? But in the right one, it's empty too
 
         for move in correct_moves:
             # This should dynamically add 19 here, not manually input it
             sgf_move = convert_to_sgf(move, board_size)
             correct_comments.append(
                 '(;{}[{}]C[CORRECT])'.format(color, sgf_move))
-
+            print("correct comments: ", correct_comments)
         # Reverse the order of the comments, so that glift uses lower numbers for the more preferred AI moves
         correct_comments.reverse()
 
@@ -172,8 +176,19 @@ def inject_sgf_copy(file_path, correct_moves_dictionary):
             f.write(final_sgf_content)
 
 
-input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
-katago_output_path = "katago/text_Outputs/mistake_move_numbers_output15_4_16_mistakes.txt"
+# input_sgf = "backend/glift/testSgfsToConvert/adding_random_comments_to_arthur_game_for_testing.sgf"
+# katago_output_path = "katago/text_Outputs/mistake_move_numbers_output15_4_16_mistakes.txt"
+# correct_moves = process_katago_output(katago_output_path)
+# cleaned_sgf_path = clean_sgf(input_sgf)
+# inject_sgf_copy(cleaned_sgf_path, correct_moves)
+
+# these 2 below lines didn't work, need to write a conditional and make new logic for puzzles with no move order!
+# input_sgf = "katago/positions_both_test/puzzle1_7_20_23.sgf"
+# katago_output_path = "katago/text_Outputs_both_REFACTORED/puzzle1_7_20_23_mistakes.txt"
+
+
+input_sgf = "backend/glift/testSgfsToConvert/puzzle4_as_position_8_18_23.sgf"
+katago_output_path = "katago/text_Outputs_both_REFACTORED/puzzle4_as_position_8_18_23_mistakes.txt"
 correct_moves = process_katago_output(katago_output_path)
 cleaned_sgf_path = clean_sgf(input_sgf)
 inject_sgf_copy(cleaned_sgf_path, correct_moves)
