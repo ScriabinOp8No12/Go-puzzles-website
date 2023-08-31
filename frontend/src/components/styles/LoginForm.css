@@ -1,0 +1,32 @@
+body {
+  background-color: white;
+}
+
+.loginText {
+  text-align: center;
+  color: black;
+}
+
+.login-form-modal {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ebedef;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+
+.usernameField,
+.passwordField {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.loginButton {
+  background-color: #d70466;
+  color: black;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+}
