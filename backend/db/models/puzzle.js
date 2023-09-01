@@ -94,6 +94,23 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false
       },
+      solution_coordinates: {
+        allowNull: false,
+        type: DataTypes.TEXT,
+        get() {
+          return JSON.parse(this.getDataValue('solution_coordinates'));
+        },
+        set(val) {
+          this.setDataValue('solution_coordinates', JSON.stringify(val));
+        },
+        validate: {
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
+        },
+      },
       thumbnail: {
         type: DataTypes.STRING,
         defaultValue: "www.no-thumbnail.jpg",
