@@ -35,14 +35,13 @@ module.exports = {
         },
         rank: {
           allowNull: false,
-          // default their elo to 500 (be on the safer side)
-          defaultValue: 500,
           type: Sequelize.INTEGER,
+          defaultValue: 1000,
         },
         solved_puzzles: {
           allowNull: false,
-          defaultValue: 0,
           type: Sequelize.INTEGER,
+          defaultValue: 0,
         },
         createdAt: {
           allowNull: false,

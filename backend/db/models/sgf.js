@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       sgf_name: {
         allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
@@ -54,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       board_size: {
-        allowNull: false,
+        // Allow board_size to be null initially because we will populate it later with our scripts
         type: DataTypes.INTEGER,
         validate: {
           isIn: {
@@ -65,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       black_player: {
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 100],
           notEmptyString(value) {
@@ -76,6 +78,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       white_player: {
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 100],
           notEmptyString(value) {
@@ -87,6 +90,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       black_rank: {
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 10],
           notEmptyString(value) {
@@ -98,6 +102,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       white_rank: {
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 10],
           notEmptyString(value) {
@@ -109,6 +114,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       result: {
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
@@ -120,9 +126,8 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       thumbnail: {
-        // need to make a new migration to not allow null in this sgf thumbnail column
-        allowNull: false,
-        type: DataTypes.TEXT,
+      // Allow thumbnail to be null initially because we will populate it later with our scripts
+        type: DataTypes.STRING,
         notEmptyString(value) {
           if (value.length === 0 || value.trim().length === 0) {
             throw new Error("Thumbnail cannot be empty.");

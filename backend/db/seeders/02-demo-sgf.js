@@ -61,6 +61,7 @@ module.exports = {
           ))))))))))))))))))))))))))`,
 
           sgf_name: "Nathan vs. Matthew",
+          board_size: 19,
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
@@ -72,6 +73,7 @@ module.exports = {
           user_id: 2,
           sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
           sgf_name: "Nathan vs. Matthew",
+          board_size: 9,
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
@@ -83,6 +85,7 @@ module.exports = {
           user_id: 3,
           sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
           sgf_name: "Nathan vs. Matthew",
+          board_size: 9,
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
