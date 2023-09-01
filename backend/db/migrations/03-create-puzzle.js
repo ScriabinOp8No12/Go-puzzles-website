@@ -38,7 +38,7 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         description: {
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT,
         },
         completed: {
           allowNull: false,
@@ -48,9 +48,14 @@ module.exports = {
           allowNull: false,
           type: Sequelize.BOOLEAN,
         },
+        vote_count: {
+          allowNull: false,
+          type: Sequelize.INTEGER,
+          defaultValue: 0
+        },
         thumbnail: {
           allowNull: false,
-          type: Sequelize.TEXT,
+          type: Sequelize.STRING,
         },
         createdAt: {
           allowNull: false,

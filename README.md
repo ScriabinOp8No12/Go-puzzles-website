@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: schema_db/Go_website_schema_updated_8_1_23.png
+[db-schema]: schema_db/Go_website_schema_updated_8_31_23.png
 
 ## API Documentation
 
@@ -21,11 +21,11 @@
 - `DELETE /api/sgfs/:sgf_id/current/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
 - `DELETE /api/sgfs/:sgf_id/current`: Delete an SGF (do NOT delete the puzzles with it)
 
-### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
+### Puzzles (Endpoints for puzzles, which includes user's puzzles and all public puzzles along with filters for puzzles)
 
-- `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters.
-- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (requires priviledges / reputation)
-- `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
+- `GET /api/puzzles?source=[own|public]&completed=[true|false]&min_rank=:min_rank&max_rank=:max_rank&difficulty=:difficulty&move_number=:move_number&category=:category&board_size=:board_size&user_id=:user_id&min_votes=:min_votes&max_votes=:max_votes`: Retrieve puzzles based on various filters.
+- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other puzzle info (requires priviledges / reputation)
+- `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Must be admin if deleting a public puzzle, don't need to be admin if deleting own puzzle)
 
 ### Users (Endpoints of user specific info. Includes the user's account information like user's rank, and count of solved puzzles by category)
 
@@ -300,7 +300,7 @@ Get all SGFs of the current user (format like go4go.net)
           "black_rank": "6d",
           "white_player": "9d",
           "result": "B+Resign",
-          "thumbnail": "<base64 encoded image data>"
+          "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg"
         }
       ]
       "numberOfSGFs": 8,
@@ -350,7 +350,7 @@ Upload new SGFs to the current user's SGF table
       "result": "B+Resign",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "thumbnail": "<base64 encoded image data>",
+      "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg",
       //
       "id": 2,
       "user_id": 1,
@@ -363,7 +363,7 @@ Upload new SGFs to the current user's SGF table
       "result": "W + 3.5",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "thumbnail": "<base64 encoded image data>",
+      "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg",
       ]
     }
     ```
@@ -812,9 +812,9 @@ Deletes an existing public puzzle.
 
 ## Users
 
-### Get all Puzzles
+### Get Puzzles
 
-Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
+Retrieve puzzles based on various filters.
 
 - Require Authentication: true (error 401)
 - Require Authorization: true (error 403)
@@ -822,7 +822,7 @@ Get all completed puzzles of the current user, filtered by source. The optional 
 - Request
 
   - Method: GET
-  - URL: /api/users/:user_id/puzzles/completed?source=[own|public]
+  - URL: /api/puzzles?source=[own|public]&completed=[true|false]&min_rank=:min_rank&max_rank=:max_rank&difficulty=:difficulty&move_number=:move_number&category=:category&board_size=:board_size&user_id=:user_id&min_votes=:min_votes&max_votes=:max_votes
   - Body: none
 
 - Successful Response
@@ -834,34 +834,57 @@ Content-Type: application/json
 Body:
 
 ```json
+
   {
-    {
-      "completed_puzzles": [
+    "puzzles": [
+      {
         {
-          {
-            "puzzle_id": 1,
-            "category": "life and death",
-            "move_number": 35,
-            "difficulty_rank": 855,
-            "description": "Can you save the group?",
-            "completed": true,
-            "is_public": true
-          }
-        },
-        {
-          {
-            "puzzle_id": 2,
-            "category": "reading",
-            "move_number": 135,
-            "difficulty_rank": 2750,
-            "description": "Are you an AI?",
-            "completed": true,
-            "is_public": false
-          }
+          "puzzle_id": 1,
+          "category": "life and death",
+          "move_number": 35,
+          "difficulty_rank": 855,
+          "description": "Can you save the group?",
+          "completed": true,
+          "is_user_puzzle": true,
+          "vote_count": 10,
+          "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg",
+          "createdAt": "2023-11-19 20:39:36",
+          "updatedAt": "2023-11-19 20:39:36",
         }
-      ]
-    }
+      },
+      {
+        {
+          "puzzle_id": 2,
+          "category": "reading",
+          "move_number": 135,
+          "difficulty_rank": 2750,
+          "description": "Are you an AI?",
+          "completed": true,
+          "is_user_puzzle": false,
+          "vote_count": 250,
+          "thumbnail": "cloudinaryThumbnailPuzzleId2.jpg",
+          "createdAt": "2023-11-19 20:39:36",
+          "updatedAt": "2023-11-19 20:39:36",
+        }
+      },
+      {
+        {
+          "puzzle_id": 3,
+          "category": "ladder",
+          "move_number": 109,
+          "difficulty_rank": 1350,
+          "description": "Great ladder puzzle",
+          "completed": false,
+          "is_user_puzzle": true,
+          "vote_count": 0,
+          "thumbnail": "cloudinaryThumbnailPuzzleId3.jpg",
+          "createdAt": "2022-11-19 20:39:36",
+          "updatedAt": "2022-11-19 20:39:36",
+        }
+      }
+    ]
   }
+
 ```
 
 - Error Response: Query parameter validation errors
