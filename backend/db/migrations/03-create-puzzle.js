@@ -58,6 +58,10 @@ module.exports = {
           type: Sequelize.BOOLEAN,
           defaultValue: false
         },
+        solution_coordinates: {
+          allowNull: false,
+          type: Sequelize.TEXT
+        },
         thumbnail: {
           type: Sequelize.STRING,
           defaultValue: "www.no-thumbnail.jpg"

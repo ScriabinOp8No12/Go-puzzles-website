@@ -65,6 +65,7 @@ module.exports = {
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
+          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607274/55012684-sgf-saucypizza-%E8%84%82%E7%A0%9A%E6%96%8B0102_thumbnail_zwo9am.png",
           result: "Black + Resign",
         },
         {
@@ -75,6 +76,7 @@ module.exports = {
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
+          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/13by13test1_thumbnail_z9haxr.png",
           result: "Black + 5.5",
         },
         {
@@ -85,6 +87,7 @@ module.exports = {
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
+          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/9by9test1_thumbnail_ydxgp0.png",
           result: "White + 3.5",
         },
       ],

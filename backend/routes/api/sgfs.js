@@ -8,16 +8,10 @@ const { requireAuth } = require("../../utils/auth");
 const { User, Puzzle, Sgf } = require("../../db/models");
 
 const router = express.Router();
-// Get all SGFs of the current user (format like go4go.net)
-router.get("/current", requireAuth, async (req, res) => {
-  // when making a request to "get current user" on postman, and result is { "user": null}
-  // we get a 401 unauthorized error "Authentication required"
 
-  // Find all SGFs owned by the current logged in user
-  // Retrieve the SGFs for the specified user
+// Get all SGFs of the current user
+router.get("/current", requireAuth, async (req, res) => {
   const sgfs = await Sgf.findAll({
-    // compare SGF table's user_id value (owner of the SGFs)
-    // and the logged in user (req.user.id)
     where: { user_id: req.user.id },
     attributes: [
       "id",
@@ -34,31 +28,44 @@ router.get("/current", requireAuth, async (req, res) => {
       "thumbnail",
     ],
   });
-  // use count aggregate function to get the total number of SGFs
+
   const numberOfSGFs = await Sgf.count({ where: { user_id: req.user.id } });
 
-  // Format the response body
   const formattedSGFs = {
-    SGFs: sgfs.map((sgf) => ({
+    SGFs: [],
+    numberOfSGFs,
+  };
+
+  for (const sgf of sgfs) {
+    // Parse SGF data to get the game tree
+    const gameTree = jssgf.parse(sgf.sgf_data)[0];
+
+    // Check if board size exists
+    if (!gameTree.SZ) {
+      return res.status(400).json({ error: 'Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.' });
+    }
+
+    const board_size = gameTree.SZ;
+
+    // Remove newline characters and extra spaces from sgf_data
+    const sanitizedSgfData = sgf.sgf_data.replace(/\s+/g, ' ').trim();
+
+    formattedSGFs.SGFs.push({
       id: sgf.id,
       user_id: sgf.user_id,
       sgf_name: sgf.sgf_name,
-      // sgf_data: sgf.sgf_data,
-      sgf_data: "sgf_data placeholder",
+      sgf_data: sanitizedSgfData,
       black_player: sgf.black_player,
       white_player: sgf.white_player,
       black_rank: sgf.black_rank,
       white_rank: sgf.white_rank,
       result: sgf.result,
-      // real thumbnail is sgf.thumbnail below, however, it's too long in postman, so I'm commenting it out for now until React frontend is working
-      // thumbnail: sgf.thumbnail,
-      thumbnail: "thumbnail placeholder",
-      createdAt: moment(sgf.createdAt).format('YYYY-MM-DD HH:mm:ss'), // formatted with moment.js
-      updatedAt: moment(sgf.updatedAt).format('YYYY-MM-DD HH:mm:ss'), // formatted with moment.js
-    })),
-    // put count of SGFs outside of sgf array
-    numberOfSGFs,
-  };
+      thumbnail: sgf.thumbnail,
+      board_size: Number(board_size),
+      createdAt: moment(sgf.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(sgf.updatedAt).format('YYYY-MM-DD HH:mm:ss'),
+    });
+  }
 
   return res.json(formattedSGFs);
 });
@@ -69,19 +76,14 @@ router.post("/current", requireAuth, async (req, res) => {
 
   // Grab the data from the req.body
   const { sgf_data } = req.body;
-  // moved array check before length check, otherwise the length won't be checking the array length,
-  // it'll be checking the length of the string passed in, which means 11+ characters will trigger the error!
+
   try {
-    // Validate the sgf_data in the req.body
-    if (!Array.isArray(sgf_data)) {
-      return res.status(400).json({ error: "SGF data needs to be an array!" });
-    }
     // Check if the sgf_data array contains more than 10 SGFs
-    if (sgf_data.length > 10) {
+    if (sgf_data.length > 1) {
       return res.status(400).json({
         message: "Bad Request",
         errors: {
-          sgf_data: ["Can only upload up to 10 SGFs at once!"],
+          sgf_data: ["Can only upload up to 1 SGF at once!"],
         },
       });
     }
