@@ -83,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      is_public: {
+      is_user_puzzle: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         validate: {
@@ -94,9 +94,27 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      vote_count: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: 0, // default to 0 initially
+        validate: {
+          // Vote count must be between negative a million and a million
+          min: -1000000,
+          max: 1000000,
+          isInt: {
+            msg: "Vote count must be an integer."
+          },
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Cannot be empty.");
+            }
+          },
+        }
+      },
       thumbnail: {
         allowNull: false,
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {

@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: schema_db/Go_website_schema_updated_8_1_23.png
+[db-schema]: schema_db/Go_website_schema_updated_8_31_23.png
 
 ## API Documentation
 
@@ -21,11 +21,11 @@
 - `DELETE /api/sgfs/:sgf_id/current/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
 - `DELETE /api/sgfs/:sgf_id/current`: Delete an SGF (do NOT delete the puzzles with it)
 
-### Puzzles (Endpoints for public puzzles, which are separated from the user's puzzles created from the user's SGFs)
+### Puzzles (Endpoints for puzzles, which includes user's puzzles and all public puzzles along with filters for puzzles)
 
-- `GET /api/puzzles`: Get all public puzzles with optional query parameters for rank and category filters.
-- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other info of the public puzzle (requires priviledges / reputation)
-- `DELETE /api/puzzles/:puzzle_id`: Delete a public puzzle (Must be admin)
+- `GET /api/puzzles?source=[own|public]&completed=[true|false]&min_rank=:min_rank&max_rank=:max_rank&difficulty=:difficulty&move_number=:move_number&category=:category&board_size=:board_size&user_id=:user_id&min_votes=:min_votes&max_votes=:max_votes`: Retrieve puzzles based on various filters.
+- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other puzzle info (requires priviledges / reputation)
+- `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Must be admin if deleting a public puzzle, don't need to be admin if deleting own puzzle)
 
 ### Users (Endpoints of user specific info. Includes the user's account information like user's rank, and count of solved puzzles by category)
 
@@ -300,7 +300,7 @@ Get all SGFs of the current user (format like go4go.net)
           "black_rank": "6d",
           "white_player": "9d",
           "result": "B+Resign",
-          "thumbnail": "<base64 encoded image data>"
+          "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg"
         }
       ]
       "numberOfSGFs": 8,
@@ -350,7 +350,7 @@ Upload new SGFs to the current user's SGF table
       "result": "B+Resign",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "thumbnail": "<base64 encoded image data>",
+      "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg",
       //
       "id": 2,
       "user_id": 1,
@@ -363,7 +363,7 @@ Upload new SGFs to the current user's SGF table
       "result": "W + 3.5",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "thumbnail": "<base64 encoded image data>",
+      "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg",
       ]
     }
     ```
@@ -822,7 +822,7 @@ Retrieve puzzles based on various filters.
 - Request
 
   - Method: GET
-  - URL: /api/puzzles?source=[own|public]&completed=[true|false]&min_rank=:min_rank&max_rank=:max_rank&difficulty=:difficulty&move_number=:move_number&category=:category&board_size=:board_size&user_id=:user_id
+  - URL: /api/puzzles?source=[own|public]&completed=[true|false]&min_rank=:min_rank&max_rank=:max_rank&difficulty=:difficulty&move_number=:move_number&category=:category&board_size=:board_size&user_id=:user_id&min_votes=:min_votes&max_votes=:max_votes
   - Body: none
 
 - Successful Response
@@ -846,6 +846,7 @@ Body:
           "description": "Can you save the group?",
           "completed": true,
           "is_user_puzzle": true,
+          "vote_count": 10,
           "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg",
           "createdAt": "2023-11-19 20:39:36",
           "updatedAt": "2023-11-19 20:39:36",
@@ -860,6 +861,7 @@ Body:
           "description": "Are you an AI?",
           "completed": true,
           "is_user_puzzle": false,
+          "vote_count": 250,
           "thumbnail": "cloudinaryThumbnailPuzzleId2.jpg",
           "createdAt": "2023-11-19 20:39:36",
           "updatedAt": "2023-11-19 20:39:36",
@@ -874,6 +876,7 @@ Body:
           "description": "Great ladder puzzle",
           "completed": false,
           "is_user_puzzle": true,
+          "vote_count": 0,
           "thumbnail": "cloudinaryThumbnailPuzzleId3.jpg",
           "createdAt": "2022-11-19 20:39:36",
           "updatedAt": "2022-11-19 20:39:36",
