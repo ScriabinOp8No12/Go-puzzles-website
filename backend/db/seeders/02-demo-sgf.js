@@ -60,6 +60,7 @@ module.exports = {
           (;W[jd]
           ))))))))))))))))))))))))))`,
           sgf_name: "Nathan vs. Matthew",
+          board_size: 19,
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",

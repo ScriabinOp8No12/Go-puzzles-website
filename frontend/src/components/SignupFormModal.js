@@ -8,8 +8,6 @@ function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -22,8 +20,6 @@ function SignupFormModal() {
         sessionActions.signup({
           email,
           username,
-          firstName,
-          lastName,
           password,
         })
       )

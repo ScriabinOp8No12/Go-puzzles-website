@@ -53,6 +53,11 @@ module.exports = {
         board_size: {
           type: Sequelize.INTEGER,
         },
+        is_user_puzzle: {
+          allowNull: false,
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        },
         thumbnail: {
           type: Sequelize.STRING,
           defaultValue: "www.no-thumbnail.jpg"
