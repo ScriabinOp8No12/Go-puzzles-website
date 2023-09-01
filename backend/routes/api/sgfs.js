@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require("moment");
 const express = require("express");
 const smartgame = require("smartgame");
 const { python } = require("pythonia");
@@ -42,13 +42,21 @@ router.get("/current", requireAuth, async (req, res) => {
 
     // Check if board size exists
     if (!gameTree.SZ) {
-      return res.status(400).json({ error: 'Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.' });
+      return res
+        .status(400)
+        .json({
+          error:
+            "Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.",
+        });
     }
 
     const board_size = gameTree.SZ;
 
+    // Update board_size in the Sgf table
+    await Sgf.update({ board_size: board_size }, { where: { id: sgf.id } });
+
     // Remove newline characters and extra spaces from sgf_data
-    const sanitizedSgfData = sgf.sgf_data.replace(/\s+/g, ' ').trim();
+    const sanitizedSgfData = sgf.sgf_data.replace(/\s+/g, " ").trim();
 
     formattedSGFs.SGFs.push({
       id: sgf.id,
@@ -62,8 +70,8 @@ router.get("/current", requireAuth, async (req, res) => {
       result: sgf.result,
       thumbnail: sgf.thumbnail,
       board_size: Number(board_size),
-      createdAt: moment(sgf.createdAt).format('YYYY-MM-DD HH:mm:ss'),
-      updatedAt: moment(sgf.updatedAt).format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
   }
 
@@ -156,7 +164,7 @@ router.post("/current", requireAuth, async (req, res) => {
         ...sgfRecord.toJSON(),
         // use a placeholder instead of the giant blob of sgf_data/thumbnail in the response for now
         sgf_data: "sgf_data placeholder",
-        thumbnail: "thumbnail placeholder"
+        thumbnail: "thumbnail placeholder",
       });
     }
     // Send a success response
@@ -175,7 +183,14 @@ router.post("/current", requireAuth, async (req, res) => {
 router.put("/:sgf_id/current", requireAuth, async (req, res) => {
   try {
     // Validation checks
-    const { sgf_name, black_player, white_player, black_rank, white_rank, result } = req.body;
+    const {
+      sgf_name,
+      black_player,
+      white_player,
+      black_rank,
+      white_rank,
+      result,
+    } = req.body;
 
     let errors = {};
 
@@ -192,7 +207,7 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
     if (Object.keys(errors).length > 0) {
       return res.status(400).json({
         message: "Bad Request",
-        errors
+        errors,
       });
     }
 
@@ -224,31 +239,30 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
       black_rank: sgfRecord.black_rank,
       white_rank: sgfRecord.white_rank,
       result: sgfRecord.result,
-      updatedAt: moment(sgfRecord.updatedAt).format('YYYY-MM-DD HH:mm:ss'), // formatted with moment.js
+      updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"), // formatted with moment.js
     });
   } catch (err) {
     console.error(err);
 
     // Handle potential Sequelize validation errors
-    if (err.name && err.name === 'SequelizeValidationError') {
-        let errors = {};
+    if (err.name && err.name === "SequelizeValidationError") {
+      let errors = {};
 
-        err.errors.forEach(error => {
-            if (!errors[error.path]) {
-                errors[error.path] = [];
-            }
-            errors[error.path].push(error.message);
-        });
+      err.errors.forEach((error) => {
+        if (!errors[error.path]) {
+          errors[error.path] = [];
+        }
+        errors[error.path].push(error.message);
+      });
 
-        return res.status(400).json({
-            message: "Validation error",
-            errors
-        });
+      return res.status(400).json({
+        message: "Validation error",
+        errors,
+      });
     }
 
     res.status(500).json({ error: "Internal Server Error!" });
-}
-
+  }
 });
 
 // Delete an SGF (do NOT delete the puzzles with it)
@@ -273,12 +287,10 @@ router.delete("/:sgf_id/current", requireAuth, async (req, res) => {
 
     // Return a success response
     res.status(200).json({ message: "Successfully deleted SGF" });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 });
-
 
 module.exports = router;
