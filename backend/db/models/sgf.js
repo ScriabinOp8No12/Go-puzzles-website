@@ -133,7 +133,7 @@ module.exports = (sequelize, DataTypes) => {
       thumbnail: {
         // Allow thumbnail to be null initially because we will populate it later with our scripts
         type: DataTypes.STRING,
-        defaultValue: "no-thumbnail",
+        defaultValue: "www.no-thumbnail.jpg",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
