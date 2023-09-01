@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: schema_db/Go_website_schema2_updated_9_1_23.png
+[db-schema]: schema_db/Go_website_schema3_updated_9_1_23.png
 
 ## API Documentation
 

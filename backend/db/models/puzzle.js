@@ -89,6 +89,11 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
+      is_user_puzzle: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       thumbnail: {
         type: DataTypes.STRING,
         defaultValue: "www.no-thumbnail.jpg",
