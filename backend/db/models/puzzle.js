@@ -37,11 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           min: 1,
           max: 1000,
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
-            }
-          },
         },
       },
       // this is elo difficulty rank of the PUZZLE, NOT the strength of the user
@@ -50,24 +45,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         validate: {
           min: 100,
-          // capping elo at 3,000
-          max: 3000,
-        },
-        notEmptyString(value) {
-          if (value.length === 0 || value.trim().length === 0) {
-            throw new Error("Cannot be empty.");
-          }
+          // capping elo at 5,000
+          max: 5000,
         },
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         // maximum characters of description is 1000
         validate: {
           len: [0, 1000],
-          // **** Change later -> can allow an empty string, but shouldn't allow a bunch of empty spaces
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
+          // **** Change later?
+          notJustWhitespace(value) {
+            if (value.trim().length === 0 && value.length !== 0) {
+              throw new Error("Cannot consist solely of whitespace.");
             }
           },
         },
@@ -75,24 +65,10 @@ module.exports = (sequelize, DataTypes) => {
       completed: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
-        validate: {
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
-            }
-          },
-        },
       },
       is_user_puzzle: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
-        validate: {
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
-            }
-          },
-        },
       },
       vote_count: {
         allowNull: false,
@@ -104,11 +80,6 @@ module.exports = (sequelize, DataTypes) => {
           max: 1000000,
           isInt: {
             msg: "Vote count must be an integer."
-          },
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
-            }
           },
         }
       },
