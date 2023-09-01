@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       sgf_name: {
         allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
@@ -53,8 +54,20 @@ module.exports = (sequelize, DataTypes) => {
           len: [1, 100],
         },
       },
+      board_size: {
+        // Allow board_size to be null initially because we will populate it later with our scripts
+        type: DataTypes.INTEGER,
+        validate: {
+          isIn: {
+            args: [[9, 13, 19]],
+            msg: "Board size must be either 9, 13, or 19",
+          },
+        },
+      },
       black_player: {
+        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 100],
           notEmptyString(value) {
@@ -65,7 +78,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       white_player: {
+        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 100],
           notEmptyString(value) {
@@ -76,7 +91,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       black_rank: {
+        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 10],
           notEmptyString(value) {
@@ -87,7 +104,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       white_rank: {
+        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           len: [0, 10],
           notEmptyString(value) {
@@ -98,25 +117,30 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       result: {
+        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "?",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
               throw new Error("Result cannot be empty.");
             }
           },
-           // length of 30 characters should cover all combinations of result strings
-           len: [0, 30],
+          // length of 30 characters should cover all combinations of result strings
+          len: [0, 30],
         },
       },
       thumbnail: {
-        // need to make a new migration to not allow null in this sgf thumbnail column
-        allowNull: false,
-        type: DataTypes.TEXT,
-        notEmptyString(value) {
-          if (value.length === 0 || value.trim().length === 0) {
-            throw new Error("Thumbnail cannot be empty.");
-          }
+        // Allow thumbnail to be null initially because we will populate it later with our scripts
+        type: DataTypes.STRING,
+        defaultValue: "www.no-thumbnail.jpg",
+        validate: {
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Thumbnail cannot be empty.");
+            }
+          },
+          isUrl: true,
         },
       },
     },

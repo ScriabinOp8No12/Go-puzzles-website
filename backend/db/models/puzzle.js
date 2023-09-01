@@ -81,7 +81,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       board_size: {
-        allowNull: false,
         type: DataTypes.INTEGER,
         validate: {
           isIn: {
@@ -91,14 +90,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       thumbnail: {
-        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "www.no-thumbnail.jpg",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
               throw new Error("Cannot be empty.");
             }
           },
+          isUrl: true,
         },
       },
     },

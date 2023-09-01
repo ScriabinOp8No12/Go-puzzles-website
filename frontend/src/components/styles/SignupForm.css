@@ -27,8 +27,6 @@ body {
 
 .emailField,
 .usernameField,
-.firstNameField,
-.lastNameField,
 .passwordField,
 .confirmPasswordField {
   width: 100%;

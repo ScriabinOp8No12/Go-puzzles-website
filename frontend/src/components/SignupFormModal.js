@@ -75,26 +75,6 @@ function SignupFormModal() {
             className="usernameField"
           />
         </label>
-        <label className="firstNameLabel">
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-            className="firstNameField"
-          />
-        </label>
-        <label className="lastNameLabel">
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-            className="lastNameField"
-          />
-        </label>
         <label className="passwordLabel">
           Password
           <input
@@ -122,9 +102,8 @@ function SignupFormModal() {
             password.length < 6 ||
             password !== confirmPassword ||
             confirmPassword.length === 0 ||
-            email.length === 0 ||
-            firstName.length === 0 ||
-            lastName.length === 0
+            email.length === 0
+
               ? "disabledButton"
               : ""
           }`}
@@ -133,9 +112,7 @@ function SignupFormModal() {
             password.length < 6 ||
             password !== confirmPassword ||
             confirmPassword.length === 0 ||
-            email.length === 0 ||
-            firstName.length === 0 ||
-            lastName.length === 0
+            email.length === 0
           }
         >
           Sign Up

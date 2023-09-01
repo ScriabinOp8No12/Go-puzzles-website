@@ -51,12 +51,11 @@ module.exports = {
           defaultValue: 0
         },
         board_size: {
-          allowNull: false,
           type: Sequelize.INTEGER,
         },
         thumbnail: {
-          allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "www.no-thumbnail.jpg"
         },
         createdAt: {
           allowNull: false,

@@ -59,14 +59,12 @@ module.exports = {
           (;B[pg]
           (;W[jd]
           ))))))))))))))))))))))))))`,
-
           sgf_name: "Nathan vs. Matthew",
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
           result: "Black + Resign",
-          thumbnail: "test",
         },
         {
           user_id: 2,
@@ -77,7 +75,6 @@ module.exports = {
           black_rank: "6d",
           white_rank: "9d",
           result: "Black + 5.5",
-          thumbnail: "test",
         },
         {
           user_id: 3,
@@ -88,7 +85,6 @@ module.exports = {
           black_rank: "6d",
           white_rank: "9d",
           result: "White + 3.5",
-          thumbnail: "test",
         },
       ],
       {}

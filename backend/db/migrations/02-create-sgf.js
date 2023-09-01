@@ -32,6 +32,11 @@ module.exports = {
         sgf_name: {
           allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "?"
+        },
+        board_size: {
+          // Allow board_size to be null initially because we will populate it later with our scripts
+          type: Sequelize.INTEGER,
         },
         // player, rank, and result can all be empty or null
         black_player: {
@@ -60,8 +65,9 @@ module.exports = {
           defaultValue: "?",
         },
         thumbnail: {
-          allowNull: false,
-          type: Sequelize.TEXT,
+        // Allow thumbnail to be null initially because we will populate it later with our scripts
+          type: Sequelize.STRING,
+          defaultValue: "www.no-thumbnail.jpg"
         },
         createdAt: {
           allowNull: false,
