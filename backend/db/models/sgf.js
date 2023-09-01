@@ -60,11 +60,12 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           isIn: {
             args: [[9, 13, 19]],
-            msg: "Board size must be either 9, 13, or 19"
-          }
-        }
+            msg: "Board size must be either 9, 13, or 19",
+          },
+        },
       },
       black_player: {
+        allowNull: false,
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
@@ -77,6 +78,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       white_player: {
+        allowNull: false,
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
@@ -89,6 +91,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       black_rank: {
+        allowNull: false,
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
@@ -101,6 +104,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       white_rank: {
+        allowNull: false,
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
@@ -113,6 +117,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       result: {
+        allowNull: false,
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
@@ -121,17 +126,21 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("Result cannot be empty.");
             }
           },
-           // length of 30 characters should cover all combinations of result strings
-           len: [0, 30],
+          // length of 30 characters should cover all combinations of result strings
+          len: [0, 30],
         },
       },
       thumbnail: {
-      // Allow thumbnail to be null initially because we will populate it later with our scripts
+        // Allow thumbnail to be null initially because we will populate it later with our scripts
         type: DataTypes.STRING,
-        notEmptyString(value) {
-          if (value.length === 0 || value.trim().length === 0) {
-            throw new Error("Thumbnail cannot be empty.");
-          }
+        defaultValue: "no-thumbnail",
+        validate: {
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Thumbnail cannot be empty.");
+            }
+          },
+          isUrl: true,
         },
       },
     },

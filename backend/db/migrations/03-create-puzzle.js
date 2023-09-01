@@ -55,8 +55,8 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         thumbnail: {
-          allowNull: false,
           type: Sequelize.STRING,
+          defaultValue: "no-thumbnail"
         },
         createdAt: {
           allowNull: false,

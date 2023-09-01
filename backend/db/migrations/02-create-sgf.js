@@ -67,6 +67,7 @@ module.exports = {
         thumbnail: {
         // Allow thumbnail to be null initially because we will populate it later with our scripts
           type: Sequelize.STRING,
+          defaultValue: "no-thumbnail"
         },
         createdAt: {
           allowNull: false,

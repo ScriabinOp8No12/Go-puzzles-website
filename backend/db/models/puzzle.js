@@ -91,14 +91,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       thumbnail: {
-        allowNull: false,
         type: DataTypes.STRING,
+        defaultValue: "no-thumbnail",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
               throw new Error("Cannot be empty.");
             }
           },
+          isUrl: true,
         },
       },
     },
