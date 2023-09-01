@@ -33,6 +33,10 @@ module.exports = {
           allowNull: false,
           type: Sequelize.STRING,
         },
+        board_size: {
+          allowNull: false,
+          type: Sequelize.INTEGER,
+        },
         // player, rank, and result can all be empty or null
         black_player: {
           allowNull: false,

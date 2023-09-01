@@ -53,6 +53,16 @@ module.exports = (sequelize, DataTypes) => {
           len: [1, 100],
         },
       },
+      board_size: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        validate: {
+          isIn: {
+            args: [[9, 13, 19]],
+            msg: "Board size must be either 9, 13, or 19"
+          }
+        }
+      },
       black_player: {
         type: DataTypes.STRING,
         validate: {
