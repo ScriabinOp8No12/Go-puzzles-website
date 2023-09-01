@@ -33,7 +33,7 @@ module.exports = {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
-        difficulty_rank: {
+        difficulty: {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
@@ -43,15 +43,16 @@ module.exports = {
         completed: {
           allowNull: false,
           type: Sequelize.BOOLEAN,
-        },
-        is_user_puzzle: {
-          allowNull: false,
-          type: Sequelize.BOOLEAN,
+          defaultValue: false
         },
         vote_count: {
           allowNull: false,
           type: Sequelize.INTEGER,
           defaultValue: 0
+        },
+        board_size: {
+          allowNull: false,
+          type: Sequelize.INTEGER,
         },
         thumbnail: {
           allowNull: false,

@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       // this is elo difficulty rank of the PUZZLE, NOT the strength of the user
-      difficulty_rank: {
+      difficulty: {
         allowNull: false,
         type: DataTypes.INTEGER,
         validate: {
@@ -65,10 +65,7 @@ module.exports = (sequelize, DataTypes) => {
       completed: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
-      },
-      is_user_puzzle: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
+        defaultValue: false
       },
       vote_count: {
         allowNull: false,
@@ -81,6 +78,16 @@ module.exports = (sequelize, DataTypes) => {
           isInt: {
             msg: "Vote count must be an integer."
           },
+        }
+      },
+      board_size: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        validate: {
+          isIn: {
+            args: [[9, 13, 19]],
+            msg: "Board size must be either 9, 13, or 19"
+          }
         }
       },
       thumbnail: {

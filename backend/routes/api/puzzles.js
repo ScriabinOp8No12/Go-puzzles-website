@@ -23,7 +23,6 @@ router.get("/api/puzzles", conditionalAuth, async (req, res, next) => {
       move_number,
       category,
       board_size,
-      user_id,
       min_votes,
       max_votes
     } = req.query;
@@ -32,9 +31,13 @@ router.get("/api/puzzles", conditionalAuth, async (req, res, next) => {
 
     if (source === 'own' && req.user) {
       where.user_id = req.user.id;
-    } else if (user_id) {
-      where.user_id = user_id;
-    }
+       }
+
+// If the completed query parameter is provided in the request, sets where.completed to either true or false based on the string value of completed.
+// This is then used in the Sequelize query to filter puzzles based on their completed status.
+// If completed is 'true', then where.completed will be true.
+// If completed is 'false', then where.completed will be false.
+// This allows you to filter puzzles that are either completed or not, based on the query parameter.
 
     if (completed !== undefined) where.completed = completed === 'true';
     if (min_rank) where.difficulty_rank = { [Op.gte]: min_rank };
@@ -66,7 +69,7 @@ router.get("/api/puzzles", conditionalAuth, async (req, res, next) => {
         difficulty_rank: puzzle.difficulty_rank,
         description: puzzle.description,
         completed: puzzle.completed,
-        is_user_puzzle: puzzle.user_id === (req.user ? req.user.id : null),
+        is_user_puzzle: puzzle.user_id === (req.user ? req.user.id : false),
         vote_count: puzzle.vote_count,
         thumbnail: puzzle.thumbnail,
         createdAt: puzzle.createdAt,
