@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: schema_db/Go_website_schema_updated_9_1_23.png
+[db-schema]: schema_db/Go_website_schema_9_1_23.png
 
 ## API Documentation
 
@@ -822,7 +822,7 @@ Retrieve puzzles based on various filters.
 - Request
 
   - Method: GET
-  - URL: /api/puzzles?source=[own|public]&completed=[true|false]&min_rank=:min_rank&max_rank=:max_rank&difficulty=:difficulty&move_number=:move_number&category=:category&board_size=:board_size&user_id=:user_id&min_votes=:min_votes&max_votes=:max_votes
+  - URL: /api/puzzles?source=[own|public]&completed=[true|false]&min_rank=:min_rank&max_rank=:max_rank&difficulty=:difficulty&move_number=:move_number&category=:category&board_size=:board_size&min_votes=:min_votes&max_votes=:max_votes
   - Body: none
 
 - Successful Response
@@ -847,6 +847,7 @@ Body:
           "completed": true,
           "is_user_puzzle": true,
           "vote_count": 10,
+          "board_size": 19,
           "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg",
           "createdAt": "2023-11-19 20:39:36",
           "updatedAt": "2023-11-19 20:39:36",
@@ -862,6 +863,7 @@ Body:
           "completed": true,
           "is_user_puzzle": false,
           "vote_count": 250,
+          "board_size": 9,
           "thumbnail": "cloudinaryThumbnailPuzzleId2.jpg",
           "createdAt": "2023-11-19 20:39:36",
           "updatedAt": "2023-11-19 20:39:36",
@@ -877,6 +879,7 @@ Body:
           "completed": false,
           "is_user_puzzle": true,
           "vote_count": 0,
+          "board_size": 13,
           "thumbnail": "cloudinaryThumbnailPuzzleId3.jpg",
           "createdAt": "2022-11-19 20:39:36",
           "updatedAt": "2022-11-19 20:39:36",
