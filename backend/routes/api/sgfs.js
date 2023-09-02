@@ -134,9 +134,12 @@ router.post("/current", requireAuth, async (req, res) => {
 
     // Get our base64 encoded string using our python script
     const thumbnailBase64 = await sgf2img.generatePreview(data);
+
     // Upload our thumbnail to cloudinary then generate the url
     const uploadResponse = await cloudinary.uploader.upload(`data:image/png;base64,${thumbnailBase64}`);
     const thumbnailUrl = uploadResponse.url;
+    // Convert from http to https before storing url in database
+    const httpsThumbnailUrl = thumbnailUrl.replace('http://', 'https://');
 
     const sgfRecord = await Sgf.create({
       user_id: req.user.id,
@@ -148,7 +151,7 @@ router.post("/current", requireAuth, async (req, res) => {
       black_rank: gameInfo.BR || "?",
       white_rank: gameInfo.WR || "?",
       result: gameInfo.RE || "?",
-      thumbnail: thumbnailUrl,
+      thumbnail: httpsThumbnailUrl,
     });
 
     return res.status(201).json({ ...sgfRecord.toJSON() });
