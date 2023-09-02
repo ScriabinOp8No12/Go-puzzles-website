@@ -30,7 +30,7 @@ module.exports = {
           type: Sequelize.TEXT,
         },
         game_date: {
-          type: Sequelize.DATE,
+          type: Sequelize.STRING,
           defaultValue: "?"
         },
         sgf_name: {
