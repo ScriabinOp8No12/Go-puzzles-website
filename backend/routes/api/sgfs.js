@@ -7,15 +7,15 @@ const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { User, Puzzle, Sgf } = require("../../db/models");
 // doesn't work for somereason, javascript can't find cloudinary.js
-const cloudinary = require("../../../cloudinary.js");
+// const cloudinary = require("../../../cloudinary.js");
 
-// const cloudinary = require("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
 
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.CLOUD_API_KEY,
-//   api_secret: process.env.CLOUD_API_SECRET,
-// });
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 const router = express.Router();
 
@@ -52,12 +52,10 @@ router.get("/current", requireAuth, async (req, res) => {
 
     // Check if board size exists
     if (!gameTree.SZ) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.",
-        });
+      return res.status(400).json({
+        error:
+          "Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.",
+      });
     }
 
     const board_size = gameTree.SZ;
@@ -91,7 +89,6 @@ router.get("/current", requireAuth, async (req, res) => {
 
 // Upload new SGFs (only 1 at a time for now) to the current user's SGF table
 router.post("/current", requireAuth, async (req, res) => {
-
   const { sgf_data } = req.body;
 
   // Function to validate SGF data using regex
@@ -104,7 +101,9 @@ router.post("/current", requireAuth, async (req, res) => {
       return false;
     }
 
-    if (!/AB\[[a-z]{2}\]|AW\[[a-z]{2}\]|;B\[[a-z]{2}\]|;W\[[a-z]{2}\]/.test(sgf)) {
+    if (
+      !/AB\[[a-z]{2}\]|AW\[[a-z]{2}\]|;B\[[a-z]{2}\]|;W\[[a-z]{2}\]/.test(sgf)
+    ) {
       return false;
     }
 
@@ -120,13 +119,21 @@ router.post("/current", requireAuth, async (req, res) => {
     }
     // Import our python script (sgf 2 thumbnail image) using JSPybridge
     const sgf2img = await python(
-      path.join(__dirname, "..", "..", "..", "thumbnail_python_scripts", "sgf2img.py")
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "thumbnail_python_scripts",
+        "sgf2img.py"
+      )
     );
 
     const data = sgf_data[0];
     const parsedSgf = jssgf.parse(data);
     const gameInfo = parsedSgf[0];
     const board_size = gameInfo.SZ;
+    const game_date = gameInfo.DT;
 
     if (!isValidSgf(data)) {
       return res.status(400).json({ error: "Invalid SGF data" });
@@ -134,13 +141,19 @@ router.post("/current", requireAuth, async (req, res) => {
 
     // Get our base64 encoded string using our python script
     const thumbnailBase64 = await sgf2img.generatePreview(data);
+
     // Upload our thumbnail to cloudinary then generate the url
-    const uploadResponse = await cloudinary.uploader.upload(`data:image/png;base64,${thumbnailBase64}`);
+    const uploadResponse = await cloudinary.uploader.upload(
+      `data:image/png;base64,${thumbnailBase64}`
+    );
     const thumbnailUrl = uploadResponse.url;
+    // Convert from http to https before storing url in database
+    const httpsThumbnailUrl = thumbnailUrl.replace("http://", "https://");
 
     const sgfRecord = await Sgf.create({
       user_id: req.user.id,
       sgf_data: data,
+      game_date: game_date || "?",
       sgf_name: `${gameInfo.PB || "?"} vs ${gameInfo.PW || "?"}`,
       board_size: board_size,
       black_player: gameInfo.PB || "?",
@@ -148,18 +161,24 @@ router.post("/current", requireAuth, async (req, res) => {
       black_rank: gameInfo.BR || "?",
       white_rank: gameInfo.WR || "?",
       result: gameInfo.RE || "?",
-      thumbnail: thumbnailUrl,
+      thumbnail: httpsThumbnailUrl,
     });
 
-    return res.status(201).json({ ...sgfRecord.toJSON() });
+    return res
+      .status(201)
+      .json({
+        ...sgfRecord.toJSON(),
+        createdAt: moment(sgfRecord.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+      });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      error: "An error occurred while uploading the SGFs, please verify you are uploading a valid SGF!",
+      error:
+        "An error occurred while processing your request, please verify you are uploading a valid SGF!",
     });
   }
 });
-
 
 // Edit the SGF name, player names, or player ranks
 

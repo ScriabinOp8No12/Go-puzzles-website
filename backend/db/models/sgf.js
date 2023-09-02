@@ -40,16 +40,23 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      game_date: {
+        type: DataTypes.STRING,
+        defaultValue: "?",
+        validate: {
+          // isDate: true,
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Game date cannot be empty.");
+            }
+          },
+        }
+      },
       sgf_name: {
         allowNull: false,
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF name cannot be empty.");
-            }
-          },
           // length of sgf_name is capped at 100 characters
           len: [1, 100],
         },
@@ -133,7 +140,7 @@ module.exports = (sequelize, DataTypes) => {
       thumbnail: {
         // Allow thumbnail to be null initially because we will populate it later with our scripts
         type: DataTypes.STRING,
-        defaultValue: "www.no-thumbnail.jpg",
+        defaultValue: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
