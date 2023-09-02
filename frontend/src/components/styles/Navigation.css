@@ -6,9 +6,10 @@
 /* use pixel values instead of relative values because we want the logo and button to stay the same size on a resize of the viewport */
 .logo {
   position: fixed;
-  top: 20px;
-  left: 30px;
-  width: 70px;
+  top: 17px;
+  left: 35px;
+  width: 60px;
+  border: 4px solid teal;
   border-radius: 15px;
 }
 
@@ -156,11 +157,13 @@
 .loginButton:disabled {
   cursor: default;
   color: black;
+  font-size: 18px;
 }
 
 .loginButton:not(:disabled) {
   cursor: pointer;
   color: white;
+  font-size: 18px;
 }
 
 .loginButton {
@@ -202,11 +205,13 @@
 .signupButton:disabled {
   cursor: default;
   color: black;
+  font-size: 18px;
 }
 
 .signupButton:not(:disabled) {
   cursor: pointer;
   color: white;
+  font-size: 18px;
 }
 
 .errorMessage p {
