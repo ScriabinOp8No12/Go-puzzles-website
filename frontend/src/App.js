@@ -4,6 +4,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import { closeModal } from "./store/modal"; // import closeModal action so we can close the modal with a click outside the modal
 import Navigation from "./components/Navigation";
+import UserSGFs from "./components/UserSGFs";
 
 
 function App() {
@@ -63,21 +64,8 @@ function App() {
       {/* If isLoaded is true, render the Switch component from react-router-dom, which is used to render different components based on the current URL */}
       {isLoaded && (
         <Switch>
-          <Route exact path="/" />
-          {/* <Route path="/spots/current" component={CurrentUserSpots} /> */}
-          {/* Add update to the end, doesn't have to match backend route */}
-          {/* <Route
-            path="/spots/:spotId/update"
-            render={(props) => {
-              const spotId = props.match.params.spotId;
-              // console.log("Extracted spotId:", spotId);
-              return (
-                <UpdateSpotForm {...props} spotId={spotId} mode="update" />
-              );
-            }}
-          /> */}
-          {/* <Route exact path="/spots/:spotId" component={SpotDetail} />
-          <Route path="/spots" component={CreateSpotForm} /> */}
+          {/* <Route exact path="/" /> */}
+          <Route path="/sgfs/current" component={UserSGFs} />
         </Switch>
       )}
     </>

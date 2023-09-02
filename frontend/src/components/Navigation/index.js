@@ -22,7 +22,7 @@ function Navigation({ isLoaded }) {
       </div>
       {isLoaded && (
         <div className="navigation-container">
-          <div className="create-spot-button-wrapper">
+          {/* <div className="create-spot-button-wrapper">
             <div className="create-spot-button">
               {sessionUser && (
                 <NavLink to="/spots" className={`spot-button-menu ${showMenu}`}>
@@ -30,7 +30,7 @@ function Navigation({ isLoaded }) {
                 </NavLink>
               )}
             </div>
-          </div>
+          </div> */}
           <ProfileButton
             user={sessionUser}
             showMenu={showMenu}
