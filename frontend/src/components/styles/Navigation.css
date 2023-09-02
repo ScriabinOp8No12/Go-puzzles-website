@@ -32,8 +32,12 @@
   cursor: pointer;
   /* align the profile icon to the top of the login and signup buttons on the right of it */
   align-self: flex-start;
-  border: 2px solid black;
+  border: 4px solid teal;
   border-radius: 20px;
+}
+.profile-button {
+  background-color: #393E46;
+  color: aliceblue;
 }
 
 .profile-button.dropdown-active .hamburger-icon {
@@ -230,8 +234,6 @@
 }
 
 .navbar {
-  /* adds a grey line ABOVE the navbar now after we removed the ul and li elements... */
-  border-bottom: 2px solid lightgrey;
   position: fixed;
   top: 0;
   right: 0;
@@ -243,7 +245,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: white;
   z-index: 1000; /* Ensure the navigation bar is above other content */
 }
 

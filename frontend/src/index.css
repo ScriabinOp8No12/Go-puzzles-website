@@ -27,3 +27,7 @@ button {
 body {
   font-family: "Manrope", sans-serif;
 }
+
+.navbar {
+  background-color: #393E46;
+}
