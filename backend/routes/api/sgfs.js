@@ -127,6 +127,7 @@ router.post("/current", requireAuth, async (req, res) => {
     const parsedSgf = jssgf.parse(data);
     const gameInfo = parsedSgf[0];
     const board_size = gameInfo.SZ;
+    const game_date = gameInfo.DT;
 
     if (!isValidSgf(data)) {
       return res.status(400).json({ error: "Invalid SGF data" });
@@ -144,6 +145,7 @@ router.post("/current", requireAuth, async (req, res) => {
     const sgfRecord = await Sgf.create({
       user_id: req.user.id,
       sgf_data: data,
+      game_date: game_date || "?",
       sgf_name: `${gameInfo.PB || "?"} vs ${gameInfo.PW || "?"}`,
       board_size: board_size,
       black_player: gameInfo.PB || "?",
@@ -158,7 +160,7 @@ router.post("/current", requireAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      error: "An error occurred while uploading the SGFs, please verify you are uploading a valid SGF!",
+      error: "An error occurred while processing your request, please verify you are uploading a valid SGF!",
     });
   }
 });

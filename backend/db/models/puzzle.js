@@ -113,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       thumbnail: {
         type: DataTypes.STRING,
-        defaultValue: "www.no-thumbnail.jpg",
+        defaultValue: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg",
         validate: {
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {

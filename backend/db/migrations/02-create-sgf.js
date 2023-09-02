@@ -29,6 +29,10 @@ module.exports = {
           // changed back to TEXT because SGF data > 255 characters
           type: Sequelize.TEXT,
         },
+        game_date: {
+          type: Sequelize.DATE,
+          defaultValue: "?"
+        },
         sgf_name: {
           allowNull: false,
           type: Sequelize.STRING,
@@ -67,7 +71,7 @@ module.exports = {
         thumbnail: {
         // Allow thumbnail to be null initially because we will populate it later with our scripts
           type: Sequelize.STRING,
-          defaultValue: "www.no-thumbnail.jpg"
+          defaultValue: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg"
         },
         createdAt: {
           allowNull: false,

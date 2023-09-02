@@ -64,7 +64,7 @@ module.exports = {
         },
         thumbnail: {
           type: Sequelize.STRING,
-          defaultValue: "www.no-thumbnail.jpg"
+          defaultValue: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg"
         },
         createdAt: {
           allowNull: false,
