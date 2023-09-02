@@ -68,7 +68,7 @@ function ProfileButton({ user, showMenu, setShowMenu }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>Hello {user.firstName}</li>
+            <li>Hello {user.username}</li>
             <li>{user.email}</li>
             <li className="li-manage-spots-button">
               <button

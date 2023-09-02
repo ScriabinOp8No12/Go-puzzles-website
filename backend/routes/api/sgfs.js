@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require("moment");
 const express = require("express");
 const smartgame = require("smartgame");
 const { python } = require("pythonia");
@@ -6,6 +6,16 @@ const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { User, Puzzle, Sgf } = require("../../db/models");
+// doesn't work for somereason, javascript can't find cloudinary.js
+const cloudinary = require("../../../cloudinary.js");
+
+// const cloudinary = require("cloudinary").v2;
+
+// cloudinary.config({
+//   cloud_name: process.env.CLOUD_NAME,
+//   api_key: process.env.CLOUD_API_KEY,
+//   api_secret: process.env.CLOUD_API_SECRET,
+// });
 
 const router = express.Router();
 
@@ -42,19 +52,28 @@ router.get("/current", requireAuth, async (req, res) => {
 
     // Check if board size exists
     if (!gameTree.SZ) {
-      return res.status(400).json({ error: 'Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.' });
+      return res
+        .status(400)
+        .json({
+          error:
+            "Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.",
+        });
     }
 
     const board_size = gameTree.SZ;
 
+    // Update board_size in the Sgf table
+    await Sgf.update({ board_size: board_size }, { where: { id: sgf.id } });
+
     // Remove newline characters and extra spaces from sgf_data
-    const sanitizedSgfData = sgf.sgf_data.replace(/\s+/g, ' ').trim();
+    // const sanitizedSgfData = sgf.sgf_data.replace(/\s+/g, " ").trim();
 
     formattedSGFs.SGFs.push({
       id: sgf.id,
       user_id: sgf.user_id,
       sgf_name: sgf.sgf_name,
-      sgf_data: sanitizedSgfData,
+      sgf_data: sgf.sgf_data,
+      // sgf_data: sanitizedSgfData,
       black_player: sgf.black_player,
       white_player: sgf.white_player,
       black_rank: sgf.black_rank,
@@ -62,120 +81,99 @@ router.get("/current", requireAuth, async (req, res) => {
       result: sgf.result,
       thumbnail: sgf.thumbnail,
       board_size: Number(board_size),
-      createdAt: moment(sgf.createdAt).format('YYYY-MM-DD HH:mm:ss'),
-      updatedAt: moment(sgf.updatedAt).format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
   }
 
   return res.json(formattedSGFs);
 });
 
-// Upload new SGFs (up to 10 at a time) to the current user's SGF table
+// Upload new SGFs (only 1 at a time for now) to the current user's SGF table
 router.post("/current", requireAuth, async (req, res) => {
-  // should throw a 401 authentication error if no user logged in
 
-  // Grab the data from the req.body
   const { sgf_data } = req.body;
 
+  // Function to validate SGF data using regex
+  const isValidSgf = (sgf) => {
+    if (!sgf.startsWith("(;")) {
+      return false;
+    }
+
+    if (!/SZ\[9\]|SZ\[13\]|SZ\[19\]/.test(sgf)) {
+      return false;
+    }
+
+    if (!/AB\[[a-z]{2}\]|AW\[[a-z]{2}\]|;B\[[a-z]{2}\]|;W\[[a-z]{2}\]/.test(sgf)) {
+      return false;
+    }
+
+    return true;
+  };
+  // If sgf data (uploaded within an array) is more than one, it's invalid
   try {
-    // Check if the sgf_data array contains more than 10 SGFs
     if (sgf_data.length > 1) {
       return res.status(400).json({
         message: "Bad Request",
-        errors: {
-          sgf_data: ["Can only upload up to 1 SGF at once!"],
-        },
+        errors: { sgf_data: ["Can only upload 1 SGF at once!"] },
       });
     }
-    // Import the sgf2img module using JSPyBridge
+    // Import our python script (sgf 2 thumbnail image) using JSPybridge
     const sgf2img = await python(
-      path.join(
-        __dirname,
-        "..",
-        "..",
-        "..",
-        "thumbnail_python_scripts",
-        "sgf2img.py"
-      )
+      path.join(__dirname, "..", "..", "..", "thumbnail_python_scripts", "sgf2img.py")
     );
 
-    // Process each SGF in the array
-    const response = [];
-    for (const data of sgf_data) {
-      try {
-        // Parse the SGF data using smartgame
-        const collection = smartgame.parse(data);
+    const data = sgf_data[0];
+    const parsedSgf = jssgf.parse(data);
+    const gameInfo = parsedSgf[0];
+    const board_size = gameInfo.SZ;
 
-        // Check if the collection object is valid
-        if (
-          !collection ||
-          !collection.gameTrees ||
-          collection.gameTrees.length === 0
-        ) {
-          return res.status(400).json({ error: "Invalid SGF data" });
-        }
-      } catch (error) {
-        return res.status(400).json({ error: "Invalid SGF data" });
-      }
-
-      // Parse the SGF data using jssgf
-      const sgf = jssgf.parse(data);
-      // sgf[0] contains the game info, which we can then access the SGF properties using dot notation
-      // sgf[1] doesn't exist
-      const gameInfo = sgf[0];
-      const blackPlayer = gameInfo.PB || "?";
-      const whitePlayer = gameInfo.PW || "?";
-      const blackRank = gameInfo.BR || "?";
-      const whiteRank = gameInfo.WR || "?";
-      const result = gameInfo.RE || "?";
-
-      // Generate the SGF name
-      const sgfName = `${blackPlayer} vs ${whitePlayer}`;
-
-      // Generate the preview image using the sgf2img module we imported
-      const thumbnail = await sgf2img.generatePreview(data);
-
-      // Create a new Sgf record in the database
-      const sgfRecord = await Sgf.create({
-        // return the sgfdata back so user can click on it to view the sgf
-        // need it to execute the wgo.js code that opens the sgf player with the sgf rendered in the browser
-        user_id: req.user.id,
-        sgf_name: sgfName,
-        black_player: blackPlayer,
-        white_player: whitePlayer,
-        black_rank: blackRank,
-        white_rank: whiteRank,
-        result: result,
-        sgf_data: data,
-        // remember that the left side is the COLUMN name, so it must exactly match the column name in the database or it won't work...
-        thumbnail: thumbnail,
-      });
-
-      // Add the new Sgf record to the response array
-      response.push({
-        ...sgfRecord.toJSON(),
-        // use a placeholder instead of the giant blob of sgf_data/thumbnail in the response for now
-        sgf_data: "sgf_data placeholder",
-        thumbnail: "thumbnail placeholder"
-      });
+    if (!isValidSgf(data)) {
+      return res.status(400).json({ error: "Invalid SGF data" });
     }
-    // Send a success response
-    return res.status(201).json(response);
+
+    // Get our base64 encoded string using our python script
+    const thumbnailBase64 = await sgf2img.generatePreview(data);
+    // Upload our thumbnail to cloudinary then generate the url
+    const uploadResponse = await cloudinary.uploader.upload(`data:image/png;base64,${thumbnailBase64}`);
+    const thumbnailUrl = uploadResponse.url;
+
+    const sgfRecord = await Sgf.create({
+      user_id: req.user.id,
+      sgf_data: data,
+      sgf_name: `${gameInfo.PB || "?"} vs ${gameInfo.PW || "?"}`,
+      board_size: board_size,
+      black_player: gameInfo.PB || "?",
+      white_player: gameInfo.PW || "?",
+      black_rank: gameInfo.BR || "?",
+      white_rank: gameInfo.WR || "?",
+      result: gameInfo.RE || "?",
+      thumbnail: thumbnailUrl,
+    });
+
+    return res.status(201).json({ ...sgfRecord.toJSON() });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      error:
-        "An error occurred while uploading the SGFs, please verify you are uploading a valid SGF!",
+      error: "An error occurred while uploading the SGFs, please verify you are uploading a valid SGF!",
     });
   }
 });
+
 
 // Edit the SGF name, player names, or player ranks
 
 router.put("/:sgf_id/current", requireAuth, async (req, res) => {
   try {
     // Validation checks
-    const { sgf_name, black_player, white_player, black_rank, white_rank, result } = req.body;
+    const {
+      sgf_name,
+      black_player,
+      white_player,
+      black_rank,
+      white_rank,
+      result,
+    } = req.body;
 
     let errors = {};
 
@@ -192,7 +190,7 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
     if (Object.keys(errors).length > 0) {
       return res.status(400).json({
         message: "Bad Request",
-        errors
+        errors,
       });
     }
 
@@ -224,31 +222,30 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
       black_rank: sgfRecord.black_rank,
       white_rank: sgfRecord.white_rank,
       result: sgfRecord.result,
-      updatedAt: moment(sgfRecord.updatedAt).format('YYYY-MM-DD HH:mm:ss'), // formatted with moment.js
+      updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"), // formatted with moment.js
     });
   } catch (err) {
     console.error(err);
 
     // Handle potential Sequelize validation errors
-    if (err.name && err.name === 'SequelizeValidationError') {
-        let errors = {};
+    if (err.name && err.name === "SequelizeValidationError") {
+      let errors = {};
 
-        err.errors.forEach(error => {
-            if (!errors[error.path]) {
-                errors[error.path] = [];
-            }
-            errors[error.path].push(error.message);
-        });
+      err.errors.forEach((error) => {
+        if (!errors[error.path]) {
+          errors[error.path] = [];
+        }
+        errors[error.path].push(error.message);
+      });
 
-        return res.status(400).json({
-            message: "Validation error",
-            errors
-        });
+      return res.status(400).json({
+        message: "Validation error",
+        errors,
+      });
     }
 
     res.status(500).json({ error: "Internal Server Error!" });
-}
-
+  }
 });
 
 // Delete an SGF (do NOT delete the puzzles with it)
@@ -273,12 +270,10 @@ router.delete("/:sgf_id/current", requireAuth, async (req, res) => {
 
     // Return a success response
     res.status(200).json({ message: "Successfully deleted SGF" });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });
   }
 });
-
 
 module.exports = router;
