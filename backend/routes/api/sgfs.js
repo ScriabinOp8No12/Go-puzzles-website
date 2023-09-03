@@ -179,6 +179,11 @@ router.post("/", requireAuth, async (req, res) => {
   }
 });
 
+// Get SGF by specified ID, render with wgo.js (we will render the sgf puzzle with glift library instead -> separate endpoint)
+router.get("/:sgf_id", requireAuth, async (req, res)=>{
+  //
+})
+
 // Edit the SGF name, player names, or player ranks
 
 router.put("/:sgf_id", requireAuth, async (req, res) => {

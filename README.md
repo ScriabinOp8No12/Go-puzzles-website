@@ -10,8 +10,9 @@
 
 ### SGFs (Endpoints for current user's SGFs)
 
-- `GET /api/sgfs`: Get all SGFs of the current user (format like go4go.net)
+- `GET /api/sgfs`: Get all SGFs of the current user
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
+- `GET /api/sgfs/:sgf_id`: Get the SGF by sgf_id (for rendering Go board)
 - `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, player ranks, and/or result
 - `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
   taking the rank of the player that made the mistake, then converting that Go rank
