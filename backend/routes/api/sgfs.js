@@ -186,6 +186,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Validation checks
     const {
+      game_date,
       sgf_name,
       black_player,
       white_player,
@@ -198,8 +199,8 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
 
     if (!sgf_name || sgf_name.trim() === "") {
       errors.sgf_name = ["SGF name is required"];
-    } else if (sgf_name.length > 100) {
-      errors.sgf_name = ["Maximum SGF name length is 100 characters."];
+    } else if (sgf_name.length > 50) {
+      errors.sgf_name = ["Maximum SGF name length is 50 characters."];
     }
 
     if (result && result.trim() !== "" && result.length > 30) {
@@ -223,6 +224,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     }
 
     // Update SGF data
+    sgfRecord.game_date = game_date;
     sgfRecord.sgf_name = sgf_name;
     sgfRecord.black_player = black_player || sgfRecord.black_player;
     sgfRecord.white_player = white_player || sgfRecord.white_player;
@@ -235,6 +237,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     // Send the updated record in response
     res.status(200).json({
       sgf_id: sgfRecord.id.toString(),
+      game_date: game_date,
       sgf_name: sgfRecord.sgf_name,
       black_player: sgfRecord.black_player,
       white_player: sgfRecord.white_player,

@@ -41,15 +41,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       game_date: {
-        type: DataTypes.STRING,
-        defaultValue: "?",
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         validate: {
-          // isDate: true,
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Game date cannot be empty.");
-            }
-          },
+          isDate: true,
         }
       },
       sgf_name: {
