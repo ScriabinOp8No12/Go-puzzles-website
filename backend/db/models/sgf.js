@@ -42,7 +42,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       game_date: {
         type: DataTypes.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         validate: {
           isDate: true,
         }
@@ -53,7 +52,12 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "?",
         validate: {
           // length of sgf_name is capped at 100 characters
-          len: [1, 100],
+          len: [0, 100],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("SGF name cannot be empty.");
+            }
+          },
         },
       },
       board_size: {

@@ -184,7 +184,10 @@ router.post("/", requireAuth, async (req, res) => {
 
 router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
-    // Validation checks
+    // Initialize errors object
+    let errors = {};
+
+    // Your custom validation logic
     const {
       game_date,
       sgf_name,
@@ -195,26 +198,11 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       result,
     } = req.body;
 
-    let errors = {};
-
-    if (!sgf_name || sgf_name.trim() === "") {
-      errors.sgf_name = ["SGF name is required"];
-    } else if (sgf_name.length > 50) {
-      errors.sgf_name = ["Maximum SGF name length is 50 characters."];
-    }
-
-    if (result && result.trim() !== "" && result.length > 30) {
+    if (result.length > 30) {
       errors.result = ["Maximum result length is 30 characters."];
     }
 
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json({
-        message: "Bad Request",
-        errors,
-      });
-    }
-
-    // Check authorization
+    // Check authorization and find the record
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
     if (!sgfRecord) {
       return res.status(404).json({ error: "SGF not found!" });
@@ -232,6 +220,29 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     sgfRecord.white_rank = white_rank || sgfRecord.white_rank;
     sgfRecord.result = result || sgfRecord.result;
 
+    // Explicitly run Sequelize validation
+    try {
+      await sgfRecord.validate();
+    } catch (err) {
+      if (err.name && err.name === "SequelizeValidationError") {
+        err.errors.forEach((error) => {
+          if (!errors[error.path]) {
+            errors[error.path] = [];
+          }
+          errors[error.path].push(error.message);
+        });
+      }
+    }
+
+    // Check if there are any errors
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({
+        message: "Validation error",
+        errors,
+      });
+    }
+
+    // Save the record
     await sgfRecord.save();
 
     // Send the updated record in response
@@ -248,27 +259,10 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-
-    // Handle potential Sequelize validation errors
-    if (err.name && err.name === "SequelizeValidationError") {
-      let errors = {};
-
-      err.errors.forEach((error) => {
-        if (!errors[error.path]) {
-          errors[error.path] = [];
-        }
-        errors[error.path].push(error.message);
-      });
-
-      return res.status(400).json({
-        message: "Validation error",
-        errors,
-      });
-    }
-
     res.status(500).json({ error: "Internal Server Error!" });
   }
 });
+
 
 // Delete an SGF (do NOT delete the puzzles with it)
 
