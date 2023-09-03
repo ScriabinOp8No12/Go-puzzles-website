@@ -9,8 +9,12 @@
   top: 17px;
   left: 35px;
   width: 60px;
-  border: 4px solid #00ADB5;
+  border: 3px solid black;
   border-radius: 15px;
+}
+
+.logo:hover {
+  border: 3px solid aliceblue;
 }
 
 .loginText {
@@ -33,12 +37,14 @@
   cursor: pointer;
   /* align the profile icon to the top of the login and signup buttons on the right of it */
   align-self: flex-start;
-  border: 4px solid #00ADB5;
-  border-radius: 20px;
-}
-.profile-button {
   background-color: #393E46;
   color: aliceblue;
+  border: 3px solid #00ADB5;
+  border-radius: 20px;
+}
+
+.profile-button:hover {
+  border: 3px solid aliceblue;
 }
 
 .profile-button.dropdown-active .hamburger-icon {
