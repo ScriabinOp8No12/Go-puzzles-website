@@ -303,7 +303,7 @@
 
 .game-records-button::before {
   /* We need this because otherwise the underline stretches all the way to the right of the screen */
-  width: 105px;
+  width: 210px;
   content: "";
   display: none; /* Initially hidden */
   position: absolute;

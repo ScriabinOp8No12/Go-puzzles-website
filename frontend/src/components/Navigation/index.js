@@ -28,7 +28,7 @@ function Navigation({ isLoaded }) {
                     to="/sgfs/current"
                     className={`game-records-button-menu ${showMenu}`}
                   >
-                    Game Records
+                    Upload / View Game Records
                   </NavLink>
                 )}
               </div>
