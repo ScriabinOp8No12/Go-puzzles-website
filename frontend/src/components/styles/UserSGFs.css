@@ -12,11 +12,17 @@
 
 .upload-sgf-button label {
   display: inline-block;
-  background-color: teal;
-  color: white;
+  background-color: #00ADB5;
+  color: aliceblue;
+  font-weight: bold;
   padding: 10px 20px;
   cursor: pointer;
-  border: 3px solid white;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+
+.upload-sgf-button label:hover{
+  border: 3px solid aliceblue;
 }
 
 .upload-sgf-button input[type="file"] {
@@ -37,5 +43,9 @@
   /* Issue is this causing the upload sgf button to no longer be aligned with the thumbnails below it! */
   justify-items: center;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 40px;
+  gap: 50px;
+}
+
+.outer-wrapper img {
+  margin-bottom: 50px;
 }
