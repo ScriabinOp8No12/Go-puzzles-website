@@ -197,8 +197,8 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       result,
     } = req.body;
 
-    if (result.length > 30) {
-      errors.result = ["Maximum result length is 30 characters."];
+    if (result.length > 20) {
+      errors.result = ["Maximum result length is 20 characters."];
     }
 
     // Check authorization and find the record

@@ -27,25 +27,33 @@ const UserSGFs = () => {
   };
 
   const sortedSGFs = userSGFs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  };
 
   return (
     <div className="outer-wrapper">
       <div className="upload-sgf-button">
         <label>
           Upload SGF
-        <input type="file" accept=".sgf" onChange={handleFileChange} />
+          <input type="file" accept=".sgf" onChange={handleFileChange} />
         </label>
       </div>
       <div className="user-sgf-table">
         {sortedSGFs && sortedSGFs.map((sgf, index) => (
           <div className="uploaded-sgf-thumbnail" key={index}>
-            <img src={sgf.thumbnail} alt="SGF Thumbnail"  />
+            <img src={sgf.thumbnail} alt="SGF Thumbnail" />
+            <div className="sgf-details">
+              {sgf.createdAt && sgf.createdAt !== '?' && <div>Uploaded: {formatDate(sgf.createdAt)}</div>}
+              {sgf.sgf_name && sgf.sgf_name !== '?' && <div>{sgf.sgf_name}</div>}
+              {sgf.game_date && sgf.game_date !== '?' && <div>Game Date: {formatDate(sgf.game_date)}</div>}
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
-
 };
 
 export default UserSGFs;

@@ -51,8 +51,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
-          // length of sgf_name is capped at 100 characters
-          len: [0, 100],
+          // length of sgf_name is capped at 45 characters
+          len: [0, 45],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
               throw new Error("SGF name cannot be empty.");
@@ -75,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
-          len: [0, 100],
+          len: [0, 20],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
               throw new Error("Black player name cannot be empty.");
@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "?",
         validate: {
-          len: [0, 100],
+          len: [0, 20],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
               throw new Error("White player name cannot be empty.");
@@ -132,8 +132,8 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("Result cannot be empty.");
             }
           },
-          // length of 30 characters should cover all combinations of result strings
-          len: [0, 30],
+          // length of 20 characters should cover all combinations of result strings
+          len: [0, 20],
         },
       },
       thumbnail: {
