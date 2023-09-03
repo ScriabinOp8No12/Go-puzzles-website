@@ -29,9 +29,12 @@ const UserSGFs = () => {
   const sortedSGFs = userSGFs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (
-    <div>
-      <div className="upload-button">
+    <div className="outer-wrapper">
+      <div className="upload-sgf-button">
+        <label>
+          Upload SGF
         <input type="file" accept=".sgf" onChange={handleFileChange} />
+        </label>
       </div>
       <div className="user-sgf-table">
         {sortedSGFs && sortedSGFs.map((sgf, index) => (

@@ -9,7 +9,7 @@
   top: 17px;
   left: 35px;
   width: 60px;
-  border: 4px solid teal;
+  border: 4px solid #00ADB5;
   border-radius: 15px;
 }
 
@@ -33,7 +33,7 @@
   cursor: pointer;
   /* align the profile icon to the top of the login and signup buttons on the right of it */
   align-self: flex-start;
-  border: 4px solid teal;
+  border: 4px solid #00ADB5;
   border-radius: 20px;
 }
 .profile-button {
@@ -98,7 +98,7 @@
 
 /* only have the grey background hover effect when the user isn't logged in */
 .profile-dropdown.not-logged-in li:hover {
-  background-color: lightgrey;
+  background-color: #00ADB5;
   border: 2px solid black;
   border-radius: 15px;
   width: 80px;
@@ -112,7 +112,7 @@
 
 .profile-dropdown li:last-child button:hover {
   cursor: pointer;
-  background-color: grey;
+  background-color:#00ADB5;
 }
 
 /* Adding lines above and below "manage spots" in logged in user menu */
@@ -146,7 +146,7 @@
 .demoLoginButton {
   background: none;
   border: none;
-  color: teal;
+  color: #00ADB5;
   text-decoration: underline;
   cursor: pointer;
   font-size: inherit;
@@ -244,7 +244,7 @@
   right: 0;
   left: 0;
   /* navbar was a tiny div with basically no height at the very top of the page */
-  height: 90px;
+  height: 95px;
   /* height: 80px; */
   width: 100%;
   display: flex;
@@ -275,33 +275,49 @@
 
 /****** Create a new spot button styling below *****************/
 
-.spot-button-menu {
+.game-records-button-menu {
   padding-top: 35px;
-  color: teal;
+  color: aliceblue;
   text-decoration: none;
   font-weight: bold;
 }
 
-.create-spot-button-wrapper {
-  margin-right: 170px !important;
+.game-records-button-wrapper {
+  margin-right: 200px;
 }
 
-.create-spot-button {
-  background-color: white !important;
-  border: none !important;
-  margin-top: 33px !important;
-}
-
-.create-spot-button:hover {
-  /* padding: 5px; */
-  border: 3px solid black !important;
-  border-radius: 15px !important;
-  background-color: lightgrey !important;
+.game-records-button {
+  border: 3px solid black ;
+  margin-top: 33px ;
+  background-color: #00ADB5;
+  border-radius: 15px ;
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
   padding-right: 5px;
 }
+
+.game-records-button:hover {
+  border: 3px solid white;
+}
+
+.game-records-button::before {
+  /* We need this because otherwise the underline stretches all the way to the right of the screen */
+  width: 210px;
+  content: "";
+  display: none; /* Initially hidden */
+  position: absolute;
+  bottom: -10px; /* 10px below the button */
+  left: 10px;
+  right: 0;
+  height: 2px;
+  background-color: aliceblue;
+}
+
+.game-records-button.active::before {
+  display: block; /* Show when hovering or active */
+}
+
 
 /*****************  Manage Spots button styling below *******************/
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "../styles/Navigation.css";
@@ -8,29 +8,32 @@ import "../styles/Navigation.css";
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
+  const location = useLocation();
+  const isActive = location.pathname === '/sgfs/current';
 
   return (
     <div className={`navbar ${showMenu ? "navbar-expanded" : ""}`}>
       <div>
         <NavLink exact to="/">
-          <img
-            src="/turtle-logo.jpg"
-            alt="turtle-logo"
-            className="logo"
-          />
+          <img src="/turtle-logo.jpg" alt="turtle-logo" className="logo" />
         </NavLink>
       </div>
       {isLoaded && (
         <div className="navigation-container">
-          {/* <div className="create-spot-button-wrapper">
-            <div className="create-spot-button">
-              {sessionUser && (
-                <NavLink to="/spots" className={`spot-button-menu ${showMenu}`}>
-                  Create a New Spot
-                </NavLink>
-              )}
+          {sessionUser && (
+            <div className="game-records-button-wrapper">
+              <div className={`game-records-button ${isActive ? 'active' : ''}`}>
+                {sessionUser && (
+                  <NavLink
+                    to="/sgfs/current"
+                    className={`game-records-button-menu ${showMenu}`}
+                  >
+                    Upload / View Game Records
+                  </NavLink>
+                )}
+              </div>
             </div>
-          </div> */}
+          )}
           <ProfileButton
             user={sessionUser}
             showMenu={showMenu}
