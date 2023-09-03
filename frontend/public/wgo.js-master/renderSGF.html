@@ -21,15 +21,15 @@
 
 <style>
 body {
-  background-color: black;
+  background-color: #222831;
   color: white;
 }
 </style>
   </head>
   <body>
-    <div id="player" style="width: 700px"></div>
+    <div id="player" style="width: 60%; height: 60%;"></div>
     <script type="text/javascript">
-      // Load the SGF data from the file
+      // Load the SGF data from the file, make a fetch request to /api.sgfs/:sgfId/current
       fetch("../wgoSGFs/test1.sgf")
         .then((response) => response.text())
         .then((sgfData) => {

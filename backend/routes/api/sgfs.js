@@ -20,7 +20,7 @@ cloudinary.config({
 const router = express.Router();
 
 // Get all SGFs of the current user
-router.get("/current", requireAuth, async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   const sgfs = await Sgf.findAll({
     where: { user_id: req.user.id },
     attributes: [
@@ -88,7 +88,7 @@ router.get("/current", requireAuth, async (req, res) => {
 });
 
 // Upload new SGFs (only 1 at a time for now) to the current user's SGF table
-router.post("/current", requireAuth, async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   const { sgf_data } = req.body;
 
   // Function to validate SGF data using regex
@@ -153,7 +153,7 @@ router.post("/current", requireAuth, async (req, res) => {
     const sgfRecord = await Sgf.create({
       user_id: req.user.id,
       sgf_data: data,
-      game_date: game_date || "?",
+      game_date: game_date || new Date(),
       sgf_name: `${gameInfo.PB || "?"} vs ${gameInfo.PW || "?"}`,
       board_size: board_size,
       black_player: gameInfo.PB || "?",
@@ -164,13 +164,12 @@ router.post("/current", requireAuth, async (req, res) => {
       thumbnail: httpsThumbnailUrl,
     });
 
-    return res
-      .status(201)
-      .json({
-        ...sgfRecord.toJSON(),
-        createdAt: moment(sgfRecord.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-        updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
-      });
+    return res.status(201).json({
+      ...sgfRecord.toJSON(),
+      game_date: moment(sgfRecord.game_date).format("YYYY-MM-DD HH:mm:ss"),
+      createdAt: moment(sgfRecord.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -180,12 +179,21 @@ router.post("/current", requireAuth, async (req, res) => {
   }
 });
 
+// Get SGF by specified ID, render with wgo.js (we will render the sgf puzzle with glift library instead -> separate endpoint)
+router.get("/:sgf_id", requireAuth, async (req, res)=>{
+  //
+})
+
 // Edit the SGF name, player names, or player ranks
 
-router.put("/:sgf_id/current", requireAuth, async (req, res) => {
+router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
-    // Validation checks
+    // Initialize errors object
+    let errors = {};
+
+    // Your custom validation logic
     const {
+      game_date,
       sgf_name,
       black_player,
       white_player,
@@ -194,26 +202,11 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
       result,
     } = req.body;
 
-    let errors = {};
-
-    if (!sgf_name || sgf_name.trim() === "") {
-      errors.sgf_name = ["SGF name is required"];
-    } else if (sgf_name.length > 100) {
-      errors.sgf_name = ["Maximum SGF name length is 100 characters."];
+    if (result.length > 20) {
+      errors.result = ["Maximum result length is 20 characters."];
     }
 
-    if (result && result.trim() !== "" && result.length > 30) {
-      errors.result = ["Maximum result length is 30 characters."];
-    }
-
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json({
-        message: "Bad Request",
-        errors,
-      });
-    }
-
-    // Check authorization
+    // Check authorization and find the record
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
     if (!sgfRecord) {
       return res.status(404).json({ error: "SGF not found!" });
@@ -223,6 +216,7 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
     }
 
     // Update SGF data
+    sgfRecord.game_date = game_date;
     sgfRecord.sgf_name = sgf_name;
     sgfRecord.black_player = black_player || sgfRecord.black_player;
     sgfRecord.white_player = white_player || sgfRecord.white_player;
@@ -230,11 +224,35 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
     sgfRecord.white_rank = white_rank || sgfRecord.white_rank;
     sgfRecord.result = result || sgfRecord.result;
 
+    // Explicitly run Sequelize validation
+    try {
+      await sgfRecord.validate();
+    } catch (err) {
+      if (err.name && err.name === "SequelizeValidationError") {
+        err.errors.forEach((error) => {
+          if (!errors[error.path]) {
+            errors[error.path] = [];
+          }
+          errors[error.path].push(error.message);
+        });
+      }
+    }
+
+    // Check if there are any errors
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({
+        message: "Validation error",
+        errors,
+      });
+    }
+
+    // Save the record
     await sgfRecord.save();
 
     // Send the updated record in response
     res.status(200).json({
       sgf_id: sgfRecord.id.toString(),
+      game_date: game_date,
       sgf_name: sgfRecord.sgf_name,
       black_player: sgfRecord.black_player,
       white_player: sgfRecord.white_player,
@@ -245,31 +263,13 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-
-    // Handle potential Sequelize validation errors
-    if (err.name && err.name === "SequelizeValidationError") {
-      let errors = {};
-
-      err.errors.forEach((error) => {
-        if (!errors[error.path]) {
-          errors[error.path] = [];
-        }
-        errors[error.path].push(error.message);
-      });
-
-      return res.status(400).json({
-        message: "Validation error",
-        errors,
-      });
-    }
-
     res.status(500).json({ error: "Internal Server Error!" });
   }
 });
 
 // Delete an SGF (do NOT delete the puzzles with it)
 
-router.delete("/:sgf_id/current", requireAuth, async (req, res) => {
+router.delete("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Find the SGF record based on the provided sgf_id
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });

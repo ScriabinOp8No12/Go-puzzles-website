@@ -30,8 +30,8 @@ module.exports = {
           type: Sequelize.TEXT,
         },
         game_date: {
-          type: Sequelize.STRING,
-          defaultValue: "?"
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
         sgf_name: {
           allowNull: false,

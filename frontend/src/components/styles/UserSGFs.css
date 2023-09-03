@@ -47,5 +47,17 @@
 }
 
 .outer-wrapper img {
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
+
+/* SGF DETAILS */
+
+.sgf-details {
+  font-size: 12px;
+  color: aliceblue;
+  /* Ensure the text doesn't overflow, since our thumbnails are always at 240 pixels wide */
+  max-width: 240px;
+  margin-bottom: 30px;
+}
+
+/* Create Puzzle from SGF button! */
