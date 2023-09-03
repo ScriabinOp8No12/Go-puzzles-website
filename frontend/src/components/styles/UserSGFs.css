@@ -30,8 +30,8 @@
 }
 
 .uploaded-sgf-thumbnail img {
-  width: 200px;
-  height: 200px;
+  width: 240px;
+  height: 240px;
 }
 
 .user-sgf-table {
@@ -42,8 +42,8 @@
   /* Center items to the center of the screen for any size, notably any screen width under 1200px */
   /* Issue is this causing the upload sgf button to no longer be aligned with the thumbnails below it! */
   justify-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 40px;
 }
 
 .outer-wrapper img {
