@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>WGo</title>
+	<script type="text/javascript" src="wgo/wgo.js"></script>
+	<script type="text/javascript" src="wgo/kifu.js"></script>
+	<script type="text/javascript" src="wgo/sgfparser.js"></script>
+	<script type="text/javascript" src="wgo/player.js"></script>
+	<script type="text/javascript" src="wgo/basicplayer.js"></script>
+	<script type="text/javascript" src="wgo/basicplayer.component.js"></script>
+	<script type="text/javascript" src="wgo/basicplayer.infobox.js"></script>
+	<script type="text/javascript" src="wgo/basicplayer.commentbox.js"></script>
+	<script type="text/javascript" src="wgo/basicplayer.control.js"></script>
+	<script type="text/javascript" src="wgo/player.editable.js"></script>
+	<script type="text/javascript" src="wgo/scoremode.js"></script>
+	<script type="text/javascript" src="wgo/player.permalink.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="wgo/wgo.player.css" />
+	<link rel="stylesheet" type="text/css" href="themes/wgo.player.dark.css" />
+
+<style>
+body {
+  background-color: black;
+  color: white;
+}
+</style>
+  </head>
+  <body>
+    <div id="player" style="width: 700px"></div>
+    <script type="text/javascript">
+      // Load the SGF data from the file
+      fetch("../../wgoSGFs/test1.sgf")
+        .then((response) => response.text())
+        .then((sgfData) => {
+          // Create a new WGo.BasicPlayer instance and pass it the SGF data
+          const elem = document.getElementById("player");
+          const player = new WGo.BasicPlayer(elem, {
+            sgf: sgfData,
+          });
+        });
+    </script>
+  </body>
+</html>
