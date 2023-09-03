@@ -153,7 +153,7 @@ router.post("/", requireAuth, async (req, res) => {
     const sgfRecord = await Sgf.create({
       user_id: req.user.id,
       sgf_data: data,
-      game_date: game_date || "?",
+      game_date: game_date || new Date(),
       sgf_name: `${gameInfo.PB || "?"} vs ${gameInfo.PW || "?"}`,
       board_size: board_size,
       black_player: gameInfo.PB || "?",
@@ -164,13 +164,12 @@ router.post("/", requireAuth, async (req, res) => {
       thumbnail: httpsThumbnailUrl,
     });
 
-    return res
-      .status(201)
-      .json({
-        ...sgfRecord.toJSON(),
-        createdAt: moment(sgfRecord.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-        updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
-      });
+    return res.status(201).json({
+      ...sgfRecord.toJSON(),
+      game_date: moment(sgfRecord.game_date).format("YYYY-MM-DD HH:mm:ss"),
+      createdAt: moment(sgfRecord.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -262,7 +261,6 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error!" });
   }
 });
-
 
 // Delete an SGF (do NOT delete the puzzles with it)
 
