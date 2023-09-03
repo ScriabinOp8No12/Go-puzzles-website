@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 // *********** Action types *********** //
 
 export const UPLOAD_SGF = "/sgfs/UPLOAD_SGF";
+export const FETCH_ALL_SGFS = "/sgfs/FETCH_ALL_SGFS"
 
 // ********** Action Creators ********* //
 
@@ -11,8 +12,14 @@ export const uploadSgf = (data) => ({
   payload: data,
 });
 
+export const fetchAllSgfs = (data) => ({
+  type: FETCH_ALL_SGFS,
+  payload: data
+})
+
 // ********** Thunks ************ //
 
+// Post request to /api/sgfs/current for adding an SGF to user's database
 export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
   try {
     const response = await csrfFetch("/api/sgfs/current", {
@@ -35,10 +42,27 @@ export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
   }
 };
 
+// Get request to /api/sgfs/current for retrieving / displaying all the SGFs the user has in the database
+export const fetchAllSgfsThunk = () => async (dispatch) => {
+  try {
+    const response = await csrfFetch("/api/sgfs/current", {
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(fetchAllSgfs(data.SGFs));
+    } else {
+      // Handle error
+    }
+  } catch (error) {
+    console.error("Error fetching all SGFs:", error);
+  }
+};
+
 // ************ Reducer **************** //
 
 const initialState = {
-  userSGF: null,
+  userSGFs: [],
 };
 
 const sgfReducer = (state = initialState, action) => {
@@ -46,7 +70,12 @@ const sgfReducer = (state = initialState, action) => {
     case UPLOAD_SGF:
       return {
         ...state,
-        userSGF: action.payload,
+        userSGFs: [...state.userSGFs, action.payload],
+      };
+    case FETCH_ALL_SGFS:
+      return {
+        ...state,
+        userSGFs: action.payload,
       };
     default:
       return state;
