@@ -10,15 +10,15 @@
 
 ### SGFs (Endpoints for current user's SGFs)
 
-- `GET /api/sgfs/current`: Get all SGFs of the current user (format like go4go.net)
-- `POST /api/sgfs/current`: Upload new SGFs to the current user's SGF table
-- `PUT /api/sgfs/:sgf_id/current`: Edit the SGF name, player names, player ranks, and/or result
-- `POST /api/sgfs/:sgf_id/current/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
+- `GET /api/sgfs`: Get all SGFs of the current user (format like go4go.net)
+- `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
+- `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, player ranks, and/or result
+- `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
   taking the rank of the player that made the mistake, then converting that Go rank
   into an elo rating. If there are no ranks, it'll default to 1500 elo (which should be around 5-7k range)
-- `GET /api/sgfs/:sgf_id/current/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo.
-- `DELETE /api/sgfs/:sgf_id/current/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
-- `DELETE /api/sgfs/:sgf_id/current`: Delete an SGF (do NOT delete the puzzles with it)
+- `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo.
+- `DELETE /api/sgfs/:sgf_id/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
+- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (do NOT delete the puzzles with it)
 
 ### Puzzles (Endpoints for puzzles, which includes user's puzzles and all public puzzles along with filters for puzzles)
 
@@ -27,8 +27,6 @@
 - `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Must be admin if deleting a public puzzle, don't need to be admin if deleting own puzzle)
 
 ### Users (Endpoints of user specific info. Includes the user's account information like user's rank, and count of solved puzzles by category)
-
-- `Get /api/users/:user_id/puzzles/completed?source=[own|public]`: Get all completed puzzles of the current user, filtered by source. The optional source query parameter can be set to own to return only puzzles created from the user’s private SGFs, or public to return only puzzles created from public puzzles. If the source parameter is not provided, all completed puzzles (user's own puzzles and public puzzles) are returned.
 
 - `GET /api/users/:user_id`: Get the user's ranking (elo), number of total puzzles completed, and a count of puzzle completed for each category
 
@@ -401,7 +399,7 @@ Edit the SGF name, player names, player ranks, and/or result
 - Request
 
   - Method: PUT
-  - URL: /api/sgfs/:sgf_id/current
+  - URL: /api/sgfs/:sgf_id
   - Headers:
     - Content-Type: application/json
   - Body:
@@ -468,7 +466,7 @@ Create a new puzzle from the user's SGF (either manually or from AI's suggestion
 - Request
 
   - Method: POST
-  - URL: /api/sgfs/:sgf_id/current/puzzles
+  - URL: /api/sgfs/:sgf_id/puzzles
   - Headers:
     - Content-Type: application/json
   - Body:
@@ -560,7 +558,7 @@ Use KataGo to recommend puzzles from the uploaded SGF.  User can choose to accep
 - Request
 
   - Method: GET
-  - URL: /api/sgfs/:sgf_id/current/puzzles/:puzzle_id/mistakes
+  - URL: /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes
   - Body: none
 
 - Successful Response
@@ -620,7 +618,7 @@ Delete a puzzle that belongs to the user
 - Request
 
   - Method: DELETE
-  - URL: /api/sgf/:sgf_id/current/puzzles/puzzle_id
+  - URL: /api/sgf/:sgf_id/puzzles/puzzle_id
   - Body: none
 
 - Successful Response
@@ -658,7 +656,7 @@ Delete an SGF (do NOT delete the puzzles with it)
 - Request
 
   - Method: DELETE
-  - URL: /api/sgf/:sgf_id/current
+  - URL: /api/sgf/:sgf_id
   - Body: none
 
 - Successful Response

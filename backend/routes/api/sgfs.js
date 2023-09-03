@@ -20,7 +20,7 @@ cloudinary.config({
 const router = express.Router();
 
 // Get all SGFs of the current user
-router.get("/current", requireAuth, async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   const sgfs = await Sgf.findAll({
     where: { user_id: req.user.id },
     attributes: [
@@ -88,7 +88,7 @@ router.get("/current", requireAuth, async (req, res) => {
 });
 
 // Upload new SGFs (only 1 at a time for now) to the current user's SGF table
-router.post("/current", requireAuth, async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   const { sgf_data } = req.body;
 
   // Function to validate SGF data using regex
@@ -182,7 +182,7 @@ router.post("/current", requireAuth, async (req, res) => {
 
 // Edit the SGF name, player names, or player ranks
 
-router.put("/:sgf_id/current", requireAuth, async (req, res) => {
+router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Validation checks
     const {
@@ -269,7 +269,7 @@ router.put("/:sgf_id/current", requireAuth, async (req, res) => {
 
 // Delete an SGF (do NOT delete the puzzles with it)
 
-router.delete("/:sgf_id/current", requireAuth, async (req, res) => {
+router.delete("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Find the SGF record based on the provided sgf_id
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
