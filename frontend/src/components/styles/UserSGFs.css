@@ -1,4 +1,11 @@
-.upload-button {
+
+.outer-wrapper {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.upload-sgf-button {
+  text-align: left;
   margin-bottom: 20px; /* Adjust as needed */
 }
 
@@ -9,11 +16,24 @@
 
 .user-sgf-table {
   display: grid;
-  max-width: 1200px;
+  max-width: 1300px;
   /* Center thumbnails at screen widths over 1200px */
   margin: auto;
   /* Center items to the center of the screen for any size, notably any screen width under 1200px */
   justify-items: center;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 50px;
+  gap: 40px;
+}
+
+.upload-sgf-button label {
+  display: inline-block;
+  background-color: teal;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 3px solid white;
+}
+
+.upload-sgf-button input[type="file"] {
+  display: none;
 }
