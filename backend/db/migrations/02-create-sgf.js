@@ -40,7 +40,6 @@ module.exports = {
           // Allow board_size to be null initially because we will populate it later with our scripts
           type: Sequelize.INTEGER,
         },
-        // player, rank, and result can all be empty or null
         black_player: {
           type: Sequelize.STRING,
         },
