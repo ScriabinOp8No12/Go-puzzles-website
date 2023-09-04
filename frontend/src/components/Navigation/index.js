@@ -9,7 +9,7 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
   const location = useLocation();
-  const isActive = location.pathname === '/sgfs/current';
+  const isActive = location.pathname === '/sgfs';
 
   return (
     <div className={`navbar ${showMenu ? "navbar-expanded" : ""}`}>
@@ -25,7 +25,7 @@ function Navigation({ isLoaded }) {
               <div className={`game-records-button ${isActive ? 'active' : ''}`}>
                 {sessionUser && (
                   <NavLink
-                    to="/sgfs/current"
+                    to="/sgfs"
                     className={`game-records-button-menu ${showMenu}`}
                   >
                     Upload / View Game Records

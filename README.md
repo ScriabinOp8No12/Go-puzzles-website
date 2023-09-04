@@ -273,7 +273,7 @@ Get all SGFs of the current user (format like go4go.net)
 - Request
 
   - Method: GET
-  - URL: /api/sgfs/current
+  - URL: /api/sgfs
   - Body: none
 
 - Successful Response
@@ -315,7 +315,7 @@ Upload new SGFs to the current user's SGF table
 - Request
 
   - Method: POST
-  - URL: /api/sgfs/current
+  - URL: /api/sgfs
   - Headers:
     - Content-Type: application/json
   - Body:
@@ -390,6 +390,45 @@ Upload new SGFs to the current user's SGF table
   }
   ```
 
+### Get SGF by id
+
+Get the SGF by id and render with wgo.js (we will use glift for rendering the puzzles, which is at a different route)
+
+- Require Authentication: true (error 401)
+- Require Authorization: SGF data/table must belong to the current user (error 403)
+
+Request
+
+  - Method: GET
+  - URL: /api/sgfs/:sgf_id
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+
+- Successful Response
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "sgf_id": "1",
+    "sgf_data": "sgf_data to render with wgo library",
+    "game_date": "2023-09-03",
+    "sgf_name": "Original sgf name",
+    "board_size": 19,
+    "black_player": "Nathan",
+    "white_player": "Matthew",
+    "black_rank": "2d",
+    "white_rank": "3d",
+    "result": "B+5.5",
+    "createdAt": "2023-08-05 14:06:15",
+    "updatedAt": "2023-08-07 14:06:15"
+  }
+  ```
+
 ### Edit SGF
 
 Edit the SGF name, player names, player ranks, and/or result
@@ -407,6 +446,7 @@ Edit the SGF name, player names, player ranks, and/or result
 
     ```json
     {
+      "game_date": "5-19-23",
       "sgf_name": "Changed SGF name to this",
       "board_size": 19,
       "black_player": "Nathannn",
@@ -427,6 +467,7 @@ Edit the SGF name, player names, player ranks, and/or result
   ```json
   {
     "sgf_id": "1",
+    "game_date": "5-19-23",
     "sgf_name": "Changed SGF name to this",
     "board_size": 19,
     "black_player": "Nathannn",
