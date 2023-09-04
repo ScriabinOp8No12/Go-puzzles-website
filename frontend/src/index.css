@@ -6,9 +6,11 @@
 
 button {
   font-family: "Manrope", sans-serif;
-  background-color: #464545;
+  /* background-color: #464545; */
+  background-color: #00ADB5;
   border: 3px solid black;
-  color: white;
+  border-radius: 15px;
+  color: aliceblue;
   cursor: pointer;
 }
 

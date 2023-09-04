@@ -1,26 +1,25 @@
-import React, { useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllSgfsThunk, uploadSgfThunk } from '../store/sgfs';
-import { useHistory } from 'react-router-dom';
-import "./styles/UserSGFs.css"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllSgfsThunk, uploadSgfThunk } from "../store/sgfs";
+import { useHistory } from "react-router-dom";
+import "./styles/UserSGFs.css";
 
 const UserSGFs = () => {
   const dispatch = useDispatch();
-  const userSGFs = useSelector(state => state.sgfs.userSGFs);
-  const history = useHistory()
+  const userSGFs = useSelector((state) => state.sgfs.userSGFs);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchAllSgfsThunk());
   }, [dispatch]);
 
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       const sgf_data = {
-        "sgf_data": [event.target.result]
+        sgf_data: [event.target.result],
       };
       dispatch(uploadSgfThunk(sgf_data));
     };
@@ -28,10 +27,15 @@ const UserSGFs = () => {
     reader.readAsText(file);
   };
 
-  const sortedSGFs = userSGFs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const sortedSGFs = userSGFs.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
   return (
@@ -43,16 +47,38 @@ const UserSGFs = () => {
         </label>
       </div>
       <div className="user-sgf-table">
-        {sortedSGFs && sortedSGFs.map((sgf, index) => (
-          <div className="uploaded-sgf-thumbnail" key={index}>
-            <img src={sgf.thumbnail} alt="SGF Thumbnail" onClick={() => history.push(`/sgfs/${sgf.id}`)} style={{ cursor: 'pointer' }}/>
-            <div className="sgf-details">
-              {sgf.createdAt && sgf.createdAt !== '?' && <div>Uploaded: {formatDate(sgf.createdAt)}</div>}
-              {sgf.sgf_name && sgf.sgf_name !== '?' && <div>{sgf.sgf_name}</div>}
-              {sgf.game_date && sgf.game_date !== '?' && <div>Game Date: {formatDate(sgf.game_date)}</div>}
+        {sortedSGFs &&
+          sortedSGFs.map((sgf, index) => (
+            <div className="uploaded-sgf-thumbnail" key={index}>
+              <img
+                src={sgf.thumbnail}
+                alt="SGF Thumbnail"
+                title={sgf.sgf_name}
+                onClick={() => history.push(`/sgfs/${sgf.id}`)}
+                style={{ cursor: "pointer" }}
+              />
+              <div className="sgf-details">
+                {sgf.createdAt && sgf.createdAt !== "?" && (
+                  <div className="sgf-details-top-row">
+                    <div className="sgf-created-at">
+                      {formatDate(sgf.createdAt)}
+                    </div>
+                    <button className="create-puzzles-button"
+                    onClick={() => alert("Feature coming soon")} >
+                      Create Puzzles!
+                    </button>
+                    <button className="pencil-icon">✏️</button>
+                  </div>
+                )}
+                {sgf.sgf_name && sgf.sgf_name !== "?" && (
+                  <div className ="sgf-page-sgf-name">{sgf.sgf_name}</div>
+                )}
+                {sgf.game_date && sgf.game_date !== "?" && (
+                  <div>Game Date: {formatDate(sgf.game_date)}</div>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

@@ -6,8 +6,8 @@
 
 .upload-sgf-button {
   text-align: center;
-  margin-bottom: 30px;
-  margin-top: 120px;
+  margin-bottom: 20px;
+  margin-top: 115px;
 }
 
 .upload-sgf-button label {
@@ -57,7 +57,51 @@
   color: aliceblue;
   /* Ensure the text doesn't overflow, since our thumbnails are always at 240 pixels wide */
   max-width: 240px;
-  margin-bottom: 30px;
+  /* margin-bottom: 10px; */
 }
 
-/* Create Puzzle from SGF button! */
+/* Create Puzzle from SGF button and pencil edit icon! */
+
+.sgf-details-top-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%; /* Make sure this matches the thumbnail's max width */
+}
+
+.sgf-created-at {
+  margin-right: auto; /* Pushes the rest of the items to the far right */
+}
+
+.create-puzzles-button {
+  /* margin-left: 10px; */
+  color: aliceblue;
+  background-color: #00ADB5;
+  font-size: 11px;
+  padding-top: 0px;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.create-puzzles-button:hover {
+  border: 3px solid aliceblue;
+}
+
+.pencil-icon {
+  padding-top: 0px;
+  font-size: 11px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.pencil-icon:hover {
+  border: 3px solid aliceblue;
+}
+
+/* 2nd row (sgf name) styling */
+
+
+.sgf-page-sgf-name {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
