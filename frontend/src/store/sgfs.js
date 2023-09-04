@@ -42,7 +42,7 @@ export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
   }
 };
 
-// Get request to /api/sgfs/current for retrieving / displaying all the SGFs the user has in the database
+// Get request to /api/sgfs for retrieving / displaying all the SGFs the user has in the database
 export const fetchAllSgfsThunk = () => async (dispatch) => {
   try {
     const response = await csrfFetch("/api/sgfs", {

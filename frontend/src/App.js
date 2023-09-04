@@ -65,7 +65,7 @@ function App() {
       {isLoaded && (
         <Switch>
           {/* <Route exact path="/" /> */}
-          <Route path="/sgfs/current" component={UserSGFs} />
+          <Route path="/sgfs" component={UserSGFs} />
         </Switch>
       )}
     </>

@@ -180,7 +180,6 @@ router.post("/", requireAuth, async (req, res) => {
 });
 
 // Get a single SGF by specified ID, render with wgo.js (we will render the sgf puzzle with glift library instead -> separate endpoint)
-
 router.get("/:sgf_id", requireAuth, async (req, res) => {
   const sgfId = req.params.sgf_id;
 

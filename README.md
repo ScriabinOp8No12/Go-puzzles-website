@@ -273,7 +273,7 @@ Get all SGFs of the current user (format like go4go.net)
 - Request
 
   - Method: GET
-  - URL: /api/sgfs/current
+  - URL: /api/sgfs
   - Body: none
 
 - Successful Response
@@ -315,7 +315,7 @@ Upload new SGFs to the current user's SGF table
 - Request
 
   - Method: POST
-  - URL: /api/sgfs/current
+  - URL: /api/sgfs
   - Headers:
     - Content-Type: application/json
   - Body:
