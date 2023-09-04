@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import { closeModal } from "./store/modal"; // import closeModal action so we can close the modal with a click outside the modal
 import Navigation from "./components/Navigation";
 import UserSGFs from "./components/UserSGFs";
+import SgfDisplay from "./components/SgfDisplay";
 
 
 function App() {
@@ -13,6 +14,11 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const modalComponent = useSelector((state) => state.modal.modalComponent);
   const history = useHistory();
+  const location = useLocation();
+  // Regex that checks if the path starts with /sgfs followed by one or more digits, then end
+  // We don't want to render the navbar for the specific SGF that the user clicks on, because
+  // We want the SGF to fill the entire screen
+  const showNavBar = !/^\/sgfs\/\d+$/.test(location.pathname);
 
   // function to close modal (wrap with useCallback to avoid rerending / warning in terminal)
   const handleCloseModal = useCallback(() => {
@@ -55,6 +61,7 @@ function App() {
 
   return (
     <>
+      {/* {showNavBar && <Navigation isLoaded={isLoaded} />} */}
       {/* Render the Navigation component, passing in the isLoaded state */}
       <Navigation isLoaded={isLoaded} />
       {/* If modalComponent is not null, render a div with class "modal-overlay" (this is the background behind the modal that's more grey colored) */}
@@ -65,6 +72,7 @@ function App() {
       {isLoaded && (
         <Switch>
           {/* <Route exact path="/" /> */}
+          <Route path="/sgfs/:sgf_id" component={SgfDisplay} />
           <Route path="/sgfs" component={UserSGFs} />
         </Switch>
       )}

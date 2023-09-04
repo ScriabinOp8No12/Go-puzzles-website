@@ -1,11 +1,13 @@
 import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllSgfsThunk, uploadSgfThunk } from '../store/sgfs';
+import { useHistory } from 'react-router-dom';
 import "./styles/UserSGFs.css"
 
 const UserSGFs = () => {
   const dispatch = useDispatch();
   const userSGFs = useSelector(state => state.sgfs.userSGFs);
+  const history = useHistory()
 
   useEffect(() => {
     dispatch(fetchAllSgfsThunk());
@@ -43,7 +45,7 @@ const UserSGFs = () => {
       <div className="user-sgf-table">
         {sortedSGFs && sortedSGFs.map((sgf, index) => (
           <div className="uploaded-sgf-thumbnail" key={index}>
-            <img src={sgf.thumbnail} alt="SGF Thumbnail" />
+            <img src={sgf.thumbnail} alt="SGF Thumbnail" onClick={() => history.push(`/sgfs/${sgf.id}`)} style={{ cursor: 'pointer' }}/>
             <div className="sgf-details">
               {sgf.createdAt && sgf.createdAt !== '?' && <div>Uploaded: {formatDate(sgf.createdAt)}</div>}
               {sgf.sgf_name && sgf.sgf_name !== '?' && <div>{sgf.sgf_name}</div>}
