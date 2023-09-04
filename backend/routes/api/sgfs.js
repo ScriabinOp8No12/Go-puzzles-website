@@ -179,13 +179,62 @@ router.post("/", requireAuth, async (req, res) => {
   }
 });
 
-// Get SGF by specified ID, render with wgo.js (we will render the sgf puzzle with glift library instead -> separate endpoint)
-router.get("/:sgf_id", requireAuth, async (req, res)=>{
-  //
-})
+// Get a single SGF by specified ID, render with wgo.js (we will render the sgf puzzle with glift library instead -> separate endpoint)
 
+router.get("/:sgf_id", requireAuth, async (req, res) => {
+  const sgfId = req.params.sgf_id;
+
+  // First, check if the SGF exists at all
+  const sgfExists = await Sgf.findOne({
+    where: { id: sgfId },
+  });
+
+  if (!sgfExists) {
+    return res.status(404).json({ error: 'SGF not found' });
+  }
+
+  // Then, check if the SGF belongs to the current user
+  const sgf = await Sgf.findOne({
+    where: { id: sgfId, user_id: req.user.id },
+    attributes: [
+      "id",
+      "createdAt",
+      "updatedAt",
+      "sgf_name",
+      "sgf_data",
+      "black_player",
+      "white_player",
+      "black_rank",
+      "white_rank",
+      "result",
+      "board_size",
+      "game_date"
+    ],
+  });
+
+  if (!sgf) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  // Format the SGF data for the response
+  const formattedSGF = {
+    sgf_id: sgf.id,
+    game_date: sgf.game_date,
+    sgf_name: sgf.sgf_name,
+    sgf_data: sgf.sgf_data,
+    board_size: sgf.board_size,
+    black_player: sgf.black_player,
+    white_player: sgf.white_player,
+    black_rank: sgf.black_rank,
+    white_rank: sgf.white_rank,
+    result: sgf.result,
+    createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+    updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+  };
+
+  return res.status(200).json(formattedSGF);
+});
 // Edit the SGF name, player names, or player ranks
-
 router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Initialize errors object
