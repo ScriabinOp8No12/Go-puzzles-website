@@ -34,9 +34,7 @@ module.exports = {
           defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
         sgf_name: {
-          allowNull: false,
           type: Sequelize.STRING,
-          defaultValue: "?"
         },
         board_size: {
           // Allow board_size to be null initially because we will populate it later with our scripts
@@ -44,29 +42,19 @@ module.exports = {
         },
         // player, rank, and result can all be empty or null
         black_player: {
-          allowNull: false,
           type: Sequelize.STRING,
-          defaultValue: "?",
         },
         white_player: {
-          allowNull: false,
           type: Sequelize.STRING,
-          defaultValue: "?",
         },
         black_rank: {
-          allowNull: false,
           type: Sequelize.STRING,
-          defaultValue: "?",
         },
         white_rank: {
-          allowNull: false,
           type: Sequelize.STRING,
-          defaultValue: "?",
         },
         result: {
-          allowNull: false,
           type: Sequelize.STRING,
-          defaultValue: "?",
         },
         thumbnail: {
         // Allow thumbnail to be null initially because we will populate it later with our scripts

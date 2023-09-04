@@ -235,7 +235,8 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
 
   return res.status(200).json(formattedSGF);
 });
-// Edit the SGF name, player names, or player ranks
+
+// Edit: SGF name, Game date, player names / ranks, result
 router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Initialize errors object
@@ -318,7 +319,6 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
 });
 
 // Delete an SGF (do NOT delete the puzzles with it)
-
 router.delete("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Find the SGF record based on the provided sgf_id

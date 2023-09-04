@@ -47,17 +47,16 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       sgf_name: {
-        allowNull: false,
+        // allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           // length of sgf_name is capped at 45 characters
           len: [0, 45],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF name cannot be empty.");
-            }
-          },
+          // notEmptyString(value) {
+          //   if (value.length === 0 || value.trim().length === 0) {
+          //     throw new Error("SGF name cannot be empty.");
+          //   }
+          // },
         },
       },
       board_size: {
@@ -71,67 +70,58 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       black_player: {
-        allowNull: false,
+        // allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 20],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Black player name cannot be empty.");
-            }
-          },
+          // notEmptyString(value) {
+          //   if (value.length === 0 || value.trim().length === 0) {
+          //     throw new Error("Black player name cannot be empty.");
+          //   }
+          // },
         },
       },
       white_player: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 20],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("White player name cannot be empty.");
-            }
-          },
+          // notEmptyString(value) {
+          //   if (value.length === 0 || value.trim().length === 0) {
+          //     throw new Error("White player name cannot be empty.");
+          //   }
+          // },
         },
       },
       black_rank: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 10],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Black rank cannot be empty.");
-            }
-          },
+          // notEmptyString(value) {
+          //   if (value.length === 0 || value.trim().length === 0) {
+          //     throw new Error("Black rank cannot be empty.");
+          //   }
+          // },
         },
       },
       white_rank: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 10],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("White rank cannot be empty.");
-            }
-          },
+          // notEmptyString(value) {
+          //   if (value.length === 0 || value.trim().length === 0) {
+          //     throw new Error("White rank cannot be empty.");
+          //   }
+          // },
         },
       },
       result: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Result cannot be empty.");
-            }
-          },
+          // notEmptyString(value) {
+          //   if (value.length === 0 || value.trim().length === 0) {
+          //     throw new Error("Result cannot be empty.");
+          //   }
+          // },
           // length of 20 characters should cover all combinations of result strings
           len: [0, 20],
         },

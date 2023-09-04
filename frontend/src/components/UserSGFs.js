@@ -58,10 +58,10 @@ const UserSGFs = () => {
                 style={{ cursor: "pointer" }}
               />
               <div className="sgf-details">
-                {sgf.createdAt && sgf.createdAt !== "?" && (
+                {sgf.updatedAt && sgf.updatedAt !== "?" && (
                   <div className="sgf-details-top-row">
-                    <div className="sgf-created-at">
-                      {formatDate(sgf.createdAt)}
+                    <div className="sgf-updated-at">
+                      {formatDate(sgf.updatedAt)}
                     </div>
                     <button className="create-puzzles-button"
                     onClick={() => alert("Feature coming soon")} >
@@ -70,12 +70,12 @@ const UserSGFs = () => {
                     <button className="pencil-icon">✏️</button>
                   </div>
                 )}
-                {sgf.sgf_name && sgf.sgf_name !== "?" && (
-                  <div className ="sgf-page-sgf-name">{sgf.sgf_name}</div>
-                )}
-                {sgf.game_date && sgf.game_date !== "?" && (
-                  <div>Game Date: {formatDate(sgf.game_date)}</div>
-                )}
+                {sgf.sgf_name && sgf.sgf_name !== "? vs ?" && sgf.sgf_name.trim() !== "" && (
+                <div className="sgf-page-sgf-name">{sgf.sgf_name}</div>
+              )}
+              {sgf.game_date && sgf.game_date !== "?" && sgf.game_date.trim() !== "" && (
+                <div>Game Date: {formatDate(sgf.game_date)}</div>
+              )}
               </div>
             </div>
           ))}
