@@ -26,6 +26,7 @@ router.get("/", requireAuth, async (req, res) => {
     attributes: [
       "id",
       "user_id",
+      "game_date",
       "createdAt",
       "updatedAt",
       "sgf_name",
@@ -69,6 +70,7 @@ router.get("/", requireAuth, async (req, res) => {
     formattedSGFs.SGFs.push({
       id: sgf.id,
       user_id: sgf.user_id,
+      game_date: sgf.game_date,
       sgf_name: sgf.sgf_name,
       sgf_data: sgf.sgf_data,
       // sgf_data: sanitizedSgfData,

@@ -3,7 +3,8 @@ import { csrfFetch } from "./csrf";
 // *********** Action types *********** //
 
 export const UPLOAD_SGF = "/sgfs/UPLOAD_SGF";
-export const FETCH_ALL_SGFS = "/sgfs/FETCH_ALL_SGFS"
+export const FETCH_ALL_SGFS = "/sgfs/FETCH_ALL_SGFS";
+export const FETCH_SGF_BY_ID = "sgfs/FETCH_SGF_BY_ID";
 
 // ********** Action Creators ********* //
 
@@ -14,8 +15,13 @@ export const uploadSgf = (data) => ({
 
 export const fetchAllSgfs = (data) => ({
   type: FETCH_ALL_SGFS,
-  payload: data
-})
+  payload: data,
+});
+
+export const fetchSgfByIdAction = (data) => ({
+  type: FETCH_SGF_BY_ID,
+  payload: data,
+});
 
 // ********** Thunks ************ //
 
@@ -45,8 +51,7 @@ export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
 // Get request to /api/sgfs for retrieving / displaying all the SGFs the user has in the database
 export const fetchAllSgfsThunk = () => async (dispatch) => {
   try {
-    const response = await csrfFetch("/api/sgfs", {
-    });
+    const response = await csrfFetch("/api/sgfs", {});
 
     if (response.ok) {
       const data = await response.json();
@@ -59,10 +64,24 @@ export const fetchAllSgfsThunk = () => async (dispatch) => {
   }
 };
 
+// Get request to get one sgf by id (load the sgf the user clicked)
+export const fetchSgfByIdThunk = (sgfId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/sgfs/${sgfId}`);
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(fetchSgfByIdAction(data));
+    }
+  } catch (error) {
+    console.error("Error fetching SGF by ID:", error);
+  }
+};
+
 // ************ Reducer **************** //
 
 const initialState = {
   userSGFs: [],
+  currentSgf: null,
 };
 
 const sgfReducer = (state = initialState, action) => {
@@ -76,6 +95,12 @@ const sgfReducer = (state = initialState, action) => {
       return {
         ...state,
         userSGFs: action.payload,
+      };
+    case FETCH_SGF_BY_ID:
+      console.log("New currentSgf:", action.payload);  // Debugging line
+      return {
+        ...state,
+        currentSgf: action.payload,
       };
     default:
       return state;

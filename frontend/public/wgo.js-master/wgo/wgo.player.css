@@ -54,11 +54,15 @@
 
 .wgo-player-center {
 	width: 100%;
+  /* Added Margin-top here too */
+  margin-top: 50px;
 }
 
 .wgo-player-left-wrapper, .wgo-player-right-wrapper  {
 	height: 100%;
 	position: relative;
+  /* ADDED MARGIN TOP HERE */
+  margin-top: 50px;
 }
 
 /*--- /Regions ----------------------------------------------------------------------*/
@@ -554,7 +558,7 @@ input[type="text"].wgo-player-mn-value  {
 	border: 1px solid rgba(200,200,200,0.3);
 	border-radius: 2px;
 	background-color: rgba(255,255,255,0.3);
-	width: 28px;
+	width: 35px;
 	font-weight: bold;
 	font-size: 15px;
 	text-align: center;
