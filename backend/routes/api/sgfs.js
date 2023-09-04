@@ -155,7 +155,7 @@ router.post("/", requireAuth, async (req, res) => {
     const sgfRecord = await Sgf.create({
       user_id: req.user.id,
       sgf_data: data,
-      game_date: game_date || new Date(),
+      game_date: game_date || null,
       sgf_name: `${gameInfo.PB || "?"} vs ${gameInfo.PW || "?"}`,
       board_size: board_size,
       black_player: gameInfo.PB || "?",

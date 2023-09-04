@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       game_date: {
         type: DataTypes.DATE,
         validate: {
-          isDate: true,
+          isDate: true
         }
       },
       sgf_name: {

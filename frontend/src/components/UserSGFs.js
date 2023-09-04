@@ -73,7 +73,8 @@ const UserSGFs = () => {
                 {sgf.sgf_name && sgf.sgf_name !== "? vs ?" && sgf.sgf_name.trim() !== "" && (
                 <div className="sgf-page-sgf-name">{sgf.sgf_name}</div>
               )}
-              {sgf.game_date && sgf.game_date !== "?" && sgf.game_date.trim() !== "" && (
+              {/* If a blank date, or ? value, or invalid date is entered (see Invalid date in DB) then don't render the date at all */}
+              {sgf.game_date && sgf.game_date !== "?" && sgf.game_date !== "Invalid date" && sgf.game_date.trim() !== "" && (
                 <div>Game Date: {formatDate(sgf.game_date)}</div>
               )}
               </div>

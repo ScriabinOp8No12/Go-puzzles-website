@@ -31,7 +31,6 @@ module.exports = {
         },
         game_date: {
           type: Sequelize.DATE,
-          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
         sgf_name: {
           type: Sequelize.STRING,
