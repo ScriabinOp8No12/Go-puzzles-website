@@ -38,6 +38,7 @@ module.exports = {
         board_size: {
           // Allow board_size to be null initially because we will populate it later with our scripts
           type: Sequelize.INTEGER,
+          defaultValue: 19
         },
         black_player: {
           type: Sequelize.STRING,
