@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       board_size: {
-        // Allow board_size to be null initially because we will populate it later with our scripts
+        allowNull: false,
         type: DataTypes.INTEGER,
         validate: {
           isIn: {
