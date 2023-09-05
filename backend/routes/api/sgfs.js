@@ -43,7 +43,7 @@ router.get("/", requireAuth, async (req, res) => {
     ],
   });
 
-  console.log("Raw SGFs:", sgfs)
+  console.log("Raw SGFs:", sgfs);
 
   const numberOfSGFs = await Sgf.count({ where: { user_id: req.user.id } });
 
@@ -63,8 +63,7 @@ router.get("/", requireAuth, async (req, res) => {
 
     if (komi && isNaN(parseFloat(komi))) {
       return res.status(400).json({
-        error:
-          "Invalid Komi value in SGF. Please upload an SGF with a valid Komi.",
+        error: "Invalid komi.",
       });
     }
 
@@ -106,28 +105,28 @@ router.get("/", requireAuth, async (req, res) => {
 router.post("/", requireAuth, async (req, res) => {
   const { sgf_data } = req.body;
 
+  const validationErrors = [];
+
   // Function to validate SGF data using regex
   const isValidSgf = (sgf) => {
     if (!sgf.startsWith("(;")) {
-      return false;
+      return "SGF data must start with '(;'";
     }
 
     if (
       !/AB\[[a-z]{2}\]|AW\[[a-z]{2}\]|;B\[[a-z]{2}\]|;W\[[a-z]{2}\]/.test(sgf)
     ) {
-      return false;
+      return "Invalid SGF data format";
     }
 
-    return true;
+    return null; // Return null if no errors
   };
-  // If sgf data (uploaded within an array) is more than one, it's invalid
+
   try {
     if (sgf_data.length > 1) {
-      return res.status(400).json({
-        message: "Bad Request, Can only upload 1 SGF at once! ",
-        errors: { sgf_data: ["Can only upload 1 SGF at once!"] },
-      });
+      validationErrors.push("Can only upload 1 SGF at a time.");
     }
+
     // Import our python script (sgf 2 thumbnail image) using JSPybridge
     const sgf2img = await python(
       path.join(
@@ -147,15 +146,20 @@ router.post("/", requireAuth, async (req, res) => {
     const game_date = gameInfo.DT;
     const komi = gameInfo.KM;
 
-    if (komi && isNaN(parseFloat(komi))) {
-      return res.status(400).json({
-        error:
-          "Invalid Komi value in SGF. Please upload an SGF with a valid Komi.",
-      });
+    if (isValidSgf(data)) {
+      validationErrors.push("Invalid SGF data.");
     }
 
-    if (!isValidSgf(data)) {
-      return res.status(400).json({ error: "Invalid SGF data" });
+    if (komi && isNaN(parseFloat(komi))) {
+      validationErrors.push("Invalid komi value.");
+    }
+
+    if (![9, 13, 19].includes(parseInt(board_size))) {
+      validationErrors.push("Board size must be 9, 13, or 19.");
+    }
+
+    if (validationErrors.length > 0) {
+      return res.status(400).json({ errors: validationErrors });
     }
 
     // Get our base64 encoded string using our python script
@@ -191,11 +195,15 @@ router.post("/", requireAuth, async (req, res) => {
       updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      error:
-        "An error occurred while processing your request, please verify you are uploading a valid SGF!",
-    });
+    if (err.name === "SequelizeValidationError") {
+      const validationErrors = err.errors.map((error) => error.message);
+      res.status(400).json({ errors: validationErrors });
+    } else {
+      console.error(err);
+      res.status(500).json({
+        error: "Invalid SGF!",
+      });
+    }
   }
 });
 
