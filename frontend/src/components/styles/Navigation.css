@@ -297,10 +297,10 @@
   margin-top: 33px ;
   background-color: #00ADB5;
   border-radius: 15px ;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .game-records-button:hover {
@@ -309,7 +309,7 @@
 
 .game-records-button::before {
   /* We need this because otherwise the underline stretches all the way to the right of the screen */
-  width: 207px;
+  width: 227px;
   content: "";
   display: none; /* Initially hidden */
   position: absolute;

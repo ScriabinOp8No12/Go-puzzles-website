@@ -48,6 +48,34 @@ export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
   }
 };
 
+// export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
+//   console.log("SGF DATA ****", sgf_data)
+//   try {
+//     const response = await csrfFetch("/api/sgfs", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(sgf_data),
+//     });
+
+//     if (response.ok) {
+//       const data = await response.json();
+//       dispatch(uploadSgf(data));
+//     } else {
+//       const errorData = await response.json();
+//       console.error("Server Errors:", errorData.errors);
+//       // Dispatch an action to store these errors in your Redux store, if needed
+//       // dispatch(setServerErrors(errorData.errors));
+//     }
+//   } catch (e) {
+//     console.error("Network Errors:", e);
+//     // Dispatch an action to store this error in your Redux store, if needed
+//     // dispatch(setNetworkErrors(e));
+//   }
+// };
+
+
 // Get request to /api/sgfs for retrieving / displaying all the SGFs the user has in the database
 export const fetchAllSgfsThunk = () => async (dispatch) => {
   const response = await csrfFetch("/api/sgfs", {});
