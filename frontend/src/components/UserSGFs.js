@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSgfsThunk, uploadSgfThunk } from "../store/sgfs";
+import { fetchAllSgfsThunk, uploadSgfThunk} from "../store/sgfs";
 import { useHistory } from "react-router-dom";
+import DeleteSgfModal from "./DeleteSgfModal";
 import "./styles/UserSGFs.css";
 
 const UserSGFs = () => {
@@ -24,9 +25,12 @@ const UserSGFs = () => {
       };
 
       try {
+        // why do we need await here, seems like we get an error otherwise?
         await dispatch(uploadSgfThunk(sgf_data));
         setUploadError(""); // Clear any previous upload error
       } catch (error) {
+        // console.log("error: ", error)
+        // console.log("error response: ", error.response)
         if (error.response && error.response.data) {
           const errorData = error.response.data;
           if (errorData.errors && errorData.errors.length > 0) {
@@ -91,6 +95,8 @@ const UserSGFs = () => {
                       Create Puzzles!
                     </button>
                     <button className="pencil-icon">✏️</button>
+                    {/* <button className="trashcan-icon"></button> */}
+                    <DeleteSgfModal sgfId={sgf.id} />
                   </div>
                 )}
                 {sgf.sgf_name &&

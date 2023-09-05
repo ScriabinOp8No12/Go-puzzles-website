@@ -104,7 +104,6 @@ router.get("/", requireAuth, async (req, res) => {
 // Upload new SGFs (only 1 at a time for now) to the current user's SGF table
 router.post("/", requireAuth, async (req, res) => {
   const { sgf_data } = req.body;
-
   const validationErrors = [];
 
   // Function to validate SGF data using regex
@@ -159,6 +158,7 @@ router.post("/", requireAuth, async (req, res) => {
     }
 
     if (validationErrors.length > 0) {
+      // console.log("Validation errors:", validationErrors); // Debugging line
       return res.status(400).json({ errors: validationErrors });
     }
 
@@ -195,6 +195,7 @@ router.post("/", requireAuth, async (req, res) => {
       updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
   } catch (err) {
+    // console.error("Caught server-side error:", err); // Debugging line
     if (err.name === "SequelizeValidationError") {
       const validationErrors = err.errors.map((error) => error.message);
       res.status(400).json({ errors: validationErrors });

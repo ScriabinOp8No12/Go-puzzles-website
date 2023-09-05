@@ -1,0 +1,60 @@
+.deleteModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.deleteText {
+  text-align: center;
+  color: aliceblue;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.deleteConfirmation {
+  text-align: center;
+}
+
+.deleteButton,
+.cancelButton {
+  width: 100%;
+  /* padding: 10px 20px; */
+  margin-top: 10px;
+  border: 3px solid black;
+  height: 50px;
+}
+
+.deleteButton {
+  background-color: #00ADB5;
+  color: white;
+  font-weight: bold;
+}
+
+.cancelButton {
+  background-color: #464545;
+  color: white;
+  font-weight: bold;
+}
+
+.deleteButton:hover, .cancelButton:hover {
+  border: 3px solid aliceblue;
+}
+
+.trashcan-icon {
+  font-size: 11px;
+}
+
+.trashcan-icon:hover {
+  border: 3px solid aliceblue;
+}
+
+.delete-modal-form {
+  box-sizing: border-box;
+  padding: 20px;
+  width: 400px;
+  background-color: #222831;
+  border: 3px solid black;
+  border-radius: 15px;
+  margin-bottom: 0px;
+}
