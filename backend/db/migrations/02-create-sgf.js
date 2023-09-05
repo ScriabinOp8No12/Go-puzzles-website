@@ -51,6 +51,9 @@ module.exports = {
         white_rank: {
           type: Sequelize.STRING,
         },
+        komi: {
+          type: Sequelize.FLOAT
+        },
         result: {
           type: Sequelize.STRING,
         },

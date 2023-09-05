@@ -89,6 +89,11 @@ module.exports = (sequelize, DataTypes) => {
           len: [0, 10],
         },
       },
+      // Allow all komi values for now, but then stop the user when they try to analyze the game with KataGo
+      // Then it requires the komi to be within -50 to 50 so the analysis works well -> or check handicap, since 5 stones reverse 50 could technically work
+      komi: {
+        type: DataTypes.FLOAT,
+      },
       result: {
         type: DataTypes.STRING,
         validate: {

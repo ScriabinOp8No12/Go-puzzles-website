@@ -6,6 +6,7 @@ const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { User, Puzzle, Sgf } = require("../../db/models");
+
 // doesn't work for somereason, javascript can't find cloudinary.js
 // const cloudinary = require("../../../cloudinary.js");
 
@@ -35,10 +36,13 @@ router.get("/", requireAuth, async (req, res) => {
       "white_player",
       "black_rank",
       "white_rank",
+      "komi",
       "result",
       "thumbnail",
     ],
   });
+
+  console.log("Raw SGFs:", sgfs)
 
   const numberOfSGFs = await Sgf.count({ where: { user_id: req.user.id } });
 
@@ -60,17 +64,31 @@ router.get("/", requireAuth, async (req, res) => {
     }
 
     const board_size = gameTree.SZ;
+    // Grab komi from the game file or default it to 0.5
+    const komi = gameTree.KM ? parseFloat(gameTree.KM) : 0.5;
 
-    // Update board_size in the Sgf table
-    await Sgf.update({ board_size: board_size }, { where: { id: sgf.id } });
+    if (komi && isNaN(parseFloat(komi))) {
+      return res.status(400).json({
+        error:
+          "Invalid Komi value in SGF. Please upload an SGF with a valid Komi.",
+      });
+    }
+
+    // Update board_size and komi in the Sgf table
+    await Sgf.update(
+      { board_size: board_size, komi: komi },
+      { where: { id: sgf.id } }
+    );
 
     // Remove newline characters and extra spaces from sgf_data
     // const sanitizedSgfData = sgf.sgf_data.replace(/\s+/g, " ").trim();
 
+    console.log("Formatted SGFs:", formattedSGFs);
+
     formattedSGFs.SGFs.push({
       id: sgf.id,
       user_id: sgf.user_id,
-      game_date: sgf.game_date,
+      game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
       sgf_name: sgf.sgf_name,
       sgf_data: sgf.sgf_data,
       // sgf_data: sanitizedSgfData,
@@ -81,6 +99,7 @@ router.get("/", requireAuth, async (req, res) => {
       result: sgf.result,
       thumbnail: sgf.thumbnail,
       board_size: Number(board_size),
+      komi: parseFloat(komi),
       createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
       updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
@@ -136,6 +155,14 @@ router.post("/", requireAuth, async (req, res) => {
     const gameInfo = parsedSgf[0];
     const board_size = gameInfo.SZ;
     const game_date = gameInfo.DT;
+    const komi = gameInfo.KM;
+
+    if (komi && isNaN(parseFloat(komi))) {
+      return res.status(400).json({
+        error:
+          "Invalid Komi value in SGF. Please upload an SGF with a valid Komi.",
+      });
+    }
 
     if (!isValidSgf(data)) {
       return res.status(400).json({ error: "Invalid SGF data" });
@@ -155,13 +182,14 @@ router.post("/", requireAuth, async (req, res) => {
     const sgfRecord = await Sgf.create({
       user_id: req.user.id,
       sgf_data: data,
-      game_date: game_date || null,
+      game_date: game_date || new Date(),
       sgf_name: `${gameInfo.PB || "?"} vs ${gameInfo.PW || "?"}`,
       board_size: board_size,
       black_player: gameInfo.PB || "?",
       white_player: gameInfo.PW || "?",
       black_rank: gameInfo.BR || "?",
       white_rank: gameInfo.WR || "?",
+      komi: parseFloat(komi) || 0.5,
       result: gameInfo.RE || "?",
       thumbnail: httpsThumbnailUrl,
     });
@@ -191,7 +219,7 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
   });
 
   if (!sgfExists) {
-    return res.status(404).json({ error: 'SGF not found' });
+    return res.status(404).json({ error: "SGF not found" });
   }
 
   // Then, check if the SGF belongs to the current user
@@ -207,20 +235,21 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
       "white_player",
       "black_rank",
       "white_rank",
+      "komi",
       "result",
       "board_size",
-      "game_date"
+      "game_date",
     ],
   });
 
   if (!sgf) {
-    return res.status(403).json({ error: 'Forbidden' });
+    return res.status(403).json({ error: "Forbidden" });
   }
 
   // Format the SGF data for the response
   const formattedSGF = {
     sgf_id: sgf.id,
-    game_date: sgf.game_date,
+    game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
     sgf_name: sgf.sgf_name,
     sgf_data: sgf.sgf_data,
     board_size: sgf.board_size,
@@ -228,6 +257,7 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
     white_player: sgf.white_player,
     black_rank: sgf.black_rank,
     white_rank: sgf.white_rank,
+    komi: sgf.komi,
     result: sgf.result,
     createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
     updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
@@ -242,7 +272,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     // Initialize errors object
     let errors = {};
 
-    // Your custom validation logic
+    // Custom validation logic
     const {
       game_date,
       sgf_name,
@@ -250,8 +280,16 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       white_player,
       black_rank,
       white_rank,
+      komi,
       result,
     } = req.body;
+
+    // Validate komi
+    if (komi && isNaN(parseFloat(komi))) {
+      return res.status(400).json({
+        error: "Invalid Komi value. Please provide a valid Komi.",
+      });
+    }
 
     if (result.length > 20) {
       errors.result = ["Maximum result length is 20 characters."];
@@ -273,6 +311,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     sgfRecord.white_player = white_player || sgfRecord.white_player;
     sgfRecord.black_rank = black_rank || sgfRecord.black_rank;
     sgfRecord.white_rank = white_rank || sgfRecord.white_rank;
+    sgfRecord.komi = komi || sgfRecord.komi;
     sgfRecord.result = result || sgfRecord.result;
 
     // Explicitly run Sequelize validation
@@ -303,14 +342,15 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     // Send the updated record in response
     res.status(200).json({
       sgf_id: sgfRecord.id.toString(),
-      game_date: game_date,
+      game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
       sgf_name: sgfRecord.sgf_name,
       black_player: sgfRecord.black_player,
       white_player: sgfRecord.white_player,
       black_rank: sgfRecord.black_rank,
       white_rank: sgfRecord.white_rank,
+      komi: sgfRecord.komi,
       result: sgfRecord.result,
-      updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"), // formatted with moment.js
+      updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
   } catch (err) {
     console.error(err);
