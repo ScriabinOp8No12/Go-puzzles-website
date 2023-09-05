@@ -8,7 +8,6 @@ if (process.env.NODE_ENV === "production") {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // put tableName here inside up function instead of outside
     options.tableName = "Users";
     return queryInterface.bulkInsert(
       options,
@@ -18,7 +17,6 @@ module.exports = {
           email: "test@gmail.com",
           rank: 3873,
           solved_puzzles: 5050,
-          // Verify BCRYPT setup LATER!
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
@@ -29,9 +27,9 @@ module.exports = {
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
-          username: "smallboards",
+          username: "test user",
           email: "test2@gmail.com",
-          rank: 2250,
+          rank: 250,
           solved_puzzles: 10,
           hashedPassword: bcrypt.hashSync("password"),
         },
@@ -46,8 +44,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        // needed to rename the usernames below to match what we changed in seeder data!
-        username: { [Op.in]: ["Shin Jinseo", "bigfry1", "bigfry2"] },
+        username: { [Op.in]: ["Shin Jinseo", "bigfry1", "test user"] },
       },
       {}
     );
