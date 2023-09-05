@@ -28,6 +28,7 @@ router.get("/", requireAuth, async (req, res) => {
       "id",
       "user_id",
       "game_date",
+      "board_size",
       "createdAt",
       "updatedAt",
       "sgf_name",
@@ -55,15 +56,8 @@ router.get("/", requireAuth, async (req, res) => {
     // Parse SGF data to get the game tree
     const gameTree = jssgf.parse(sgf.sgf_data)[0];
 
-    // Check if board size exists
-    if (!gameTree.SZ) {
-      return res.status(400).json({
-        error:
-          "Board size (SZ property) is missing in SGF data. Analysis and thumbnail generation cannot proceed.",
-      });
-    }
-
-    const board_size = gameTree.SZ;
+    // Our migration defaults our board size to 19, so that if the SZ property is left out, it'll be set to 19
+    const board_size = gameTree.SZ || 19;
     // Grab komi from the game file or default it to 0.5
     const komi = gameTree.KM ? parseFloat(gameTree.KM) : 0.5;
 
@@ -118,10 +112,6 @@ router.post("/", requireAuth, async (req, res) => {
       return false;
     }
 
-    if (!/SZ\[9\]|SZ\[13\]|SZ\[19\]/.test(sgf)) {
-      return false;
-    }
-
     if (
       !/AB\[[a-z]{2}\]|AW\[[a-z]{2}\]|;B\[[a-z]{2}\]|;W\[[a-z]{2}\]/.test(sgf)
     ) {
@@ -134,7 +124,7 @@ router.post("/", requireAuth, async (req, res) => {
   try {
     if (sgf_data.length > 1) {
       return res.status(400).json({
-        message: "Bad Request",
+        message: "Bad Request, Can only upload 1 SGF at once! ",
         errors: { sgf_data: ["Can only upload 1 SGF at once!"] },
       });
     }
@@ -153,7 +143,7 @@ router.post("/", requireAuth, async (req, res) => {
     const data = sgf_data[0];
     const parsedSgf = jssgf.parse(data);
     const gameInfo = parsedSgf[0];
-    const board_size = gameInfo.SZ;
+    const board_size = gameInfo.SZ || 19;
     const game_date = gameInfo.DT;
     const komi = gameInfo.KM;
 
@@ -304,7 +294,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
-    // Update SGF data
+    // Update SGF data *** these are the only fields the user can edit for now, it won't line up with the WGO.js rendered Go board fields necessarily
     sgfRecord.game_date = game_date;
     sgfRecord.sgf_name = sgf_name;
     sgfRecord.black_player = black_player || sgfRecord.black_player;
@@ -342,7 +332,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     // Send the updated record in response
     res.status(200).json({
       sgf_id: sgfRecord.id.toString(),
-      game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
+      game_date: moment(sgfRecord.game_date).format("YYYY-MM-DD HH:mm:ss"),
       sgf_name: sgfRecord.sgf_name,
       black_player: sgfRecord.black_player,
       white_player: sgfRecord.white_player,

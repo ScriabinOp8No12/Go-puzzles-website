@@ -27,7 +27,8 @@ function LoginFormModal() {
   };
 
   const handleDemoLogin = () => {
-    const demoCredential = "test1@gmail.com";
+    console.log("Demo login initiated"); // Debugging line
+    const demoCredential = "test2@gmail.com";
     const demoPassword = "password";
 
     return dispatch(

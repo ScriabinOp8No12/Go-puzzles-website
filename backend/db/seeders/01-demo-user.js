@@ -14,10 +14,10 @@ module.exports = {
       options,
       [
         {
-          username: "bigfry",
+          username: "Shin Jinseo",
           email: "test@gmail.com",
-          rank: 150,
-          solved_puzzles: 5,
+          rank: 3873,
+          solved_puzzles: 5050,
           // Verify BCRYPT setup LATER!
           hashedPassword: bcrypt.hashSync("password"),
         },
@@ -29,7 +29,7 @@ module.exports = {
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
-          username: "bigfry2",
+          username: "smallboards",
           email: "test2@gmail.com",
           rank: 2250,
           solved_puzzles: 10,
@@ -47,7 +47,7 @@ module.exports = {
       options,
       {
         // needed to rename the usernames below to match what we changed in seeder data!
-        username: { [Op.in]: ["bigfry", "bigfry1", "bigfry2"] },
+        username: { [Op.in]: ["Shin Jinseo", "bigfry1", "bigfry2"] },
       },
       {}
     );
