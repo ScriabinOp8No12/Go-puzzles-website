@@ -14,15 +14,15 @@ module.exports = {
       options,
       [
         {
-          username: "bigfry",
-          email: "test@gmail.com",
-          rank: 150,
-          solved_puzzles: 5,
+          username: "Shin Jinseo",
+          email: "AI@gmail.com",
+          rank: 3873,
+          solved_puzzles: 5050,
           // Verify BCRYPT setup LATER!
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
-          username: "bigfry1",
+          username: "Small board test",
           email: "test1@gmail.com",
           rank: 1500,
           solved_puzzles: 500,

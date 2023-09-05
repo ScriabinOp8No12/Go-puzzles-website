@@ -15,60 +15,24 @@ module.exports = {
         {
           // ****** removed sgf_mistake_move_numbers and game_preview from seeders
           user_id: 1,
-          sgf_data: `(;FF[4]
-          CA[UTF-8]
-          GM[1]
-          DT[2023-06-29]
-          PC[OGS: https://online-go.com/game/54935891]
-          GN[Friendly Match]
-          PB[EmperorPilaf]
-          PW[bigfry]
-          BR[9k]
-          WR[6k]
-          TM[0]OT[0 none]
-          RE[?]
-          SZ[19]
-          KM[7.5]
-          RU[Japanese]
-          C[Game chats will be available in SGF downloads once the game has finished.
-          ]
-          ;B[qd]
-          (;W[dd]
-          (;B[pq]
-          (;W[dq]
-          (;B[do]
-          (;W[co]
-          (;B[cn]
-          (;W[cp]
-          (;B[dn]
-          (;W[fq]
-          (;B[dj]
-          (;W[qo]
-          (;B[op]
-          (;W[pk]
-          (;B[jq]
-          (;W[oc]
-          (;B[mc]
-          (;W[pe]
-          (;B[pd]
-          (;W[od]
-          (;B[oe]
-          (;W[ne]
-          (;B[of]
-          (;W[md]
-          (;B[pg]
-          (;W[jd]
-          ))))))))))))))))))))))))))`,
-          sgf_name: "Nathan vs. Matthew",
+          sgf_data: `(;EV[46th Korean Myeongin, round 1]
+            DT[2023-08-30]
+            PB[Shin Jinseo]BR[9p]
+            PW[Han Sangcho]WR[5p]
+            KM[6.5]RE[B+R]
+            SO[Go4Go.net]
+            ;B[qd];W[dp];B[cd];W[qp];B[cq];W[cp];B[dq];W[fq];B[fr];W[pd];B[pc];W[qe];B[od];W[pe];B[qc];W[gr];B[er];W[gp];B[ep];W[eq];B[bp];W[bo];B[bq];W[cn];B[oq];W[lq];B[qi];W[ph];B[pi];W[oi];B[oj];W[qh];B[po];W[qo];B[pn];W[qm];B[pm];W[ql];B[pk];W[ni];B[nj];W[pq];B[mi];W[ng];B[mf];W[ec];B[oe];W[of];B[nf];W[og];B[mg];W[ri];B[hc];W[de];B[ce];W[df];B[bg];W[he];B[ie];W[hd];B[id];W[ic];B[jc];W[ib];B[jb];W[hb];B[gc];W[gb];B[hf];W[gd];B[pr];W[qr];B[eo];W[dn];B[jq];W[fn];B[hq];W[gq];B[pp];W[qq];B[jo];W[if];B[jf];W[ig];B[nr];W[ch];B[il];W[bh];B[cg];W[dg];B[db];W[in];B[eb];W[fb];B[jn];W[im];B[jm];W[hl];B[ik];W[hk];B[hj];W[ij];B[jj];W[ii];B[ih];W[ji];B[jg];W[kj];B[jl];W[hi];B[hg];W[ps];B[eh];W[fh];B[en];W[em];B[dm];W[dl];B[fm];W[cm];B[gn];W[fl];B[gh];W[gm];B[fi];W[gi];B[fg];W[mr];B[dh];W[mo];B[mm];W[ns];B[dd];W[ed];B[fj];W[gj];B[fe];W[ia];B[ck];W[qk];B[re];W[rf];B[rd];W[lk];B[mk];W[ja];B[lb];W[la];B[ma];W[ka];B[mc];W[bk];B[bj];W[bl];B[dj];W[sf];B[np];W[ln];B[lm];W[no];B[or];W[os];B[ho];W[li];B[fo];W[go];B[hn];W[hp];B[ip];W[hr];B[fm];W[hm];B[io];W[nm];B[nl];W[nn];B[lo];W[ko];B[pl];W[ll];B[ml];W[lp];B[kl];W[fn];B[kk];W[lj];B[lh])
+            `,
+          sgf_name: "Shin Jinseo vs. Han Sangcho",
           board_size: 19,
-          black_player: "Nathan",
-          white_player: "Matthew",
-          black_rank: "6d",
-          white_rank: "9d",
-          komi: 7.5,
-          game_date: "2023-01-05 00:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607274/55012684-sgf-saucypizza-%E8%84%82%E7%A0%9A%E6%96%8B0102_thumbnail_zwo9am.png",
-          result: "Black + Resign",
+          black_player: "Shin Jinseo",
+          white_player: "Han Sangcho",
+          black_rank: "9p",
+          white_rank: "5p",
+          komi: 6.5,
+          game_date: "2023-08-30 00:00:00.000",
+          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693875769/Shin-Jinseo1_thumbnail_zreznc.png",
+          result: "B+R",
         },
         {
           user_id: 2,
