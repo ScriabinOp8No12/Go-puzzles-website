@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         // needs to be TEXT type because SGF data > 255 characters
         type: DataTypes.TEXT,
         validate: {
-          // don't let the sgf_data be more than 1,000,000 characters (each SGF is roughly between 500 and 5000 characters)
-          len: [1, 1000000],
+          // don't let the sgf_data be more than 2,0000 characters (each SGF is roughly between 500 and 5000 characters)
+          len: [1, 20000],
           // does not take in an empty sgf either
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
@@ -43,21 +43,15 @@ module.exports = (sequelize, DataTypes) => {
       game_date: {
         type: DataTypes.DATE,
         validate: {
-          isDate: true,
+          isDate: true
         }
       },
       sgf_name: {
-        allowNull: false,
+        // allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           // length of sgf_name is capped at 45 characters
           len: [0, 45],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF name cannot be empty.");
-            }
-          },
         },
       },
       board_size: {
@@ -71,68 +65,38 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       black_player: {
-        allowNull: false,
+        // allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 20],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Black player name cannot be empty.");
-            }
-          },
         },
       },
       white_player: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 20],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("White player name cannot be empty.");
-            }
-          },
         },
       },
       black_rank: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 10],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Black rank cannot be empty.");
-            }
-          },
         },
       },
       white_rank: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
           len: [0, 10],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("White rank cannot be empty.");
-            }
-          },
         },
       },
+      // Allow all komi values for now, but then stop the user when they try to analyze the game with KataGo
+      // Then it requires the komi to be within -50 to 50 so the analysis works well -> or check handicap, since 5 stones reverse 50 could technically work
+      komi: {
+        type: DataTypes.FLOAT,
+      },
       result: {
-        allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: "?",
         validate: {
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Result cannot be empty.");
-            }
-          },
-          // length of 20 characters should cover all combinations of result strings
           len: [0, 20],
         },
       },

@@ -4,7 +4,7 @@
 
 ![db-schema]
 
-[db-schema]: schema_db/Go_website_schema_updated_9_2_23.png
+[db-schema]: schema_db/Go_website_schema_updated_9_4_23.png
 
 ## API Documentation
 
@@ -298,6 +298,7 @@ Get all SGFs of the current user (format like go4go.net)
           "white_player": "Matthew",
           "black_rank": "6d",
           "white_player": "9d",
+          "komi": 7.5,
           "result": "B+Resign",
           "thumbnail": "cloudinaryThumbnailPuzzleId1.jpg"
         }
@@ -347,6 +348,7 @@ Upload new SGFs to the current user's SGF table
       "white_player": "Matthew",
       "black_rank": "6d",
       "white_rank": "9d",
+      "komi": 0.5,
       "result": "B+Resign",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
@@ -361,6 +363,7 @@ Upload new SGFs to the current user's SGF table
       "white_player": "Matthew",
       "black_rank": "6d",
       "white_rank": "9d",
+      "komi": 6.5,
       "result": "W + 3.5",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
@@ -423,6 +426,7 @@ Request
     "white_player": "Matthew",
     "black_rank": "2d",
     "white_rank": "3d",
+    "komi": 7.5,
     "result": "B+5.5",
     "createdAt": "2023-08-05 14:06:15",
     "updatedAt": "2023-08-07 14:06:15"
@@ -453,6 +457,7 @@ Edit the SGF name, player names, player ranks, and/or result
       "white_player": "Matthewww",
       "black_rank": "2d",
       "white_rank": "3d",
+      "komi": 15.5,
       "result": "B+5.5"
     }
     ```
@@ -474,6 +479,7 @@ Edit the SGF name, player names, player ranks, and/or result
     "white_player": "Matthewww",
     "black_rank": "2d",
     "white_rank": "3d",
+    "komi": 15.5,
     "result": "B+5.5",
     "updatedAt": "2023-08-07 14:06:15"
   }

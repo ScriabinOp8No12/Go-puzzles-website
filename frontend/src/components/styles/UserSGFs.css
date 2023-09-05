@@ -69,7 +69,7 @@
   width: 100%; /* Make sure this matches the thumbnail's max width */
 }
 
-.sgf-created-at {
+.sgf-updated-at {
   margin-right: auto; /* Pushes the rest of the items to the far right */
 }
 
