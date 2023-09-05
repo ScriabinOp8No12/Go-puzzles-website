@@ -29,7 +29,7 @@ const UserSGFs = () => {
         await dispatch(uploadSgfThunk(sgf_data));
         setUploadError(""); // Clear any previous upload error
       } catch (error) {
-        // console.log("error: ", error)
+        console.log("error: ", error)
         // console.log("error response: ", error.response)
         if (error.response && error.response.data) {
           const errorData = error.response.data;
