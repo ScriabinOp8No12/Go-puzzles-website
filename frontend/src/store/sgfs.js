@@ -27,7 +27,6 @@ export const fetchSgfByIdAction = (data) => ({
 
 // Post request to /api/sgfs for adding an SGF to user's database
 export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
-  try {
     const response = await csrfFetch("/api/sgfs", {
       method: "POST",
       headers: {
@@ -40,41 +39,28 @@ export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
       const data = await response.json();
       // console.log("API Response OK:", data); // Debugging line
       dispatch(uploadSgf(data));
-    } else {
-      // console.log("API Response Not OK:", response.status, response.statusText); // Debugging line
     }
-  } catch (error) {
-    console.error("Error fetching SGF:", error);
-  }
 };
 
 // Get request to /api/sgfs for retrieving / displaying all the SGFs the user has in the database
 export const fetchAllSgfsThunk = () => async (dispatch) => {
-  try {
+
     const response = await csrfFetch("/api/sgfs", {});
 
     if (response.ok) {
       const data = await response.json();
       dispatch(fetchAllSgfs(data.SGFs));
-    } else {
-      // Handle error
     }
-  } catch (error) {
-    console.error("Error fetching all SGFs:", error);
-  }
 };
 
 // Get request to get one sgf by id (load the sgf the user clicked)
 export const fetchSgfByIdThunk = (sgfId) => async (dispatch) => {
-  try {
+
     const response = await csrfFetch(`/api/sgfs/${sgfId}`);
     if (response.ok) {
       const data = await response.json();
       dispatch(fetchSgfByIdAction(data));
     }
-  } catch (error) {
-    console.error("Error fetching SGF by ID:", error);
-  }
 };
 
 // ************ Reducer **************** //
