@@ -17,6 +17,10 @@ const UserSGFs = () => {
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
+    if (!file) {
+      // Handle the case where no file is selected or the upload is canceled.
+      return;
+    }
     const reader = new FileReader();
 
     reader.onload = async function (event) {
