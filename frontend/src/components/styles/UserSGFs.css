@@ -30,8 +30,13 @@
 }
 
 .uploaded-sgf-thumbnail img {
+  border: 3px solid black;
   width: 240px;
   height: 240px;
+}
+
+.uploaded-sgf-thumbnail img:hover {
+  border: 3px solid aliceblue;
 }
 
 .user-sgf-table {
@@ -55,9 +60,8 @@
 .sgf-details {
   font-size: 12px;
   color: aliceblue;
-  /* Ensure the text doesn't overflow, since our thumbnails are always at 240 pixels wide */
-  max-width: 240px;
-  /* margin-bottom: 10px; */
+  /* Ensure the text doesn't overflow, since our thumbnails are always at 240 pixels wide, add 6px because of 3px border */
+  max-width: 246px;
 }
 
 /* Create Puzzle from SGF button and pencil edit icon! */
