@@ -78,7 +78,7 @@ export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
 
 // Get request to /api/sgfs for retrieving / displaying all the SGFs the user has in the database
 export const fetchAllSgfsThunk = () => async (dispatch) => {
-  const response = await csrfFetch("/api/sgfs", {});
+  const response = await csrfFetch("/api/sgfs");
 
   if (response.ok) {
     const data = await response.json();
@@ -107,36 +107,38 @@ export const deleteSgfByIdThunk = (sgfId) => async (dispatch) => {
 
 // ************ Reducer **************** //
 
+// An object that defines the initial values for Redux state properties
 const initialState = {
-  userSGFs: [],
-  currentSgf: null,
+  userSGFs: [], // an array property because our backend stores an array of SGFs
+  currentSgf: null, // a single value property, initialized to null because no SGF is selected initially
 };
 
+// we handle actions in the reducer, and update the state based on the action type
 const sgfReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPLOAD_SGF:
+      // define how the state should change based on the action type, we update specific properties or arrays within the state
       return {
-        ...state,
-        userSGFs: [...state.userSGFs, action.payload],
+        ...state, // create shallow copy of the current state before making updates to it, this ensures immutability
+        userSGFs: [...state.userSGFs, action.payload], // adds action.payload (the new uploaded SGF) to the existing SGFs
       };
     case FETCH_ALL_SGFS:
       return {
         ...state,
-        userSGFs: action.payload,
+        userSGFs: action.payload, // replaces content of userSGFs with data from action.payload, which is an array of SGFs
       };
     case FETCH_SGF_BY_ID:
-      console.log("New currentSgf:", action.payload); // Debugging line
       return {
         ...state,
-        currentSgf: action.payload,
+        currentSgf: action.payload, // effectively updating the selected SGF from null to the new SGF
       };
     case DELETE_SGF_BY_ID:
       return {
         ...state,
-        userSGFs: state.userSGFs.filter((sgf) => sgf.id !== action.payload),
+        userSGFs: state.userSGFs.filter((sgf) => sgf.id !== action.payload), // filters userSGFs array to remove the SGF with an id matching the one in the action.payload
       };
     default:
-      return state;
+      return state; // return current state if no action matches
   }
 };
 

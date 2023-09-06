@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         // needs to be TEXT type because SGF data > 255 characters
         type: DataTypes.TEXT,
         validate: {
-          // don't let the sgf_data be more than 2,0000 characters (each SGF is roughly between 500 and 5000 characters)
+          // don't let the sgf_data be more than 20,000 characters (each SGF is roughly between 500 and 5000 characters)
           len: [1, 20000],
           // does not take in an empty sgf either
           notEmptyString(value) {
@@ -50,8 +50,11 @@ module.exports = (sequelize, DataTypes) => {
         // allowNull: false,
         type: DataTypes.STRING,
         validate: {
-          // length of sgf_name is capped at 45 characters
-          len: [0, 45],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("SGF data cannot be empty.");
+            }
+          }
         },
       },
       board_size: {
@@ -68,25 +71,33 @@ module.exports = (sequelize, DataTypes) => {
         // allowNull: false,
         type: DataTypes.STRING,
         validate: {
-          len: [0, 20],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("SGF data cannot be empty.");
+            }
+          }
         },
       },
       white_player: {
         type: DataTypes.STRING,
         validate: {
-          len: [0, 20],
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("SGF data cannot be empty.");
+            }
+          }
         },
       },
       black_rank: {
         type: DataTypes.STRING,
         validate: {
-          len: [0, 10],
+          len: [0, 20],
         },
       },
       white_rank: {
         type: DataTypes.STRING,
         validate: {
-          len: [0, 10],
+          len: [0, 20],
         },
       },
       // Allow all komi values for now, but then stop the user when they try to analyze the game with KataGo
