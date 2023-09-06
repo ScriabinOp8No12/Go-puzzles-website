@@ -34,6 +34,7 @@ module.exports = {
         },
         sgf_name: {
           type: Sequelize.STRING,
+          defaultValue: "?"
         },
         board_size: {
           allowNull: false,
@@ -42,21 +43,26 @@ module.exports = {
         },
         black_player: {
           type: Sequelize.STRING,
+          defaultValue: "?"
         },
         white_player: {
           type: Sequelize.STRING,
+          defaultValue: "?"
         },
         black_rank: {
           type: Sequelize.STRING,
+          defaultValue: "?"
         },
         white_rank: {
           type: Sequelize.STRING,
+          defaultValue: "?"
         },
         komi: {
           type: Sequelize.FLOAT
         },
         result: {
           type: Sequelize.STRING,
+          defaultValue: "?"
         },
         thumbnail: {
         // Allow thumbnail to be null initially because we will populate it later with our scripts
