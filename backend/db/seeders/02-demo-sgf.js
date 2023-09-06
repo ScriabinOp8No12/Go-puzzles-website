@@ -12,7 +12,7 @@ module.exports = {
     return queryInterface.bulkInsert(
       options,
       [
-        // Game 1
+        // Game 1 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[46th Korean Myeongin, round 1]
@@ -30,10 +30,11 @@ module.exports = {
           white_rank: "5p",
           komi: 6.5,
           game_date: "2023-08-30 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
-          result: "B+R"
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
+          result: "B+R",
         },
-        // Game 2
+        // Game 2 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[9th Ing Cup, final 2]
@@ -51,10 +52,11 @@ module.exports = {
           white_rank: "9p",
           komi: 7.5,
           game_date: "2023-08-23 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886733/Seeder%20Data/Shin-Jinseo2_thumbnail_jebjvy.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886733/Seeder%20Data/Shin-Jinseo2_thumbnail_jebjvy.png",
           result: "W+R",
         },
-        // Game 3
+        // Game 3 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[9th Ing Cup, final 1]
@@ -72,10 +74,11 @@ module.exports = {
           white_rank: "9p",
           komi: 8,
           game_date: "2023-08-21 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886995/Seeder%20Data/Shin-Jinseo3_thumbnail_sykatb.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886995/Seeder%20Data/Shin-Jinseo3_thumbnail_sykatb.png",
           result: "W+R",
         },
-        // Game 4
+        // Game 4 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[5th Mlily Cup, round 3]
@@ -92,10 +95,11 @@ module.exports = {
           white_rank: "9p",
           komi: 7.5,
           game_date: "2023-08-06 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955474/Seeder%20Data/Shin-Jinseo4_thumbnail_xdtivw.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955474/Seeder%20Data/Shin-Jinseo4_thumbnail_xdtivw.png",
           result: "W+R",
         },
-        // Game 5
+        // Game 5 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[5th Mlily Cup, round 2]
@@ -113,10 +117,11 @@ module.exports = {
           white_rank: "9p",
           komi: 7.5,
           game_date: "2023-08-04 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955660/Seeder%20Data/Shin-Jinseo5_thumbnail_grp4np.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955660/Seeder%20Data/Shin-Jinseo5_thumbnail_grp4np.png",
           result: "W+R",
         },
-        // Game 6
+        // Game 6 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[5th Mlily Cup, round 1]
@@ -131,13 +136,14 @@ module.exports = {
           black_player: "Shin Jinseo",
           white_player: "Zhou Hongyu",
           black_rank: "9p",
-          white_rank: "9p",
+          white_rank: "7p",
           komi: 7.5,
           game_date: "2023-08-04 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955875/Seeder%20Data/Shin-Jinseo6_thumbnail_zrejkg.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955875/Seeder%20Data/Shin-Jinseo6_thumbnail_zrejkg.png",
           result: "B+3.5",
         },
-        // Game 7
+        // Game 7 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[9th Kuksu Mountains Tournament, final]
@@ -155,10 +161,11 @@ module.exports = {
           white_rank: "9p",
           komi: 6.5,
           game_date: "2023-07-28 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956063/Seeder%20Data/Shin-Jinseo7_thumbnail_acfagz.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956063/Seeder%20Data/Shin-Jinseo7_thumbnail_acfagz.png",
           result: "W+R",
         },
-        // Game 8
+        // Game 8 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[9th Kuksu Mountains Tournament, semi-final]
@@ -176,10 +183,11 @@ module.exports = {
           white_rank: "9p",
           komi: 6.5,
           game_date: "2023-07-27 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956181/Seeder%20Data/Shin-Jinseo8_thumbnail_cvdvme.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956181/Seeder%20Data/Shin-Jinseo8_thumbnail_cvdvme.png",
           result: "B+R",
         },
-        // Game 9
+        // Game 9 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 2]
@@ -197,10 +205,11 @@ module.exports = {
           white_rank: "9p",
           komi: 6.5,
           game_date: "2023-07-26 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
           result: "B+R",
         },
-        // Game 10
+        // Game 10 Shin Jinseo
         {
           user_id: 1,
           sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 1]
@@ -218,34 +227,211 @@ module.exports = {
           white_rank: "9p",
           komi: 6.5,
           game_date: "2023-07-26 15:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
           result: "W+R",
         },
         {
           user_id: 2,
           sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
-          sgf_name: "Nathan vs. Matthew",
+          sgf_name: "Nathan vs Matthew",
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
           komi: 5.5,
           game_date: "2023-01-06 00:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/13by13test1_thumbnail_z9haxr.png",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/13by13test1_thumbnail_z9haxr.png",
           result: "Black + 5.5",
         },
+        // Demo user (id: 3)  Include sgfs of smaller boards too for testing
+        // Game 1
         {
           user_id: 3,
-          sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
-          sgf_name: "Nathan vs. Matthew",
-          black_player: "Nathan",
-          white_player: "Matthew",
-          black_rank: "6d",
-          white_rank: "9d",
+          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-05] PC[OGS: https://online-go.com/game/56820296] GN[Vriendschappelijke Wedstrijd] PB[goloveye2] PW[erikdeviking] BR[6k] WR[6k] TM[150]OT[5x60 byo-yomi] RE[B+2.5] SZ[13] KM[5.5] RU[Japanese] ;B[dd] (;W[jj] (;B[kd] (;W[cj] (;B[gk] (;W[ek] (;B[jk] (;W[kk] (;B[jl] (;W[kl] (;B[ij] (;W[ji] (;B[fi] (;W[dh] (;B[cg] (;W[ch] (;B[gd] (;W[dg] (;B[cf] (;W[jc] (;B[kc] (;W[kb] (;B[lb] (;W[ib] (;B[ka] (;W[gb] (;B[fc] (;W[fb] (;B[eb] (;W[gc] (;B[fd] (;W[jb] (;B[jd] (;W[id] (;B[ie] (;W[hd] (;B[he] (;W[ea] (;B[db] (;W[ja] (;B[fa] (;W[ga] (;B[hc] (;W[ic] (;B[kh] (;W[ki] (;B[jh] (;W[ii] (;B[hj] (;W[ih] (;B[ig] (;W[df] (;B[de] (;W[la] (;B[mb] (;W[bg] (;B[bf] (;W[lh] (;B[lg] (;W[li] (;B[kg] (;W[bh] (;B[ef] (;W[eg] (;B[ff] (;W[hg] (;B[hf] (;W[fg] (;B[gg] (;W[gh] (;B[hh] (;W[hi] (;B[hg] (;W[gi] (;B[gj] (;W[fj] (;B[fk] (;W[ej] (;B[el] (;W[dl] (;B[em] (;W[il] (;B[ik] (;W[hl] (;B[jm] (;W[gl] (;B[fl] (;W[km] (;B[gm] (;W[hm] (;B[hk] (;W[fm] (;B[hb] (;W[dm] (;B[gm] (;W[lc] (;B[ld] (;W[fm] (;B[ha] (;W[ia] (;B[gm] (;W[hb] (;B[im] (;W[be] (;B[ce] (;W[bd] (;B[af] (;W[cb] (;B[da] (;W[ca] (;B[cc] (;W[bc] (;B[bb] (;W[ag] (;B[mh] (;W[mi] (;B[mg] (;W[fa] (;B[mc] (;W[ka] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_name: "goloveye2 vs erikdeviking",
+          black_player: "goloveye2",
+          white_player: "erikdeviking",
+          black_rank: "6k",
+          white_rank: "6k",
+          komi: 5.5,
+          game_date: "2023-09-05 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028715/vqnappgjnx5oljz2nddb.png",
+          result: "Black + 2.5",
+        },
+        // Game 2
+        {
+          user_id: 3,
+          sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 2]
+            DT[2023-07-26]
+            PB[Shin Jinseo]BR[9p]
+            PW[Kim Myounghoon]WR[9p]
+            KM[6.5]RE[B+R]
+            SO[Go4Go.net]
+            ;B[qd];W[cp];B[dd];W[pq];B[eq];W[do];B[po];W[qo];B[qn];W[qp];B[pn];W[np];B[pi];W[hq];B[nc];W[cf];B[fd];W[dj];B[fp];W[ho];B[cr];W[fo];B[mo];W[no];B[nn];W[mn];B[mm];W[ln];B[nm];W[lm];B[ll];W[kl];B[lk];W[kk];B[kj];W[jm];B[gp];W[hp];B[li];W[md];B[nd];W[mf];B[go];W[ne];B[le];W[me];B[lb];W[pd];B[pc];W[pe];B[qe];W[pf];B[qf];W[qc];B[pg];W[mc];B[ob];W[mb];B[qb];W[ic];B[lo];W[ko];B[oq];W[nq];B[kc];W[kd];B[jc];W[id];B[jd];W[je];B[ke];W[jf];B[ld];W[lc];B[ie];W[if];B[ib];W[hb];B[hc];W[he];B[hd];W[ie];B[jb];W[gb];B[fc];W[la];B[ce];W[be];B[bd];W[fb];B[eb];W[ec];B[ed];W[db];B[dc];W[ea];B[ec];W[kb];B[gc];W[fn];B[bq];W[og];B[oh];W[rc];B[of];W[oe];B[rb];W[ro];B[gn];W[ha];B[ia];W[ja];B[ka];W[qg];B[ng];W[ja];B[kn];W[km];B[ka];W[rd];B[rg];W[ja];B[kp];W[jo];B[ka];W[oc];B[od];W[ja];B[or];W[pp];B[ka];W[cq];B[br];W[ja];B[op];W[oo];B[ka];W[on];B[om];W[pm];B[qm];W[nr];B[lb];W[rf];B[qh];W[kb];B[fa];W[nb];B[pl];W[fr];B[er];W[bp];B[gr];W[de];B[cd];W[ch];B[dl];W[fl];B[ek];W[oc];B[pb];W[fi];B[fk];W[gm];B[gk];W[jj];B[gi];W[ki];B[fh];W[ei];B[ck];W[bm];B[cn];W[cm];B[dm];W[dn];B[bn];W[gh];B[bl];W[hm];B[bj];W[gq];B[fq];W[lj];B[hr];W[ir];B[gg];W[hh];B[fg];W[dg];B[ef];W[bg];B[ae];W[sl];B[eh];W[bi];B[dh];W[af];B[bf];W[re];B[qg];W[be];B[ad];W[aj];B[cj];W[al];B[ak];W[bk];B[cl];W[ai];B[am];W[bf];B[df];W[ah];B[hi];W[mj];B[hn];W[in];B[rl];W[sb];B[sf];W[sm];B[il];W[hj];B[iq])
+            `,
+          sgf_name: "Shin Jinseo vs Kim Myounghoon",
+          black_player: "Shin Jinseo",
+          white_player: "Kim Myounghoon",
+          black_rank: "9p",
+          white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-01-09 00:00:00.000",
-          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/9by9test1_thumbnail_ydxgp0.png",
-          result: "White + 3.5",
+          game_date: "2023-07-26 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
+          result: "B+R",
+        },
+        // Game 3 9by9
+        {
+          user_id: 3,
+          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-03] PC[OGS: https://online-go.com/game/56766164] GN[play for fun] PB[iself101] PW[erikdeviking] BR[7k] WR[6k] TM[0]OT[15 simple] RE[B+16.5] SZ[9] KM[5.5] RU[Japanese] ;B[gc] (;W[df] (;B[gg] (;W[ge] (;B[dg] (;W[ef] (;B[eg] (;W[ec] (;B[cc] (;W[db] (;B[bf] (;W[cf] (;B[be] (;W[cg] (;B[ff] (;W[fe] (;B[gf] (;W[cb] (;B[bb] (;W[ba] (;B[bc] (;W[bg] (;B[ag] (;W[ad] (;B[ce] (;W[ed] (;B[dd] (;W[de] (;B[dc] (;W[bd] (;B[bh] (;W[ch] (;B[ah] (;W[bi] (;B[dh] (;W[di] (;B[ei] (;W[ci] (;B[fd] (;W[gd] (;B[fc] (;W[hc] (;B[eb] (;W[ee] (;B[fb] (;W[af] (;B[ae] (;W[ai] (;B[da] (;W[af] (;B[ag] (;W[fh] (;B[fg] (;W[eh] (;B[gh] (;W[fi] (;B[gi] (;W[ei] (;B[hb] (;W[hf] (;B[hg] (;W[he] (;B[ih] (;W[hi] (;B[ic] (;W[id] (;B[hd] (;W[ie] (;B[hc] (;W[ah] (;B[cd] (;W[af] (;B[ac] (;W[ag] (;B[ig] (;W[ii] (;B[hh] (;W[ii] (;B[hi] (;W[] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_name: "iself101 vs erikdeviking",
+          black_player: "iself101",
+          white_player: "erikdeviking",
+          black_rank: "7k",
+          white_rank: "6k",
+          komi: 5.5,
+          game_date: "2023-09-03 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028141/b7q8a1csj5wycsfd4zp1.png",
+          result: "Black + 16.5",
+        },
+        // Game 4
+        {
+          user_id: 3,
+          sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 1]
+            DT[2023-07-26]
+            PB[Ida Atsushi]BR[9p]
+            PW[Shin Jinseo]WR[9p]
+            KM[6.5]RE[W+R]
+            SO[Go4Go.net]
+            ;B[qd];W[dc];B[qq];W[dq];B[od];W[de];B[co];W[fp];B[dk];W[ci];B[hq];W[jq];B[ho];W[mq];B[bq];W[cl];B[dn];W[dl];B[el];W[ek];B[em];W[ej];B[jc];W[go];B[gp];W[hn];B[fo];W[gn];B[io];W[fq];B[in];W[br];B[gl];W[oq];B[qn];W[hc];B[pj];W[lc];B[cc];W[cd];B[hd];W[ic];B[jd];W[id];B[je];W[ie];B[jf];W[hg];B[jh];W[pc];B[qc];W[pi];B[qj];W[pd];B[pe];W[oc];B[oe];W[qb];B[rb];W[pb];B[md];W[qe];B[re];W[qf];B[rf];W[ra];B[rc];W[kb];B[jb];W[nb];B[nn];W[oj];B[kj];W[qi];B[rh];W[lj];B[kk];W[lk];B[ok];W[nj];B[nk];W[pk];B[pl];W[qg];B[rg];W[ki];B[ji];W[mg];B[og];W[oh];B[qh];W[kl];B[kh];W[li];B[lm];W[ll];B[kn];W[il];B[hk];W[ik];B[ij];W[ld];B[lf];W[mf];B[me];W[nm];B[qk];W[le];B[lg];W[mh];B[ni];W[hj];B[hl];W[mm];B[mn];W[km];B[ln];W[im];B[oi];W[hm];B[fn];W[eo];B[gm];W[lh];B[ml];W[do];B[dm];W[bm];B[bn];W[ih];B[jj];W[jg])
+            `,
+          sgf_name: "Ida Atsushi vs Shin Jinseo",
+          black_player: "Ida Atsushi",
+          white_player: "Shin Jinseo",
+          black_rank: "9p",
+          white_rank: "9p",
+          komi: 6.5,
+          game_date: "2023-07-26 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
+          result: "W+R",
+        },
+        // Game 5
+        {
+          user_id: 3,
+          sgf_data: `(;EV[9th Kuksu Mountains Tournament, final]
+            DT[2023-07-28]
+            PB[Shin Jinseo]BR[9p]
+            PW[Shin Minjun]WR[9p]
+            KM[6.5]RE[W+R]
+            SO[Go4Go.net]
+            ;B[pd];W[dp];B[pp];W[dd];B[cq];W[dq];B[cp];W[do];B[bn];W[qc];B[qd];W[pc];B[od];W[nc];B[rc];W[nd];B[fc];W[nf];B[cf];W[df];B[dg];W[ef];B[ce];W[cd];B[ic];W[rb];B[oc];W[ob];B[nb];W[pb];B[mb];W[rd];B[re];W[sc];B[pf];W[jc];B[de];W[ed];B[jb];W[ee];B[kc];W[cg];B[ph];W[qq];B[qp];W[pq];B[nq];W[oq];B[op];W[nr];B[rq];W[rr];B[or];W[rp];B[qr];W[sq];B[pr];W[rq];B[mr];W[np];B[mq];W[qo];B[no];W[ql];B[hp];W[ch];B[pn];W[qn];B[gq];W[jd];B[kd];W[cr];B[br];W[bo];B[co];W[cn];B[bp];W[bm];B[dn];W[an];B[dr];W[dm];B[en];W[em];B[fn];W[gl];B[hm];W[hl];B[im];W[ke];B[je];W[id];B[hc];W[jf];B[ie];W[hd];B[gd];W[he];B[if];W[kf];B[ge];W[hf];B[ig];W[gf];B[gg];W[ff];B[jh];W[oh];B[lh];W[oi];B[pi];W[oj];B[og];W[ng];B[qj];W[jk];B[kj];W[jj];B[mi];W[ki];B[kh];W[mh];B[li];W[mk];B[lk];W[ll];B[nk];W[ih];B[jg];W[pj];B[me];W[kb];B[lb];W[le];B[md];W[lc];B[ld];W[mf];B[qk];W[ne];B[mc];W[nl];B[mj];W[ml];B[pl];W[ol];B[kk];W[pk];B[rl];W[pm];B[rm];W[mp])
+            `,
+          sgf_name: "Shin Jinseo vs Fan Tingyu",
+          black_player: "Shin Jinseo",
+          white_player: "Shin Minjun",
+          black_rank: "9p",
+          white_rank: "9p",
+          komi: 6.5,
+          game_date: "2023-07-28 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956063/Seeder%20Data/Shin-Jinseo7_thumbnail_acfagz.png",
+          result: "W+R",
+        },
+
+        // Game 6
+        {
+          user_id: 3,
+          sgf_data: `(;EV[9th Ing Cup, final 1]
+            DT[2023-08-21]
+            PB[Shin Jinseo]BR[9p]
+            PW[Xie Ke]WR[9p]
+            KM[8]RE[B+R]
+            SO[Go4Go.net]
+            ;B[pd];W[dd];B[pp];W[dq];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fg];B[cg];W[bc];B[eb];W[eh];B[dg];W[ci];B[gc];W[fh];B[ce];W[bd];B[bf];W[gd];B[hc];W[hd];B[bh];W[ic];B[hb];W[ib];B[ga];W[je];B[dp];W[eq];B[cp];W[cq];B[bq];W[br];B[bo];W[aq];B[bi];W[qf];B[re];W[qn];B[nq];W[rf];B[oc];W[qp];B[qq];W[rq];B[rr];W[rp];B[pq];W[on];B[pm];W[pn];B[qm];W[qj];B[pk];W[sr];B[rs];W[mn];B[pj];W[qi];B[pi];W[rd];B[qe];W[se];B[pf];W[cb];B[ab];W[pg];B[og];W[of];B[pe];W[oh];B[ph];W[qg];B[ng];W[nh];B[mh];W[mg];B[nf];W[mi];B[lh];W[ni];B[rc];W[rl];B[rm];W[rk];B[ml];W[li];B[om];W[mp];B[lr];W[op];B[rn];W[qo];B[mq];W[nl];B[nm];W[mm];B[nk];W[ll];B[ol];W[mk];B[nj];W[nl];B[ql];W[mf];B[ne];W[me];B[fl];W[nd];B[oe];W[nc];B[qh];W[rh];B[sg];W[sf];B[qd];W[ri];B[hk];W[fj];B[ml];W[bb];B[ea];W[nl];B[im];W[mj];B[oi];W[ij];B[gq];W[hj];B[ap];W[bp];B[sd];W[rg];B[bq];W[ar];B[lp];W[ob];B[lo];W[ia];B[ha];W[nn];B[fo];W[gr];B[fr];W[fq];B[hr];W[gp];B[hq];W[eo];B[er];W[bp];B[id];W[jd];B[bq];W[fp];B[dr];W[bp];B[ff];W[fe];B[bq];W[ok];B[oj];W[bp];B[ie];W[if];B[bq];W[fn];B[cr];W[bp];B[he];W[gf];B[bq];W[ae];B[bp];W[ca];B[em];W[in];B[hn];W[cm];B[hm];W[ck];B[cn];W[jn];B[io];W[ik];B[km];W[gl];B[gm];W[fm];B[el];W[jm];B[jl];W[kn];B[ln];W[kl];B[lm];W[il];B[jo];W[dm];B[dn];W[en];B[do];W[jk];B[ep];W[pb];B[ml];W[go];B[gn];W[nl];B[dk];W[dj];B[ml];W[oq];B[or];W[nl];B[jc];W[hf];B[ml];W[pr];B[ps];W[nl];B[jb];W[ge];B[ml];W[rb];B[qb];W[nl];B[bj];W[cj];B[pa];W[oa];B[qa];W[pc];B[qc];W[po];B[qr];W[ml];B[od];W[nb];B[bm])
+            `,
+          sgf_name: "Xie Ke vs Shin Jinseo",
+          black_player: "Shin Jinseo",
+          white_player: "Xie Ke",
+          black_rank: "9p",
+          white_rank: "9p",
+          komi: 8,
+          game_date: "2023-08-21 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886995/Seeder%20Data/Shin-Jinseo3_thumbnail_sykatb.png",
+          result: "W+R",
+        },
+
+        // Game 7
+        {
+          user_id: 3,
+          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-02] PC[OGS: https://online-go.com/game/56740614] GN[Friendly Match] PB[erikdeviking] PW[blammin] BR[6k] WR[5k] TM[120]OT[3x30 byo-yomi] RE[B+0.5] SZ[9] KM[5.5] RU[Japanese] ;B[ff] (;W[df] (;B[fc] (;W[dd] (;B[eg] (;W[gd] (;B[fd] (;W[gc] (;B[gb] (;W[hb] (;B[fb] (;W[hf] (;B[hg] (;W[gf] (;B[gg] (;W[ge] (;B[dg] (;W[cf] (;B[ee] (;W[cc] (;B[cg] (;W[bg] (;B[bh] (;W[bf] (;B[de] (;W[ce] (;B[ed] (;W[ha] (;B[dc] (;W[cb] (;B[cd] (;W[bd] (;B[db] (;W[ig] (;B[ih] (;W[if] (;B[hi] (;W[ah] (;B[bb] (;W[bc] (;B[ca] (;W[ab] (;B[ba] (;W[ae] (;B[ch] (;W[ac] (;B[ag] (;W[af] (;B[bi] (;W[fe] (;B[ef] (;W[dd] (;B[ic] (;W[ib] (;B[cd] (;W[da] (;B[ea] (;W[dd] (;B[hc] (;W[hd] (;B[cd] (;W[aa] (;B[da] (;W[dd] (;B[ga] (;W[id] (;B[cd] (;W[fh] (;B[fg] (;W[dd] (;B[ai] (;W[ag] (;B[cd] (;W[gh] (;B[hh] (;W[dd] (;B[] (;W[cd] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_name: "erikdeviking vs blammin",
+          black_player: "erikdeviking",
+          white_player: "blammin",
+          black_rank: "6k",
+          white_rank: "5k",
+          komi: 5.5,
+          game_date: "2023-09-02 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029192/qerzwfuss56al6d1y3tn.png",
+          result: "Black + 0.5",
+        },
+        // Game 8
+        {
+          user_id: 3,
+          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-01] PC[OGS: https://online-go.com/game/56701948] GN[Friendly Match] PB[erikdeviking] PW[dAsper] BR[6k] WR[7k] TM[30]OT[5x20 byo-yomi] RE[B+R] SZ[9] KM[5.5] RU[Japanese] ;B[ff] (;W[dg] (;B[eg] (;W[df] (;B[fc] (;W[dc] (;B[ed] (;W[dd] (;B[dh] (;W[ef] (;B[fg] (;W[ee] (;B[fe] (;W[ec] (;B[cg] (;W[fd] (;B[gd] (;W[gc] (;B[fb] (;W[hd] (;B[ed] (;W[gb] (;B[fd] (;W[he] (;B[cf] (;W[de] (;B[bd] (;W[bc] (;B[ac] (;W[cd] (;B[be] (;W[ab] (;B[bb] (;W[ad] (;B[cb] (;W[db] (;B[cc] (;W[ca] (;B[ac] (;W[eh] (;B[aa] (;W[ch] (;B[fh] (;W[di] (;B[bh] (;W[hg] (;B[fi] (;W[gh] (;B[ea] (;W[da] (;B[ba] (;W[bi] (;B[ah] (;W[ga] (;B[ei] (;W[fa] (;B[eb] (;W[dh] (;B[ce] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_name: "erikdeviking vs dAsper",
+          black_player: "erikdeviking",
+          white_player: "dAsper",
+          black_rank: "6k",
+          white_rank: "7k",
+          komi: 5.5,
+          game_date: "2023-09-01 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029329/iiybzoialwlvgtrdvpie.png",
+          result: "B+R",
+        },
+        // Game 9
+        {
+          user_id: 3,
+          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-06] PC[OGS: https://online-go.com/game/56846957] GN[Vriendschappelijke Wedstrijd] PB[erikdeviking] PW[aizmaylov] BR[5k] WR[4k] TM[150]OT[5x60 byo-yomi] RE[B+R] SZ[13] KM[5.5] RU[Japanese] ;B[jj] (;W[dd] (;B[cj] (;W[jd] (;B[kh] (;W[kf] (;B[fk] (;W[jk] (;B[kk] (;W[ik] (;B[kl] (;W[ij] (;B[ji] (;W[ii] (;B[ih] (;W[gi] (;B[fi] (;W[hh] (;B[gj] (;W[ig] (;B[jh] (;W[fh] (;B[ei] (;W[eh] (;B[dh] (;W[dg] (;B[ch] (;W[cg] (;B[ce] (;W[cd] (;B[de] (;W[bg] (;B[eg] (;W[fg] (;B[ef] (;W[be] (;B[ed] (;W[dc] (;B[ec] (;W[bc] (;B[ff] (;W[hc] (;B[hg] (;W[hf] (;B[gg] (;W[jf] (;B[db] (;W[cb] (;B[fb] (;W[bi] (;B[bj] (;W[ci] (;B[di] (;W[bh] (;B[jb] (;W[jc] (;B[kc] (;W[ib] (;B[lb] (;W[ja] (;B[ld] (;W[kb] (;B[kd] (;W[la] (;B[lf] (;W[lg] (;B[mf] (;W[kg] (;B[mc] (;W[mg] (;B[le] (;W[li] (;B[lh] (;W[mh] (;B[lj] (;W[mj] (;B[mk] (;W[mi] (;B[kj] (;W[ml] (;B[lk] (;W[jl] (;B[gh] (;W[hi] (;B[jm] (;W[im] (;B[km] (;W[jg] (;B[hm] (;W[il] (;B[hl] (;W[ge] (;B[gc] (;W[gd] (;B[ca] (;W[ba] (;B[da] (;W[gb] (;B[ga] (;W[fc] (;B[ha] (;W[hb] (;B[fd] (;W[gc] (;B[fe] (;W[aj] (;B[ak] (;W[ai] (;B[bl] (;W[ia] (;B[eb] (;W[fa] (;B[ga] (;W[ha] (;B[gf] (;W[ke] (;B[mb] (;W[cf] (;B[df] (;W[ga] (;B[hj] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_name: "erikdeviking vs aizmaylov",
+          black_player: "erikdeviking",
+          white_player: "aizmaylov",
+          black_rank: "5k",
+          white_rank: "4k",
+          komi: 5.5,
+          game_date: "2023-09-06 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029477/v6fhjbggnwyxsizbbeio.png",
+          result: "B+R",
+        },
+        // Game 10 (DON'T CHANGE)
+        {
+          user_id: 3,
+          sgf_data: `(;EV[46th Korean Myeongin, round 1]
+            DT[2023-08-30]
+            PB[Shin Jinseo]BR[9p]
+            PW[Han Sangcho]WR[5p]
+            KM[6.5]RE[B+R]
+            SO[Go4Go.net]
+            ;B[qd];W[dp];B[cd];W[qp];B[cq];W[cp];B[dq];W[fq];B[fr];W[pd];B[pc];W[qe];B[od];W[pe];B[qc];W[gr];B[er];W[gp];B[ep];W[eq];B[bp];W[bo];B[bq];W[cn];B[oq];W[lq];B[qi];W[ph];B[pi];W[oi];B[oj];W[qh];B[po];W[qo];B[pn];W[qm];B[pm];W[ql];B[pk];W[ni];B[nj];W[pq];B[mi];W[ng];B[mf];W[ec];B[oe];W[of];B[nf];W[og];B[mg];W[ri];B[hc];W[de];B[ce];W[df];B[bg];W[he];B[ie];W[hd];B[id];W[ic];B[jc];W[ib];B[jb];W[hb];B[gc];W[gb];B[hf];W[gd];B[pr];W[qr];B[eo];W[dn];B[jq];W[fn];B[hq];W[gq];B[pp];W[qq];B[jo];W[if];B[jf];W[ig];B[nr];W[ch];B[il];W[bh];B[cg];W[dg];B[db];W[in];B[eb];W[fb];B[jn];W[im];B[jm];W[hl];B[ik];W[hk];B[hj];W[ij];B[jj];W[ii];B[ih];W[ji];B[jg];W[kj];B[jl];W[hi];B[hg];W[ps];B[eh];W[fh];B[en];W[em];B[dm];W[dl];B[fm];W[cm];B[gn];W[fl];B[gh];W[gm];B[fi];W[gi];B[fg];W[mr];B[dh];W[mo];B[mm];W[ns];B[dd];W[ed];B[fj];W[gj];B[fe];W[ia];B[ck];W[qk];B[re];W[rf];B[rd];W[lk];B[mk];W[ja];B[lb];W[la];B[ma];W[ka];B[mc];W[bk];B[bj];W[bl];B[dj];W[sf];B[np];W[ln];B[lm];W[no];B[or];W[os];B[ho];W[li];B[fo];W[go];B[hn];W[hp];B[ip];W[hr];B[fm];W[hm];B[io];W[nm];B[nl];W[nn];B[lo];W[ko];B[pl];W[ll];B[ml];W[lp];B[kl];W[fn];B[kk];W[lj];B[lh])
+            `,
+          sgf_name: "Shin Jinseo vs Han Sangcho",
+          black_player: "Shin Jinseo",
+          white_player: "Han Sangcho",
+          black_rank: "9p",
+          white_rank: "5p",
+          komi: 6.5,
+          game_date: "2023-08-30 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
+          result: "B+R",
         },
       ],
       {}
