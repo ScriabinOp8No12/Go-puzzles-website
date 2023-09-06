@@ -74,7 +74,7 @@
 }
 
 .create-puzzles-button {
-  /* margin-left: 10px; */
+  margin-right: 5px;
   color: aliceblue;
   background-color: #00ADB5;
   font-size: 11px;
@@ -88,6 +88,7 @@
 }
 
 .pencil-icon {
+  margin-right: 5px;
   padding-top: 0px;
   font-size: 11px;
   /* margin-left: 10px; */

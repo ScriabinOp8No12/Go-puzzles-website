@@ -34,7 +34,9 @@ const DeleteSgfModal = ({ sgfId }) => {
   return (
     <>
       <div className="deleteSgfButton">
-        <button className="trashcan-icon" onClick={() => setShowModal(true)}>🗑️</button>
+        <button className="trashcan-icon" onClick={() => setShowModal(true)}>
+        <i className="fa fa-trash" style={{color: '#000000'}}></i>
+        </button>
       </div>
       {showModal && (
         <div className={`modal-overlay ${showModal ? "activeOverlay" : ""}`}>
