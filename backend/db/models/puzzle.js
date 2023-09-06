@@ -49,6 +49,14 @@ module.exports = (sequelize, DataTypes) => {
           max: 5000,
         },
       },
+      times_solved: {
+        allowNull: false,
+        type: DataTypes.BIGINT,
+        defaultValue: 0,
+        validate: {
+          min: 0
+        }
+      },
       description: {
         type: DataTypes.TEXT,
         // maximum characters of description is 1000

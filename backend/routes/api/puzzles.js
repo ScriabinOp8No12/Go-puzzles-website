@@ -1,6 +1,7 @@
 const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { User, UserPuzzle, Puzzle, Sgf } = require("../../db/models");
+const { incrementTimesSolved } = require("../../db/models/puzzle-utils");
 const { Op } = require("sequelize");
 
 const router = express.Router();
@@ -84,5 +85,38 @@ router.get("/api/puzzles", conditionalAuth, async (req, res, next) => {
     next(error);
   }
 });
+
+// Update completed field in UserPuzzle record and increment times_solved field in Puzzle record
+router.put("/api/puzzles/:puzzleId/complete", requireAuth, async (req, res, next) => {
+  const puzzleId = req.params.puzzleId;
+  const userId = req.user.id;
+
+  try {
+    // Fetch the associated UserPuzzle record
+    const userPuzzleRecord = await UserPuzzle.findOne({
+      where: {
+        user_id: userId,
+        puzzle_id: puzzleId
+      }
+    });
+
+    if (!userPuzzleRecord) {
+      return res.status(404).json({ success: false, message: "No matching UserPuzzle record found." });
+    }
+
+    // Update the 'completed' field in the UserPuzzle record
+    userPuzzleRecord.completed = true;
+    await userPuzzleRecord.save();
+
+    // Increment the 'times_solved' field in the Puzzle record
+    await incrementTimesSolved(puzzleId, sequelize);
+
+    return res.status(200).json({ success: true, message: "Puzzle marked as completed." });
+
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;
