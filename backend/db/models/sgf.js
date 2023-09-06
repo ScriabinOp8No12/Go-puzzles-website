@@ -50,9 +50,10 @@ module.exports = (sequelize, DataTypes) => {
         // allowNull: false,
         type: DataTypes.STRING,
         validate: {
+          len: [0, 65],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF data cannot be empty.");
+              throw new Error("SGF name cannot be empty.");
             }
           }
         },
@@ -71,9 +72,10 @@ module.exports = (sequelize, DataTypes) => {
         // allowNull: false,
         type: DataTypes.STRING,
         validate: {
+          len: [0, 30],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF data cannot be empty.");
+              throw new Error("Black player cannot be empty.");
             }
           }
         },
@@ -81,9 +83,10 @@ module.exports = (sequelize, DataTypes) => {
       white_player: {
         type: DataTypes.STRING,
         validate: {
+          len: [0, 30],
           notEmptyString(value) {
             if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF data cannot be empty.");
+              throw new Error("White player cannot be empty.");
             }
           }
         },
