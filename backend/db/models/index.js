@@ -23,7 +23,8 @@ fs
       file.indexOf('.') !== 0 &&
       file !== basename &&
       file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
+      file.indexOf('.test.js') === -1 &&
+      file !== 'puzzle-utils.js'  // Add this line to tell Sequelize to ignore this utility file when setting up models
     );
   })
   .forEach(file => {

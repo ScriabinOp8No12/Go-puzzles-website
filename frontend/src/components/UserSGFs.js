@@ -54,7 +54,7 @@ const UserSGFs = () => {
   };
 
   const sortedSGFs = userSGFs.sort(
-    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
   const formatDate = (dateString) => {
     const date = new Date(dateString);
