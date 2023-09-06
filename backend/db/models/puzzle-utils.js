@@ -1,5 +1,5 @@
 // const { Transaction } = require('sequelize');
-const Puzzle = require('./Puzzle'); // adjust the import to match your project structure
+const Puzzle = require('./puzzle'); // adjust the import to match your project structure
 
 async function incrementTimesSolved(puzzleId, sequelize) {
   const t = await sequelize.transaction();
