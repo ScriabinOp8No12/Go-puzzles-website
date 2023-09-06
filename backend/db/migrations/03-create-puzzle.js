@@ -37,6 +37,11 @@ module.exports = {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
+        times_solved: {
+          allowNull: false,
+          type: Sequelize.BIGINT,
+          defaultValue: 0
+        },
         description: {
           type: Sequelize.TEXT,
         },
