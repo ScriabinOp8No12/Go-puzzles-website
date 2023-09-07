@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSgfsThunk, uploadSgfThunk } from "../store/sgfs";
+import { fetchAllSgfsThunk, fetchSgfByIdThunk, uploadSgfThunk } from "../store/sgfs";
 import { openModal } from "../store/modal";
 import { useHistory } from "react-router-dom";
 import DeleteSgfModal from "./DeleteSgfModal";
@@ -14,7 +14,8 @@ const UserSGFs = () => {
   const [uploadError, setUploadError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   // Edit sgf modal
-  const openEditModal = (sgfId) => {
+  const openEditModal = async (sgfId) => {
+    await dispatch(fetchSgfByIdThunk(sgfId));
     dispatch(openModal(<EditSgfModal sgfId={sgfId} />));
   };
 
@@ -103,7 +104,7 @@ const UserSGFs = () => {
                     >
                       Create Puzzles!
                     </button>
-                    <button className="pencil-icon" onClick={() => openEditModal(sgf.id)} >✏️</button>
+                    <button className="pencil-icon" onClick={() => openEditModal(sgf.id)}>✏️</button>
                     {/* <button className="trashcan-icon"></button> */}
                     <DeleteSgfModal sgfId={sgf.id} />
                   </div>
