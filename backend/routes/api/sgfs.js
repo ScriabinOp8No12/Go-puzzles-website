@@ -313,7 +313,6 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       errors.result = ["Maximum result length is 20 characters."];
     }
 
-
     // Check authorization and find the record
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
     if (!sgfRecord) {

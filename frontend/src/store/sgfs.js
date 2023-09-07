@@ -3,8 +3,13 @@ import { csrfFetch } from "./csrf";
 // *********** Action types *********** //
 
 export const UPLOAD_SGF = "/sgfs/UPLOAD_SGF";
+
 export const FETCH_ALL_SGFS = "/sgfs/FETCH_ALL_SGFS";
-export const FETCH_SGF_BY_ID = "sgfs/FETCH_SGF_BY_ID";
+
+export const FETCH_SGF_BY_ID = "/sgfs/FETCH_SGF_BY_ID";
+
+export const EDIT_SGF_BY_ID = "/sgfs/EDIT_SGF_BY_ID";
+
 export const DELETE_SGF_BY_ID = "/sgfs/DELETE_SGF_BY_ID";
 
 // ********** Action Creators ********* //
@@ -22,6 +27,11 @@ export const fetchAllSgfs = (data) => ({
 export const fetchSgfByIdAction = (data) => ({
   type: FETCH_SGF_BY_ID,
   payload: data,
+});
+
+export const editSgfById = (updatedSgf) => ({
+  type: EDIT_SGF_BY_ID,
+  payload: updatedSgf,
 });
 
 export const deleteSgfById = (sgfId) => ({
@@ -66,11 +76,27 @@ export const fetchSgfByIdThunk = (sgfId) => async (dispatch) => {
   }
 };
 
+// Put (edit) request to edit one sgf by id (the one the user clicked)
+export const editSgfByIdThunk = (sgfId, sgfDetails) => async (dispatch) => {
+  const response = await csrfFetch(`/api/sgfs/${sgfId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(sgfDetails),
+  });
+  const updatedSgf = await response.json();
+  if (response.ok) {
+    dispatch(editSgfById(updatedSgf));
+    return updatedSgf;
+  }
+};
+
+// Delete sgf by specified sgf id
 export const deleteSgfByIdThunk = (sgfId) => async (dispatch) => {
   const response = await csrfFetch(`/api/sgfs/${sgfId}`, {
     method: "DELETE",
   });
-
   if (response.ok) {
     dispatch(deleteSgfById(sgfId));
   }
@@ -102,6 +128,15 @@ const sgfReducer = (state = initialState, action) => {
       return {
         ...state,
         currentSgf: action.payload, // effectively updating the selected SGF from null to the new SGF
+      };
+    case EDIT_SGF_BY_ID:
+      return {
+        ...state,
+        userSGFs: state.userSGFs.map((sgf) =>
+          sgf.id === action.payload.id ? action.payload : sgf,
+        ),
+        // Need to change the state of the currentSgf too
+        currentSgf: state.currentSgf && state.currentSgf.id === action.payload.id ? action.payload : state.currentSgf,
       };
     case DELETE_SGF_BY_ID:
       return {
