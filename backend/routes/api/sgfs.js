@@ -108,14 +108,11 @@ router.post("/", requireAuth, async (req, res) => {
 
   // Function to validate SGF data using regex
   const isValidSgf = (sgf) => {
-    if (!sgf.startsWith("(;")) {
-      return "SGF data must start with '(;'";
-    }
-
     if (
       !/AB\[[a-z]{2}\]|AW\[[a-z]{2}\]|;B\[[a-z]{2}\]|;W\[[a-z]{2}\]/.test(sgf)
     ) {
-      return "Invalid SGF data format";
+      // This message below never shows up in our errors
+      return "Invalid";
     }
 
     return null; // Return null if no errors
@@ -146,7 +143,7 @@ router.post("/", requireAuth, async (req, res) => {
     const komi = gameInfo.KM;
 
     if (isValidSgf(data)) {
-      validationErrors.push("Invalid SGF data.");
+      validationErrors.push("Invalid SGF data, no move order and/or stones found.");
     }
 
     if (komi && isNaN(parseFloat(komi))) {
@@ -265,7 +262,7 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
   return res.status(200).json(formattedSGF);
 });
 
-// Edit: SGF name, Game date, player names / ranks, result
+// Edit: sgf_name, black_player, white_player, black_rank, white_rank, game_date, komi, result
 router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Initialize errors object
@@ -273,26 +270,49 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
 
     // Custom validation logic
     const {
-      game_date,
       sgf_name,
       black_player,
       white_player,
       black_rank,
       white_rank,
+      game_date,
       komi,
       result,
     } = req.body;
 
+    // Validate sgf name length
+    if (sgf_name.length > 65) {
+      errors.sgf_name = ["Maximum sgf name length is 65 characters."];
+    }
+    // Validate black_player
+    if (black_player.length > 30) {
+      errors.black_player = ["Maximum black player length is 30 characters."];
+    }
+    // Validate white_player
+    if (white_player.length > 30) {
+      errors.white_player = ["Maximum white player length is 30 characters."];
+    }
+    // Validate black_rank
+    if (black_rank.length > 20) {
+      errors.black_rank = ["Maximum black rank length is 20 characters."];
+    }
+    // Validate white_rank
+    if (white_rank.length > 20) {
+      errors.white_rank = ["Maximum white rank length is 20 characters."];
+    }
+    // Validate game date
+    if (!moment(game_date, 'YYYY-MM-DD', true).isValid()) {
+      errors.game_date = ["Invalid game date, must be in format YYYY-MM-DD."];
+    }
     // Validate komi
     if (komi && isNaN(parseFloat(komi))) {
-      return res.status(400).json({
-        error: "Invalid Komi value. Please provide a valid Komi.",
-      });
+      errors.komi = ["Invalid komi."];
     }
-
+    // Validate result length
     if (result.length > 20) {
       errors.result = ["Maximum result length is 20 characters."];
     }
+
 
     // Check authorization and find the record
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
@@ -322,10 +342,18 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
           if (!errors[error.path]) {
             errors[error.path] = [];
           }
-          errors[error.path].push(error.message);
         });
       }
     }
+
+    // Filter out Sequelize errors if a custom error for the same field exists.
+    Object.keys(errors).forEach((key) => {
+      if (errors[key].length > 1) {
+        errors[key] = errors[key].filter(
+          (msg) => !msg.startsWith("Validation")
+        );
+      }
+    });
 
     // Check if there are any errors
     if (Object.keys(errors).length > 0) {
@@ -341,12 +369,13 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     // Send the updated record in response
     res.status(200).json({
       sgf_id: sgfRecord.id.toString(),
-      game_date: moment(sgfRecord.game_date).format("YYYY-MM-DD HH:mm:ss"),
+      user_id: sgfRecord.user_id.toString(),
       sgf_name: sgfRecord.sgf_name,
       black_player: sgfRecord.black_player,
       white_player: sgfRecord.white_player,
       black_rank: sgfRecord.black_rank,
       white_rank: sgfRecord.white_rank,
+      game_date: moment(sgfRecord.game_date).format("YYYY-MM-DD HH:mm:ss"),
       komi: sgfRecord.komi,
       result: sgfRecord.result,
       updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSgfsThunk, uploadSgfThunk} from "../store/sgfs";
+import { fetchAllSgfsThunk, uploadSgfThunk } from "../store/sgfs";
 import { useHistory } from "react-router-dom";
 import DeleteSgfModal from "./DeleteSgfModal";
 import "./styles/UserSGFs.css";
@@ -16,11 +16,18 @@ const UserSGFs = () => {
   }, [dispatch]);
 
   const handleFileChange = async (e) => {
+
+    setUploadError("")
+
     const file = e.target.files[0];
     if (!file) {
       // Handle the case where no file is selected or the upload is canceled.
       return;
     }
+
+      // Reset file input value so the same file can trigger the onChange event again
+  e.target.value = null;
+
     const reader = new FileReader();
 
     reader.onload = async function (event) {
@@ -29,24 +36,13 @@ const UserSGFs = () => {
       };
 
       try {
-        // why do we need await here, seems like we get an error otherwise?
         await dispatch(uploadSgfThunk(sgf_data));
-        setUploadError(""); // Clear any previous upload error
       } catch (error) {
-        console.log("error: ", error)
-        // console.log("error response: ", error.response)
-        if (error.response && error.response.data) {
-          const errorData = error.response.data;
-          if (errorData.errors && errorData.errors.length > 0) {
-            setUploadError(errorData.errors.join(" "));
-          } else if (errorData.error) {
-            setUploadError(errorData.error);
-          } else {
-            setUploadError("An error occurred while processing your request.");
-          }
-        } else {
-          setUploadError("An error occurred while processing your request.");
-        }
+        setUploadError("Invalid SGF!");
+        // Optional: Clear the error after 4 seconds
+        setTimeout(() => {
+          setUploadError("");
+        }, 4000);
       }
     };
 
@@ -73,7 +69,6 @@ const UserSGFs = () => {
         </label>
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
-
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
