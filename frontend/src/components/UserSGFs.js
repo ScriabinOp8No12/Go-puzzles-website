@@ -10,24 +10,25 @@ const UserSGFs = () => {
   const userSGFs = useSelector((state) => state.sgfs.userSGFs);
   const history = useHistory();
   const [uploadError, setUploadError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     dispatch(fetchAllSgfsThunk());
   }, [dispatch]);
 
   const handleFileChange = async (e) => {
-
-    setUploadError("")
+    setUploadError("");
+    setIsLoading(true); // Set isLoading to true when upload starts
 
     const file = e.target.files[0];
     if (!file) {
+      setIsLoading(false); // Reset isLoading if no file is selected
       // Handle the case where no file is selected or the upload is canceled.
       return;
     }
 
-      // Reset file input value so the same file can trigger the onChange event again
-  e.target.value = null;
-
+    // Reset file input value so the same file can trigger the onChange event again
+    e.target.value = null;
     const reader = new FileReader();
 
     reader.onload = async function (event) {
@@ -39,11 +40,12 @@ const UserSGFs = () => {
         await dispatch(uploadSgfThunk(sgf_data));
       } catch (error) {
         setUploadError("Invalid SGF!");
-        // Optional: Clear the error after 4 seconds
+        // Clear the error after 4 seconds
         setTimeout(() => {
           setUploadError("");
         }, 4000);
       }
+      setIsLoading(false); // Reset isLoading when upload is complete or error occurs
     };
 
     reader.readAsText(file);
@@ -69,6 +71,8 @@ const UserSGFs = () => {
         </label>
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
+        {/* Display spinner */}
+        {isLoading && <div className="uploading-sgf">Uploading...</div>}
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
