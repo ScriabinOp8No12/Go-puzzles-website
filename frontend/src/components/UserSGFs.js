@@ -34,6 +34,10 @@ const UserSGFs = () => {
         setUploadError(""); // Clear any previous upload error
       } catch (error) {
         console.log("error: ", error)
+        // This below puts the right errors in the browser console!
+        console.log(await error.json())
+
+
         // console.log("error response: ", error.response)
         if (error.response && error.response.data) {
           const errorData = error.response.data;

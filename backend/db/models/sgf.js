@@ -30,14 +30,14 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("SGF data cannot be empty.");
             }
           },
-          // accept only valid .sgf files
-          isSgf(value) {
-            try {
-              smartgame.parse(value);
-            } catch (error) {
-              throw new Error("Invalid file type. Only SGF files are allowed.");
-            }
-          },
+          // // accept only valid .sgf files
+          // isSgf(value) {
+          //   try {
+          //     smartgame.parse(value);
+          //   } catch (error) {
+          //     throw new Error("Invalid file type. Only SGF files are allowed.");
+          //   }
+          // },
         },
       },
       game_date: {
@@ -47,15 +47,14 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       sgf_name: {
-        // allowNull: false,
         type: DataTypes.STRING,
         validate: {
           len: [0, 65],
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF name cannot be empty.");
+          setToDefaultIfEmpty(value) {
+            if (value.trim().length === 0) {
+              this.setDataValue('sgf_name', '?'); // '?' is your default value
             }
-          }
+          },
         },
       },
       board_size: {

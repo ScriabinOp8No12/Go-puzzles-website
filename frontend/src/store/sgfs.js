@@ -42,6 +42,7 @@ export const uploadSgfThunk = (sgf_data) => async (dispatch) => {
   });
 
   if (response.ok) {
+    console.log("hello)")
     const data = await response.json();
     // console.log("API Response OK:", data); // Debugging line
     dispatch(uploadSgf(data));
