@@ -30,14 +30,6 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("SGF data cannot be empty.");
             }
           },
-          // // accept only valid .sgf files
-          // isSgf(value) {
-          //   try {
-          //     smartgame.parse(value);
-          //   } catch (error) {
-          //     throw new Error("Invalid file type. Only SGF files are allowed.");
-          //   }
-          // },
         },
       },
       game_date: {

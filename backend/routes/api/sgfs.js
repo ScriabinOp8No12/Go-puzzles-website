@@ -108,14 +108,11 @@ router.post("/", requireAuth, async (req, res) => {
 
   // Function to validate SGF data using regex
   const isValidSgf = (sgf) => {
-    if (!sgf.startsWith("(;")) {
-      return "SGF data must start with '(;'";
-    }
-
     if (
       !/AB\[[a-z]{2}\]|AW\[[a-z]{2}\]|;B\[[a-z]{2}\]|;W\[[a-z]{2}\]/.test(sgf)
     ) {
-      return "Invalid SGF data format";
+      // This message below never shows up in our errors
+      return "Invalid";
     }
 
     return null; // Return null if no errors
@@ -146,7 +143,7 @@ router.post("/", requireAuth, async (req, res) => {
     const komi = gameInfo.KM;
 
     if (isValidSgf(data)) {
-      validationErrors.push("Invalid SGF data.");
+      validationErrors.push("Invalid SGF data, no move order and/or stones found.");
     }
 
     if (komi && isNaN(parseFloat(komi))) {
