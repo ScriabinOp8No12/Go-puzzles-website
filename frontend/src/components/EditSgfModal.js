@@ -1,7 +1,9 @@
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editSgfByIdThunk } from "../store/sgfs";
+import { closeModal } from "../store/modal";
+import "./styles/EditSgfModal.css";
 
 const EditSgfModal = ({ sgfId }) => {
   const dispatch = useDispatch();
@@ -19,94 +21,136 @@ const EditSgfModal = ({ sgfId }) => {
     result: "",
   });
 
+  //  ************************ Code below still off by 1 day ****************
+  // Was React DatePicker the package I installed?  Maybe that's the one to try
+
   useEffect(() => {
     if (currentSgf) {
       console.log("Current SGF from Redux:", currentSgf);
-      // Format the date into YYYY-MM-DD but also use moment.js to format it as local time so we don't get an off by one day
-      const localDate = moment.utc(currentSgf.game_date).local().format('YYYY-MM-DD');
-    setSgfDetails({ ...currentSgf, game_date: localDate });
+
+      setSgfDetails({
+        ...currentSgf,
+        game_date: moment(currentSgf.game_date).format("YYYY-MM-DD"),
+      });
     }
   }, [currentSgf]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editSgfByIdThunk(sgfId, sgfDetails));
+
+    const formattedDate = moment(sgfDetails.game_date).format("YYYY-MM-DD");
+    const payload = { ...sgfDetails, game_date: formattedDate };
+    const success = dispatch(editSgfByIdThunk(sgfId, payload));
+    if (success) {
+      dispatch(closeModal()); // close the modal on successful form submission
+    }
   };
+
+  // *********************** Code above still off by 1 day *****************
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSgfDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
+  const handleOverlayClick = () => {
+    dispatch(closeModal()); // Reset the form and close the modal
+  };
+
+  const handleFormClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="modal">
-      <label>
-        SGF Name:
-        <input
-          name="sgf_name"
-          value={sgfDetails.sgf_name || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Black Player:
-        <input
-          name="black_player"
-          value={sgfDetails.black_player || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        White Player:
-        <input
-          name="white_player"
-          value={sgfDetails.white_player || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Black Rank:
-        <input
-          name="black_rank"
-          value={sgfDetails.black_rank || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        White Rank:
-        <input
-          name="white_rank"
-          value={sgfDetails.white_rank || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Game Date:
-        <input
-          type="date"
-          name="game_date"
-          value={sgfDetails.game_date || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Komi:
-        <input
-          name="komi"
-          value={sgfDetails.komi || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Result:
-        <input
-          name="result"
-          value={sgfDetails.result || ""}
-          onChange={handleChange}
-        />
-      </label>
-      <button type="submit">Update</button>
-    </form>
+    <div className="modal" onClick={handleOverlayClick}>
+      {" "}
+      {/* Use modal class */}
+      <form
+        onSubmit={handleSubmit}
+        className="edit-modal-form"
+        onClick={handleFormClick}
+      >
+        {/* <form onSubmit={handleSubmit} className="modal"> */}
+        <label>
+          SGF Name:
+          <input
+            name="sgf_name"
+            value={sgfDetails.sgf_name || ""}
+            onChange={handleChange}
+          />
+        </label>
+        {/* Group black player and black rank side by side */}
+        <div className="sgf-related-fields">
+          <label>
+            Black Player:
+            <input
+              name="black_player"
+              value={sgfDetails.black_player || ""}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Black Rank:
+            <input
+              name="black_rank"
+              value={sgfDetails.black_rank || ""}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+        {/* Group white player and white rank side by side */}
+        <div className="sgf-related-fields">
+          <label>
+            White Player:
+            <input
+              name="white_player"
+              value={sgfDetails.white_player || ""}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            White Rank:
+            <input
+              name="white_rank"
+              value={sgfDetails.white_rank || ""}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+        {/* Group komi and result */}
+        <div className="sgf-related-fields">
+          <label>
+            Komi:
+            <input
+              name="komi"
+              value={sgfDetails.komi || ""}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Result:
+            <input
+              name="result"
+              value={sgfDetails.result || ""}
+              onChange={handleChange}
+            />
+          </label>
+          </div>
+        <label>
+          Game Date:
+          <input
+            type="date"
+            name="game_date"
+            value={sgfDetails.game_date || ""}
+            onChange={handleChange}
+          />
+        </label>
+
+        <button className="updateButton" type="submit">
+          Update
+        </button>
+      </form>
+    </div>
   );
 };
 
