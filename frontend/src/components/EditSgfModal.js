@@ -9,7 +9,7 @@ const EditSgfModal = ({ sgfId }) => {
   const dispatch = useDispatch();
   const currentSgf = useSelector((state) => state.sgfs.currentSgf);
 
-  // Initialize form state with all expected fields.
+  // ***** Initialize form state with all expected fields ****** //
   const [sgfDetails, setSgfDetails] = useState({
     sgf_name: "",
     black_player: "",
@@ -20,6 +20,58 @@ const EditSgfModal = ({ sgfId }) => {
     komi: "",
     result: "",
   });
+
+  // ***************** Ranking fields ************************* //
+  const rankOptions = [
+    "30k",
+    "29k",
+    "28k",
+    "27k",
+    "26k",
+    "25k",
+    "24k",
+    "23k",
+    "22k",
+    "21k",
+    "20k",
+    "19k",
+    "18k",
+    "17k",
+    "16k",
+    "15k",
+    "14k",
+    "13k",
+    "12k",
+    "11k",
+    "10k",
+    "9k",
+    "8k",
+    "7k",
+    "6k",
+    "5k",
+    "4k",
+    "3k",
+    "2k",
+    "1k",
+    "1d",
+    "2d",
+    "3d",
+    "4d",
+    "5d",
+    "6d",
+    "7d",
+    "8d",
+    "9d",
+    "1p",
+    "2p",
+    "3p",
+    "4p",
+    "5p",
+    "6p",
+    "7p",
+    "8p",
+    "9p",
+  ];
 
   //  ************************ Code below still off by 1 day ****************
   // Was React DatePicker the package I installed?  Maybe that's the one to try
@@ -61,6 +113,15 @@ const EditSgfModal = ({ sgfId }) => {
     e.stopPropagation();
   };
 
+  // If we type 20.2, it'll switch it back to 20
+  const handleKomiChange = (e) => {
+    let value = e.target.value;
+    if (!/^(\d+(\.5)?)?$/.test(value)) {
+      return; // exit the function if the value does not match the pattern
+    }
+    setSgfDetails((prevDetails) => ({ ...prevDetails, komi: value }));
+  };
+
   return (
     <div className="modal" onClick={handleOverlayClick}>
       {" "}
@@ -81,7 +142,7 @@ const EditSgfModal = ({ sgfId }) => {
         </label>
         {/* Group black player and black rank side by side */}
         <div className="sgf-related-fields">
-          <label>
+          <label className="player-label">
             Black Player:
             <input
               name="black_player"
@@ -89,18 +150,24 @@ const EditSgfModal = ({ sgfId }) => {
               onChange={handleChange}
             />
           </label>
-          <label>
-            Black Rank:
-            <input
+          <label className="rank-label">
+            Rank:
+            <select
               name="black_rank"
               value={sgfDetails.black_rank || ""}
               onChange={handleChange}
-            />
+            >
+              {rankOptions.map((rank) => (
+                <option key={rank} value={rank}>
+                  {rank}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         {/* Group white player and white rank side by side */}
         <div className="sgf-related-fields">
-          <label>
+          <label className="player-label">
             White Player:
             <input
               name="white_player"
@@ -108,23 +175,31 @@ const EditSgfModal = ({ sgfId }) => {
               onChange={handleChange}
             />
           </label>
-          <label>
-            White Rank:
-            <input
+          <label className="rank-label">
+            Rank:
+            <select
               name="white_rank"
-              value={sgfDetails.white_rank || ""}
+              value={sgfDetails.black_rank || ""}
               onChange={handleChange}
-            />
+            >
+              {rankOptions.map((rank) => (
+                <option key={rank} value={rank}>
+                  {rank}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         {/* Group komi and result */}
-        <div className="sgf-related-fields">
+        <div className="sgf-related-fields-komi-result">
           <label>
             Komi:
             <input
               name="komi"
+              type="number"
+              step="0.5"
               value={sgfDetails.komi || ""}
-              onChange={handleChange}
+              onChange={handleKomiChange}
             />
           </label>
           <label>
@@ -135,8 +210,8 @@ const EditSgfModal = ({ sgfId }) => {
               onChange={handleChange}
             />
           </label>
-          </div>
-        <label>
+        </div>
+        <label className="game-date-label">
           Game Date:
           <input
             type="date"
