@@ -11,12 +11,14 @@
 
 .edit-modal-form .updateButton {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: -5px;
   border: 3px solid black;
-  height: 50px;
+  height: 30px;
   background-color: #00ADB5;
-  color: white;
+  color: aliceblue;
   font-weight: bold;
+  font-family: "Manrope", sans-serif;
 }
 
 .edit-modal-form .updateButton:hover {
@@ -25,24 +27,51 @@
 
 .edit-modal-form label {
   color: aliceblue;
+  margin-top: 10px;
 }
 
-.edit-modal-form input {
+.edit-modal-form input,
+.edit-modal-form select {
   width: 100%;
-  margin-top: 10px;
+  font-family: "Manrope", sans-serif;
+  margin-top: 5px;
   padding: 5px;
   border: 1px solid black;
   border-radius: 5px;
 }
 
+
+/* .game-date-label input {
+  cursor: pointer;
+} */
+
 /* Putting fields left right for related fields */
 
 .sgf-related-fields {
   display: flex;
-  justify-content: space-between; /* Adjust as per your needs */
+  justify-content: space-between;
   align-items: flex-start; /* Aligns items vertically */
+}
+
+.sgf-related-fields-komi-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Aligns items vertically */
+  margin-bottom: 10px;
 }
 
 .sgf-related-fields label {
   flex-basis: calc(50% - 10px); /* Allocates space, the 10px is for any possible margin or padding */
+}
+
+.sgf-related-fields-komi-result label {
+  flex-basis: calc(50% - 10px); /* Allocates space, the 10px is for any possible margin or padding */
+}
+
+.sgf-related-fields .rank-label {
+  flex-basis: calc(25% - 10px);
+}
+
+.sgf-related-fields .player-label {
+  flex-basis: calc(75% - 10px);
 }
