@@ -15,7 +15,7 @@ const DeleteSgfModal = ({ sgfId }) => {
         setShowModal(false); // Close the modal on successful deletion
       })
       .catch((error) => {
-        console.error("Failed to delete review:", error);
+        console.error("Failed to delete sgf:", error);
       });
   };
   useEffect(() => {
