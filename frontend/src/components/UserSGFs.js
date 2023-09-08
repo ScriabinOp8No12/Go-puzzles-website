@@ -109,7 +109,7 @@ const UserSGFs = () => {
                   </div>
                 )}
                 {sgf.sgf_name &&
-                  sgf.sgf_name !== "? vs ?" &&
+                  sgf.sgf_name !== "? vs ?" && sgf.sgf_name !== "?" &&
                   sgf.sgf_name.trim() !== "" && (
                     <div className="sgf-page-sgf-name">{sgf.sgf_name}</div>
                   )}

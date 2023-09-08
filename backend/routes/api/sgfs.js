@@ -143,7 +143,9 @@ router.post("/", requireAuth, async (req, res) => {
     const komi = gameInfo.KM;
 
     if (isValidSgf(data)) {
-      validationErrors.push("Invalid SGF data, no move order and/or stones found.");
+      validationErrors.push(
+        "Invalid SGF data, no move order and/or stones found."
+      );
     }
 
     if (komi && isNaN(parseFloat(komi))) {
@@ -301,7 +303,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       errors.white_rank = ["Maximum white rank length is 20 characters."];
     }
     // Validate game date
-    if (!moment(game_date, 'YYYY-MM-DD', true).isValid()) {
+    if (!moment(game_date, "YYYY-MM-DD", true).isValid()) {
       errors.game_date = ["Invalid game date, must be in format YYYY-MM-DD."];
     }
     // Validate komi
@@ -322,18 +324,20 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
-    // JS code to update columns like komi, size, etc.
+    // JS code to update columns like komi, player_name in sgf_data column
     // Update logic here, then we just update the database together
 
     // Update SGF data *** these are the only fields the user can edit for now, it won't line up with the WGO.js rendered Go board fields necessarily
     sgfRecord.game_date = game_date;
-    sgfRecord.sgf_name = sgf_name;
-    sgfRecord.black_player = black_player || sgfRecord.black_player;
-    sgfRecord.white_player = white_player || sgfRecord.white_player;
+    sgfRecord.sgf_name = sgf_name.trim() !== "" ? sgf_name.trim() : "?";
+    sgfRecord.black_player =
+      black_player.trim() !== "" ? black_player.trim() : "?";
+    sgfRecord.white_player =
+      white_player.trim() !== "" ? white_player.trim() : "?";
     sgfRecord.black_rank = black_rank || sgfRecord.black_rank;
     sgfRecord.white_rank = white_rank || sgfRecord.white_rank;
     sgfRecord.komi = komi || sgfRecord.komi;
-    sgfRecord.result = result || sgfRecord.result;
+    sgfRecord.result = result.trim() !== "" ? result.trim() : "?";
 
     // Explicitly run Sequelize validation
     try {
