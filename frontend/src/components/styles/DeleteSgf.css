@@ -5,6 +5,16 @@
   transform: translate(-50%, -50%);
 }
 
+.delete-modal-form {
+  box-sizing: border-box;
+  padding: 20px;
+  width: 400px;
+  background-color: #222831;
+  border: 3px solid black;
+  border-radius: 15px;
+  margin-bottom: 0px;
+}
+
 .deleteText {
   text-align: center;
   color: aliceblue;
@@ -49,14 +59,4 @@
 
 .trashcan-icon:hover {
   border: 3px solid aliceblue;
-}
-
-.delete-modal-form {
-  box-sizing: border-box;
-  padding: 20px;
-  width: 400px;
-  background-color: #222831;
-  border: 3px solid black;
-  border-radius: 15px;
-  margin-bottom: 0px;
 }

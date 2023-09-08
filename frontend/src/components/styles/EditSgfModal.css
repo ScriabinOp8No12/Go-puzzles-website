@@ -1,0 +1,48 @@
+.edit-modal-form {
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: #222831;
+  border: 3px solid black;
+  border-radius: 15px;
+  margin-bottom: 0px;
+  width: 350px;
+  height: auto;
+}
+
+.edit-modal-form .updateButton {
+  width: 100%;
+  margin-top: 10px;
+  border: 3px solid black;
+  height: 50px;
+  background-color: #00ADB5;
+  color: white;
+  font-weight: bold;
+}
+
+.edit-modal-form .updateButton:hover {
+  border: 3px solid aliceblue;
+}
+
+.edit-modal-form label {
+  color: aliceblue;
+}
+
+.edit-modal-form input {
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+/* Putting fields left right for related fields */
+
+.sgf-related-fields {
+  display: flex;
+  justify-content: space-between; /* Adjust as per your needs */
+  align-items: flex-start; /* Aligns items vertically */
+}
+
+.sgf-related-fields label {
+  flex-basis: calc(50% - 10px); /* Allocates space, the 10px is for any possible margin or padding */
+}

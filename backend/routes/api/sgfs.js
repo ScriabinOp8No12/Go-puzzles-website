@@ -322,6 +322,9 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
+    // JS code to update columns like komi, size, etc.
+    // Update logic here, then we just update the database together
+
     // Update SGF data *** these are the only fields the user can edit for now, it won't line up with the WGO.js rendered Go board fields necessarily
     sgfRecord.game_date = game_date;
     sgfRecord.sgf_name = sgf_name;
