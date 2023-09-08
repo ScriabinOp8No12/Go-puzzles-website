@@ -115,6 +115,11 @@
 
 .upload-error {
   color: red;
-  font-size: 14px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.uploading-sgf {
+  color: aliceblue;
   margin-top: 5px;
 }

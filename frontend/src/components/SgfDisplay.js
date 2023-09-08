@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams} from 'react-router-dom';
-import { fetchSgfByIdThunk } from '../store/sgfs'; // Replace with your actual import
+import { fetchSgfByIdThunk } from '../store/sgfs';
 import "./styles/SgfDisplay.css"
 
 const SgfDisplay = () => {
   const { sgf_id } = useParams();
   const dispatch = useDispatch();
-  const sgfData = useSelector(state => state.sgfs.currentSgf); // Replace with your actual selector
+  const sgfData = useSelector(state => state.sgfs.currentSgf);
   const boardRef = useRef(null);
   // const history = useHistory();
 
@@ -18,7 +18,7 @@ const SgfDisplay = () => {
   useEffect(() => {
     if (sgfData && boardRef.current) {
       new window.WGo.BasicPlayer(boardRef.current, {
-        sgf: sgfData.sgf_data, // Replace with actual SGF data field
+        sgf: sgfData.sgf_data,
       });
     }
   }, [sgfData]);
