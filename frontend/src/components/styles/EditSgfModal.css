@@ -75,3 +75,9 @@
 .sgf-related-fields .player-label {
   flex-basis: calc(75% - 10px);
 }
+
+/* ERRORS */
+
+.edit-sgf-errors {
+  color: red;
+}

@@ -21,57 +21,15 @@ const EditSgfModal = ({ sgfId }) => {
     result: "",
   });
 
-  // ***************** Ranking fields ************************* //
-  const rankOptions = [
-    "30k",
-    "29k",
-    "28k",
-    "27k",
-    "26k",
-    "25k",
-    "24k",
-    "23k",
-    "22k",
-    "21k",
-    "20k",
-    "19k",
-    "18k",
-    "17k",
-    "16k",
-    "15k",
-    "14k",
-    "13k",
-    "12k",
-    "11k",
-    "10k",
-    "9k",
-    "8k",
-    "7k",
-    "6k",
-    "5k",
-    "4k",
-    "3k",
-    "2k",
-    "1k",
-    "1d",
-    "2d",
-    "3d",
-    "4d",
-    "5d",
-    "6d",
-    "7d",
-    "8d",
-    "9d",
-    "1p",
-    "2p",
-    "3p",
-    "4p",
-    "5p",
-    "6p",
-    "7p",
-    "8p",
-    "9p",
-  ];
+  //  ******** Form errors ********** //
+  const [formErrors, setFormErrors] = useState({});
+
+  // ***************** Ranking fields 30k-1k, 1d/1p-9d/9p ************************* //
+  const kRanks = Array.from({ length: 30 }, (_, i) => `${30 - i}k`);
+  const dRanks = Array.from({ length: 9 }, (_, i) => `${i + 1}d`);
+  const pRanks = Array.from({ length: 9 }, (_, i) => `${i + 1}p`);
+
+  const rankOptions = [...kRanks, ...dRanks, ...pRanks];
 
   //  ************************ Code below still off by 1 day ****************
   // Was React DatePicker the package I installed?  Maybe that's the one to try
@@ -87,14 +45,20 @@ const EditSgfModal = ({ sgfId }) => {
     }
   }, [currentSgf]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formattedDate = moment(sgfDetails.game_date).format("YYYY-MM-DD");
     const payload = { ...sgfDetails, game_date: formattedDate };
-    const success = dispatch(editSgfByIdThunk(sgfId, payload));
-    if (success) {
-      dispatch(closeModal()); // close the modal on successful form submission
+
+    try {
+      await dispatch(editSgfByIdThunk(sgfId, payload));
+      dispatch(closeModal());
+    } catch (error) {
+      // Catch errors if dispatch fails
+      const data = await error.json();
+      if (data && data.errors) {
+        setFormErrors(data.errors);
+      }
     }
   };
 
@@ -124,14 +88,11 @@ const EditSgfModal = ({ sgfId }) => {
 
   return (
     <div className="modal" onClick={handleOverlayClick}>
-      {" "}
-      {/* Use modal class */}
       <form
         onSubmit={handleSubmit}
         className="edit-modal-form"
         onClick={handleFormClick}
       >
-        {/* <form onSubmit={handleSubmit} className="modal"> */}
         <label>
           SGF Name:
           <input
@@ -139,6 +100,7 @@ const EditSgfModal = ({ sgfId }) => {
             value={sgfDetails.sgf_name || ""}
             onChange={handleChange}
           />
+          {formErrors.sgf_name && <div className="edit-sgf-errors">{formErrors.sgf_name[0]}</div>}
         </label>
         {/* Group black player and black rank side by side */}
         <div className="sgf-related-fields">
@@ -149,6 +111,7 @@ const EditSgfModal = ({ sgfId }) => {
               value={sgfDetails.black_player || ""}
               onChange={handleChange}
             />
+             {formErrors.black_player && <div className="edit-sgf-errors">{formErrors.black_player[0]}</div>}
           </label>
           <label className="rank-label">
             Rank:
@@ -174,12 +137,13 @@ const EditSgfModal = ({ sgfId }) => {
               value={sgfDetails.white_player || ""}
               onChange={handleChange}
             />
+            {formErrors.white_player && <div className="edit-sgf-errors">{formErrors.white_player[0]}</div>}
           </label>
           <label className="rank-label">
             Rank:
             <select
               name="white_rank"
-              value={sgfDetails.black_rank || ""}
+              value={sgfDetails.white_rank || ""}
               onChange={handleChange}
             >
               {rankOptions.map((rank) => (
@@ -190,7 +154,7 @@ const EditSgfModal = ({ sgfId }) => {
             </select>
           </label>
         </div>
-        {/* Group komi and result */}
+        {/* Group komi and result side by side*/}
         <div className="sgf-related-fields-komi-result">
           <label>
             Komi:
@@ -209,6 +173,7 @@ const EditSgfModal = ({ sgfId }) => {
               value={sgfDetails.result || ""}
               onChange={handleChange}
             />
+            {formErrors.result && <div className="edit-sgf-errors">{formErrors.result[0]}</div>}
           </label>
         </div>
         <label className="game-date-label">

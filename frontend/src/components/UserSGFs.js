@@ -105,7 +105,6 @@ const UserSGFs = () => {
                       Create Puzzles!
                     </button>
                     <button className="pencil-icon" onClick={() => openEditModal(sgf.id)}>✏️</button>
-                    {/* <button className="trashcan-icon"></button> */}
                     <DeleteSgfModal sgfId={sgf.id} />
                   </div>
                 )}
