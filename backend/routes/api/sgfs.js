@@ -264,7 +264,7 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
   return res.status(200).json(formattedSGF);
 });
 
-// Edit: sgf_name, black_player, white_player, black_rank, white_rank, game_date, komi, result
+// Edit: sgf_data (permanently for wgo.js rendering SGF), sgf_name, black_player, white_player, black_rank, white_rank, game_date, komi, result
 router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Initialize errors object
@@ -304,7 +304,9 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     }
     // Validate game date
     if (!moment(game_date, "YYYY-MM-DD", true).isValid()) {
-      errors.game_date = ["Invalid game date, must be in format YYYY-MM-DD."];
+      errors.game_date = [
+        "Game date can't be empty, or it's in the wrong format",
+      ];
     }
     // Validate komi
     if (komi && isNaN(parseFloat(komi))) {
@@ -324,10 +326,8 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
-    // JS code to update columns like komi, player_name in sgf_data column
-    // Update logic here, then we just update the database together
-
     // Update SGF data *** these are the only fields the user can edit for now, it won't line up with the WGO.js rendered Go board fields necessarily
+    // If the user leaves the field blank, or leaves a series of empty spaces, it will set the value to ? in the backend
     sgfRecord.game_date = game_date;
     sgfRecord.sgf_name = sgf_name.trim() !== "" ? sgf_name.trim() : "?";
     sgfRecord.black_player =
@@ -338,6 +338,32 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     sgfRecord.white_rank = white_rank || sgfRecord.white_rank;
     sgfRecord.komi = komi || sgfRecord.komi;
     sgfRecord.result = result.trim() !== "" ? result.trim() : "?";
+
+    // Modify sgf_data column with user's newly inputted values like komi, player_name (permanently alter sgf so Wgo.js can show updates too)
+
+    const parsedSgfArray = jssgf.parse(sgfRecord.sgf_data);
+    // Access the first SGF object in the array
+    const parsedSgfObject = parsedSgfArray[0];
+
+    // Convert date to string format if it's a Date object
+    parsedSgfObject.DT =
+      sgfRecord.game_date instanceof Date
+        ? sgfRecord.game_date.toISOString()
+        : String(sgfRecord.game_date);
+
+    // Convert komi to string (and just to make sure, force all other fields to be strings too)
+    parsedSgfObject.KM = String(sgfRecord.komi);
+    parsedSgfObject.PB = String(sgfRecord.black_player);
+    parsedSgfObject.PW = String(sgfRecord.white_player);
+    parsedSgfObject.BR = String(sgfRecord.black_rank);
+    parsedSgfObject.WR = String(sgfRecord.white_rank);
+    parsedSgfObject.RE = String(sgfRecord.result);
+
+    // Serialize it back to SGF format
+    const modifiedSgfData = jssgf.stringify([parsedSgfObject]);
+
+    // Update the database record
+    sgfRecord.sgf_data = modifiedSgfData;
 
     // Explicitly run Sequelize validation
     try {
@@ -376,6 +402,7 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     res.status(200).json({
       sgf_id: sgfRecord.id.toString(),
       user_id: sgfRecord.user_id.toString(),
+      sgf_data: sgfRecord.sgf_data,
       sgf_name: sgfRecord.sgf_name,
       black_player: sgfRecord.black_player,
       white_player: sgfRecord.white_player,
