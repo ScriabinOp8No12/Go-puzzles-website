@@ -345,11 +345,13 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     // Access the first SGF object in the array
     const parsedSgfObject = parsedSgfArray[0];
 
-    // Convert date to string format if it's a Date object
-    parsedSgfObject.DT =
-      sgfRecord.game_date instanceof Date
-        ? sgfRecord.game_date.toISOString()
-        : String(sgfRecord.game_date);
+    // Check if game_date is a valid Date object
+    if (sgfRecord.game_date instanceof Date && !isNaN(sgfRecord.game_date.getTime())) {
+      parsedSgfObject.DT = sgfRecord.game_date.toISOString().split('T')[0];
+    } else {
+      // Handle invalid date here, you can assign a default date or a placeholder.
+      parsedSgfObject.DT = "";
+    }
 
     // Convert komi to string (and just to make sure, force all other fields to be strings too)
     parsedSgfObject.KM = String(sgfRecord.komi);

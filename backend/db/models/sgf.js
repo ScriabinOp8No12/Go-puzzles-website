@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       game_date: {
         type: DataTypes.DATE,
+        allowNull: false,
         validate: {
           isDate: true
         }

@@ -1,7 +1,7 @@
 import moment from "moment-timezone";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editSgfByIdThunk } from "../store/sgfs";
+import { editSgfByIdThunk, fetchAllSgfsThunk } from "../store/sgfs";
 import { closeModal } from "../store/modal";
 import "./styles/EditSgfModal.css";
 
@@ -53,6 +53,8 @@ const EditSgfModal = ({ sgfId }) => {
     try {
       await dispatch(editSgfByIdThunk(sgfId, payload));
       dispatch(closeModal());
+      // Fetch the updated list of SGFs, React is smart enough to only rerender the changed current SGF!
+      dispatch(fetchAllSgfsThunk());
     } catch (error) {
       // Catch errors if dispatch fails
       const data = await error.json();
