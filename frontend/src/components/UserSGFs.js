@@ -13,6 +13,7 @@ const UserSGFs = () => {
   const history = useHistory();
   const [uploadError, setUploadError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   // Edit sgf modal
   const openEditModal = async (sgfId) => {
     await dispatch(fetchSgfByIdThunk(sgfId));
@@ -30,7 +31,7 @@ const UserSGFs = () => {
     const file = e.target.files[0];
     if (!file) {
       setIsLoading(false); // Reset isLoading if no file is selected
-      // Handle the case where no file is selected or the upload is canceled.
+      // Handle the case where no file is selected or the upload is cancelled.
       return;
     }
 

@@ -10,6 +10,7 @@ const EditSgfModal = ({ sgfId }) => {
   const currentSgf = useSelector((state) => state.sgfs.currentSgf);
 
   // ***** Initialize form state with all expected fields ****** //
+
   const [sgfDetails, setSgfDetails] = useState({
     sgf_name: "",
     black_player: "",
@@ -22,17 +23,19 @@ const EditSgfModal = ({ sgfId }) => {
   });
 
   //  ******** Form errors ********** //
+
   const [formErrors, setFormErrors] = useState({});
 
   // ***************** Ranking fields 30k-1k, 1d/1p-9d/9p ************************* //
+
   const kRanks = Array.from({ length: 30 }, (_, i) => `${30 - i}k`);
   const dRanks = Array.from({ length: 9 }, (_, i) => `${i + 1}d`);
   const pRanks = Array.from({ length: 9 }, (_, i) => `${i + 1}p`);
 
   const rankOptions = [...kRanks, ...dRanks, ...pRanks];
 
-  //  ************************ Code below still off by 1 day ****************
-  // Was React DatePicker the package I installed?  Maybe that's the one to try
+  //  ************************ Code below still off by 1 day b/c backend stores it as UTC at time 0, so local time shifts it ****************
+  // Try React DatePicker instead?
 
   useEffect(() => {
     if (currentSgf) {
@@ -50,21 +53,24 @@ const EditSgfModal = ({ sgfId }) => {
     const formattedDate = moment(sgfDetails.game_date).format("YYYY-MM-DD");
     const payload = { ...sgfDetails, game_date: formattedDate };
 
+  // *********************** Code above still off by 1 day *****************
+
+  // Try to dispatch / trigger the action for the editing the specified Sgf by sgf id
+
     try {
       await dispatch(editSgfByIdThunk(sgfId, payload));
       dispatch(closeModal());
-      // Fetch the updated list of SGFs, React is smart enough to only rerender the changed current SGF!
+      // ** slightly not optimized, could create a new thunk that only fetches one SGF?
+      // Fetch the entire list of SGFs again, React is smart enough to only rerender the changed current SGF, so it's still quick
       dispatch(fetchAllSgfsThunk());
     } catch (error) {
-      // Catch errors if dispatch fails
+      // Catch errors if dispatch fails, then we can display them in the form below each input
       const data = await error.json();
       if (data && data.errors) {
         setFormErrors(data.errors);
       }
     }
   };
-
-  // *********************** Code above still off by 1 day *****************
 
   const handleChange = (e) => {
     const { name, value } = e.target;
