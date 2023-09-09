@@ -184,6 +184,7 @@ const EditSgfModal = ({ sgfId }) => {
             value={sgfDetails.game_date || ""}
             onChange={handleChange}
           />
+          {formErrors.game_date && <div className="edit-sgf-errors">{formErrors.game_date[0]}</div>}
         </label>
 
         <button className="updateButton" type="submit">
