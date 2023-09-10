@@ -64,12 +64,14 @@ export const logout = () => async (dispatch) => {
   return response;
 };
 
+// Set our initialState "user" state to null, and put it inside an object
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_USER:
+      //  Create a shallow copy of the existing state object, then put the action.payload in as the newState (the logged in user's state)
       newState = Object.assign({}, state);
       newState.user = action.payload;
       return newState;
