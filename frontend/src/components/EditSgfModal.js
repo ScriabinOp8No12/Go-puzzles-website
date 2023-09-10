@@ -57,7 +57,7 @@ const EditSgfModal = ({ sgfId }) => {
       });
       console.log("Raw game_date from backend:", currentSgf.game_date);
     }
-  }, [currentSgf]);
+  }, [currentSgf, localTimezoneOffsetHours]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
