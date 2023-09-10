@@ -19,15 +19,6 @@ def draw_board(board_size, star_points, num_moves, node, draw):
         # second argument is the color, fill=0 means black
         draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
 
-    # # New section: draw the initial state if available
-    # if initial_state:
-    #     for color, positions in initial_state.items():
-    #         for row, col in positions:
-    #             cx = (col+1) * cell_size
-    #             cy = (board_size-row) * cell_size
-    #             r = stone_size // 2
-    #             draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=black_stone_color if color == "b" else white_stone_color)
-
     # Draw initial stones from AB and AW properties (new code)
     initial_black_stones = node.get("AB") if node.has_property("AB") else []
     initial_white_stones = node.get("AW") if node.has_property("AW") else []
@@ -179,10 +170,6 @@ def generatePreview(sgf_data):
     # Get the root node of the game tree
     node = game.get_root()
 
-    print("***** NODE: ", node)
-    print("*** node.get('AB')", node.get('AB'))
-    print("*** node.get('AW')", node.get('AW'))
-
     # Get the size of the Go board from the SGF file (more dynamic than hard coding in board size of 19)
     board_size = game.get_size()
 
@@ -190,13 +177,6 @@ def generatePreview(sgf_data):
     img_size = cell_size * (board_size + 1)
     img = Image.new('RGB', (img_size, img_size), board_color)
     draw = ImageDraw.Draw(img)
-
-    # # New section: get initial state from root node if available
-    # initial_state = {}
-    # if "AB" in node.properties:
-    #     initial_state["b"] = node.properties["AB"]
-    # if "AW" in node.properties:
-    #     initial_state["w"] = node.properties["AW"]
 
     # Draw the grid lines on the Go board
     for i in range(board_size):
