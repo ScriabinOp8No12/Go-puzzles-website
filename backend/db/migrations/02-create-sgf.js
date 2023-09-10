@@ -31,7 +31,6 @@ module.exports = {
         },
         game_date: {
           type: Sequelize.DATE,
-          allowNull: false
         },
         sgf_name: {
           type: Sequelize.STRING,
