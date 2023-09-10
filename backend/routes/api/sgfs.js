@@ -410,10 +410,10 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       white_player: sgfRecord.white_player,
       black_rank: sgfRecord.black_rank,
       white_rank: sgfRecord.white_rank,
-      game_date: moment(sgfRecord.game_date).format("YYYY-MM-DD HH:mm:ss"),
+      game_date: moment.utc(sgfRecord.game_date).format("YYYY-MM-DD HH:mm:ss"),
       komi: sgfRecord.komi,
       result: sgfRecord.result,
-      updatedAt: moment(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment.utc(sgfRecord.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     });
   } catch (err) {
     console.error(err);
