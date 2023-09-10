@@ -34,8 +34,13 @@ const EditSgfModal = ({ sgfId }) => {
 
   const rankOptions = [...kRanks, ...dRanks, ...pRanks];
 
-  //  ************************ Code below still off by 1 day b/c backend stores it as UTC at time 0, so local time shifts it ****************
   // Try React DatePicker instead?
+
+  // Get the local timezone offset in minutes
+  const localTimezoneOffsetMinutes = new Date().getTimezoneOffset();
+
+  // Convert the offset to hours (it could be a decimal)
+  const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
 
   useEffect(() => {
     if (currentSgf) {
@@ -43,20 +48,24 @@ const EditSgfModal = ({ sgfId }) => {
 
       setSgfDetails({
         ...currentSgf,
-        game_date: moment(currentSgf.game_date).format("YYYY-MM-DD"),
+        // Make sure the game_date form field subtracts off the hour offset, for example, we are UTC - 6 in mountain time, so we need to subtract - 6, and add that to the UTC time in the backend
+        // So then we get the correct date!
+        game_date: moment
+          .utc(currentSgf.game_date)
+          .subtract(localTimezoneOffsetHours, "hours")
+          .format("YYYY-MM-DD"),
       });
+      console.log("Raw game_date from backend:", currentSgf.game_date);
     }
   }, [currentSgf]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Send date to backend as UTC time at time 0
     const formattedDate = moment(sgfDetails.game_date).format("YYYY-MM-DD");
     const payload = { ...sgfDetails, game_date: formattedDate };
 
-  // *********************** Code above still off by 1 day *****************
-
-  // Try to dispatch / trigger the action for the editing the specified Sgf by sgf id
-
+    // Try to dispatch / trigger the action for the editing the specified Sgf by sgf id
     try {
       await dispatch(editSgfByIdThunk(sgfId, payload));
       dispatch(closeModal());
@@ -108,7 +117,9 @@ const EditSgfModal = ({ sgfId }) => {
             value={sgfDetails.sgf_name || ""}
             onChange={handleChange}
           />
-          {formErrors.sgf_name && <div className="edit-sgf-errors">{formErrors.sgf_name[0]}</div>}
+          {formErrors.sgf_name && (
+            <div className="edit-sgf-errors">{formErrors.sgf_name[0]}</div>
+          )}
         </label>
         {/* Group black player and black rank side by side */}
         <div className="sgf-related-fields">
@@ -119,7 +130,11 @@ const EditSgfModal = ({ sgfId }) => {
               value={sgfDetails.black_player || ""}
               onChange={handleChange}
             />
-             {formErrors.black_player && <div className="edit-sgf-errors">{formErrors.black_player[0]}</div>}
+            {formErrors.black_player && (
+              <div className="edit-sgf-errors">
+                {formErrors.black_player[0]}
+              </div>
+            )}
           </label>
           <label className="rank-label">
             Rank:
@@ -145,7 +160,11 @@ const EditSgfModal = ({ sgfId }) => {
               value={sgfDetails.white_player || ""}
               onChange={handleChange}
             />
-            {formErrors.white_player && <div className="edit-sgf-errors">{formErrors.white_player[0]}</div>}
+            {formErrors.white_player && (
+              <div className="edit-sgf-errors">
+                {formErrors.white_player[0]}
+              </div>
+            )}
           </label>
           <label className="rank-label">
             Rank:
@@ -181,7 +200,9 @@ const EditSgfModal = ({ sgfId }) => {
               value={sgfDetails.result || ""}
               onChange={handleChange}
             />
-            {formErrors.result && <div className="edit-sgf-errors">{formErrors.result[0]}</div>}
+            {formErrors.result && (
+              <div className="edit-sgf-errors">{formErrors.result[0]}</div>
+            )}
           </label>
         </div>
         <label className="game-date-label">
@@ -192,7 +213,9 @@ const EditSgfModal = ({ sgfId }) => {
             value={sgfDetails.game_date || ""}
             onChange={handleChange}
           />
-          {formErrors.game_date && <div className="edit-sgf-errors">{formErrors.game_date[0]}</div>}
+          {formErrors.game_date && (
+            <div className="edit-sgf-errors">{formErrors.game_date[0]}</div>
+          )}
         </label>
 
         <button className="updateButton" type="submit">

@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import DeleteSgfModal from "./DeleteSgfModal";
 import EditSgfModal from "./EditSgfModal";
 import "./styles/UserSGFs.css";
+import moment from "moment-timezone";
 
 const UserSGFs = () => {
   const dispatch = useDispatch();
@@ -62,13 +63,19 @@ const UserSGFs = () => {
   const sortedSGFs = userSGFs.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
+
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(date.getDate()).padStart(2, "0")}`;
+    const [year, month, day] = dateString.split(" ")[0].split("-");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
   };
+
+  // Get the local timezone offset in minutes
+const localTimezoneOffsetMinutes = new Date().getTimezoneOffset();
+
+// Convert the offset to hours (it could be a decimal)
+const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
+
+console.log("*****************", localTimezoneOffsetHours)
 
   return (
     <div className="outer-wrapper">
@@ -79,12 +86,13 @@ const UserSGFs = () => {
         </label>
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
-        {/* Display spinner */}
+        {/* Display uploading text */}
         {isLoading && <div className="uploading-sgf">Uploading...</div>}
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
           sortedSGFs.map((sgf, index) => (
+
             <div className="uploaded-sgf-thumbnail" key={index}>
               <img
                 src={sgf.thumbnail}
@@ -119,7 +127,9 @@ const UserSGFs = () => {
                   sgf.game_date !== "?" &&
                   sgf.game_date !== "Invalid date" &&
                   sgf.game_date.trim() !== "" && (
-                    <div>Game Date: {formatDate(sgf.game_date)}</div>
+                    <div>Game Date:
+                      {/* We are UTC - 6 in Mountain Time, so we need to subtract - 6 to add 6 hours to the UTC 18 hour in backend to get the right format on the frontend */}
+                    {moment.utc(sgf.game_date).subtract(localTimezoneOffsetHours, 'hours').format("YYYY-MM-DD")}</div>
                   )}
               </div>
             </div>
