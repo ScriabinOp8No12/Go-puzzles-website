@@ -6,6 +6,7 @@ from sgfmill import sgf, boards
 
 
 def draw_board(board_size, star_points, num_moves, node, draw):
+    # def draw_board(board_size, star_points, num_moves, node, draw, initial_state=None):
     # Draw the star points on the Go board
     # 19 by 19 board uses 9 star points, 13 by 13 and 9 by 9 board use 5 star points
     # Iterate over each tuple in star_points list
@@ -17,6 +18,31 @@ def draw_board(board_size, star_points, num_moves, node, draw):
         r = stone_size // 10
         # second argument is the color, fill=0 means black
         draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
+
+    # # New section: draw the initial state if available
+    # if initial_state:
+    #     for color, positions in initial_state.items():
+    #         for row, col in positions:
+    #             cx = (col+1) * cell_size
+    #             cy = (board_size-row) * cell_size
+    #             r = stone_size // 2
+    #             draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=black_stone_color if color == "b" else white_stone_color)
+
+    # Draw initial stones from AB and AW properties (new code)
+    initial_black_stones = node.get("AB") if node.has_property("AB") else []
+    initial_white_stones = node.get("AW") if node.has_property("AW") else []
+
+    for row, col in initial_black_stones:
+        cx = (col + 1) * cell_size
+        cy = (board_size - row) * cell_size
+        r = stone_size // 2
+        draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=black_stone_color)
+
+    for row, col in initial_white_stones:
+        cx = (col + 1) * cell_size
+        cy = (board_size - row) * cell_size
+        r = stone_size // 2
+        draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=white_stone_color)
 
     # Create a new Go board object to keep track of stone groups and captures
     go_board = boards.Board(board_size)
@@ -153,6 +179,10 @@ def generatePreview(sgf_data):
     # Get the root node of the game tree
     node = game.get_root()
 
+    print("***** NODE: ", node)
+    print("*** node.get('AB')", node.get('AB'))
+    print("*** node.get('AW')", node.get('AW'))
+
     # Get the size of the Go board from the SGF file (more dynamic than hard coding in board size of 19)
     board_size = game.get_size()
 
@@ -160,6 +190,13 @@ def generatePreview(sgf_data):
     img_size = cell_size * (board_size + 1)
     img = Image.new('RGB', (img_size, img_size), board_color)
     draw = ImageDraw.Draw(img)
+
+    # # New section: get initial state from root node if available
+    # initial_state = {}
+    # if "AB" in node.properties:
+    #     initial_state["b"] = node.properties["AB"]
+    # if "AW" in node.properties:
+    #     initial_state["w"] = node.properties["AW"]
 
     # Draw the grid lines on the Go board
     for i in range(board_size):
@@ -175,6 +212,7 @@ def generatePreview(sgf_data):
                    star_points=star_points,
                    # added draw=draw here in all the board sizes
                    num_moves=50, node=node, draw=draw)
+            # num_moves=50, node=node, draw=draw, initial_state=initial_state)
 
     elif board_size == 13:
         star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
@@ -182,6 +220,7 @@ def generatePreview(sgf_data):
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=20, node=node, draw=draw)
+            # num_moves=20, node=node, draw=draw, initial_state=initial_state)
 
     elif board_size == 9:
         star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
@@ -189,6 +228,7 @@ def generatePreview(sgf_data):
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=12, node=node, draw=draw)
+            # num_moves=12, node=node, draw=draw, initial_state=initial_state)
 
     # Save image to in-memory buffer
     buffer = BytesIO()
