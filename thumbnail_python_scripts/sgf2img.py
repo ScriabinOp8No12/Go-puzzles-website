@@ -141,8 +141,6 @@ for filename in os.listdir(sgf_dir):
         draw_board(board_size=board_size,
                    star_points=star_points,
                    num_moves=12, node=node, draw=draw)
-    # Resize the image to the desired size while preserving aspect ratio (for improving performance, lose a little quality though)
-    # img = img.resize((200, 200), resample=Image.LANCZOS)
 
     # Save image to file
     img.save(output_file)
