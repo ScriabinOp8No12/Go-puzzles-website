@@ -6,7 +6,7 @@ import { closeModal } from "./store/modal"; // import closeModal action so we ca
 import Navigation from "./components/Navigation";
 import UserSGFs from "./components/UserSGFs";
 import SgfDisplay from "./components/SgfDisplay";
-import PublicPuzzles from "./components/LandingPage"
+import PublicPuzzles from "./components/LandingPagePublicPuzzles"
 
 
 function App() {
