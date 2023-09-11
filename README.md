@@ -14,12 +14,14 @@
 - `POST /api/sgfs`: Upload new SGFs to the current user's SGF table
 - `GET /api/sgfs/:sgf_id`: Get the SGF by sgf_id (for rendering Go board)
 - `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, player ranks, and/or result
+- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (do NOT delete the puzzles with it)
+
 - `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
   taking the rank of the player that made the mistake, then converting that Go rank
   into an elo rating. If there are no ranks, it'll default to 1500 elo (which should be around 5-7k range)
 - `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo.
 - `DELETE /api/sgfs/:sgf_id/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
-- `DELETE /api/sgfs/:sgf_id`: Delete an SGF (do NOT delete the puzzles with it)
+
 
 ### Puzzles (Endpoints for puzzles, which includes user's puzzles and all public puzzles along with filters for puzzles)
 
