@@ -1,6 +1,6 @@
 "use strict";
 
-let options = {};
+let options = { tableName: 'PuzzleCategories'};
 
 if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA; // define your schema in options object
@@ -48,8 +48,8 @@ module.exports = {
     );
 
     // Add indexes for optimization
-    // await queryInterface.addIndex('PuzzleCategories', ['puzzle_id']);
-    // await queryInterface.addIndex('PuzzleCategories', ['category_name']);
+    await queryInterface.addIndex(options, ['puzzle_id']);
+    await queryInterface.addIndex(options, ['category_name']);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('PuzzleCategories', options);
