@@ -1,7 +1,6 @@
 "use strict";
 
-// this block below HAS to go in every migration and seeder that we create!
-let options = {};
+let options = { tableName: 'Puzzles' };
 
 if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA;
@@ -9,15 +8,15 @@ if (process.env.NODE_ENV === "production") {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addIndex('Puzzles', ['move_number'], options);
-    await queryInterface.addIndex('Puzzles', ['difficulty'], options);
-    await queryInterface.addIndex('Puzzles', ['vote_count'], options);
-    await queryInterface.addIndex('Puzzles', ['board_size'], options);
+    await queryInterface.addIndex(options, ['move_number']);
+    await queryInterface.addIndex(options, ['difficulty']);
+    await queryInterface.addIndex(options, ['vote_count']);
+    await queryInterface.addIndex(options, ['board_size']);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeIndex('Puzzles', ['move_number'], options);
-    await queryInterface.removeIndex('Puzzles', ['difficulty'], options);
-    await queryInterface.removeIndex('Puzzles', ['vote_count'], options);
-    await queryInterface.removeIndex('Puzzles', ['board_size'], options);
+    await queryInterface.removeIndex(options, ['move_number']);
+    await queryInterface.removeIndex(options, ['difficulty']);
+    await queryInterface.removeIndex(options, ['vote_count']);
+    await queryInterface.removeIndex(options, ['board_size']);
   }
 };
