@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  async up(queryInterface, Sequelize) {
     // put tableName here inside up function instead of outside
     options.tableName = "Sgfs";
     return queryInterface.bulkInsert(

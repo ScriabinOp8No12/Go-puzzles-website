@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "puzzle_id",
         otherKey: "user_id",
       });
+      Puzzle.hasMany(models.PuzzleCategory, { foreignKey: 'puzzle_id' });
     }
   }
   Puzzle.init(
