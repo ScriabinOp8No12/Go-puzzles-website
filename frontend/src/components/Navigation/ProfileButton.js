@@ -49,9 +49,9 @@ function ProfileButton({ user, showMenu, setShowMenu }) {
     (user ? " logged-in" : " not-logged-in");
 
   // Redirecting user to current spots function
-  const redirectToCurrentSpots = () => {
-    history.push("/spots/current");
-  };
+  // const redirectToCurrentSpots = () => {
+  //   history.push("/spots/current");
+  // };
 
   const profileButtonClass = `profile-button${
     showMenu ? " dropdown-active" : ""
