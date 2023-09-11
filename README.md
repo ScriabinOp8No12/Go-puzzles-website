@@ -23,7 +23,13 @@
 
 ### Puzzles (Endpoints for puzzles, which includes user's puzzles and all public puzzles along with filters for puzzles)
 
-- `GET /api/puzzles?source=[own|public]&completed=[true|false]&min_difficulty=:min_difficulty&max_difficulty=:max_difficulty&move_number=:move_number&category=:category&board_size=:board_size&min_votes=:min_votes&max_votes=:max_votes`: Retrieve puzzles based on various filters.
+- `GET /api/puzzles?source=[own|public]&completed=[true|false]&min_difficulty=:min_difficulty&max_difficulty=:max_difficulty&move_number=:move_number&category=:category&board_size=:board_size&min_votes=:min_votes&max_votes=:max_votes&limit=:limit&offset=:offset`: Retrieve puzzles based on various filters, includes pagination!
+
+## Pagination Parameters
+
+- `limit`: The maximum number of puzzles to return per request. Default is 20.
+- `offset`: The starting point from which to retrieve puzzles. Default is 0.
+
 - `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other puzzle info (requires priviledges / reputation)
 - `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Must be admin if deleting a public puzzle, don't need to be admin if deleting own puzzle)
 
