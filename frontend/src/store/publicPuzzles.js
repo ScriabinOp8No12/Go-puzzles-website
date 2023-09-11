@@ -8,7 +8,7 @@ const GET_PUBLIC_PUZZLES = "puzzles/GET_PUBLIC_PUZZLES"
 // ************* Action Creators ***************** //
 export const getPublicPuzzles = (puzzles) => ({
   type: GET_PUBLIC_PUZZLES,
-  puzzles
+  payload: puzzles
 })
 
 // ************* Thunks ***************** //

@@ -10,7 +10,8 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   modal: modalReducer,
   sgfs: sgfReducer,
-  publicPuzzles: publicPuzzlesReducer
+  puzzles: publicPuzzlesReducer
+  // user puzzles
 });
 
 let enhancer;

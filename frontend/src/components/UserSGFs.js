@@ -98,6 +98,7 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                 src={sgf.thumbnail}
                 alt="SGF Thumbnail"
                 title={sgf.sgf_name}
+                // Change the url path to sgfs/sgf.id when we click on the thumbnail
                 onClick={() => history.push(`/sgfs/${sgf.id}`)}
                 style={{ cursor: "pointer" }}
               />
