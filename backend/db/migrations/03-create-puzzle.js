@@ -24,6 +24,11 @@ module.exports = {
           // remember "model" here is actually "table" lol
           references: { model: "Sgfs", key: "id" },
         },
+        // Need this here for glift to render the puzzle (glift takes in an sgf)
+        sgf_data: {
+          allowNull: false,
+          type: Sequelize.TEXT,
+        },
         category: {
           allowNull: false,
           type: Sequelize.STRING,

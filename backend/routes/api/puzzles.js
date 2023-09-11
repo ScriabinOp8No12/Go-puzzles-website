@@ -78,6 +78,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     const formattedPuzzles = puzzles.map((puzzle) => {
       return {
         puzzle_id: puzzle.id,
+        sgf_data: puzzle.sgf_data,
         category: puzzle.category,
         move_number: puzzle.move_number,
         difficulty_rank: puzzle.difficulty_rank,
