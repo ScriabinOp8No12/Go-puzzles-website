@@ -44,11 +44,12 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     },
-    options);
+    options
+    );
 
     // Add indexes for optimization
-    await queryInterface.addIndex('PuzzleCategories', ['puzzle_id']);
-    await queryInterface.addIndex('PuzzleCategories', ['category_name']);
+    // await queryInterface.addIndex('PuzzleCategories', ['puzzle_id']);
+    // await queryInterface.addIndex('PuzzleCategories', ['category_name']);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('PuzzleCategories', options);
