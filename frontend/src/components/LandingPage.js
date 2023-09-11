@@ -1,37 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchPuzzles } from "../store/puzzles"; // Import fetchPuzzles thunk
+import { getPublicPuzzlesThunk } from "../store/publicPuzzles";
 import "./styles/LandingPage.css";
 
-
-function Puzzles() {
+function PublicPuzzles() {
   const dispatch = useDispatch();
-  const spots = useSelector((state) => state.spots.spots); // Getting all spots from store
 
-  // Fetching spots when component mounts
-  useEffect(() => {
-    dispatch(fetchSpots());
-  }, [dispatch]);
 
-  return (
-    <div className="containerDiv">
+  return ("hello")
 
-        return (
-          {/* Linking to detail page for each spot */}
-          <Link to={`/spots/${spot.id}`} key={spot.id} className="spotLink">
 
-              {/* Display image if it exists */}
-              <div className="previewImage">
-                {spot.previewImage && (
-                  <img src={spot.previewImage} alt={spot.name} />
-                )}
-              </div>
-
-          </Link>
-        );
-    </div>
-  );
 }
 
-export default Spots;
+export default PublicPuzzles
