@@ -112,7 +112,7 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                       className="create-puzzles-button"
                       onClick={() => alert("Feature coming soon")}
                     >
-                      Create Puzzles!
+                      Generate Puzzles!
                     </button>
                     <button className="pencil-icon" onClick={() => openEditModal(sgf.id)}>✏️</button>
                     <DeleteSgfModal sgfId={sgf.id} />
