@@ -115,7 +115,7 @@ def sgf_to_one_line_json(input_file):
 # Testing SGFs:
 # This one has no move order and no PL property
 # result = sgf_to_one_line_json('katago/positions/puzzle3_7_20_23.sgf')
-result = sgf_to_one_line_json('katago/positionsWithMoveOrder/puzzle6_7_20_23.sgf')
+result = sgf_to_one_line_json('katago/positionsWithMoveOrder/puzzle4_7_20_23.sgf')
 
 # result = sgf_to_one_line_json('katago/positions/puzzle2_7_20_23.sgf')
 # result = sgf_to_one_line_json('katago/positions/puzzle4_as_position_8_18_23.sgf')
