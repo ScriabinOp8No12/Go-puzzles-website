@@ -57,7 +57,7 @@ module.exports = {
           category: "Ladder/Net",
           move_number: 77,
           difficulty: 1450,
-          description: "Cut first because opponent can't ladder or net us, they get 2 weak groups!",
+          description: "Cut first then connect because the opponent can't ladder or net us, they get 2 weak groups!",
           completed: false,
           vote_count: 9,
           board_size: 19,
