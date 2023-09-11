@@ -3,12 +3,14 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import modalReducer from "./modal";
 import sgfReducer from "./sgfs";
+import publicPuzzlesReducer from "./publicPuzzles";
 
 const rootReducer = combineReducers({
   // Names of reducers on the left, typically we want to match the name though
   session: sessionReducer,
   modal: modalReducer,
   sgfs: sgfReducer,
+  publicPuzzles: publicPuzzlesReducer
 });
 
 let enhancer;
