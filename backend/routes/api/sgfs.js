@@ -43,7 +43,7 @@ router.get("/", requireAuth, async (req, res) => {
     ],
   });
 
-  console.log("Raw SGFs:", sgfs);
+  // console.log("Raw SGFs:", sgfs);
 
   const numberOfSGFs = await Sgf.count({ where: { user_id: req.user.id } });
 
