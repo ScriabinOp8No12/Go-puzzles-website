@@ -269,12 +269,6 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     // Initialize errors object
     let errors = {};
 
-    // Parse SGF data from the request payload
-    const gameTree = jssgf.parse(req.body.sgf_data)[0];
-
-    // Calculate board_size
-    const board_size = gameTree.SZ || 19;
-
     // Custom validation logic
     const {
       sgf_name,
@@ -286,7 +280,6 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       komi,
       result,
     } = req.body;
-
 
     // Validate sgf name length
     if (sgf_name.length > 65) {
@@ -332,9 +325,6 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
-    // Update board_size in Sgf table
-    sgfRecord.board_size = board_size;
-
     // Update SGF data *** these are the only fields the user can edit for now, it won't line up with the WGO.js rendered Go board fields necessarily
     // If the user leaves the field blank, or leaves a series of empty spaces, it will set the value to ? in the backend
     sgfRecord.game_date = game_date;
@@ -358,8 +348,8 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     if (sgfRecord.game_date instanceof Date && !isNaN(sgfRecord.game_date.getTime())) {
       parsedSgfObject.DT = sgfRecord.game_date.toISOString().split('T')[0];
     } else {
-      // Handle invalid date here, you can assign a default date or a placeholder.
-      parsedSgfObject.DT = "";
+      // Handle invalid date (I think we need to put null here to pass the isDate: true model validation)
+      parsedSgfObject.DT = null;
     }
 
     // Convert komi to string (and just to make sure, force all other fields to be strings too)
