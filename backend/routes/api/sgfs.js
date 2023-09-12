@@ -73,18 +73,12 @@ router.get("/", requireAuth, async (req, res) => {
       { where: { id: sgf.id } }
     );
 
-    // Remove newline characters and extra spaces from sgf_data
-    // const sanitizedSgfData = sgf.sgf_data.replace(/\s+/g, " ").trim();
-
-    console.log("Formatted SGFs:", formattedSGFs);
-
     formattedSGFs.SGFs.push({
       id: sgf.id,
       user_id: sgf.user_id,
       game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
       sgf_name: sgf.sgf_name,
       sgf_data: sgf.sgf_data,
-      // sgf_data: sanitizedSgfData,
       black_player: sgf.black_player,
       white_player: sgf.white_player,
       black_rank: sgf.black_rank,

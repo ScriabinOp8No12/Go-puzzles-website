@@ -44,7 +44,7 @@ const EditSgfModal = ({ sgfId }) => {
 
   useEffect(() => {
     if (currentSgf) {
-      console.log("Current SGF from Redux:", currentSgf);
+      // console.log("Current SGF from Redux:", currentSgf);
 
       setSgfDetails({
         ...currentSgf,
@@ -55,7 +55,7 @@ const EditSgfModal = ({ sgfId }) => {
           .subtract(localTimezoneOffsetHours, "hours")
           .format("YYYY-MM-DD"),
       });
-      console.log("Raw game_date from backend:", currentSgf.game_date);
+      // console.log("Raw game_date from backend:", currentSgf.game_date);
     }
   }, [currentSgf, localTimezoneOffsetHours]);
 
