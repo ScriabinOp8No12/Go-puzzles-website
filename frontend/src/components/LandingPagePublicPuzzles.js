@@ -45,6 +45,7 @@ const PublicPuzzles = () => {
       {showFilter && (
         <div className="filter-dropdown">
           <label>
+            {/* Placeholders for now, have one button at end to actually filter, no need to have it change after each box getting checked*/}
             <input
               type="checkbox"
               name="filter1"
