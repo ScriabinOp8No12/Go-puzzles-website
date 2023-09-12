@@ -43,54 +43,59 @@ router.get("/", requireAuth, async (req, res) => {
     ],
   });
 
-  // console.log("Raw SGFs:", sgfs);
 
   const numberOfSGFs = await Sgf.count({ where: { user_id: req.user.id } });
 
   const formattedSGFs = {
-    SGFs: [],
+    SGFs: sgfs.map(sgf => ({
+      ...sgf.get(),
+      board_size: Number(sgf.board_size), // converting to Number type
+      game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
+      createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+    })),
     numberOfSGFs,
   };
 
-  for (const sgf of sgfs) {
-    // Parse SGF data to get the game tree
-    const gameTree = jssgf.parse(sgf.sgf_data)[0];
+  // for (const sgf of sgfs) {
+  //   // Parse SGF data to get the game tree
+  //   const gameTree = jssgf.parse(sgf.sgf_data)[0];
 
-    // Our migration defaults our board size to 19, so that if the SZ property is left out, it'll be set to 19
-    const board_size = gameTree.SZ || 19;
-    // Grab komi from the game file or default it to 0.5
-    const komi = gameTree.KM ? parseFloat(gameTree.KM) : 0.5;
+  //   // Our migration defaults our board size to 19, so that if the SZ property is left out, it'll be set to 19
+  //   const board_size = gameTree.SZ || 19;
+  //   // Grab komi from the game file or default it to 0.5
+  //   const komi = gameTree.KM ? parseFloat(gameTree.KM) : 0.5;
 
-    if (komi && isNaN(parseFloat(komi))) {
-      return res.status(400).json({
-        error: "Invalid komi.",
-      });
-    }
+  //   if (komi && isNaN(parseFloat(komi))) {
+  //     return res.status(400).json({
+  //       error: "Invalid komi.",
+  //     });
+  //   }
 
-    // Update board_size and komi in the Sgf table
-    await Sgf.update(
-      { board_size: board_size, komi: komi },
-      { where: { id: sgf.id } }
-    );
+  //   // Update board_size and komi in the Sgf table
+  //   await Sgf.update(
+  //     { board_size: board_size, komi: komi },
+  //     { where: { id: sgf.id } }
+  //   );
 
-    formattedSGFs.SGFs.push({
-      id: sgf.id,
-      user_id: sgf.user_id,
-      game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
-      sgf_name: sgf.sgf_name,
-      sgf_data: sgf.sgf_data,
-      black_player: sgf.black_player,
-      white_player: sgf.white_player,
-      black_rank: sgf.black_rank,
-      white_rank: sgf.white_rank,
-      result: sgf.result,
-      thumbnail: sgf.thumbnail,
-      board_size: Number(board_size),
-      komi: parseFloat(komi),
-      createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-      updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
-    });
-  }
+  //   formattedSGFs.SGFs.push({
+  //     id: sgf.id,
+  //     user_id: sgf.user_id,
+  //     game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
+  //     sgf_name: sgf.sgf_name,
+  //     sgf_data: sgf.sgf_data,
+  //     black_player: sgf.black_player,
+  //     white_player: sgf.white_player,
+  //     black_rank: sgf.black_rank,
+  //     white_rank: sgf.white_rank,
+  //     result: sgf.result,
+  //     thumbnail: sgf.thumbnail,
+  //     board_size: Number(board_size),
+  //     komi: parseFloat(komi),
+  //     createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+  //     updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+  //   });
+  // }
 
   return res.json(formattedSGFs);
 });
@@ -343,8 +348,8 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     if (sgfRecord.game_date instanceof Date && !isNaN(sgfRecord.game_date.getTime())) {
       parsedSgfObject.DT = sgfRecord.game_date.toISOString().split('T')[0];
     } else {
-      // Handle invalid date here, you can assign a default date or a placeholder.
-      parsedSgfObject.DT = "";
+      // Handle invalid date (I think we need to put null here to pass the isDate: true model validation)
+      parsedSgfObject.DT = null;
     }
 
     // Convert komi to string (and just to make sure, force all other fields to be strings too)
