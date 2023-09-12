@@ -25,14 +25,15 @@
 
 ### Puzzles (Endpoints for puzzles, which includes user's puzzles and all public puzzles along with filters for puzzles)
 
-- `GET /api/puzzles?source=[own|public]&completed=[true|false]&min_difficulty=:min_difficulty&max_difficulty=:max_difficulty&move_number=:move_number&category=:category&board_size=:board_size&min_votes=:min_votes&max_votes=:max_votes&limit=:limit&offset=:offset`: Retrieve puzzles based on various filters, includes pagination!
+- `GET /api/puzzles?source=[own|public]&completed=[true|false]&min_difficulty=:min_difficulty&max_difficulty=:max_difficulty&move_number=:move_number&category=:category&board_size=:board_size&min_votes=:min_votes&max_votes=:max_votes&limit=:limit&offset=:offset`: Get puzzles based on various filters, includes pagination!
+- `GET /api/puzzles/:puzzle_id`: Get a puzzle specified by it's id
 
 ## Pagination Parameters
 
 - `limit`: The maximum number of puzzles to return per request. Default is 20.
 - `offset`: The starting point from which to retrieve puzzles. Default is 0.
 
-- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, and other puzzle info (requires priviledges / reputation)
+- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, solution_coordinates, and other puzzle info (requires priviledges / reputation)
 - `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Must be admin if deleting a public puzzle, don't need to be admin if deleting own puzzle)
 
 ### Users (Endpoints of user specific info. Includes the user's account information like user's rank, and count of solved puzzles by category)
@@ -743,6 +744,127 @@ Delete an SGF (do NOT delete the puzzles with it)
 
 ## Puzzles
 
+### Get Public Puzzles (20 on one page by default -> response is an array of puzzles)
+
+Get puzzles based on optional filters, includes pagination
+
+- Require Authentication: FALSE (user does not need to be logged in to view / try puzzles)
+Probably want to change this to force a user to be logged in later so that puzzle and user rankings can be set properly
+
+- Request
+
+- Method: GET
+- URL: /api/puzzles
+-----------------------------------
+- URL with filter and pagination: /api/puzzles?source=[own|public]&completed=[true|false]&min_difficulty=:min_difficulty&max_difficulty=:max_difficulty&move_number=:move_number&category=:category&board_size=:board_size&min_votes=:min_votes&max_votes=:max_votes&limit=:limit&offset=:offset
+-----------------------------------
+- Headers:
+    - Content-Type: application/json
+  - Body: None
+
+- Successful Response
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "puzzles": [
+        {
+            "puzzle_id": 2,
+            "sgf_data": "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Chinese]SZ[19]KM[7.5]TM[300]GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]RE[B+Resign]RL[0]RN[3]TC[3]TT[30];B[qd];W[dp];B[pq];W[dd];B[cc];W[dc];B[cd];W[ce];B[be];W[bf];B[cf];W[de];B[bg];W[bd];B[af];W[bc];B[nc];W[qo];B[ql];W[op];B[oq];W[np];B[mr];W[lq];B[mq];W[mp];B[lp];W[kq];B[lo];W[rq];B[qr];W[rr];B[lr];W[kr];B[nq];W[on];B[jp];W[iq];B[ip];W[hq];B[go];W[fp];B[ol];W[nm];B[mk];W[rd];B[re];W[qc];B[rc];W[pd];B[qe];W[rb];B[sd];W[pe];B[pc];W[oc];B[qb];W[nd];B[ob];W[od];B[mc];W[md];B[ld];W[le];B[ke];W[kf];B[kd];W[lf];B[nf];W[pg];B[nh];W[ne];B[of];W[pf];B[jf];W[jg];B[kg];W[lh] (;B[kh]C[Incorrect - This was the actual move played in the game!]) (;B[lg]C[CORRECT]))",
+            "solution_coordinates": {
+                "M13": [
+                    "M13",
+                    "K15",
+                    "J14",
+                    "N13",
+                    "G4",
+                    "G3"
+                ],
+                "K12": [
+                    "K12",
+                    "J13",
+                    "M13",
+                    "K15",
+                    "J14",
+                    "K16",
+                    "N15",
+                    "N14"
+                ]
+            },
+            "category": "Reading",
+            "move_number": 78,
+            "description": "This is a direction of play or reading puzzle!",
+            "completed": false,
+            "is_user_puzzle": false,
+            "vote_count": 83,
+            "thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607521/puzzle5_7_20_23_ie39gw.png",
+            "createdAt": "2023-09-11 18:12:19",
+            "updatedAt": "2023-09-11 18:12:19"
+        },
+            ]
+  }
+  ```
+
+### Get Puzzle by id
+
+Get the Puzzle by puzzle id and render with glift.js
+
+- Require Authentication: False (User does NOT need to be logged in)
+- Require Authorization: False
+
+Request
+
+  - Method: GET
+  - URL: /api/puzzles/:puzzle_id
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+
+- Successful Response
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "puzzle_id": 2,
+    "sgf_data": "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Chinese]SZ[19]KM[7.5]TM[300]GN[]PW[éç¦æ¥¼é]PB[anning97]DT[2023-07-09]RE[B+Resign]RL[0]RN[3]TC[3]TT[30];B[qd];W[dp];B[pq];W[dd];B[cc];W[dc];B[cd];W[ce];B[be];W[bf];B[cf];W[de];B[bg];W[bd];B[af];W[bc];B[nc];W[qo];B[ql];W[op];B[oq];W[np];B[mr];W[lq];B[mq];W[mp];B[lp];W[kq];B[lo];W[rq];B[qr];W[rr];B[lr];W[kr];B[nq];W[on];B[jp];W[iq];B[ip];W[hq];B[go];W[fp];B[ol];W[nm];B[mk];W[rd];B[re];W[qc];B[rc];W[pd];B[qe];W[rb];B[sd];W[pe];B[pc];W[oc];B[qb];W[nd];B[ob];W[od];B[mc];W[md];B[ld];W[le];B[ke];W[kf];B[kd];W[lf];B[nf];W[pg];B[nh];W[ne];B[of];W[pf];B[jf];W[jg];B[kg];W[lh] (;B[kh]C[Incorrect - This was the actual move played in the game!]) (;B[lg]C[CORRECT]))",
+    "solution_coordinates": {
+        "M13": [
+            "M13",
+            "K15",
+            "J14",
+            "N13",
+            "G4",
+            "G3"
+        ],
+        "K12": [
+            "K12",
+            "J13",
+            "M13",
+            "K15",
+            "J14",
+            "K16",
+            "N15",
+            "N14"
+        ]
+    },
+    "category": "Reading",
+    "move_number": 78,
+    "description": "This is a direction of play or reading puzzle!",
+    "completed": false,
+    "is_user_puzzle": false,
+    "vote_count": 83,
+    "createdAt": "2023-09-11 18:12:19",
+    "updatedAt": "2023-09-11 18:12:19"
+  }
+  ```
 
 ### Edit a Public Puzzle
 
