@@ -14,6 +14,7 @@ const conditionalAuth = (req, res, next) => {
   return next();
 };
 
+// Get all puzzles for home / landing page (20 by default) or for user's puzzles (if source is own, that's the conditional Auth)
 router.get("/", conditionalAuth, async (req, res, next) => {
   try {
     // Destructure query parameters from request
@@ -38,7 +39,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     // Initialize the where clause for filtering records
     const where = {};
 
-    // Filter by user if 'source' is 'own' and user is authenticated
+    // Filter by user if 'source' is 'own' and user is authenticated, this is for displaying user's puzzles (not public puzzles on landing page)
     if (source === "own" && req.user) {
       where.user_id = req.user.id;
     }
@@ -99,46 +100,86 @@ router.get("/", conditionalAuth, async (req, res, next) => {
   }
 });
 
-// Update completed field in UserPuzzle record and increment times_solved field in Puzzle record
-router.put(
-  "/api/puzzles/:puzzleId/complete",
-  requireAuth,
-  async (req, res, next) => {
-    const puzzleId = req.params.puzzleId;
-    const userId = req.user.id;
+// Get puzzle by puzzle id
+router.get("/:puzzle_id", async (req, res) => {
+  const puzzleId = req.params.puzzle_id;
 
-    try {
-      // Fetch the associated UserPuzzle record
-      const userPuzzleRecord = await UserPuzzle.findOne({
-        where: {
-          user_id: userId,
-          puzzle_id: puzzleId,
-        },
-      });
+  try {
+    const puzzle = await Puzzle.findOne({
+      where: { id: puzzleId },
+      attributes: [
+        "id",
+        "sgf_data",
+        "solution_coordinates",
+        "category",
+        "move_number",
+        "description",
+        "completed",
+        "is_user_puzzle",
+        "vote_count",
+        "createdAt",
+        "updatedAt",
+      ],
+    });
 
-      if (!userPuzzleRecord) {
-        return res
-          .status(404)
-          .json({
-            success: false,
-            message: "No matching UserPuzzle record found.",
-          });
-      }
+    if (!puzzle) return res.status(404).json({ error: "Puzzle not found" });
 
-      // Update the 'completed' field in the UserPuzzle record
-      userPuzzleRecord.completed = true;
-      await userPuzzleRecord.save();
+    const formattedPuzzle = {
+      puzzle_id: puzzle.id,
+      sgf_data: puzzle.sgf_data,
+      solution_coordinates: puzzle.solution_coordinates,
+      category: puzzle.category,
+      move_number: puzzle.move_number,
+      description: puzzle.description,
+      completed: puzzle.completed,
+      is_user_puzzle: puzzle.is_user_puzzle,
+      vote_count: puzzle.vote_count,
+      createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+    };
 
-      // Increment the 'times_solved' field in the Puzzle record
-      await incrementTimesSolved(puzzleId, sequelize);
-
-      return res
-        .status(200)
-        .json({ success: true, message: "Puzzle marked as completed." });
-    } catch (error) {
-      next(error);
-    }
+    return res.status(200).json(formattedPuzzle);
+  } catch (error) {
+    console.error("Query failed :", error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-);
+});
+
+// **** Maybe move this below route to a new "userpuzzles.js" route instead of having it here?
+// Update completed field in UserPuzzle record and increment times_solved field in Puzzle record
+router.put("/:puzzleId/complete", requireAuth, async (req, res, next) => {
+  const puzzleId = req.params.puzzleId;
+  const userId = req.user.id;
+
+  try {
+    // Fetch the associated UserPuzzle record
+    const userPuzzleRecord = await UserPuzzle.findOne({
+      where: {
+        user_id: userId,
+        puzzle_id: puzzleId,
+      },
+    });
+
+    if (!userPuzzleRecord) {
+      return res.status(404).json({
+        success: false,
+        message: "No matching UserPuzzle record found.",
+      });
+    }
+
+    // Update the 'completed' field in the UserPuzzle record
+    userPuzzleRecord.completed = true;
+    await userPuzzleRecord.save();
+
+    // Increment the 'times_solved' field in the Puzzle record
+    await incrementTimesSolved(puzzleId, sequelize);
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Puzzle marked as completed." });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
