@@ -4,7 +4,7 @@ import { getPublicPuzzlesThunk } from '../store/publicPuzzles';
 
 const GliftPuzzleDisplay = () => {
   const dispatch = useDispatch();
-  const puzzleData = useSelector((state) => state.puzzles.currentPuzzle); // modify based on store structure
+  const puzzleData = useSelector((state) => state.puzzles.currentPuzzle); // need to modify based on store structure
 
   const [problemSolved, setProblemSolved] = useState(false);
 
@@ -44,8 +44,10 @@ const GliftPuzzleDisplay = () => {
       glift.create({
         divId: "gliftContainer",
         sgf: {
-          sgfString: puzzleData.sgf_data,
-          initialPosition: puzzleData.move_number,
+          // Verify that this will actually work here..., we used url: the other time,
+          // but now we are reading from the database
+          sgfString: puzzleData.sgf_data, // this will get the sgf_data column from the database
+          initialPosition: puzzleData.move_number, // move_number is the correct column from the database
           problemConditions: { C: ['CORRECT'] },
           widgetType: 'STANDARD_PROBLEM'
         },

@@ -129,7 +129,7 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                   sgf.game_date !== "Invalid date" &&
                   sgf.game_date.trim() !== "" && (
                     <div>Game Date:
-                      {/* We are UTC - 6 in Mountain Time, so we need to subtract NEGATIVE 6 to add 6 hours to the UTC 18 hour in backend to get the right format on the frontend */}
+                      {/* We are UTC - 6 in Mountain Time, so we need to subtract NEGATIVE 6 to add 6 hours to the UTC 18 hour time to get time 0 UTC which matches the backend */}
                     {" " + moment.utc(sgf.game_date).subtract(localTimezoneOffsetHours, 'hours').format("YYYY-MM-DD")}</div>
                   )}
               </div>
