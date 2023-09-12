@@ -79,6 +79,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
       return {
         puzzle_id: puzzle.id,
         sgf_data: puzzle.sgf_data,
+        solution_coordinates: puzzle.solution_coordinates,
         category: puzzle.category,
         move_number: puzzle.move_number,
         difficulty_rank: puzzle.difficulty_rank,
