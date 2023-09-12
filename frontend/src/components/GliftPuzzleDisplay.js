@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPublicPuzzlesThunk } from '../store/publicPuzzles';
+import { fetchPublicPuzzleByIdThunk} from '../store/publicPuzzles';
 
 const GliftPuzzleDisplay = () => {
   const dispatch = useDispatch();
-  const puzzleData = useSelector((state) => state.puzzles.currentPuzzle); // need to modify based on store structure
-
+  const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle); // need to modify based on store structure
+  // console.log("puzzleData: ", puzzleData)
   const [problemSolved, setProblemSolved] = useState(false);
 
   const onProblemCorrect = () => {
@@ -31,7 +31,7 @@ const GliftPuzzleDisplay = () => {
 
   useEffect(() => {
     // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
-    dispatch(getPublicPuzzlesThunk());
+    dispatch(fetchPublicPuzzleByIdThunk());
   }, [dispatch]);
 
   useEffect(() => {

@@ -37,7 +37,6 @@
   border: 3px solid black;
   width: 240px;
   height: 240px;
-  cursor: pointer;
 }
 
 .public-puzzle-thumbnail img:hover {

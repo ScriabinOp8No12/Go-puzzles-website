@@ -3,37 +3,59 @@ import { csrfFetch } from "./csrf"
 // ************* Action Type ***************** //
 
 // Get all public puzzles for landing page / home page
-const GET_PUBLIC_PUZZLES = "puzzles/GET_PUBLIC_PUZZLES"
+const FETCH_PUBLIC_PUZZLES = "puzzles/FETCH_PUBLIC_PUZZLES"
+const FETCH_PUBLIC_PUZZLE_BY_ID = "puzzles/FETCH_PUBLIC_PUZZLE_BY_ID"
 
 // ************* Action Creators ***************** //
-export const getPublicPuzzles = (puzzles) => ({
-  type: GET_PUBLIC_PUZZLES,
+export const fetchPublicPuzzles = (puzzles) => ({
+  type: FETCH_PUBLIC_PUZZLES,
   payload: puzzles
+})
+
+export const fetchPublicPuzzleById = (puzzle) => ({
+  type: FETCH_PUBLIC_PUZZLE_BY_ID,
+  payload: puzzle
 })
 
 // ************* Thunks ***************** //
 
-export const getPublicPuzzlesThunk = () => async (dispatch) => {
+export const fetchPublicPuzzlesThunk = () => async (dispatch) => {
   const response = await csrfFetch("/api/puzzles")
 
   if (response.ok) {
     const data = await response.json()
-    dispatch(getPublicPuzzles(data.puzzles))
+    dispatch(fetchPublicPuzzles(data.puzzles))
+  }
+}
+
+export const fetchPublicPuzzleByIdThunk = (puzzleId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/puzzles/${puzzleId}`)
+  console.log("Inside fetchPublicPuzzleByIdThunk, *** puzzleId", puzzleId);
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(fetchPublicPuzzleById(data))
   }
 }
 
 // ************* Reducer ***************** //
 
 const initialState = {
-  publicPuzzles: []
+  publicPuzzles: [],
+  currentPublicPuzzle: null
 }
 
 const publicPuzzlesReducer = (state = initialState, action) => {
+  console.log("Inside publicPuzzlesReducer, action.type and action.payload", action.type, action.payload);
   switch(action.type) {
-    case GET_PUBLIC_PUZZLES:
+    case FETCH_PUBLIC_PUZZLES:
       return {
         ...state,
         publicPuzzles: action.payload
+      }
+    case FETCH_PUBLIC_PUZZLE_BY_ID:
+      return {
+        ...state,
+        currentPublicPuzzle: action.payload
       }
       default:
       return state;
