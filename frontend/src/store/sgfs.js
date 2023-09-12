@@ -3,13 +3,9 @@ import { csrfFetch } from "./csrf";
 // *********** Action types *********** //
 
 export const UPLOAD_SGF = "/sgfs/UPLOAD_SGF";
-
 export const FETCH_ALL_SGFS = "/sgfs/FETCH_ALL_SGFS";
-
 export const FETCH_SGF_BY_ID = "/sgfs/FETCH_SGF_BY_ID";
-
 export const EDIT_SGF_BY_ID = "/sgfs/EDIT_SGF_BY_ID";
-
 export const DELETE_SGF_BY_ID = "/sgfs/DELETE_SGF_BY_ID";
 
 // ********** Action Creators ********* //
@@ -70,6 +66,7 @@ export const fetchAllSgfsThunk = () => async (dispatch) => {
 // Get request to get one sgf by id (load the sgf the user clicked)
 export const fetchSgfByIdThunk = (sgfId) => async (dispatch) => {
   const response = await csrfFetch(`/api/sgfs/${sgfId}`);
+
   if (response.ok) {
     const data = await response.json();
     dispatch(fetchSgfByIdAction(data));

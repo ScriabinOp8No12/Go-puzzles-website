@@ -78,7 +78,8 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     // Transform the resulting array of puzzles to desired format (using moment js for time)
     const formattedPuzzles = puzzles.map((puzzle) => {
       return {
-        puzzle_id: puzzle.id,
+        // changed from puzzle_id: puzzle.id
+        id: puzzle.id,
         sgf_data: puzzle.sgf_data,
         solution_coordinates: puzzle.solution_coordinates,
         category: puzzle.category,
@@ -125,7 +126,8 @@ router.get("/:puzzle_id", async (req, res) => {
     if (!puzzle) return res.status(404).json({ error: "Puzzle not found" });
 
     const formattedPuzzle = {
-      puzzle_id: puzzle.id,
+      // changed from puzzle_id: puzzle.id
+      id: puzzle.id,
       sgf_data: puzzle.sgf_data,
       solution_coordinates: puzzle.solution_coordinates,
       category: puzzle.category,
