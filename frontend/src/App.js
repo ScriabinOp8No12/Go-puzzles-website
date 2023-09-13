@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import UserSGFs from "./components/UserSGFs";
 import SgfDisplay from "./components/SgfDisplay";
 import PublicPuzzles from "./components/LandingPagePublicPuzzles"
+import GliftPuzzleDisplay from "./components/GliftPuzzleDisplay";
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={PublicPuzzles} />
+          <Route path="/puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>
           <Route path="/sgfs/:sgf_id" component={SgfDisplay} />
           <Route path="/sgfs" component={UserSGFs} />
         </Switch>

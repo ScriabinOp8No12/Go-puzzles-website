@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchPublicPuzzleByIdThunk} from '../store/publicPuzzles';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchPublicPuzzleByIdThunk } from "../store/publicPuzzles";
+import "./styles/GliftPublicPuzzle.css"
+// import "../../public/glift.js" // Can't import from outside src in React, so I moved glift.js into the src/lib folder instead
+import "../lib/glift"
+/* global glift */  // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
 
 const GliftPuzzleDisplay = () => {
+  const { puzzle_id } = useParams();
   const dispatch = useDispatch();
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle); // need to modify based on store structure
   // console.log("puzzleData: ", puzzleData)
@@ -31,15 +37,16 @@ const GliftPuzzleDisplay = () => {
 
   useEffect(() => {
     // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
-    dispatch(fetchPublicPuzzleByIdThunk());
-  }, [dispatch]);
+    dispatch(fetchPublicPuzzleByIdThunk(puzzle_id));
+  }, [dispatch, puzzle_id]);
 
   useEffect(() => {
     if (puzzleData) {
       let checkCorrectHook = new glift.api.HookOptions({
         problemCorrect: onProblemCorrect,
-        problemIncorrect: onProblemIncorrect
-      });
+        problemIncorrect: onProblemIncorrect,
+      }, [onProblemCorrect, onProblemIncorrect]);
+      // [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
       glift.create({
         divId: "gliftContainer",
@@ -48,17 +55,15 @@ const GliftPuzzleDisplay = () => {
           // but now we are reading from the database
           sgfString: puzzleData.sgf_data, // this will get the sgf_data column from the database
           initialPosition: puzzleData.move_number, // move_number is the correct column from the database
-          problemConditions: { C: ['CORRECT'] },
-          widgetType: 'STANDARD_PROBLEM'
+          problemConditions: { C: ["CORRECT"] },
+          widgetType: "STANDARD_PROBLEM",
         },
         hooks: checkCorrectHook,
       });
     }
   }, [puzzleData]);
 
-  return (
-    <div id="gliftContainer"></div>
-  );
+  return <div id="gliftContainer"></div>;
 };
 
 export default GliftPuzzleDisplay;

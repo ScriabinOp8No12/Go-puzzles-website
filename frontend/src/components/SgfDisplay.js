@@ -8,7 +8,7 @@ const SgfDisplay = () => {
   const { sgf_id } = useParams();
   const dispatch = useDispatch();
   const sgfData = useSelector(state => state.sgfs.currentSgf);
-  const boardRef = useRef(null);
+  const boardRef = useRef(null); // to persist board state between renders
   // const history = useHistory();
 
   useEffect(() => {
