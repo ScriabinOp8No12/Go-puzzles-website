@@ -12,6 +12,7 @@ const GliftPuzzleDisplay = () => {
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle);
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
+  const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
 
   // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
   const [originalClick, setOriginalClick] = useState(null);
@@ -60,12 +61,17 @@ const GliftPuzzleDisplay = () => {
   }, [problemSolved]);
 
   const updateUserRanking = (isCorrect) => {
-    if (isCorrect) {
-      // Show ranking display in comment box area where user rank goes up and puzzle rank goes down
-      console.log("ranking goes up");
+    // Only proceed if the ranking has not yet been updated.
+    if (!isRankingUpdated.current) {
+      if (isCorrect) {
+        // Show ranking display in comment box area where user rank goes up and puzzle rank goes down
+        console.log("ranking goes up");
+      }
+      // Otherwise show the user rank went down, and the puzzle rank went up
+      else console.log("ranking goes down");
+      // Mark that the ranking has been updated, so that subsequent triggers do not result in multiple logs or UI updates.
+      isRankingUpdated.current = true;
     }
-    // Otherwise show the user rank went down, and the puzzle rank went up
-    else console.log("ranking goes down");
   };
 
   useEffect(() => {
