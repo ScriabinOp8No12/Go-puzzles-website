@@ -20,7 +20,6 @@ module.exports = {
           difficulty: 1800,
           description:
             "This is a reading / judgment problem found in a chaotic Fox game, there's one correct move, and since our opponent can't ladder us, we can extend out!",
-          completed: false,
           vote_count: 20,
           board_size: 19,
           is_user_puzzle: true,
@@ -30,6 +29,7 @@ module.exports = {
           }),
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607522/puzzle6_7_20_23_thfwb8.png",
+          suspended: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -40,7 +40,6 @@ module.exports = {
           move_number: 78,
           difficulty: 1700,
           description: "This is a direction of play or reading puzzle!",
-          completed: false,
           vote_count: 83,
           board_size: 19,
           is_user_puzzle: false,
@@ -51,6 +50,7 @@ module.exports = {
           }),
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607521/puzzle5_7_20_23_ie39gw.png",
+          suspended: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -62,7 +62,6 @@ module.exports = {
           difficulty: 1350,
           description:
             "Cut first then connect because the opponent can't ladder or net us, they get 2 weak groups!",
-          completed: true,
           vote_count: 9,
           board_size: 19,
           is_user_puzzle: true,
@@ -71,6 +70,7 @@ module.exports = {
           }),
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607521/puzzle4_7_20_23_hlb0q1.png",
+          suspended: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

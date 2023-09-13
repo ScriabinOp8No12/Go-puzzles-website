@@ -85,11 +85,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      completed: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-      },
       vote_count: {
         allowNull: false,
         type: DataTypes.INTEGER,
@@ -145,6 +140,11 @@ module.exports = (sequelize, DataTypes) => {
           },
           isUrl: true,
         },
+      },
+      suspended: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       },
     },
     {
