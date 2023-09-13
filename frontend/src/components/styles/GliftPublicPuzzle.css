@@ -3,3 +3,11 @@
   height: 600px;
   margin: 0 auto;
 }
+
+#gliftContainer-internal-wrapper {
+  background-color: lightgrey;
+}
+
+.glift-comment-box {
+  background-color: aliceblue !important;
+}
