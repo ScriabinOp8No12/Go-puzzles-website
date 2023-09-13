@@ -11,7 +11,6 @@ const GliftPuzzleDisplay = () => {
   const { puzzle_id } = useParams();
   const dispatch = useDispatch();
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle); // need to modify based on store structure
-  // console.log("puzzleData: ", puzzleData)
   const [problemSolved, setProblemSolved] = useState(false);
 
   // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
@@ -41,6 +40,7 @@ const GliftPuzzleDisplay = () => {
     dispatch(fetchPublicPuzzleByIdThunk(puzzle_id));
   }, [dispatch, puzzle_id]);
 
+
   useEffect(() => {
     if (puzzleData) {
       let checkCorrectHook = new glift.api.HookOptions({
@@ -48,6 +48,11 @@ const GliftPuzzleDisplay = () => {
         problemIncorrect: onProblemIncorrect,
       });
       // [puzzleData, onProblemCorrect, onProblemIncorrect]);
+
+      glift.api.iconActionDefaults['problem-explanation'].click = function() {
+        // Do nothing when the icon is clicked.
+      };
+      glift.api.iconActionDefaults['problem-explanation'].tooltip = "Explore the solution disabled";
 
       glift.create({
         divId: "gliftContainer",
@@ -59,7 +64,7 @@ const GliftPuzzleDisplay = () => {
           problemConditions: { C: ["CORRECT"] },
           widgetType: "STANDARD_PROBLEM",
         },
-          display: { theme: 'DEPTH' },
+        display: { theme: 'DEPTH' },
         hooks: checkCorrectHook,
       });
     }
