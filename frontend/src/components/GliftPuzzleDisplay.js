@@ -14,6 +14,7 @@ const GliftPuzzleDisplay = () => {
   // console.log("puzzleData: ", puzzleData)
   const [problemSolved, setProblemSolved] = useState(false);
 
+  // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
   const onProblemCorrect = useCallback(() => {
     if (!problemSolved) {
       alert("Correct!");
@@ -58,12 +59,15 @@ const GliftPuzzleDisplay = () => {
           problemConditions: { C: ["CORRECT"] },
           widgetType: "STANDARD_PROBLEM",
         },
+          display: { theme: 'DEPTH' },
         hooks: checkCorrectHook,
       });
     }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
-  return <div id="gliftContainer"></div>;
+  return (
+  <div id="gliftContainer"></div>
+  );
 };
 
 export default GliftPuzzleDisplay;

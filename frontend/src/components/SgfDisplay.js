@@ -8,8 +8,8 @@ const SgfDisplay = () => {
   const { sgf_id } = useParams();
   const dispatch = useDispatch();
   const sgfData = useSelector(state => state.sgfs.currentSgf);
-  const boardRef = useRef(null); // to persist board state between renders
-  // const history = useHistory();
+  // useRef here is to persist the reference to the div across re-renders so that the Go board can be correctly initialized and manipulated
+  const boardRef = useRef(null);
 
   useEffect(() => {
     dispatch(fetchSgfByIdThunk(sgf_id));
