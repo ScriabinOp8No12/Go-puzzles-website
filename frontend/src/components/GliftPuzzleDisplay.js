@@ -15,18 +15,46 @@ const GliftPuzzleDisplay = () => {
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
 
-  // ****** Temporary solution for glift rendering issue when clicking a different puzzle -> simply refresh the home page whenever we go there ****** //
+  // console.log("problem solved state initially:", problemSolved)
+
+  // ****** Temporary solution for glift rendering issue when clicking a different puzzle -> simply refresh the home page whenever we go there ******
+  // Issue with the temporary solution is that the filter on the home page would be rest too unless we save it, and user experience slightly less optimal with a refresh
+  // Better solution would be to use .destroy() on the glift instance, then recreate it for each new puzzle when we click on it
   useEffect(() => {
     return history.listen((location) => {
-      // Temporarily update the home page path
+      // Temporarily hard refresh the home page to solve the glift instance bug issue, maybe we could pass in the filter query parameters as another temporary solution
       if (location.pathname === '/') {
         window.location.reload();
       }
     });
   }, [history]);
 
+  useEffect(() => {
+    // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
+    dispatch(fetchPublicPuzzleByIdThunk(puzzle_id));
+  }, [dispatch, puzzle_id]);
+
   // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
   const [originalClick, setOriginalClick] = useState(null);
+
+  // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
+  const onProblemCorrect = useCallback(() => {
+    if (!problemSolved) {
+      // alert("Correct!");
+      setProblemSolved(true);
+      // console.log("problem solved state within onProblemCorrect:", problemSolved)
+      updateUserRanking(true);
+    }
+  }, [problemSolved]);
+
+  const onProblemIncorrect = useCallback(() => {
+    if (!problemSolved) {
+      // alert("Incorrect!");
+      setProblemSolved(true);
+      // console.log("problem solved state within onProblemINCORRECT:", problemSolved)
+      updateUserRanking(false);
+    }
+  }, [problemSolved]);
 
   // Capture original function only once, when the component mounts, so we can reset it back to the original function after our problemSolved state becomes true
   useEffect(() => {
@@ -35,8 +63,11 @@ const GliftPuzzleDisplay = () => {
     );
   }, []);
 
+  console.log("value of problemSolved right before disable button: ", problemSolved)
+
   useEffect(() => {
     if (!problemSolved) {
+      // console.log("problem solved state within 1st useEffect:", problemSolved)
       // Disable problem explanation (? button) when the problem isn't solved yet
       glift.api.iconActionDefaults["problem-explanation"].click = function () {
         // Do nothing when the icon is clicked.
@@ -54,23 +85,6 @@ const GliftPuzzleDisplay = () => {
 
   // ****** Above block disables the explore the solution button until the user has tried solving the puzzle ****** //
 
-  // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
-  const onProblemCorrect = useCallback(() => {
-    if (!problemSolved) {
-      // alert("Correct!");
-      setProblemSolved(true);
-      updateUserRanking(true);
-    }
-  }, [problemSolved]);
-
-  const onProblemIncorrect = useCallback(() => {
-    if (!problemSolved) {
-      // alert("Incorrect!");
-      setProblemSolved(true);
-      updateUserRanking(false);
-    }
-  }, [problemSolved]);
-
   const updateUserRanking = (isCorrect) => {
     // Only proceed if the ranking has not yet been updated
     if (!isRankingUpdated.current) {
@@ -84,11 +98,6 @@ const GliftPuzzleDisplay = () => {
       isRankingUpdated.current = true;
     }
   };
-
-  useEffect(() => {
-    // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
-    dispatch(fetchPublicPuzzleByIdThunk(puzzle_id));
-  }, [dispatch, puzzle_id]);
 
   useEffect(() => {
     // Ensures Glift board will only be initialized when there's a valid puzzleDat and if it hasn't been initialized already
@@ -119,3 +128,19 @@ const GliftPuzzleDisplay = () => {
 };
 
 export default GliftPuzzleDisplay;
+
+// ******************************************** //
+
+// Code snippet for destroying the gliftinstance so when we click different puzzles, it reloads glift, but we have to recreate it otherwise the original
+// puzzle functionality is messed up again, so this is pretty tricky
+
+// useEffect(() => {
+//   return () => {
+//     // Cleanup code to destroy the existing Glift board instance
+//     if (gliftInstance.current) {
+//       gliftInstance.current.destroy();
+//       gliftInstance.current = null;
+//       isBoardInitialized.current = false;
+//     }
+//   };
+// }, [puzzle_id]);  // Dependency on puzzle_id
