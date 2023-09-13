@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { fetchPublicPuzzleByIdThunk } from "../store/publicPuzzles";
 import "./styles/GliftPublicPuzzle.css";
 import "../lib/glift";
@@ -9,10 +9,21 @@ import "../lib/glift";
 const GliftPuzzleDisplay = () => {
   const { puzzle_id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle);
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
+
+  // ****** Temporary solution for glift rendering issue when clicking a different puzzle -> simply refresh the home page whenever we go there ****** //
+  useEffect(() => {
+    return history.listen((location) => {
+      // Temporarily update the home page path
+      if (location.pathname === '/') {
+        window.location.reload();
+      }
+    });
+  }, [history]);
 
   // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
   const [originalClick, setOriginalClick] = useState(null);
