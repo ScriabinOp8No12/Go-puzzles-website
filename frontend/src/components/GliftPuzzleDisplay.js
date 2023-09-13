@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchPublicPuzzleByIdThunk } from "../store/publicPuzzles";
@@ -9,8 +9,9 @@ import "../lib/glift";
 const GliftPuzzleDisplay = () => {
   const { puzzle_id } = useParams();
   const dispatch = useDispatch();
-  const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle); // need to modify based on store structure
+  const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle);
   const [problemSolved, setProblemSolved] = useState(false);
+  const isBoardInitialized = useRef(false); // Keep track of board initialization
 
   // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
   const [originalClick, setOriginalClick] = useState(null);
@@ -32,7 +33,7 @@ const GliftPuzzleDisplay = () => {
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
         "Explore the solution disabled";
     } else {
-      // Restore the original function and tooltip
+      // Restore the original function by setting it to the originalClick state! Manually change the tooltip back too.
       glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
         "Explore the solution";
@@ -59,7 +60,11 @@ const GliftPuzzleDisplay = () => {
   }, [problemSolved]);
 
   const updateUserRanking = (isCorrect) => {
-    if (isCorrect) console.log("ranking goes up");
+    if (isCorrect) {
+      // Show ranking display in comment box area where user rank goes up and puzzle rank goes down
+      console.log("ranking goes up");
+    }
+    // Otherwise show the user rank went down, and the puzzle rank went up
     else console.log("ranking goes down");
   };
 
@@ -69,7 +74,11 @@ const GliftPuzzleDisplay = () => {
   }, [dispatch, puzzle_id]);
 
   useEffect(() => {
-    if (puzzleData) {
+    // Ensures Glift board will only be initialized when there's a valid puzzleDat and if it hasn't been initialized already
+    // isBoardinitialized starts as false, so it will pass the first time
+    if (puzzleData && !isBoardInitialized.current) {
+      // Prevent further reintializations of the board
+      isBoardInitialized.current = true;
       let checkCorrectHook = new glift.api.HookOptions({
         problemCorrect: onProblemCorrect,
         problemIncorrect: onProblemIncorrect,
