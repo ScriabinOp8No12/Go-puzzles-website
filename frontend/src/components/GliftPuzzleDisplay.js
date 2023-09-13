@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchPublicPuzzleByIdThunk } from "../store/publicPuzzles";
@@ -14,21 +14,21 @@ const GliftPuzzleDisplay = () => {
   // console.log("puzzleData: ", puzzleData)
   const [problemSolved, setProblemSolved] = useState(false);
 
-  const onProblemCorrect = () => {
+  const onProblemCorrect = useCallback(() => {
     if (!problemSolved) {
       alert("Correct!");
       setProblemSolved(true);
       updateUserRanking(true);
     }
-  };
+  }, [problemSolved]);
 
-  const onProblemIncorrect = () => {
+  const onProblemIncorrect = useCallback(() => {
     if (!problemSolved) {
       alert("Incorrect!");
       setProblemSolved(true);
       updateUserRanking(false);
     }
-  };
+  }, [problemSolved]);
 
   const updateUserRanking = (isCorrect) => {
     if (isCorrect) console.log("ranking goes up");
@@ -45,7 +45,7 @@ const GliftPuzzleDisplay = () => {
       let checkCorrectHook = new glift.api.HookOptions({
         problemCorrect: onProblemCorrect,
         problemIncorrect: onProblemIncorrect,
-      }, [onProblemCorrect, onProblemIncorrect]);
+      });
       // [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
       glift.create({
@@ -61,7 +61,7 @@ const GliftPuzzleDisplay = () => {
         hooks: checkCorrectHook,
       });
     }
-  }, [puzzleData]);
+  }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
   return <div id="gliftContainer"></div>;
 };
