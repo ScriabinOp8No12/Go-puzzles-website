@@ -61,7 +61,7 @@ const GliftPuzzleDisplay = () => {
   }, [problemSolved]);
 
   const updateUserRanking = (isCorrect) => {
-    // Only proceed if the ranking has not yet been updated.
+    // Only proceed if the ranking has not yet been updated
     if (!isRankingUpdated.current) {
       if (isCorrect) {
         // Show ranking display in comment box area where user rank goes up and puzzle rank goes down
