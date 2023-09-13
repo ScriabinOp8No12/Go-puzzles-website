@@ -30,7 +30,7 @@ export const fetchPublicPuzzlesThunk = () => async (dispatch) => {
 
 export const fetchPublicPuzzleByIdThunk = (puzzleId) => async (dispatch) => {
   const response = await csrfFetch(`/api/puzzles/${puzzleId}`)
-  console.log("Inside fetchPublicPuzzleByIdThunk, *** puzzleId", puzzleId);
+  // console.log("Inside fetchPublicPuzzleByIdThunk, *** puzzleId", puzzleId);
   if (response.ok) {
     const data = await response.json()
     dispatch(fetchPublicPuzzleById(data))
@@ -45,7 +45,7 @@ const initialState = {
 }
 
 const publicPuzzlesReducer = (state = initialState, action) => {
-  console.log("Inside publicPuzzlesReducer, action.type and action.payload", action.type, action.payload);
+
   switch(action.type) {
     case FETCH_PUBLIC_PUZZLES:
       return {
