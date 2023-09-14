@@ -20,7 +20,6 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     // Destructure query parameters from request
     let {
       source,
-      completed,
       min_rank,
       max_rank,
       difficulty,
@@ -44,11 +43,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
       where.user_id = req.user.id;
     }
 
-    // If the completed query parameter is provided in the request, sets where.completed to either true or false based on the string value of completed. This is then used in the Sequelize query to filter puzzles based on their completed status.
-    // If completed is 'true', then where.completed will be true. If completed is 'false', then where.completed will be false. This allows you to filter puzzles that are either completed or not, based on the query parameter.
-
     // Setting filtering conditions based on query parameters
-    if (completed !== undefined) where.completed = completed === "true";
     if (min_rank) where.difficulty_rank = { [Op.gte]: min_rank };
     if (max_rank)
       where.difficulty_rank = { ...where.difficulty_rank, [Op.lte]: max_rank };
@@ -86,10 +81,10 @@ router.get("/", conditionalAuth, async (req, res, next) => {
         move_number: puzzle.move_number,
         difficulty_rank: puzzle.difficulty_rank,
         description: puzzle.description,
-        completed: puzzle.completed,
         is_user_puzzle: puzzle.user_id === (req.user ? req.user.id : false),
         vote_count: puzzle.vote_count,
         thumbnail: puzzle.thumbnail,
+        suspended: puzzle.suspended,
         createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
         updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
       };
@@ -115,9 +110,9 @@ router.get("/:puzzle_id", async (req, res) => {
         "category",
         "move_number",
         "description",
-        "completed",
         "is_user_puzzle",
         "vote_count",
+        "suspended",
         "createdAt",
         "updatedAt",
       ],
@@ -133,9 +128,9 @@ router.get("/:puzzle_id", async (req, res) => {
       category: puzzle.category,
       move_number: puzzle.move_number,
       description: puzzle.description,
-      completed: puzzle.completed,
       is_user_puzzle: puzzle.is_user_puzzle,
       vote_count: puzzle.vote_count,
+      suspended: puzzle.suspended,
       createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
       updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     };

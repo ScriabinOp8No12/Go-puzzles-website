@@ -50,11 +50,6 @@ module.exports = {
         description: {
           type: Sequelize.TEXT,
         },
-        completed: {
-          allowNull: false,
-          type: Sequelize.BOOLEAN,
-          defaultValue: false
-        },
         vote_count: {
           allowNull: false,
           type: Sequelize.INTEGER,
@@ -75,6 +70,11 @@ module.exports = {
         thumbnail: {
           type: Sequelize.STRING,
           defaultValue: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg"
+        },
+        suspended: {
+          allowNull: false,
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
         },
         createdAt: {
           allowNull: false,
