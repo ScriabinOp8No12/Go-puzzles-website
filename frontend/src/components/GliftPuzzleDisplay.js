@@ -23,7 +23,7 @@ const GliftPuzzleDisplay = () => {
   useEffect(() => {
     return history.listen((location) => {
       // Temporarily hard refresh the home page to solve the glift instance bug issue, maybe we could pass in the filter query parameters as another temporary solution
-      if (location.pathname === '/') {
+      if (location.pathname === "/") {
         window.location.reload();
       }
     });
@@ -63,7 +63,7 @@ const GliftPuzzleDisplay = () => {
     );
   }, []);
 
-  console.log("value of problemSolved right before disable button: ", problemSolved)
+  // console.log("value of problemSolved right before disable button: ", problemSolved)
 
   useEffect(() => {
     if (!problemSolved) {
@@ -124,7 +124,12 @@ const GliftPuzzleDisplay = () => {
     }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
-  return <div id="gliftContainer"></div>;
+  return (
+    <>
+      <div id="gliftContainer"></div>
+      {/* <div className="rankingChangeText">Testing text to be in comment box</div> */}
+    </>
+  );
 };
 
 export default GliftPuzzleDisplay;

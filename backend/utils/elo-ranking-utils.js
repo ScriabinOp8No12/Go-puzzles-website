@@ -1,5 +1,5 @@
 const K = 32; // max gain or loss of elo per puzzle
-const DEFAULT_ELO = 1500; // default to 1500 elo, which is ~6kyu in Go (intermediate)
+// const DEFAULT_ELO = 1500; // default to 1500 elo, which is ~6kyu in Go (intermediate)
 
 function calculateNewElo(playerElo, puzzleElo, isWin) {
   // Calculate expected score for the player using the ELO formula, the expected score is the probability of the player winning against the puzzle
@@ -14,9 +14,10 @@ function calculateNewElo(playerElo, puzzleElo, isWin) {
   return [Math.round(newPlayerElo), Math.round(newPuzzleElo)];
 }
 
-module.exports = {calculateNewElo, DEFAULT_ELO};
+module.exports = calculateNewElo;
 
 
-console.log(calculateNewElo(1000, 1100, 1)) // [ 1020, 1080 ]   new player elo is 1020, new puzzle elo is 1080
-console.log(calculateNewElo(1600, 2000, 0)) // [ 1597, 2003 ]   new player elo is 1597, new puzzle elo is 2003
-console.log(calculateNewElo(1600, 2000, 1)) // [ 1629, 1971 ]   at a 400 elo difference, getting it right increases rating by nearly the max elo, 29 instead of 32
+// console.log(calculateNewElo(1000, 1100, 1)) // [ 1020, 1080 ]   new player elo is 1020, new puzzle elo is 1080
+// console.log(calculateNewElo(1600, 2000, 0)) // [ 1597, 2003 ]   new player elo is 1597, new puzzle elo is 2003
+// console.log(calculateNewElo(1600, 2000, 1)) // [ 1629, 1971 ]   at a 400 elo difference, getting it right increases rating by nearly the max elo, 29 instead of 32
+// console.log(calculateNewElo(1000, 1000, 1)) // [ 1016, 984 ]    at same elo, rating changes by 16 elo, which is equivalent to roughly 1/5th of a stone, that seems reasonable actually

@@ -2,6 +2,7 @@ const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { User, UserPuzzle, Puzzle, Sgf } = require("../../db/models");
 // const { incrementTimesSolved } = require("../../db/models/puzzle-utils"); // For incrementing times solved, see utils folder for likely not working code lol
+const {calculateNewElo} = require("../../utils/elo-ranking-utils")
 const { Op } = require("sequelize");
 const moment = require("moment");
 
@@ -142,9 +143,74 @@ router.get("/:puzzle_id", async (req, res) => {
   }
 });
 
-router.post("/ranking/update", requireAuth, (req, res)=>{
-  //
-})
+// Updates user and puzzle rankings after a puzzle attempt
+router.post("/ranking/update", requireAuth, async (req, res) => {
+  // calculateNewElo function that we imported into this file gives an output like this: [1020, 1080] which represents the new player's elo, then the new puzzle's elo as an array
+  try {
+    const userId = req.user.id;
+    const { puzzleId, isWin } = req.body; // Puzzle ID and win status should be sent in the request body
+
+    // Fetch the user and the puzzle from the database
+    const user = await User.findByPk(userId);
+    const puzzle = await Puzzle.findByPk(puzzleId);
+
+    // Check if user and puzzle exist
+    if (!user || !puzzle) {
+      return res.status(404).json({ error: "User and/or Puzzle not found" });
+    }
+
+    // Check for existing entry in user_puzzles
+    const userPuzzle = await UserPuzzle.findOne({
+      where: { user_id: userId, puzzle_id: puzzleId },
+    });
+
+    if (userPuzzle && userPuzzle.completed) {
+      return res
+        .status(403)
+        .json({
+          message:
+            "Ranking for this puzzle has already been updated for this user.",
+        });
+    }
+
+    // Calculate new ELO ratings
+    const [newUserRank, newPuzzleRank] = calculateNewElo(
+      user.rank,
+      puzzle.difficulty,
+      isWin
+    );
+
+    // Update user and puzzle in the database
+    user.rank = newUserRank;
+    puzzle.difficulty = newPuzzleRank;
+
+    // Update user_puzzles table
+    if (userPuzzle) {
+      userPuzzle.completed = true;
+      await userPuzzle.save();
+    } else {
+      await UserPuzzle.create({
+        user_id: userId,
+        puzzle_id: puzzleId,
+        completed: true,
+      });
+    }
+
+    await user.save();
+    await puzzle.save();
+
+    // Send updated rankings
+    return res
+      .status(200)
+      .json({ newUserRank: newUserRank, newPuzzleRank: newPuzzleRank });
+  } catch (error) {
+    // Error handling
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while updating rankings" });
+  }
+});
 
 // **** Maybe move this below route to a new "userpuzzles.js" route instead of having it here?
 // Update completed field in UserPuzzle record and increment times_solved field in Puzzle record
