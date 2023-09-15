@@ -37,7 +37,7 @@ const PublicPuzzles = () => {
   // Debounce this re-fetching operation to avoid unnecessary API calls.
 
   // **** Filter block above **** //
-  console.log("publicPuzzles: ", publicPuzzles)
+  // console.log("publicPuzzles: ", publicPuzzles)
 
   return (
     <div className="outer-wrapper">

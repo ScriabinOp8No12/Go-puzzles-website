@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { fetchPublicPuzzleByIdThunk } from "../store/publicPuzzles";
+import { fetchPublicPuzzleByIdThunk, updateRankingsAndSolvedCounterThunk } from "../store/publicPuzzles";
+// import RankingDisplay from "./RankingDisplay";
 import "./styles/GliftPublicPuzzle.css";
 import "../lib/glift";
 /* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
@@ -14,6 +15,8 @@ const GliftPuzzleDisplay = () => {
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
+
+  // const userRankingData = useSelector((state) => state.puzzles.userWin);
 
   // console.log("problem solved state initially:", problemSolved)
 
@@ -50,7 +53,7 @@ const GliftPuzzleDisplay = () => {
     if (!problemSolved) {
       setProblemSolved(true);
       // console.log("problem solved state within onProblemINCORRECT:", problemSolved)
-      updateUserRanking(false);
+      updateUserRanking(false); // why is this false here? lol
     }
   }, [problemSolved]);
 
@@ -87,13 +90,12 @@ const GliftPuzzleDisplay = () => {
   const updateUserRanking = (isCorrect) => {
     // Only proceed if the ranking has not yet been updated
     if (!isRankingUpdated.current) {
-      if (isCorrect) {
-        // Show ranking display in comment box area where user rank goes up and puzzle rank goes down
-        console.log("ranking goes up");
-      }
-      // Otherwise show the user rank went down, and the puzzle rank went up
-      else if (!isCorrect) console.log("ranking goes down");
-      // Mark that the ranking has been updated, so that subsequent triggers do not result in multiple logs or UI updates.
+      let userWin = null
+      if (isCorrect) userWin = 1
+      else userWin = 0
+      console.log("userWin value: ", userWin)
+      // Adding this here properly dispatches the action, wtf???? BUT ONLY IF WE GET IT RIGHT??????
+      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, userWin));
       isRankingUpdated.current = true;
     }
   };
@@ -123,10 +125,19 @@ const GliftPuzzleDisplay = () => {
     }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
+  // console.log("isRankingUpdated VALUE near end of code: ", isRankingUpdated.current)
   return (
     <>
       <div id="gliftContainer"></div>
-      {/* <div className="rankingChangeText">Testing text to be in comment box</div> */}
+      {/* {userRankingData && (
+        <div>
+          {userRankingData.newUserRank > userRankingData.oldUserRank ? (
+            <span>Your rank went up from {userRankingData.oldUserRank} to {userRankingData.newUserRank}</span>
+          ) : (
+            <span>Your rank went down from {userRankingData.oldUserRank} to {userRankingData.newUserRank}</span>
+          )}
+        </div>
+      )} */}
     </>
   );
 };

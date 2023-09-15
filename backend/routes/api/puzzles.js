@@ -155,6 +155,9 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     const user = await User.findByPk(userId);
     const puzzle = await Puzzle.findByPk(puzzleId);
 
+    const oldUserRank = user.rank
+    const oldPuzzlerank = puzzle.difficulty
+
     // Check if user exists
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -220,7 +223,7 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     // Send updated rankings in response
     return res
       .status(200)
-      .json({ newUserRank: newUserRank, newPuzzleRank: newPuzzleRank, newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount, newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount});
+      .json({ oldUserRank: oldUserRank, oldPuzzleRank: oldPuzzlerank,  newUserRank: newUserRank, newPuzzleRank: newPuzzleRank, newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount, newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount});
   } catch (error) {
     // Error handling
     console.error(error);

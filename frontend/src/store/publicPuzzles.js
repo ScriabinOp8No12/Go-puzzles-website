@@ -53,6 +53,7 @@ export const updateRankingsAndSolvedCounterThunk = (puzzleId, userWin) => async 
   })
   if (response.ok) {
     const data = await response.json()
+    console.log("Thunk data: ", data)
     dispatch(updateRankingsAndSolvedCounter(data))
   }
 }
