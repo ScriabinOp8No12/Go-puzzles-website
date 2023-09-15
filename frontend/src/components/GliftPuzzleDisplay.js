@@ -40,6 +40,17 @@ const GliftPuzzleDisplay = () => {
   // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
   const [originalClick, setOriginalClick] = useState(null);
 
+
+  const updateUserRanking = useCallback((isCorrect) => {
+    // Only proceed if the ranking has not yet been updated
+    if (!isRankingUpdated.current) {
+      // Adding this here properly dispatches the action, and updates the user ranking in the backend! :) now we have to display the component
+      // And probably not manually dispatch this here?  The component does that for us?  Or what??
+      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, isCorrect));
+      isRankingUpdated.current = true;
+    }
+  }, [dispatch, puzzle_id]);
+
   // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
   const onProblemCorrect = useCallback(() => {
     if (!problemSolved) {
@@ -47,7 +58,7 @@ const GliftPuzzleDisplay = () => {
       // console.log("problem solved state within onProblemCorrect:", problemSolved)
       updateUserRanking(true);
     }
-  }, [problemSolved]);
+  }, [problemSolved, updateUserRanking]);
 
   const onProblemIncorrect = useCallback(() => {
     if (!problemSolved) {
@@ -55,7 +66,7 @@ const GliftPuzzleDisplay = () => {
       // console.log("problem solved state within onProblemINCORRECT:", problemSolved)
       updateUserRanking(false); // why is this false here? lol
     }
-  }, [problemSolved]);
+  }, [problemSolved, updateUserRanking]);
 
   // Capture original function only once, when the component mounts, so we can reset it back to the original function after our problemSolved state becomes true
   useEffect(() => {
@@ -87,19 +98,9 @@ const GliftPuzzleDisplay = () => {
 
   // ****** Above block disables the explore the solution button until the user has tried solving the puzzle ****** //
 
-  const updateUserRanking = (isCorrect) => {
-    // Only proceed if the ranking has not yet been updated
-    if (!isRankingUpdated.current) {
-
-      // Adding this here properly dispatches the action, and updates the user ranking in the backend! :) now we have to display the component
-      // And probably not manually dispatch this here?  The component does that for us?  Or what??
-      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, isCorrect));
-      isRankingUpdated.current = true;
-    }
-  };
 
   useEffect(() => {
-    // Ensures Glift board will only be initialized when there's a valid puzzleDat and if it hasn't been initialized already
+    // Ensures Glift board will only be initialized when there's a valid puzzleData and if it hasn't been initialized already
     // isBoardinitialized starts as false, so it will pass the first time
     if (puzzleData && !isBoardInitialized.current) {
       // Prevent further reintializations of the board
