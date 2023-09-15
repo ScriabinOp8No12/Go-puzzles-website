@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { fetchPublicPuzzleByIdThunk } from "../store/publicPuzzles";
+import { fetchPublicPuzzleByIdThunk, updateRankingsAndSolvedCounterThunk } from "../store/publicPuzzles";
+// import RankingDisplay from "./RankingDisplay";
 import "./styles/GliftPublicPuzzle.css";
 import "../lib/glift";
 /* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
@@ -14,6 +15,8 @@ const GliftPuzzleDisplay = () => {
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
+
+  // const userRankingData = useSelector((state) => state.puzzles.userWin);
 
   // console.log("problem solved state initially:", problemSolved)
 
@@ -40,7 +43,6 @@ const GliftPuzzleDisplay = () => {
   // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
   const onProblemCorrect = useCallback(() => {
     if (!problemSolved) {
-      // alert("Correct!");
       setProblemSolved(true);
       // console.log("problem solved state within onProblemCorrect:", problemSolved)
       updateUserRanking(true);
@@ -49,10 +51,9 @@ const GliftPuzzleDisplay = () => {
 
   const onProblemIncorrect = useCallback(() => {
     if (!problemSolved) {
-      // alert("Incorrect!");
       setProblemSolved(true);
       // console.log("problem solved state within onProblemINCORRECT:", problemSolved)
-      updateUserRanking(false);
+      updateUserRanking(false); // why is this false here? lol
     }
   }, [problemSolved]);
 
@@ -66,6 +67,7 @@ const GliftPuzzleDisplay = () => {
   // console.log("value of problemSolved right before disable button: ", problemSolved)
 
   useEffect(() => {
+    // console.log("value of problemSolved within useEffect that triggers disabled button: ", problemSolved)
     if (!problemSolved) {
       // console.log("problem solved state within 1st useEffect:", problemSolved)
       // Disable problem explanation (? button) when the problem isn't solved yet
@@ -75,7 +77,7 @@ const GliftPuzzleDisplay = () => {
       // Change tooltip text to "Explore the solution disabled"
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
         "Explore the solution disabled";
-    } else {
+    } else if (problemSolved) {
       // Restore the original function by setting it to the originalClick state! Manually change the tooltip back too.
       glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
@@ -88,13 +90,10 @@ const GliftPuzzleDisplay = () => {
   const updateUserRanking = (isCorrect) => {
     // Only proceed if the ranking has not yet been updated
     if (!isRankingUpdated.current) {
-      if (isCorrect) {
-        // Show ranking display in comment box area where user rank goes up and puzzle rank goes down
-        console.log("ranking goes up");
-      }
-      // Otherwise show the user rank went down, and the puzzle rank went up
-      else console.log("ranking goes down");
-      // Mark that the ranking has been updated, so that subsequent triggers do not result in multiple logs or UI updates.
+
+      // Adding this here properly dispatches the action, and updates the user ranking in the backend! :) now we have to display the component
+      // And probably not manually dispatch this here?  The component does that for us?  Or what??
+      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, isCorrect));
       isRankingUpdated.current = true;
     }
   };
@@ -124,10 +123,19 @@ const GliftPuzzleDisplay = () => {
     }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
+  // console.log("isRankingUpdated VALUE near end of code: ", isRankingUpdated.current)
   return (
     <>
       <div id="gliftContainer"></div>
-      {/* <div className="rankingChangeText">Testing text to be in comment box</div> */}
+      {/* {userRankingData && (
+        <div>
+          {userRankingData.newUserRank > userRankingData.oldUserRank ? (
+            <span>Your rank went up from {userRankingData.oldUserRank} to {userRankingData.newUserRank}</span>
+          ) : (
+            <span>Your rank went down from {userRankingData.oldUserRank} to {userRankingData.newUserRank}</span>
+          )}
+        </div>
+      )} */}
     </>
   );
 };
