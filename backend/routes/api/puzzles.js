@@ -155,9 +155,14 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     const user = await User.findByPk(userId);
     const puzzle = await Puzzle.findByPk(puzzleId);
 
-    // Check if user and puzzle exist
-    if (!user || !puzzle) {
-      return res.status(404).json({ error: "User and/or Puzzle not found" });
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if puzzle exists
+    if (!puzzle) {
+      return res.status(404).json({ error: "Puzzle not found" });
     }
 
     // Check for existing entry in user_puzzles
@@ -174,12 +179,15 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
         });
     }
 
+    console.log("old user and puzzle rank: ", user.rank, puzzle.difficulty)
     // Calculate new ELO ratings
     const [newUserRank, newPuzzleRank] = calculateNewElo(
       user.rank,
       puzzle.difficulty,
       isWin
     );
+
+    console.log("newUserRank, newPuzzleRank: ", newUserRank, newPuzzleRank)
 
     // Update user and puzzle in the database
     user.rank = newUserRank;
@@ -190,6 +198,9 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
       userPuzzle.completed = true;
       await userPuzzle.save();
     } else {
+      // If the userPuzzle doesn't exist, then create it by adding the user_id, puzzle_id, and setting completed to true
+      // This will happen most of the time, since there will be a puzzle that the user is trying, and it won't be in their userpuzzle table yet
+      // But for seed data, this block won't execute because the userpuzzle list will have seed data there already
       await UserPuzzle.create({
         user_id: userId,
         puzzle_id: puzzleId,

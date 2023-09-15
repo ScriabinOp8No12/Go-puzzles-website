@@ -74,6 +74,26 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          sgf_id: 4,
+          sgf_data: "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[7.50]TM[300] GN[]PW[青瓦楼阁]PB[anning97]DT[2023-07-09]RE[B+Resign]TC[3] ;B[qd] ;W[dp] ;B[pq] ;W[dd] ;B[cc] ;W[dc] ;B[cd] ;W[ce] ;B[be] ;W[bf] ;B[cf] ;W[de] ;B[bg] ;W[bd] ;B[af] ;W[bc] ;B[nc] ;W[qo] ;B[ql] ;W[op] ;B[oq] ;W[np] ;B[mr] ;W[lq] ;B[mq] ;W[mp] ;B[lp] ;W[kq] ;B[lo] ;W[rq] ;B[qr] ;W[on] ;B[jp] ;W[iq] ;B[ip] ;W[hq] ;B[go] ;W[fp] ;B[ol] ;W[nm] ;B[mk] ;W[rd] ;B[re] ;W[qc] ;B[rc] ;W[pd] ;B[qe] ;W[rb] ;B[sd] ;W[pe] ;B[pc] ;W[oc] ;B[qb] ;W[nd] ;B[ob] ;W[od] ;B[mc] ;W[md] ;B[ld] ;W[le] ;B[ke] ;W[kf] (;B[kd]C[Incorrect - This was the actual move played in the game!]) (;B[lf]C[CORRECT]))",
+          category: "Ladder/Net",
+          move_number: 62,
+          difficulty: 500,
+          description:
+            "Cut first then connect because the opponent can't ladder or net us, they get 2 weak groups!",
+          vote_count: 9,
+          board_size: 19,
+          is_user_puzzle: true,
+          solution_coordinates: JSON.stringify({
+            M14: ["M14", "N15", "L16", "L13", "N13", "M13"],
+          }),
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607521/puzzle4_7_20_23_hlb0q1.png",
+          suspended: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
