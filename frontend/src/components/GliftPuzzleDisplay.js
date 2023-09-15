@@ -90,12 +90,10 @@ const GliftPuzzleDisplay = () => {
   const updateUserRanking = (isCorrect) => {
     // Only proceed if the ranking has not yet been updated
     if (!isRankingUpdated.current) {
-      let userWin = null
-      if (isCorrect) userWin = 1
-      else userWin = 0
-      console.log("userWin value: ", userWin)
-      // Adding this here properly dispatches the action, wtf???? BUT ONLY IF WE GET IT RIGHT??????
-      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, userWin));
+
+      // Adding this here properly dispatches the action, and updates the user ranking in the backend! :) now we have to display the component
+      // And probably not manually dispatch this here?  The component does that for us?  Or what??
+      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, isCorrect));
       isRankingUpdated.current = true;
     }
   };
