@@ -14,7 +14,7 @@ function calculateNewElo(playerElo, puzzleElo, isWin) {
   return [Math.round(newPlayerElo), Math.round(newPuzzleElo)];
 }
 
-module.exports = calculateNewElo;
+module.exports = {calculateNewElo};
 
 
 // console.log(calculateNewElo(1000, 1100, 1)) // [ 1020, 1080 ]   new player elo is 1020, new puzzle elo is 1080
