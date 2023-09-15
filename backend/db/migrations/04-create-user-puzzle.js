@@ -28,11 +28,6 @@ module.exports = {
           type: Sequelize.INTEGER,
           references: { model: "Puzzles", key: "id" },
         },
-        // Need this here for glift to render the puzzle (glift takes in an sgf)
-        sgf_data: {
-          allowNull: false,
-          type: Sequelize.TEXT,
-        },
         completed: {
           allowNull: false,
           type: Sequelize.BOOLEAN,

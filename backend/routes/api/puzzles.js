@@ -144,19 +144,25 @@ router.get("/:puzzle_id", async (req, res) => {
 });
 
 // Updates user and puzzle rankings after a puzzle attempt
-router.post("/ranking/update", requireAuth, async (req, res) => {
+router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
   // calculateNewElo function that we imported into this file gives an output like this: [1020, 1080] which represents the new player's elo, then the new puzzle's elo as an array
   try {
     const userId = req.user.id;
-    const { puzzleId, isWin } = req.body; // Puzzle ID and win status should be sent in the request body
+    const { puzzleId } = req.params;
+    const { isWin } = req.body;
 
     // Fetch the user and the puzzle from the database
     const user = await User.findByPk(userId);
     const puzzle = await Puzzle.findByPk(puzzleId);
 
-    // Check if user and puzzle exist
-    if (!user || !puzzle) {
-      return res.status(404).json({ error: "User and/or Puzzle not found" });
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if puzzle exists
+    if (!puzzle) {
+      return res.status(404).json({ error: "Puzzle not found" });
     }
 
     // Check for existing entry in user_puzzles
@@ -173,12 +179,15 @@ router.post("/ranking/update", requireAuth, async (req, res) => {
         });
     }
 
+    console.log("old user and puzzle rank: ", user.rank, puzzle.difficulty)
     // Calculate new ELO ratings
     const [newUserRank, newPuzzleRank] = calculateNewElo(
       user.rank,
       puzzle.difficulty,
       isWin
     );
+
+    console.log("newUserRank, newPuzzleRank: ", newUserRank, newPuzzleRank)
 
     // Update user and puzzle in the database
     user.rank = newUserRank;
@@ -189,6 +198,9 @@ router.post("/ranking/update", requireAuth, async (req, res) => {
       userPuzzle.completed = true;
       await userPuzzle.save();
     } else {
+      // If the userPuzzle doesn't exist, then create it by adding the user_id, puzzle_id, and setting completed to true
+      // This will happen most of the time, since there will be a puzzle that the user is trying, and it won't be in their userpuzzle table yet
+      // But for seed data, this block won't execute because the userpuzzle list will have seed data there already
       await UserPuzzle.create({
         user_id: userId,
         puzzle_id: puzzleId,

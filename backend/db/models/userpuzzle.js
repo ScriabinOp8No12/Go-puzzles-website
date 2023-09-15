@@ -18,20 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      sgf_data: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-        validate: {
-          // don't let the sgf_data be more than 20,000 characters (each SGF is roughly between 500 and 5000 characters)
-          len: [1, 20000],
-          // does not take in an empty sgf either
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("SGF data cannot be empty.");
-            }
-          },
-        },
-      },
       completed: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
