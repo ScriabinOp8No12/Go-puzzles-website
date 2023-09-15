@@ -149,7 +149,7 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
   try {
     const userId = req.user.id;
     const { puzzleId } = req.params;
-    const { isWin } = req.body;
+    const { userWin } = req.body;
 
     // Fetch the user and the puzzle from the database
     const user = await User.findByPk(userId);
@@ -184,7 +184,7 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     const [newUserRank, newPuzzleRank] = calculateNewElo(
       user.rank,
       puzzle.difficulty,
-      isWin
+      userWin
     );
 
     // Update user and puzzle in the database

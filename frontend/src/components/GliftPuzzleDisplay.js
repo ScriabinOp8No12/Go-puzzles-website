@@ -40,7 +40,6 @@ const GliftPuzzleDisplay = () => {
   // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
   const onProblemCorrect = useCallback(() => {
     if (!problemSolved) {
-      // alert("Correct!");
       setProblemSolved(true);
       // console.log("problem solved state within onProblemCorrect:", problemSolved)
       updateUserRanking(true);
@@ -49,7 +48,6 @@ const GliftPuzzleDisplay = () => {
 
   const onProblemIncorrect = useCallback(() => {
     if (!problemSolved) {
-      // alert("Incorrect!");
       setProblemSolved(true);
       // console.log("problem solved state within onProblemINCORRECT:", problemSolved)
       updateUserRanking(false);
@@ -66,6 +64,7 @@ const GliftPuzzleDisplay = () => {
   // console.log("value of problemSolved right before disable button: ", problemSolved)
 
   useEffect(() => {
+    // console.log("value of problemSolved within useEffect that triggers disabled button: ", problemSolved)
     if (!problemSolved) {
       // console.log("problem solved state within 1st useEffect:", problemSolved)
       // Disable problem explanation (? button) when the problem isn't solved yet
@@ -75,7 +74,7 @@ const GliftPuzzleDisplay = () => {
       // Change tooltip text to "Explore the solution disabled"
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
         "Explore the solution disabled";
-    } else {
+    } else if (problemSolved) {
       // Restore the original function by setting it to the originalClick state! Manually change the tooltip back too.
       glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
@@ -93,7 +92,7 @@ const GliftPuzzleDisplay = () => {
         console.log("ranking goes up");
       }
       // Otherwise show the user rank went down, and the puzzle rank went up
-      else console.log("ranking goes down");
+      else if (!isCorrect) console.log("ranking goes down");
       // Mark that the ranking has been updated, so that subsequent triggers do not result in multiple logs or UI updates.
       isRankingUpdated.current = true;
     }
