@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { updateRankingsAndSolvedCounterThunk } from "../store/publicPuzzles";
+import { useSelector} from "react-redux";
 
 const RankingDisplay = () => {
-  const { puzzle_id } = useParams();
-  const dispatch = useDispatch();
   const rankingData = useSelector((state) => state.puzzles.userWin);
   const [displayMessage, setDisplayMessage] = useState("");
-
-// ****** FOR TESTING THUNK MANUALLY *****
-  // useEffect(() => {
-  //   console.log("Manually dispatching the update rankings thunk");
-  //   dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, 1)); // replace true with appropriate value for userWin
-  // }, []);
-
-// **************
 
   useEffect(() => {
     if (rankingData !== null) {
@@ -24,20 +12,23 @@ const RankingDisplay = () => {
         oldPuzzleRank,
         newUserRank,
         newPuzzleRank,
-        newUserSolvedPuzzlesCount,
-        newPuzzleTimesSolvedCount,
+        // newUserSolvedPuzzlesCount,
+        // newPuzzleTimesSolvedCount,
       } = rankingData;
 
-      const userRankDirection = newUserRank >= oldUserRank ? "up" : "down";
+      const userRankDirection = newUserRank >= oldUserRank ? "increased" : "decreased";
       const puzzleRankDirection =
-        newPuzzleRank >= oldPuzzleRank ? "up" : "down";
+        newPuzzleRank >= oldPuzzleRank ? "increased" : "decreased";
 
-      let message = `Your rank went ${userRankDirection} from ${oldUserRank} to ${newUserRank}, and the puzzle rank went ${puzzleRankDirection} from ${oldPuzzleRank} to ${newPuzzleRank}. Your solved puzzles count is ${newUserSolvedPuzzlesCount}, and this puzzle has been solved ${newPuzzleTimesSolvedCount} times.`;
+      let message = `Your rank ${userRankDirection} from ${oldUserRank} to ${newUserRank}.
+      The puzzle's rank ${puzzleRankDirection} from ${oldPuzzleRank} to ${newPuzzleRank}.
+      To explore the solution, please go back to the initial puzzle position, and then click the circular ? button!`
+
+      // Your solved puzzles count is ${newUserSolvedPuzzlesCount}, and this puzzle has been solved ${newPuzzleTimesSolvedCount} times.;
 
       setDisplayMessage(message);
-      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, rankingData));
     }
-  }, [dispatch, puzzle_id, rankingData]);
+  }, [rankingData]);
 
   return (
     <>

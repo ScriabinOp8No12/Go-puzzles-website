@@ -2,14 +2,30 @@
   width: 1000px;
   height: 600px;
   margin: 0 auto;
+  position: relative;
+}
+
+/* Position the ranking display component absolute to the parent container, which is relative positioning */
+.rankingDisplayComponent {
+  position: absolute;
+  top: 100px;
+  right: 50px;
+  max-width: 280px;
+  font-weight: bold;
+  text-align: left;
+  border: 5px solid #00ADB5;
+  padding:10px;
+  color: aliceblue;
+  background-color: #222831;
+  border-radius: 15px;
 }
 
 #gliftContainer-internal-wrapper {
-  background-color: lightgrey;
+  background-color: grey;
 }
 
 .glift-comment-box {
-  background-color: aliceblue !important;
+  background-color: lightgrey !important;
 }
 
 .rankingChangeText {

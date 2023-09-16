@@ -1,8 +1,13 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { fetchPublicPuzzleByIdThunk, updateRankingsAndSolvedCounterThunk } from "../store/publicPuzzles";
-// import RankingDisplay from "./RankingDisplay";
+import {
+  fetchPublicPuzzleByIdThunk,
+  updateRankingsAndSolvedCounterThunk,
+} from "../store/publicPuzzles";
+// import ReactDOM from "react-dom";
+import RankingDisplay from "./RankingDisplay";
+
 import "./styles/GliftPublicPuzzle.css";
 import "../lib/glift";
 /* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
@@ -15,13 +20,12 @@ const GliftPuzzleDisplay = () => {
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
+  const [showRankingDisplay, setShowRankingDisplay] = useState(false); // Track if we want to display the ranking display component
 
-  // const userRankingData = useSelector((state) => state.puzzles.userWin);
-
-  // console.log("problem solved state initially:", problemSolved)
+  // const [gliftBoxElement, setGliftBoxElement] = useState(null); // keep track of the state of the glift's box element class, where we want to render our ranking display component
 
   // ****** Temporary solution for glift rendering issue when clicking a different puzzle -> simply refresh the home page whenever we go there ******
-  // Issue with the temporary solution is that the filter on the home page would be rest too unless we save it, and user experience slightly less optimal with a refresh
+  // Issue with the temporary solution is that the filter on the home page would be reset too unless we save it, and user experience slightly less optimal with a refresh
   // Better solution would be to use .destroy() on the glift instance, then recreate it for each new puzzle when we click on it
   useEffect(() => {
     return history.listen((location) => {
@@ -40,22 +44,34 @@ const GliftPuzzleDisplay = () => {
   // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
   const [originalClick, setOriginalClick] = useState(null);
 
+  const updateUserRanking = useCallback(
+    (isCorrect) => {
+      // Only proceed if the ranking has not yet been updated
+      if (!isRankingUpdated.current) {
+        // Adding this here properly dispatches the action, and updates the user ranking in the backend! :) now we have to display the component
+        dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, isCorrect));
+        isRankingUpdated.current = true;
+      }
+    },
+    [dispatch, puzzle_id]
+  );
+
   // Use useCallback to memoize callback functions, good for performance and avoiding unnecessary rerenders
   const onProblemCorrect = useCallback(() => {
     if (!problemSolved) {
       setProblemSolved(true);
-      // console.log("problem solved state within onProblemCorrect:", problemSolved)
-      updateUserRanking(true);
+      updateUserRanking(true); // pass in true into isCorrect (increase user ranking)
+      setShowRankingDisplay(true); // set state of ranking display to true
     }
-  }, [problemSolved]);
+  }, [problemSolved, updateUserRanking]);
 
   const onProblemIncorrect = useCallback(() => {
     if (!problemSolved) {
       setProblemSolved(true);
-      // console.log("problem solved state within onProblemINCORRECT:", problemSolved)
-      updateUserRanking(false); // why is this false here? lol
+      updateUserRanking(false); // pass in false into isCorrect (decrease user ranking)
+      setShowRankingDisplay(true); // set state of ranking display to true
     }
-  }, [problemSolved]);
+  }, [problemSolved, updateUserRanking]);
 
   // Capture original function only once, when the component mounts, so we can reset it back to the original function after our problemSolved state becomes true
   useEffect(() => {
@@ -87,19 +103,8 @@ const GliftPuzzleDisplay = () => {
 
   // ****** Above block disables the explore the solution button until the user has tried solving the puzzle ****** //
 
-  const updateUserRanking = (isCorrect) => {
-    // Only proceed if the ranking has not yet been updated
-    if (!isRankingUpdated.current) {
-
-      // Adding this here properly dispatches the action, and updates the user ranking in the backend! :) now we have to display the component
-      // And probably not manually dispatch this here?  The component does that for us?  Or what??
-      dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, isCorrect));
-      isRankingUpdated.current = true;
-    }
-  };
-
   useEffect(() => {
-    // Ensures Glift board will only be initialized when there's a valid puzzleDat and if it hasn't been initialized already
+    // Ensures Glift board will only be initialized when there's a valid puzzleData and if it hasn't been initialized already
     // isBoardinitialized starts as false, so it will pass the first time
     if (puzzleData && !isBoardInitialized.current) {
       // Prevent further reintializations of the board
@@ -120,22 +125,29 @@ const GliftPuzzleDisplay = () => {
         display: { theme: "DEPTH" },
         hooks: checkCorrectHook,
       });
+
+      // setTimeout(() => {
+      //   const gliftTextBox = document.querySelector(".glift-text-box");
+      //   if (gliftTextBox) {
+      //     console.log("Element found:", gliftTextBox);
+      //     setGliftBoxElement(gliftTextBox);
+      //   } else {
+      //     console.log("Element not found");
+      //   }
+      // }, 3000); // 2-second delay
     }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
   // console.log("isRankingUpdated VALUE near end of code: ", isRankingUpdated.current)
   return (
     <>
-      <div id="gliftContainer"></div>
-      {/* {userRankingData && (
-        <div>
-          {userRankingData.newUserRank > userRankingData.oldUserRank ? (
-            <span>Your rank went up from {userRankingData.oldUserRank} to {userRankingData.newUserRank}</span>
-          ) : (
-            <span>Your rank went down from {userRankingData.oldUserRank} to {userRankingData.newUserRank}</span>
-          )}
-        </div>
-      )} */}
+      <div id="gliftContainer">
+    {showRankingDisplay && <div className="rankingDisplayComponent"><RankingDisplay/></div>}
+  </div>
+      {/* {gliftBoxElement
+        ? ReactDOM.createPortal(<RankingDisplay />, gliftBoxElement)
+        : null} */}
+
     </>
   );
 };
