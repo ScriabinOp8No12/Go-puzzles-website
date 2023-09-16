@@ -16,25 +16,20 @@
 - `PUT /api/sgfs/:sgf_id`: Edit the SGF name, player names, player ranks, and/or result
 - `DELETE /api/sgfs/:sgf_id`: Delete an SGF (do NOT delete the puzzles with it)
 
-- `POST /api/sgfs/:sgf_id/puzzles`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
-  taking the rank of the player that made the mistake, then converting that Go rank
-  into an elo rating. If there are no ranks, it'll default to 1500 elo (which should be around 5-7k range)
-- `GET /api/sgfs/:sgf_id/puzzles/:puzzle_id/mistakes`: Get the move numbers of the best puzzles according to KataGo.
-- `DELETE /api/sgfs/:sgf_id/puzzles/puzzle_id`: Delete a puzzle that belongs to the user
-
-
 ### Puzzles (Endpoints for puzzles, which includes user's puzzles and all public puzzles along with filters for puzzles)
 
-- `GET /api/puzzles?source=[own|public]&completed=[true|false]&min_difficulty=:min_difficulty&max_difficulty=:max_difficulty&move_number=:move_number&category=:category&board_size=:board_size&min_votes=:min_votes&max_votes=:max_votes&limit=:limit&offset=:offset`: Get puzzles based on various filters, includes pagination!
-- `GET /api/puzzles/:puzzle_id`: Get a puzzle specified by it's id
+- `GET /api/puzzles?source=[own|public]&completed=[true|false]&move_number=:move_number&category=:category&board_size=:board_size&limit=:limit&offset=:offset`: Get public puzzles based on various filters, includes pagination!
+- `GET /api/puzzles/:puzzle_id`: Get a public / user puzzle specified by it's id
+- `POST /api/puzzles/generate`: Create a new puzzle from the user's SGF (either manually or from AI's suggestion). Difficulty is calculated by
+  taking the rank of the player that made the mistake, then converting that Go rank
+- `GET /api/puzzles/mistakes`: Get the array of mistakes/puzzles user made on the given SGF, user can choose to save the puzzle
+- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, solution_coordinates, and other puzzle info (Requires user to be admin if editing public puzzle, don't need to be admin if editing own puzzle)
+- `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Requires user to be admin if deleting a public puzzle, don't need to be admin if deleting own puzzle)
 
 ## Pagination Parameters
 
 - `limit`: The maximum number of puzzles to return per request. Default is 20.
 - `offset`: The starting point from which to retrieve puzzles. Default is 0.
-
-- `PUT /api/puzzles/:puzzle_id`: Edit the description, category, solution_coordinates, and other puzzle info (requires priviledges / reputation)
-- `DELETE /api/puzzles/:puzzle_id`: Delete a puzzle (Must be admin if deleting a public puzzle, don't need to be admin if deleting own puzzle)
 
 ### Users (Endpoints of user specific info. Includes the user's account information like user's rank, and count of solved puzzles by category)
 
@@ -868,10 +863,10 @@ Request
 
 ### Edit a Public Puzzle
 
-Edit the description, category, and other info of a public puzzle. Requires privileges/reputation.
+Edit the description, category, and other info of a public puzzle. Requires admin.
 
 - Require Authentication: true (error 401)
-- Require Authorization: User must have privileges/reputation (error 403)
+- Require Authorization: User must be admin (error 403)
 
 - Request
 
@@ -909,7 +904,7 @@ Successful Response
 
 ### Delete a public puzzle
 
-Deletes an existing public puzzle.
+SUSPENDS/deletes an existing public puzzle.
 
 - Require Authentication: true (error 401)
 - Require authorization: User must be an admin (error 403)
