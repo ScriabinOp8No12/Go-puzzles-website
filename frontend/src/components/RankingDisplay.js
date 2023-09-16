@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 
 const RankingDisplay = () => {
   const rankingData = useSelector((state) => state.puzzles.userWin);
@@ -12,15 +12,19 @@ const RankingDisplay = () => {
         oldPuzzleRank,
         newUserRank,
         newPuzzleRank,
-        newUserSolvedPuzzlesCount,
-        newPuzzleTimesSolvedCount,
+        // newUserSolvedPuzzlesCount,
+        // newPuzzleTimesSolvedCount,
       } = rankingData;
 
-      const userRankDirection = newUserRank >= oldUserRank ? "up" : "down";
+      const userRankDirection = newUserRank >= oldUserRank ? "increased" : "decreased";
       const puzzleRankDirection =
-        newPuzzleRank >= oldPuzzleRank ? "up" : "down";
+        newPuzzleRank >= oldPuzzleRank ? "increased" : "decreased";
 
-      let message = `Your rank went ${userRankDirection} from ${oldUserRank} to ${newUserRank}, and the puzzle rank went ${puzzleRankDirection} from ${oldPuzzleRank} to ${newPuzzleRank}. Your solved puzzles count is ${newUserSolvedPuzzlesCount}, and this puzzle has been solved ${newPuzzleTimesSolvedCount} times.`;
+      let message = `Your rank ${userRankDirection} from ${oldUserRank} to ${newUserRank}.
+      The puzzle's rank ${puzzleRankDirection} from ${oldPuzzleRank} to ${newPuzzleRank}.
+      To explore the solution, please go back to the initial puzzle position, and then click the circular ? button!`
+
+      // Your solved puzzles count is ${newUserSolvedPuzzlesCount}, and this puzzle has been solved ${newPuzzleTimesSolvedCount} times.;
 
       setDisplayMessage(message);
     }
