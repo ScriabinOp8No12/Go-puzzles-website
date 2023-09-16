@@ -6,7 +6,8 @@ function calculateNewElo(playerElo, puzzleElo, isWin) {
   const expectedPlayerWinRate = 1 / (1 + Math.pow(10, (puzzleElo - playerElo) / 400));
   const expectedPuzzleWinRate = 1 - expectedPlayerWinRate;
 
-  // Calculate new ELO rating
+  // Calculate new ELO rating, if expectedPlayerWinRate is near the boundaries (0 or 1), the user's puzzle rating won't appear to change
+  // because it will round to the nearest integer on the calculation (~750 elo diff (7.5 stones in Go))
   const newPlayerElo = playerElo + K * (isWin - expectedPlayerWinRate);
   const newPuzzleElo = puzzleElo + K * ((isWin ? 0 : 1) - expectedPuzzleWinRate);
 
@@ -17,7 +18,7 @@ function calculateNewElo(playerElo, puzzleElo, isWin) {
 module.exports = {calculateNewElo};
 
 
-// console.log(calculateNewElo(1000, 1100, 1)) // [ 1020, 1080 ]   new player elo is 1020, new puzzle elo is 1080
+// console.log(calculateNewElo(1000, 1750, 0)) // [ 1000, 1075 ]   new player elo is 1020, new puzzle elo is 1080
 // console.log(calculateNewElo(1600, 2000, 0)) // [ 1597, 2003 ]   new player elo is 1597, new puzzle elo is 2003
 // console.log(calculateNewElo(1600, 2000, 1)) // [ 1629, 1971 ]   at a 400 elo difference, getting it right increases rating by nearly the max elo, 29 instead of 32
 // console.log(calculateNewElo(1000, 1000, 1)) // [ 1016, 984 ]    at same elo, rating changes by 16 elo, which is equivalent to roughly 1/5th of a stone, that seems reasonable actually
