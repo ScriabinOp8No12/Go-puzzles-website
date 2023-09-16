@@ -2,7 +2,7 @@ const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { User, UserPuzzle, Puzzle, Sgf } = require("../../db/models");
 // const { incrementTimesSolved } = require("../../db/models/puzzle-utils"); // For incrementing times solved, see utils folder for likely not working code lol
-const {calculateNewElo} = require("../../utils/elo-ranking-utils")
+const { calculateNewElo } = require("../../utils/elo-ranking-utils");
 const { Op } = require("sequelize");
 const moment = require("moment");
 
@@ -155,8 +155,8 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     const user = await User.findByPk(userId);
     const puzzle = await Puzzle.findByPk(puzzleId);
 
-    const oldUserRank = user.rank
-    const oldPuzzlerank = puzzle.difficulty
+    const oldUserRank = user.rank;
+    const oldPuzzleRank = puzzle.difficulty;
 
     // Check if user exists
     if (!user) {
@@ -175,12 +175,12 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
 
     // If the userPuzzle exists and the completed column is set to true, then the user has already attempted the puzzle, and we do NOT want to update the ranking again
     if (userPuzzle && userPuzzle.completed) {
-      return res
-        .status(403)
-        .json({
-          message:
-            "Ranking for this puzzle has already been updated for this user.",
-        });
+      return res.json({
+        message:
+          "Ranking for this puzzle has already been updated for this user.",
+        oldUserRank: oldUserRank,
+        oldPuzzleRank: oldPuzzleRank,
+      });
     }
 
     // Calculate new ELO ratings
@@ -210,11 +210,11 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     }
 
     // Update user's solved_puzzles count and puzzle's times_solved count
-    const newUserSolvedPuzzlesCount = user.solved_puzzles + 1
-    const newPuzzleTimesSolvedCount = puzzle.times_solved + 1
+    const newUserSolvedPuzzlesCount = user.solved_puzzles + 1;
+    const newPuzzleTimesSolvedCount = puzzle.times_solved + 1;
 
-    user.solved_puzzles = newUserSolvedPuzzlesCount
-    puzzle.times_solved = newPuzzleTimesSolvedCount
+    user.solved_puzzles = newUserSolvedPuzzlesCount;
+    puzzle.times_solved = newPuzzleTimesSolvedCount;
 
     // Save record to database
     await user.save();
@@ -223,7 +223,14 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     // Send updated rankings in response
     return res
       .status(200)
-      .json({ oldUserRank: oldUserRank, oldPuzzleRank: oldPuzzlerank,  newUserRank: newUserRank, newPuzzleRank: newPuzzleRank, newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount, newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount});
+      .json({
+        oldUserRank: oldUserRank,
+        oldPuzzleRank: oldPuzzleRank,
+        newUserRank: newUserRank,
+        newPuzzleRank: newPuzzleRank,
+        newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount,
+        newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount,
+      });
   } catch (error) {
     // Error handling
     console.error(error);
