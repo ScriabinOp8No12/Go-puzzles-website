@@ -5,7 +5,6 @@ import {
   fetchPublicPuzzleByIdThunk,
   updateRankingsAndSolvedCounterThunk,
 } from "../store/publicPuzzles";
-// import ReactDOM from "react-dom";
 import RankingDisplay from "./RankingDisplay";
 
 import "./styles/GliftPublicPuzzle.css";
@@ -21,8 +20,6 @@ const GliftPuzzleDisplay = () => {
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
   const [showRankingDisplay, setShowRankingDisplay] = useState(false); // Track if we want to display the ranking display component
-
-  // const [gliftBoxElement, setGliftBoxElement] = useState(null); // keep track of the state of the glift's box element class, where we want to render our ranking display component
 
   // ****** Temporary solution for glift rendering issue when clicking a different puzzle -> simply refresh the home page whenever we go there ******
   // Issue with the temporary solution is that the filter on the home page would be reset too unless we save it, and user experience slightly less optimal with a refresh
@@ -125,16 +122,6 @@ const GliftPuzzleDisplay = () => {
         display: { theme: "DEPTH" },
         hooks: checkCorrectHook,
       });
-
-      // setTimeout(() => {
-      //   const gliftTextBox = document.querySelector(".glift-text-box");
-      //   if (gliftTextBox) {
-      //     console.log("Element found:", gliftTextBox);
-      //     setGliftBoxElement(gliftTextBox);
-      //   } else {
-      //     console.log("Element not found");
-      //   }
-      // }, 3000); // 2-second delay
     }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
@@ -142,12 +129,12 @@ const GliftPuzzleDisplay = () => {
   return (
     <>
       <div id="gliftContainer">
-    {showRankingDisplay && <div className="rankingDisplayComponent"><RankingDisplay/></div>}
-  </div>
-      {/* {gliftBoxElement
-        ? ReactDOM.createPortal(<RankingDisplay />, gliftBoxElement)
-        : null} */}
-
+        {showRankingDisplay && (
+          <div className="rankingDisplayComponent">
+            <RankingDisplay />
+          </div>
+        )}
+      </div>
     </>
   );
 };
