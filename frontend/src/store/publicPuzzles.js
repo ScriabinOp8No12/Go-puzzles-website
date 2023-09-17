@@ -30,6 +30,7 @@ export const fetchPublicPuzzlesThunk = () => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json()
+    console.log("public puzzle thunk data: ", data)
     dispatch(fetchPublicPuzzles(data.puzzles))
   }
 }

@@ -13,11 +13,10 @@ const PublicPuzzles = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({}); // Key-value pairs for filters
 
+  // Grabbing the public puzzles
   useEffect(() => {
     dispatch(fetchPublicPuzzlesThunk());
   }, [dispatch]);
-
-
 
   // **** Filter block below **** //
   const toggleFilter = () => {
@@ -83,6 +82,10 @@ const PublicPuzzles = () => {
                 onClick={() => history.push(`/puzzles/${puzzle.id}`)}
                 style={{ cursor: "pointer" }}
               />
+              <div className="puzzle-details">
+                  <div className = "puzzle-category">Category: {puzzle.category}</div>
+                  <div className = "puzzle-rank">Rank: {puzzle.difficulty}</div>
+              </div>
             </div>
           ))}
       </div>
