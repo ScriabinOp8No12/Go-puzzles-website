@@ -21,13 +21,13 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     // Destructure query parameters from request
     let {
       source,
-      min_rank,
-      max_rank,
-      difficulty,
+      // min_rank,
+      // max_rank,
+      // difficulty,
       move_number,
       category,
       board_size,
-      min_votes,
+      min_votes, // "vote_count": for admin to suspend/delete public puzzle if too many downvotes
       max_votes,
       limit,
       offset,
@@ -45,10 +45,10 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     }
 
     // Setting filtering conditions based on query parameters
-    if (min_rank) where.difficulty_rank = { [Op.gte]: min_rank };
-    if (max_rank)
-      where.difficulty_rank = { ...where.difficulty_rank, [Op.lte]: max_rank };
-    if (difficulty) where.difficulty = difficulty;
+    // if (min_rank) where.difficulty_rank = { [Op.gte]: min_rank };
+    // if (max_rank)
+    //   where.difficulty_rank = { ...where.difficulty_rank, [Op.lte]: max_rank };
+    // if (difficulty) where.difficulty = difficulty;
     if (move_number) where.move_number = move_number;
     if (category) where.category = category;
     if (board_size) where.board_size = board_size;
@@ -80,7 +80,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
         solution_coordinates: puzzle.solution_coordinates,
         category: puzzle.category,
         move_number: puzzle.move_number,
-        difficulty_rank: puzzle.difficulty_rank,
+        difficulty: puzzle.difficulty, // column name in DB is difficulty, not difficulty_rank anymore
         description: puzzle.description,
         is_user_puzzle: puzzle.user_id === (req.user ? req.user.id : false),
         vote_count: puzzle.vote_count,
@@ -144,16 +144,16 @@ router.get("/:puzzle_id", async (req, res) => {
 });
 
 // Updates user and puzzle rankings after a puzzle attempt
-router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
+router.post("/:puzzle_id/ranking/update", requireAuth, async (req, res) => {
   // calculateNewElo function that we imported into this file gives an output like this: [1020, 1080] which represents the new player's elo, then the new puzzle's elo as an array
   try {
     const userId = req.user.id;
-    const { puzzleId } = req.params;
+    const { puzzle_id } = req.params;
     const { userWin } = req.body;
 
     // Fetch the user and the puzzle from the database
     const user = await User.findByPk(userId);
-    const puzzle = await Puzzle.findByPk(puzzleId);
+    const puzzle = await Puzzle.findByPk(puzzle_id);
 
     const oldUserRank = user.rank;
     const oldPuzzleRank = puzzle.difficulty;
@@ -170,7 +170,7 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
 
     // Check for existing entry in user_puzzles
     const userPuzzle = await UserPuzzle.findOne({
-      where: { user_id: userId, puzzle_id: puzzleId },
+      where: { user_id: userId, puzzle_id: puzzle_id },
     });
 
     // If the userPuzzle exists and the completed column is set to true, then the user has already attempted the puzzle, and we do NOT want to update the ranking again
@@ -204,7 +204,7 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
       // But for seed data, this block won't execute because the userpuzzle list will have seed data there already
       await UserPuzzle.create({
         user_id: userId,
-        puzzle_id: puzzleId,
+        puzzle_id: puzzle_id,
         completed: true,
       });
     }
@@ -221,16 +221,14 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
     await puzzle.save();
 
     // Send updated rankings in response
-    return res
-      .status(200)
-      .json({
-        oldUserRank: oldUserRank,
-        oldPuzzleRank: oldPuzzleRank,
-        newUserRank: newUserRank,
-        newPuzzleRank: newPuzzleRank,
-        newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount,
-        newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount,
-      });
+    return res.status(200).json({
+      oldUserRank: oldUserRank,
+      oldPuzzleRank: oldPuzzleRank,
+      newUserRank: newUserRank,
+      newPuzzleRank: newPuzzleRank,
+      newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount,
+      newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount,
+    });
   } catch (error) {
     // Error handling
     console.error(error);
@@ -238,6 +236,84 @@ router.post("/:puzzleId/ranking/update", requireAuth, async (req, res) => {
       .status(500)
       .json({ error: "An error occurred while updating rankings" });
   }
+});
+
+// Edit a public puzzle (require isAdmin column on user's table to be true *** DO THIS LATER! ***)
+router.put("/:puzzle_id", requireAuth, async (req, res) => {
+  try {
+    // Check authorization and find the puzzle record
+    const puzzle = await Puzzle.findOne({ where: { id: req.params.puzzle_id } });
+
+    if (!puzzle) {
+      return res.status(404).json({ error: "SGF not found!" });
+    }
+
+    // Initialize errors object
+    let errors = {};
+
+    // Fields we are going to edit (for now) -> add "solution coordinates" and "sgf_data" later
+    const {
+      category,
+      difficulty,
+      description
+    } = req.body
+
+    if (category !== "Reading" || "Judgment" || "Direction" || "Life and Death" || "Capturing Race" || "Ladder/Net" || "Other") {
+      errors.category = ["Invalid category! Valid categories are: Reading, Judgment, Direction, Life and Death, Capturing Race, Ladder/Net, Other"]
+    }
+
+    puzzle.category = category;
+    puzzle.difficulty = difficulty;
+    puzzle.description = description
+
+    // Explicitly run Sequelize validation
+    try {
+      await puzzle.validate();
+    } catch (err) {
+      if (err.name && err.name === "SequelizeValidationError") {
+        err.errors.forEach((error) => {
+          if (!errors[error.path]) {
+            errors[error.path] = [];
+          }
+        });
+      }
+    }
+
+    // Filter out Sequelize errors if a custom error for the same field exists.
+    Object.keys(errors).forEach((key) => {
+      if (errors[key].length > 1) {
+        errors[key] = errors[key].filter(
+          (msg) => !msg.startsWith("Validation")
+        );
+      }
+    });
+
+    // Check if there are any errors
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({
+        message: "Validation error",
+        errors,
+      });
+    }
+
+    // Save the record
+    await puzzle.save();
+
+    return res.status(200).json({
+      user_id: puzzle.user_id,
+      puzzle_id: puzzle.puzzle_id,
+      category: puzzle.category,
+      difficulty: puzzle.difficulty,
+      description: puzzle.description
+    })
+
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while editing the puzzle" });
+  }
+
 });
 
 module.exports = router;

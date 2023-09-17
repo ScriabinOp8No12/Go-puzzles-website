@@ -43,11 +43,10 @@ router.get("/", requireAuth, async (req, res) => {
     ],
   });
 
-
   const numberOfSGFs = await Sgf.count({ where: { user_id: req.user.id } });
 
   const formattedSGFs = {
-    SGFs: sgfs.map(sgf => ({
+    SGFs: sgfs.map((sgf) => ({
       ...sgf.get(),
       board_size: Number(sgf.board_size), // converting to Number type
       game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
@@ -226,6 +225,15 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
 // Edit: sgf_data (permanently for wgo.js rendering SGF), sgf_name, black_player, white_player, black_rank, white_rank, game_date, komi, result
 router.put("/:sgf_id", requireAuth, async (req, res) => {
   try {
+    // Check authorization and find the record
+    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
+    if (!sgfRecord) {
+      return res.status(404).json({ error: "SGF not found!" });
+    }
+    if (sgfRecord.user_id !== req.user.id) {
+      return res.status(403).json({ error: "Not authorized!" });
+    }
+
     // Initialize errors object
     let errors = {};
 
@@ -276,15 +284,6 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
       errors.result = ["Maximum result length is 20 characters."];
     }
 
-    // Check authorization and find the record
-    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
-    if (!sgfRecord) {
-      return res.status(404).json({ error: "SGF not found!" });
-    }
-    if (sgfRecord.user_id !== req.user.id) {
-      return res.status(403).json({ error: "Not authorized!" });
-    }
-
     // Update SGF data *** these are the only fields the user can edit for now, it won't line up with the WGO.js rendered Go board fields necessarily
     // If the user leaves the field blank, or leaves a series of empty spaces, it will set the value to ? in the backend
     sgfRecord.game_date = game_date;
@@ -305,8 +304,11 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
     const parsedSgfObject = parsedSgfArray[0];
 
     // Check if game_date is a valid Date object
-    if (sgfRecord.game_date instanceof Date && !isNaN(sgfRecord.game_date.getTime())) {
-      parsedSgfObject.DT = sgfRecord.game_date.toISOString().split('T')[0];
+    if (
+      sgfRecord.game_date instanceof Date &&
+      !isNaN(sgfRecord.game_date.getTime())
+    ) {
+      parsedSgfObject.DT = sgfRecord.game_date.toISOString().split("T")[0];
     } else {
       // Handle invalid date (I think we need to put null here to pass the isDate: true model validation)
       parsedSgfObject.DT = null;
