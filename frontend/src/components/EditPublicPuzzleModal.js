@@ -88,7 +88,7 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
         <label>
           Category:
           <input
-            name="public-puzzle-category"
+            name="category"
             value={puzzleDetails.category || ""}
             onChange={handleChange}
           />
