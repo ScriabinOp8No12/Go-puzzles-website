@@ -89,6 +89,7 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
             name="category"
             value={puzzleDetails.category || ""}
             onChange={handleChange}
+            className="category-public-puzzle"
           >
             <option value="" disabled>
               Select a category

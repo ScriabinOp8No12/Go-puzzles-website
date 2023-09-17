@@ -1,0 +1,15 @@
+.edit-difficulty-errors {
+  color: red;
+}
+
+.edit-description-errors {
+  color: red;
+}
+
+.edit-puzzle-errors {
+  color: red;
+}
+
+.category-public-puzzle {
+  padding-left: 0 !important;
+}
