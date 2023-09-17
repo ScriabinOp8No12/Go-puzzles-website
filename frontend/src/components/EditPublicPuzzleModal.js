@@ -67,6 +67,7 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
     setPuzzleDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
+
   const handleOverlayClick = () => {
     dispatch(closeModal()); // Reset the form and close the modal
   };
@@ -88,6 +89,7 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
             name="category"
             value={puzzleDetails.category || ""}
             onChange={handleChange}
+            className="category-public-puzzle"
           >
             <option value="" disabled>
               Select a category

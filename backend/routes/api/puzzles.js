@@ -276,17 +276,20 @@ router.put("/:puzzle_id", requireAuth, async (req, res) => {
 
     if (difficulty < 100 || difficulty > 5000) {
       errors.difficulty = [
-        "Invalid difficulty, puzzle must be between 100 and 5000.",
+        "Rank must be between 100 and 5000.",
       ];
     }
 
-    if (description.length > 100) {
+    if (/^\s*$/.test(description)) {
+      errors.description = ["Description can't only be white spaces."];
+    } else if (description.length > 100) {
       errors.description = ["Maximum description length is 100 characters."];
     }
 
     puzzle.category = category;
     puzzle.difficulty = difficulty;
-    puzzle.description = description;
+    // Trim description before saving it to the database
+    puzzle.description = description.trim();
 
     // Explicitly run Sequelize validation
     try {
