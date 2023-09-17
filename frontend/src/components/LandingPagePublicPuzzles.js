@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import { Link, useHistory } from "react-router-dom";
-import { fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
+import { openModal } from "../store/modal";
+import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
+import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import "./styles/LandingPage.css";
 
 const PublicPuzzles = () => {
@@ -12,6 +14,12 @@ const PublicPuzzles = () => {
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
   const [showFilter, setShowFilter] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({}); // Key-value pairs for filters
+
+  // Edit sgf modal
+  const openEditModal = async (puzzleId) => {
+    await dispatch(fetchPublicPuzzleByIdThunk(puzzleId));
+    dispatch(openModal(<EditPublicPuzzleModal puzzleId={puzzleId} />));
+  };
 
   // Grabbing the public puzzles
   useEffect(() => {
@@ -85,6 +93,7 @@ const PublicPuzzles = () => {
               <div className="puzzle-details">
                   <div className = "puzzle-category">Category: {puzzle.category}</div>
                   <div className = "puzzle-rank">Rank: {puzzle.difficulty}</div>
+                  <button className="pencil-icon" onClick={() => openEditModal(puzzle.id)}>✏️</button>
               </div>
             </div>
           ))}

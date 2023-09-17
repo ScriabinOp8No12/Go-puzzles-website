@@ -85,6 +85,7 @@ export const editSgfByIdThunk = (sgfId, sgfDetails) => async (dispatch) => {
   const updatedSgf = await response.json();
   if (response.ok) {
     dispatch(editSgfById(updatedSgf));
+    // Return the updated sgf here so we can work with it, for other thunks, we don't need to work with any of the data
     return updatedSgf;
   }
 };
@@ -130,10 +131,13 @@ const sgfReducer = (state = initialState, action) => {
       return {
         ...state,
         userSGFs: state.userSGFs.map((sgf) =>
-          sgf.id === action.payload.id ? action.payload : sgf,
+          sgf.id === action.payload.id ? action.payload : sgf
         ),
         // Need to change the state of the currentSgf too
-        currentSgf: state.currentSgf && state.currentSgf.id === action.payload.id ? action.payload : state.currentSgf,
+        currentSgf:
+          state.currentSgf && state.currentSgf.id === action.payload.id
+            ? action.payload
+            : state.currentSgf,
       };
     case DELETE_SGF_BY_ID:
       return {

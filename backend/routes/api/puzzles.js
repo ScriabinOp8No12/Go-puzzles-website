@@ -110,6 +110,7 @@ router.get("/:puzzle_id", async (req, res) => {
         "solution_coordinates",
         "category",
         "move_number",
+        "difficulty",
         "description",
         "is_user_puzzle",
         "vote_count",
@@ -127,6 +128,7 @@ router.get("/:puzzle_id", async (req, res) => {
       sgf_data: puzzle.sgf_data,
       solution_coordinates: puzzle.solution_coordinates,
       category: puzzle.category,
+      difficulty: puzzle.difficulty,
       move_number: puzzle.move_number,
       description: puzzle.description,
       is_user_puzzle: puzzle.is_user_puzzle,
@@ -242,7 +244,9 @@ router.post("/:puzzle_id/ranking/update", requireAuth, async (req, res) => {
 router.put("/:puzzle_id", requireAuth, async (req, res) => {
   try {
     // Check authorization and find the puzzle record
-    const puzzle = await Puzzle.findOne({ where: { id: req.params.puzzle_id } });
+    const puzzle = await Puzzle.findOne({
+      where: { id: req.params.puzzle_id },
+    });
 
     if (!puzzle) {
       return res.status(404).json({ error: "SGF not found!" });
@@ -252,27 +256,37 @@ router.put("/:puzzle_id", requireAuth, async (req, res) => {
     let errors = {};
 
     // Fields we are going to edit (for now) -> add "solution coordinates" and "sgf_data" later
-    const {
-      category,
-      difficulty,
-      description
-    } = req.body
+    const { category, difficulty, description } = req.body;
 
-    if (category !== "Reading" || "Judgment" || "Direction" || "Life and Death" || "Capturing Race" || "Ladder/Net" || "Other") {
-      errors.category = ["Invalid category, valid categories are: Reading, Judgment, Direction, Life and Death, Capturing Race, Ladder/Net, Other"]
+    const validCategories = [
+      "Reading",
+      "Judgment",
+      "Direction",
+      "Life and Death",
+      "Capturing Race",
+      "Ladder/Net",
+      "Other",
+    ];
+
+    if (!validCategories.includes(category)) {
+      errors.category = [
+        "Invalid category, valid categories are: Reading, Judgment, Direction, Life and Death, Capturing Race, Ladder/Net, Other",
+      ];
     }
 
     if (difficulty < 100 || difficulty > 5000) {
-      errors.difficulty = ["Invalid difficulty, puzzle must be between 100 and 5000."]
+      errors.difficulty = [
+        "Invalid difficulty, puzzle must be between 100 and 5000.",
+      ];
     }
 
     if (description.length > 100) {
-      errors.description = ["Maximum description length is 100 characters."]
+      errors.description = ["Maximum description length is 100 characters."];
     }
 
     puzzle.category = category;
     puzzle.difficulty = difficulty;
-    puzzle.description = description
+    puzzle.description = description;
 
     // Explicitly run Sequelize validation
     try {
@@ -308,20 +322,17 @@ router.put("/:puzzle_id", requireAuth, async (req, res) => {
     await puzzle.save();
 
     return res.status(200).json({
-      user_id: puzzle.user_id,
-      puzzle_id: puzzle.puzzle_id,
+      puzzle_id: puzzle.id,
       category: puzzle.category,
       difficulty: puzzle.difficulty,
-      description: puzzle.description
-    })
-
+      description: puzzle.description,
+    });
   } catch (error) {
     console.error(error);
     return res
       .status(500)
       .json({ error: "An error occurred while editing the puzzle" });
   }
-
 });
 
 module.exports = router;
