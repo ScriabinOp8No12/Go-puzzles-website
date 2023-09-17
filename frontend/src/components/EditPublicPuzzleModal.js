@@ -9,7 +9,6 @@ import "./styles/EditPublicPuzzleModal.css";
 
 // Verify this is getting right props
 const EditPublicPuzzleModal = ({ puzzleId }) => {
-
   const dispatch = useDispatch();
   const currentPublicPuzzle = useSelector(
     (state) => state.puzzles.currentPublicPuzzle
@@ -25,7 +24,6 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
     description: "",
   });
 
-
   //  ******** Form errors ********** //
 
   const [formErrors, setFormErrors] = useState({});
@@ -40,7 +38,6 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
   }, [currentPublicPuzzle]);
 
   // console.log("puzzleDetails: ", puzzleDetails)
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,10 +57,10 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
           setFormErrors(data.errors);
         }
       } else {
-        console.error('An unknown error occurred:', error);
+        console.error("An unknown error occurred:", error);
       }
     }
-  }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,18 +84,29 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
       >
         <label>
           Category:
-          <input
+          <select
             name="category"
             value={puzzleDetails.category || ""}
             onChange={handleChange}
-          />
+          >
+            <option value="" disabled>
+              Select a category
+            </option>
+            <option value="Reading">Reading</option>
+            <option value="Judgment">Judgment</option>
+            <option value="Direction">Direction</option>
+            <option value="Life and Death">Life and Death</option>
+            <option value="Capturing Race">Capturing Race</option>
+            <option value="Ladder/Net">Ladder/Net</option>
+            <option value="Other">Other</option>
+          </select>
           {formErrors.category && (
             <div className="edit-puzzle-errors">{formErrors.category[0]}</div>
           )}
         </label>
 
         <label className="public-puzzle-rank">
-          Difficulty:
+          Rank:
           <input
             name="difficulty"
             type="number"

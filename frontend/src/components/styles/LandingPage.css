@@ -63,10 +63,21 @@
 
 .puzzle-details {
   display: flex;
-  font-size: 12px;
+  font-size: 11px;
   color: aliceblue;
 }
 
 .puzzle-category {
   margin-right: 10px;
+}
+
+.public-puzzles-pencil-icon {
+  margin-left: 10px;
+  margin-top: -3px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.public-puzzles-pencil-icon:hover {
+  border: 3px solid aliceblue;
 }

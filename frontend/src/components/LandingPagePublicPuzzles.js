@@ -93,7 +93,7 @@ const PublicPuzzles = () => {
               <div className="puzzle-details">
                   <div className = "puzzle-category">Category: {puzzle.category}</div>
                   <div className = "puzzle-rank">Rank: {puzzle.difficulty}</div>
-                  <button className="pencil-icon" onClick={() => openEditModal(puzzle.id)}>✏️</button>
+                  <button className="public-puzzles-pencil-icon" onClick={() => openEditModal(puzzle.id)}>✏️</button>
               </div>
             </div>
           ))}
