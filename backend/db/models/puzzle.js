@@ -74,9 +74,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       description: {
         type: DataTypes.TEXT,
-        // maximum characters of description is 1000
+        // maximum characters of description is 100
         validate: {
-          len: [0, 1000],
+          len: [0, 100],
           // **** Change later?
           notJustWhitespace(value) {
             if (value.trim().length === 0 && value.length !== 0) {

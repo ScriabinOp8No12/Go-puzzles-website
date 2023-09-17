@@ -58,3 +58,15 @@
 .outer-wrapper img {
   margin-bottom: 10px;
 }
+
+/********* Puzzle Details / Category, rank, pencil icon, trash icon ************/
+
+.puzzle-details {
+  display: flex;
+  font-size: 12px;
+  color: aliceblue;
+}
+
+.puzzle-category {
+  margin-right: 10px;
+}

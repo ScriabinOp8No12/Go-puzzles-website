@@ -259,7 +259,15 @@ router.put("/:puzzle_id", requireAuth, async (req, res) => {
     } = req.body
 
     if (category !== "Reading" || "Judgment" || "Direction" || "Life and Death" || "Capturing Race" || "Ladder/Net" || "Other") {
-      errors.category = ["Invalid category! Valid categories are: Reading, Judgment, Direction, Life and Death, Capturing Race, Ladder/Net, Other"]
+      errors.category = ["Invalid category, valid categories are: Reading, Judgment, Direction, Life and Death, Capturing Race, Ladder/Net, Other"]
+    }
+
+    if (difficulty < 100 || difficulty > 5000) {
+      errors.difficulty = ["Invalid difficulty, puzzle must be between 100 and 5000."]
+    }
+
+    if (description.length > 100) {
+      errors.description = ["Maximum description length is 100 characters."]
     }
 
     puzzle.category = category;
