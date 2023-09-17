@@ -67,6 +67,7 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
     setPuzzleDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
+
   const handleOverlayClick = () => {
     dispatch(closeModal()); // Reset the form and close the modal
   };

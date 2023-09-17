@@ -877,8 +877,9 @@ Edit the description, category, and other info of a public puzzle. Requires admi
   Body:
   ```json
   {
-    "description": "New description",
-    "category": "New category"
+    "category": "Reading",
+    "difficulty": 1550,
+    "description": "New description"
   }
   ```
 
@@ -891,16 +892,37 @@ Successful Response
 
 ```json
 {
-  "id": 1,
-  "category": "New category",
-  "move_number": 56,
-  "difficulty_rank": 654,
+  "puzzle_id": 1,
+  "category": "Reading",
+  "difficulty": 1550,
   "description": "New description",
-  "completed": false,
-  "vote_count": 55,
-  "board_size": 19
 }
 ```
+
+Error Response
+
+- Status Code: 400
+- Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+    "message": "Validation error",
+    "errors": {
+        "category": [
+            "Invalid category, valid categories are: Reading, Judgment, Direction, Life and Death, Capturing Race, Ladder/Net, Other"
+        ],
+        "difficulty": [
+            "Invalid difficulty, puzzle must be between 100 and 5000."
+        ],
+        "description": [
+            "Description can't only be white spaces.",
+            "Maximum description length is 100 characters."
+        ],
+      }
+    }
+    ```
 
 ### Delete a public puzzle
 
