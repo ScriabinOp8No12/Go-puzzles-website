@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Puzzle.init(
     {
       sgf_id: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.INTEGER,
       },
       sgf_data: {
@@ -116,7 +116,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT,
         get() {
-          return JSON.parse(this.getDataValue('solution_coordinates'));
+          const val = this.getDataValue('solution_coordinates');
+          if (!val) return null;
+
+          try {
+            return JSON.parse(val);
+          } catch (err) {
+            console.error("JSON parsing failed:", err);
+            return null;
+          }
         },
         set(val) {
           this.setDataValue('solution_coordinates', JSON.stringify(val));

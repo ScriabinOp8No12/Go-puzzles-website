@@ -19,7 +19,8 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         sgf_id: {
-          allowNull: false,
+          // Allow null true so we can set this to be null when we delete the sgf without deleting the associated puzzles, otherwise we get a foreign key constraint failed
+          allowNull: true,
           type: Sequelize.INTEGER,
           // remember "model" here is actually "table" lol
           references: { model: "Sgfs", key: "id" },
