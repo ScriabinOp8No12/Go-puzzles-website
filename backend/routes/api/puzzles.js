@@ -275,9 +275,7 @@ router.put("/:puzzle_id", requireAuth, async (req, res) => {
     }
 
     if (difficulty < 100 || difficulty > 5000) {
-      errors.difficulty = [
-        "Rank must be between 100 and 5000.",
-      ];
+      errors.difficulty = ["Rank must be between 100 and 5000."];
     }
 
     if (/^\s*$/.test(description)) {
@@ -335,6 +333,28 @@ router.put("/:puzzle_id", requireAuth, async (req, res) => {
     return res
       .status(500)
       .json({ error: "An error occurred while editing the puzzle" });
+  }
+});
+
+// Delete a public puzzle (suspend it later)
+
+router.delete("/:puzzle_id", requireAuth, async (req, res) => {
+  try {
+    // Find the specified puzzle by puzzle id in the url
+    const puzzle = await Puzzle.findOne({
+      where: { id: req.params.puzzle_id },
+    });
+
+    if (!puzzle) {
+      return res.status(404).json({ message: "Puzzle couldn't be found" });
+    }
+
+    await puzzle.destroy();
+
+    return res.status(200).json({ message: "Successfully delete Puzzle!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error!" });
   }
 });
 

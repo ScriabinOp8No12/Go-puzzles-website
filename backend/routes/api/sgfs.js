@@ -398,6 +398,7 @@ router.delete("/:sgf_id", requireAuth, async (req, res) => {
       return res.status(403).json({ message: "Not authorized!" });
     }
 
+    await Puzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
     // Delete the SGF record
     await sgfRecord.destroy();
 

@@ -6,7 +6,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Sgf extends Model {
     static associate(models) {
-      Sgf.hasMany(models.Puzzle, { foreignKey: "sgf_id" });
+      Sgf.hasMany(models.Puzzle, { foreignKey: "sgf_id", onDelete: 'SET NULL'  });
       Sgf.belongsTo(models.User, { foreignKey: "user_id" });
     }
   }
