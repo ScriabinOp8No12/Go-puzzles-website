@@ -36,8 +36,10 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     // Default to 20 puzzles (per page) if not specified
     limit = parseInt(limit) || 20;
 
-    // Initialize the where clause for filtering records
-    const where = {};
+    // Only fetch puzzles if their suspended value is false
+    const where = {
+      suspended: false
+    };
 
     // Filter by user if 'source' is 'own' and user is authenticated, this is for displaying user's puzzles (not public puzzles on landing page)
     if (source === "own" && req.user) {
@@ -121,6 +123,8 @@ router.get("/:puzzle_id", async (req, res) => {
     });
 
     if (!puzzle) return res.status(404).json({ error: "Puzzle not found" });
+    // Check if the puzzle is suspended
+    if (puzzle.suspended) return res.status(404).json({ error: "Puzzle not found" });
 
     const formattedPuzzle = {
       // changed from puzzle_id: puzzle.id
@@ -349,9 +353,10 @@ router.delete("/:puzzle_id", requireAuth, async (req, res) => {
       return res.status(404).json({ message: "Puzzle couldn't be found" });
     }
 
-    await puzzle.destroy();
+    puzzle.suspended = true;
+    await puzzle.save()
 
-    return res.status(200).json({ message: "Successfully delete Puzzle!" });
+    return res.status(200).json({ message: "Successfully suspended Puzzle!" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });

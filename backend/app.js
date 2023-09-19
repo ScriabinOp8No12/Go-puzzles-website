@@ -11,6 +11,8 @@ const { environment } = require("./config");
 const isProduction = environment === "production";
 // we need to require path for serving static files from the wgo directory
 const path = require("path");
+
+// console.log("Environment Variables:", process.env);
 // ***************************************
 
 // these 2 below are mine!
@@ -62,27 +64,6 @@ app.use(
     },
   })
 );
-
-// simple in-memory database
-// const sgfs = [];
-
-// app.post("/upload", upload.array("file", 10), (req, res) => {
-//   // req.files is an array of files uploaded
-//   // req.body will contain the text fields, if there were any
-//   console.log(req.files); // output is seen in the terminal
-
-//   // add each uploaded file to the database
-//   req.files.forEach((file) => {
-//     sgfs.push({
-//       // below line was this (parsing text file instead of SGF kept the special Chinese characters!):
-//       // originalname: file.originalname,
-//       originalname: file.originalname.replace(".sgf", ".txt"),
-//       uploadDate: new Date(),
-//     });
-//   });
-
-//   // res.json({ message: "File(s) uploaded!", count: req.files.length });
-// });
 
 app.use(routes);
 app.use((_req, _res, next) => {

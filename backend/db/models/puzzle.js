@@ -3,14 +3,14 @@ const { Model, Sequelize } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Puzzle extends Model {
     static associate(models) {
-      Puzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id" });
+      Puzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id"});
       // Many to many relationship between Puzzles and Users through the UserPuzzles join table!
       Puzzle.belongsToMany(models.User, {
         through: "UserPuzzles",
         foreignKey: "puzzle_id",
         otherKey: "user_id",
       });
-      Puzzle.hasMany(models.PuzzleCategory, { foreignKey: 'puzzle_id' });
+      Puzzle.hasMany(models.PuzzleCategory, { foreignKey: 'puzzle_id'});
     }
   }
   Puzzle.init(

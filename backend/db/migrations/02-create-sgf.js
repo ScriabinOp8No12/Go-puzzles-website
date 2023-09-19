@@ -12,7 +12,6 @@ module.exports = {
     await queryInterface.createTable(
       "Sgfs",
       {
-        // ****** removed sgf_mistake_move_numbers and game_preview from migration and model
         id: {
           allowNull: false,
           autoIncrement: true,
