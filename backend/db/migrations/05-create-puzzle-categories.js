@@ -22,7 +22,6 @@ module.exports = {
           model: 'Puzzles',
           key: 'id'
         },
-        onDelete: 'CASCADE',
       },
       category_name: {
         allowNull: false,

@@ -93,6 +93,8 @@ router.post("/", requireAuth, async (req, res) => {
       )
     );
 
+    console.log("Python Script sgf2img Loaded:", !!sgf2img);
+
     const data = sgf_data[0];
     const parsedSgf = jssgf.parse(data);
     const gameInfo = parsedSgf[0];
@@ -403,7 +405,7 @@ router.delete("/:sgf_id", requireAuth, async (req, res) => {
     await sgfRecord.destroy();
 
     // Return a success response
-    res.status(200).json({ message: "Successfully deleted SGF" });
+    return res.status(200).json({ message: "Successfully deleted SGF" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });
