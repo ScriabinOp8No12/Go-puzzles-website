@@ -1,5 +1,4 @@
 import { csrfFetch } from "./csrf";
-import { deleteSgfById } from "./sgfs";
 
 // ************* Action Type ***************** //
 
