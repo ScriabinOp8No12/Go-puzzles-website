@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { openModal } from "../store/modal";
 import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
+import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
 import "./styles/LandingPage.css";
 
 const PublicPuzzles = () => {
@@ -94,6 +95,7 @@ const PublicPuzzles = () => {
                   <div className = "puzzle-category">Category: {puzzle.category}</div>
                   <div className = "puzzle-rank">Rank: {puzzle.difficulty}</div>
                   <button className="public-puzzles-pencil-icon" onClick={() => openEditModal(puzzle.id)}>✏️</button>
+                  <SuspendPublicPuzzleModal puzzleId={puzzle.id} />
               </div>
             </div>
           ))}

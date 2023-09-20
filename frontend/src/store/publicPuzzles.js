@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { deleteSgfById } from "./sgfs";
 
 // ************* Action Type ***************** //
 
@@ -8,6 +9,7 @@ const FETCH_PUBLIC_PUZZLE_BY_ID = "puzzles/FETCH_PUBLIC_PUZZLE_BY_ID";
 const UPDATE_RANKINGS_AND_SOLVED_COUNTS =
   "puzzles/UPDATE_RANKINGS_AND_SOLVED_COUNTS";
 const EDIT_PUBLIC_PUZZLE_BY_ID = "/puzzles/EDIT_PUBLIC_PUZZLE_BY_ID";
+const SUSPEND_PUBLIC_PUZZLE_BY_ID = "/puzzles/SUSPEND_PUBLIC_PUZZLE_BY_ID"
 
 // ************* Action Creators ***************** //
 export const fetchPublicPuzzles = (puzzles) => ({
@@ -31,6 +33,11 @@ export const editPublicPuzzleById = (updatedPuzzle) => {
   payload: updatedPuzzle,
   }
 };
+
+export const suspendPublicPuzzleById = (puzzleId) => ({
+  type: SUSPEND_PUBLIC_PUZZLE_BY_ID,
+  payload: puzzleId
+})
 
 
 // ************* Thunks ***************** //
@@ -89,6 +96,15 @@ export const editPublicPuzzlesByIdThunk =
     }
   };
 
+  export const suspendPublicPuzzleByIdThunk = (puzzleId) => async (dispatch) => {
+    const response = await csrfFetch(`api/puzzles/${puzzleId}`, {
+      method: "DELETE",
+    })
+    if (response.ok) {
+      dispatch(suspendPublicPuzzleById(puzzleId))
+    }
+  }
+
 // ************* Reducer ***************** //
 
 const initialState = {
@@ -127,6 +143,11 @@ const publicPuzzlesReducer = (state = initialState, action) => {
             ? action.payload
             : state.currentPublicPuzzle,
       };
+    case SUSPEND_PUBLIC_PUZZLE_BY_ID:
+      return {
+        ...state,
+        publicPuzzles: state.publicPuzzles.filter((puzzle) => puzzle.id !== action.payload)
+      }
     default:
       return state;
   }
