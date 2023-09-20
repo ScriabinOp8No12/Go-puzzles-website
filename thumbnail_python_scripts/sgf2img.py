@@ -1,3 +1,7 @@
+import sys
+print("Python Executable:", sys.executable)
+
+
 from io import BytesIO
 import base64
 import os
