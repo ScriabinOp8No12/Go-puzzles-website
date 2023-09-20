@@ -93,8 +93,6 @@ router.post("/", requireAuth, async (req, res) => {
       )
     );
 
-    console.log("Python Script sgf2img Loaded:", !!sgf2img);
-
     const data = sgf_data[0];
     const parsedSgf = jssgf.parse(data);
     const gameInfo = parsedSgf[0];
@@ -411,5 +409,44 @@ router.delete("/:sgf_id", requireAuth, async (req, res) => {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 });
+
+// Create one line json to feed into KataGo AI analysis engine (from SGF specified by SGF id)
+router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
+
+  try {
+    // Check authorization and find the record
+    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
+    if (!sgfRecord) {
+      return res.status(404).json({ error: "SGF not found!" });
+    }
+    if (sgfRecord.user_id !== req.user.id) {
+      return res.status(403).json({ error: "Not authorized!" });
+    }
+
+    const {sgf_data} = req.body
+
+    // I need to pass sgf_data into the sgf2OneLineJson_all_moves.py script
+    const one_line_json = await python(
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "katago",
+        "sgf2OneLineJson_all_moves.py"
+      )
+    );
+
+    const one_line_json_output = await one_line_json.sgf_to_one_line_json(sgf_data)
+
+    return res.status(200).json({one_line_json_output: JSON.parse(one_line_json_output)})
+
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({
+      error: "Could not convert SGF into one line JSON"
+    })
+  }
+})
 
 module.exports = router;
