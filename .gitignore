@@ -7,3 +7,4 @@ build
 __pycache__
 analysis_logs
 text_Outputs
+tset_venv
