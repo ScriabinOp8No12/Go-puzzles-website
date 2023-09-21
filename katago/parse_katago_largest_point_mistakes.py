@@ -45,7 +45,7 @@ def find_mistakes_and_correct_moves(katago_output, num_mistakes, start_turn, end
                 for move_info in move_infos:
                     # loop through all the possible moves, and if they are within 1 point of the best move's scoreLead, then that's also a correct move
                     if move_info != best_move_info and abs(move_info['scoreLead'] - best_score_lead) <= 1:
-                        correct_moves_current_turn.append(move_info['move'])
+                        correct_moves_current_turn.append(move_info['move'], move_info['pv'])
                 correct_moves.append((turn_number, correct_moves_current_turn))
 
     # While there are elements in the heap, pop an element from the heap and append a tuple of:
@@ -94,11 +94,13 @@ def find_mistakes_and_correct_moves(katago_output, num_mistakes, start_turn, end
                 best_move_info = [info for info in move_infos if info['order'] == 0][0]
                 # Also grab the current scoreLead of the best move
                 best_score_lead = best_move_info['scoreLead']
-                correct_moves_current_turn = [best_move_info['move']]
+                # correct_moves_current_turn = [best_move_info['move']]
+                # Append pv value (principal variation) from KataGo onto the move as a tuple
+                correct_moves_current_turn = [(best_move_info['move'], best_move_info['pv'])]
                 for move_info in move_infos:
                     # loop through all the possible moves, and if they are within 1 point of the best move's scoreLead, then that's also a correct move
                     if move_info != best_move_info and abs(move_info['scoreLead'] - best_score_lead) <= 1:
-                        correct_moves_current_turn.append(move_info['move'])
+                        correct_moves_current_turn.append((move_info['move'], move_info['pv']))
                 correct_moves.append((turn_number, correct_moves_current_turn))
 
     # While there are elements in the heap, pop an element from the heap and append a tuple of:
