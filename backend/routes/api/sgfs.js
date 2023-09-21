@@ -7,6 +7,13 @@ const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { User, Puzzle, Sgf } = require("../../db/models");
 
+// Bull for queueing / asynchronous katago analysis engine endpoint
+const Bull = require("bull")
+const cmd = require('node-cmd')
+const fs = require('fs')
+// Initializes new Bull queue named "katago"
+const katagoQueue = new Bull('katago');
+
 // doesn't work for somereason, javascript can't find cloudinary.js
 // const cloudinary = require("../../../cloudinary.js");
 
@@ -445,6 +452,26 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
     console.error(err)
     res.status(500).json({
       error: "Could not convert SGF into one line JSON"
+    })
+  }
+})
+
+// Run KataGo Analysis and convert the output into a JSON object containing sgf_id, sgf_data, difficulty, move_number, solution_coordinates, category (set all of the category names to 0 by default *** might have bugs here), board_size, and thumbnail (of original SGF)
+router.post("/:sgf_id/runKataGoAnalysis", requireAuth, async (req, res) => {
+  //
+  try {
+    // Check authorization and find the record
+    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
+    if (!sgfRecord) {
+      return res.status(404).json({ error: "SGF not found!" });
+    }
+    if (sgfRecord.user_id !== req.user.id) {
+      return res.status(403).json({ error: "Not authorized!" });
+    }
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({
+      error: "KataGo Analysis failed"
     })
   }
 })
