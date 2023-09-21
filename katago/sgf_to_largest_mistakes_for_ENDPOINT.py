@@ -28,7 +28,7 @@ def define_ranges(stdout_data, startMove):
         section_header = f"Moves {start} - {end_text} moves ({name})"
         formatted_moves = []
         for turn, points, moves in data:
-            formatted_move = f"Turn: {turn-1}, Points lost on next move: {points:.1f}, Correct moves: {', '.join(moves)}"
+            formatted_move = f"Turn: {turn-1}, Points lost on next move: {points:.1f}, Correct moves: {', '.join([f'{move} (PV: {pv})' for move, pv in moves])}"
             formatted_moves.append(formatted_move)
 
         section_data = {
