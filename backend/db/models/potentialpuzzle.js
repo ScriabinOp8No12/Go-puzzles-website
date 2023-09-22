@@ -31,15 +31,15 @@ module.exports = (sequelize, DataTypes) => {
           max: 1000,
         },
       },
+      solution_coordinates: {
+        allowNull: false,
+        type: DataTypes.TEXT,
+      },
       difficulty: {
         allowNull: false,
         type: DataTypes.INTEGER,
 
         defaultValue: 1500,
-      },
-      solution_coordinates: {
-        allowNull: false,
-        type: DataTypes.TEXT,
       },
       job_id: {
         allowNull: false,

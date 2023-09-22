@@ -32,14 +32,14 @@ module.exports = {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
+        solution_coordinates: {
+          allowNull: false,
+          type: Sequelize.TEXT,
+        },
         difficulty: {
           allowNull: false,
           type: Sequelize.INTEGER,
           defaultValue: 1500,
-        },
-        solution_coordinates: {
-          allowNull: false,
-          type: Sequelize.TEXT,
         },
         job_id: {
           allowNull: false,
