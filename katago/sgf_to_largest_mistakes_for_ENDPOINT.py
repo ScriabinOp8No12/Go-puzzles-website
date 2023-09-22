@@ -71,7 +71,7 @@ if json_analysis_results:
 else:
     print("An error occurred during analysis.")
 
-# Output from 5 visits, 4/16 analysis threads (first 2 move examples)
+# Output from 5 visits, 4/16 analysis threads (first 2 move examples), 50 visits properly shows more than 0 move pv sequence
 
 # time to execute code:  34.826059341430664
 # [
