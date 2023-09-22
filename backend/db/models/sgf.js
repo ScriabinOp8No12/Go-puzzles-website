@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Sgf.hasMany(models.Puzzle, { foreignKey: "sgf_id", onDelete: 'SET NULL'  });
       Sgf.belongsTo(models.User, { foreignKey: "user_id" });
+      Sgf.hasMany(models.PotentialPuzzle, { foreignKey: "sgf_id"})
     }
   }
   Sgf.init(

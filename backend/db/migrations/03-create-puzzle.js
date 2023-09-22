@@ -46,7 +46,7 @@ module.exports = {
         times_solved: {
           allowNull: false,
           type: Sequelize.BIGINT,
-          defaultValue: 0
+          defaultValue: 0,
         },
         description: {
           type: Sequelize.TEXT,
@@ -54,7 +54,7 @@ module.exports = {
         vote_count: {
           allowNull: false,
           type: Sequelize.INTEGER,
-          defaultValue: 0
+          defaultValue: 0,
         },
         board_size: {
           type: Sequelize.INTEGER,
@@ -62,20 +62,21 @@ module.exports = {
         is_user_puzzle: {
           allowNull: false,
           type: Sequelize.BOOLEAN,
-          defaultValue: false
+          defaultValue: false,
         },
         solution_coordinates: {
           allowNull: false,
-          type: Sequelize.TEXT
+          type: Sequelize.TEXT,
         },
         thumbnail: {
           type: Sequelize.STRING,
-          defaultValue: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg"
+          defaultValue:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg",
         },
         suspended: {
           allowNull: false,
           type: Sequelize.BOOLEAN,
-          defaultValue: false
+          defaultValue: false,
         },
         createdAt: {
           allowNull: false,
