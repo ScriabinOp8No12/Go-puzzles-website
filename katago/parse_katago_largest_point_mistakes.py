@@ -46,7 +46,11 @@ def find_mistakes_and_correct_moves(katago_output, num_mistakes, start_turn, end
                     # loop through all the possible moves, and if they are within 1 point of the best move's scoreLead, then that's also a correct move
                     if move_info != best_move_info and abs(move_info['scoreLead'] - best_score_lead) <= 1:
                         correct_moves_current_turn.append(move_info['move'], move_info['pv'])
-                correct_moves.append((turn_number, correct_moves_current_turn))
+                        # *** new formatting in a dictionary ***
+                correct_moves_dict = {}
+                for move, pv in correct_moves_current_turn:
+                  correct_moves_dict[move] = pv
+                  correct_moves.append((turn_number, correct_moves_dict))
 
     # While there are elements in the heap, pop an element from the heap and append a tuple of:
     # (turn number, score difference) to the mistakes list
