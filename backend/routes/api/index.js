@@ -4,6 +4,7 @@ const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
 const sgfsRouter = require("./sgfs.js");
 const puzzlesRouter = require("./puzzles.js");
+const potentialPuzzlesRouter = require("./potential_puzzles.js")
 
 const { restoreUser } = require("../../utils/auth.js");
 
@@ -16,9 +17,6 @@ router.use("/session", sessionRouter);
 router.use("/users", usersRouter);
 router.use("/sgfs", sgfsRouter);
 router.use("/puzzles", puzzlesRouter);
-
-router.post("/test", (req, res) => {
-  res.json({ requestBody: req.body });
-});
+router.use("/potential_puzzles", potentialPuzzlesRouter)
 
 module.exports = router;
