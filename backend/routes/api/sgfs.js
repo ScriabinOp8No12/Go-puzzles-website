@@ -456,4 +456,4 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
   }
 })
 
-module.exports = router;
+module.exports = router
