@@ -2,6 +2,7 @@ const moment = require("moment");
 const express = require("express");
 const { python } = require("pythonia");
 const path = require("path");
+const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { Sgf, PotentialPuzzle } = require("../../db/models");
 // const {captureSGFInfo} = require("./sgfs.js")
@@ -10,8 +11,18 @@ const router = express.Router();
 // Trigger KataGo analysis (/potential_puzzles/generate)
 router.post("/generate", requireAuth, async (req, res) => {
   try {
-    const { one_line_json_string } = req.body;
-    // const { sgf_id, sgf_data } = req.sgfInfo;
+    const { sgf_id, sgf_data, one_line_json_string } = req.body;
+    // Check if potential puzzles already exist for the given sgf id
+    const existingPuzzles = await PotentialPuzzle.findAll({
+      where: { sgf_id },
+    });
+    // Don't analyze the game for mistakes if potential puzzles already exist for the given sgf
+    if (existingPuzzles.length > 0) {
+      return res
+        .status(400)
+        .json({ error: "Potential puzzles already exist for the given sgf!" });
+    }
+
     const jsonEncodedString = JSON.stringify(one_line_json_string);
 
     // Import KataGo analysis script
@@ -26,12 +37,16 @@ router.post("/generate", requireAuth, async (req, res) => {
       )
     );
 
-    const potential_puzzles = JSON.parse(await sgf_to_largest_mistakes_for_endpoint.run_katago_analysis(jsonEncodedString));
+    const potential_puzzles = JSON.parse(
+      await sgf_to_largest_mistakes_for_endpoint.run_katago_analysis(
+        jsonEncodedString
+      )
+    );
 
-    const category = "yourCategory";
-    const difficulty = 1500;
+    const category = "other";
+    const difficulty = 1500; // MAKE IT DYNAMIC LATER!  Make a functino in utils folder, and import it here, it converts the Go rank into elo rank
     const status = "queued";
-    const job_id = 15;
+    const job_id = null;
 
     const createdPuzzles = [];
 
@@ -40,8 +55,8 @@ router.post("/generate", requireAuth, async (req, res) => {
       const solution_coordinates = JSON.stringify(puzzle.correct_moves);
 
       const createdPuzzle = await PotentialPuzzle.create({
-        sgf_id: 1,
-        sgf_data: "test",
+        sgf_id,
+        sgf_data,
         category,
         move_number,
         solution_coordinates,
@@ -53,13 +68,19 @@ router.post("/generate", requireAuth, async (req, res) => {
       createdPuzzles.push(createdPuzzle);
     }
 
-    return res.status(200).json({ createdPuzzles });
+    const formattedPuzzles = createdPuzzles.map(puzzle => ({
+      ...puzzle.get(),
+      createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+    }));
 
+    return res.status(200).json({ createdPuzzles: formattedPuzzles });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "An error occurred while processing your request." });
+    return res
+      .status(500)
+      .json({ error: "An error occurred while processing your request." });
   }
 });
-
 
 module.exports = router;

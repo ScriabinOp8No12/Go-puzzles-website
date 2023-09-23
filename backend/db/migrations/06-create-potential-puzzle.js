@@ -22,9 +22,12 @@ module.exports = {
           type: Sequelize.INTEGER,
           references: { model: "Sgfs", key: "id" },
         },
-
+        sgf_data: {
+          allowNull: false,
+          type: Sequelize.TEXT
+        },
         category: {
-          allowNull: true,
+          allowNull: false,
           type: Sequelize.STRING,
           defaultValue: "other",
         },
@@ -37,7 +40,7 @@ module.exports = {
           type: Sequelize.TEXT,
         },
         difficulty: {
-          allowNull: false,
+          allowNull: true,
           type: Sequelize.INTEGER,
           defaultValue: 1500,
         },

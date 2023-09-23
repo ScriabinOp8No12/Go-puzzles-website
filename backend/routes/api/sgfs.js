@@ -456,15 +456,4 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
   }
 })
 
-// Middleware to capture sgf_id and sgf_data
-// const captureSGFInfo = async (req, res, next) => {
-//   // Your logic to capture sgf_id and sgf_data
-//   const sgf_id = req.params.sgf_id || req.body.sgf_id; // Capture from URL or body
-//   const sgf_data = req.body.sgf_data;
-
-//   // Attach to req object so it's available to subsequent middleware and route handlers
-//   req.sgfInfo = { sgf_id, sgf_data };
-//   next();
-// };
-
 module.exports = router

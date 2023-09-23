@@ -12,16 +12,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
+      sgf_data: {
+        allowNull: false,
+        type: DataTypes.TEXT
+      },
       category: {
         allowNull: true,
         type: DataTypes.STRING,
-        validate: {
-          notEmptyString(value) {
-            if (value.length === 0 || value.trim().length === 0) {
-              throw new Error("Cannot be empty.");
-            }
-          },
-        },
       },
       move_number: {
         allowNull: false,
@@ -36,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
       difficulty: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.INTEGER,
 
         defaultValue: 1500,
