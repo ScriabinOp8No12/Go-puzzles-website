@@ -45,11 +45,11 @@ router.post("/generate", requireAuth, async (req, res) => {
 
     const category = "other";
     const difficulty = 1500; // MAKE IT DYNAMIC LATER!  Make a functino in utils folder, and import it here, it converts the Go rank into elo rank
-    const status = "queued";
-    const job_id = null;
+    // const status = "queued";
+    // const job_id = null;
 
     const createdPuzzles = [];
-
+    // Each puzzle needs to have it's own move number and solution coordinates
     for (const puzzle of potential_puzzles) {
       const move_number = puzzle.move;
       const solution_coordinates = JSON.stringify(puzzle.correct_moves);
@@ -61,8 +61,8 @@ router.post("/generate", requireAuth, async (req, res) => {
         move_number,
         solution_coordinates,
         difficulty,
-        status,
-        job_id,
+        // status,
+        // job_id,
       });
 
       createdPuzzles.push(createdPuzzle);
@@ -70,6 +70,7 @@ router.post("/generate", requireAuth, async (req, res) => {
 
     const formattedPuzzles = createdPuzzles.map(puzzle => ({
       ...puzzle.get(),
+      solution_coordinates: JSON.parse(puzzle.solution_coordinates), // parse the string to an object
       createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
       updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     }));
@@ -82,5 +83,10 @@ router.post("/generate", requireAuth, async (req, res) => {
       .json({ error: "An error occurred while processing your request." });
   }
 });
+
+// Clean SGF and add comments for each potential puzzle so that Glift can render an array of potential puzzles
+router.put("/clean_sgf_add_comments", requireAuth, (req, res) => {
+  //
+})
 
 module.exports = router;
