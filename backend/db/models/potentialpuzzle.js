@@ -42,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 1500,
       },
       job_id: {
-        allowNull: false,
+        // Change allow null to be false later!
+        allowNull: true,
         type: DataTypes.INTEGER,
       },
       status: {

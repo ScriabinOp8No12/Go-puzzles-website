@@ -42,7 +42,8 @@ module.exports = {
           defaultValue: 1500,
         },
         job_id: {
-          allowNull: false,
+          // allowNull to be true for now!
+          allowNull: true,
           type: Sequelize.INTEGER,
         },
         status: {
