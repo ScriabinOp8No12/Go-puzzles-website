@@ -2,6 +2,8 @@ from sgfmill import sgf
 import json
 from ast import literal_eval
 
+# Clean the sgf of comments and unwanted / invalid properties so that glift can render the sgf as a puzzle later
+# move_limit is the move the puzzle is on, so we only want the sgf up to that move number
 def clean_sgf(sgf_data, move_limit=None):
     game = sgf.Sgf_game.from_string(sgf_data)
     cleaned_sgf = []
@@ -41,7 +43,7 @@ def convert_to_sgf(coord, board_size):
     sgf_row = chr(ord('a') + y)
     return sgf_col + sgf_row
 
-# Katago output processing based on new format
+# Processing KataGo AI Analysis output
 def process_katago_output(json_output):
     katago_data = json.loads(json_output)
     correct_moves_dictionary = {}
