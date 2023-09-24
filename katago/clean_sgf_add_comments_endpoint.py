@@ -9,7 +9,9 @@ def clean_sgf(sgf_data, move_limit=None):
     root_node = game.get_root()
     cleaned_sgf.append(";")
     for prop, values in root_node.get_raw_property_map().items():
-        if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ']:
+        # These are properties that we do NOT want in our new cleaned SGF, we are mainly removing the comments, because they may interfere with glift's ability to determine what's a correct/incorrect moves
+        # We are using FF[4] sgf properties: https://www.red-bean.com/sgf/properties.html, glift doesn't know about KTV, RL, RN, TT, or TC properties, and these are not valid FF[4] SGF properties either
+        if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ', 'KTV', 'RL', 'RN', 'TT', 'TC']:
             for value in values:
                 cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
     node = root_node
@@ -51,11 +53,9 @@ def process_katago_output(json_output):
       correct_moves = literal_eval(puzzle["solution_coordinates"])
       correct_moves_dictionary[move_number] = correct_moves
 
-    # print(correct_moves_dictionary) # {31: '{K4: [K4, K3], O6:[O6], R3:[R3] }'}
     return correct_moves_dictionary, move_number
 
-# def inject_sgf_copy(sgf_content, correct_moves_dictionary):
-def inject_sgf_copy(cleaned_sgf_string, correct_moves_dictionary):
+def add_comments_to_sgf(cleaned_sgf_string, correct_moves_dictionary):
     original_sgf_game = sgf.Sgf_game.from_string(cleaned_sgf_string)
     board_size = original_sgf_game.get_size()
 
@@ -66,27 +66,28 @@ def inject_sgf_copy(cleaned_sgf_string, correct_moves_dictionary):
         semicolon_index = index
         # Color is determined by ;B or ;W, which is one character after the ;
         color = cleaned_sgf_string[index + 1]
-        print("color:", color)
+        # print("color:", color)
         index = cleaned_sgf_string.find(']', index)
-        incorrect_move_comment = cleaned_sgf_string[:semicolon_index] + \
+        sgf_with_incorrect_move_comment = cleaned_sgf_string[:semicolon_index] + \
             "\n(" + cleaned_sgf_string[semicolon_index:index + 1] + \
             "C[Incorrect - This was the actual move played in the game!])"
 
-        # print("correct_moves_dictionary: ", correct_moves_dictionary)
-        # correct_moves_dictionary {31: {'J4': ['J4', 'J2', 'J1'], 'S2': ['S2', 'P6', 'J4'], 'R3': ['R3']}}
         inner_dict = correct_moves_dictionary[key]
-        # print("inner_dict", inner_dict)
 
         correct_move_comments = []
 
         for inner_key in inner_dict:
+            # converting katago move coordinates to sgf coordinates requires the board size, which we are getting from the sgf
             converted_inner_key = convert_to_sgf(inner_key, board_size)
 
+            # If the solution variation only has one move in it, then that means no solution variation is provided because the first move in the solution coordinates is always the same as the starting move
+            # For example, our correct_moves_dictionary looks like this: {31: {'J4': ['J4', 'J2', 'J1'], 'S2': ['S2', 'P6', 'J4'], 'R3': ['R3']}}
             if len(inner_dict[inner_key]) == 1:
-                correct_move_comments.append(f"(;{color}{[converted_inner_key]}C[CORRECT])")
+                # Can't use f strings because otherwise python will add quotes around the sgf moves
+                correct_move_comments.append("(;{}[{}]C[CORRECT])".format(color, converted_inner_key))
                 continue
 
-            correct_move_comments.append(f"(;{color}{[converted_inner_key]}C[CORRECT]")
+            correct_move_comments.append("(;{}[{}]C[CORRECT]".format(color, converted_inner_key))
 
             for idx, correct_sequence in enumerate(inner_dict[inner_key][1:], start=1):  # Start index from 1 because you're skipping the first element
                 converted_correct_sequence = convert_to_sgf(correct_sequence, board_size)
@@ -95,16 +96,18 @@ def inject_sgf_copy(cleaned_sgf_string, correct_moves_dictionary):
                 elif color == "W":
                     color = "B"
 
-                # Check if we are at the last index of the sequence
+                # Check if we are at the last index of the sequence, since the last move in the comment branch needs a closing )
                 if idx == len(inner_dict[inner_key]) - 1:
-                    correct_move_comments.append(f";{color}{[converted_correct_sequence]}C[CORRECT])")
+                    correct_move_comments.append(";{}[{}]C[CORRECT])".format(color, converted_correct_sequence))
                 else:
-                    correct_move_comments.append(f";{color}{[converted_correct_sequence]}C[CORRECT]")
+                    correct_move_comments.append(";{}[{}]C[CORRECT]".format(color, converted_correct_sequence))
+        # Final content needs to add the correct move comments at the end of the file, then include an extra closing )
+        # The last comment line of the SGF always needs to have two ))
+        final_sgf_content = sgf_with_incorrect_move_comment + \
+            '\n' + '\n'.join(correct_move_comments) + ')'
 
-        print(correct_move_comments)
 
-
-    return incorrect_move_comment
+    return final_sgf_content
 
 # ****************** Testing locally ******************** #
 
@@ -132,7 +135,7 @@ correct_moves_dictionary, move_number = process_katago_output(katago_json_output
 cleaned_sgf_string = clean_sgf(sgf_data, move_number)
 # print(cleaned_sgf_string)
 
-final_sgf_string = inject_sgf_copy(cleaned_sgf_string, correct_moves_dictionary)
+final_sgf_string = add_comments_to_sgf(cleaned_sgf_string, correct_moves_dictionary)
 # final_sgf_string = inject_sgf_copy(cleaned_sgf_string, correct_moves_dictionary)
 print(final_sgf_string)
 
