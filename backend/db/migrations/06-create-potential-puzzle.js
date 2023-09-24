@@ -49,12 +49,12 @@ module.exports = {
           allowNull: true,
           type: Sequelize.INTEGER,
         },
-        status: {
-          allowNull: true,
-          // ENUM is a data type consisting of a set of named values, can't just be any random string value
-          type: Sequelize.ENUM("queued", "processing", "completed", "failed"),
-          defaultValue: "queued",
-        },
+        // status: {
+        //   allowNull: true,
+        //   // ENUM is a data type consisting of a set of named values, can't just be any random string value
+        //   type: Sequelize.ENUM("queued", "processing", "completed", "failed"),
+        //   defaultValue: "queued",
+        // },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
