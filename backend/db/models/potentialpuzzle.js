@@ -43,12 +43,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.INTEGER,
       },
-      status: {
-        allowNull: true,
-        type: DataTypes.ENUM("queued", "processing", "completed", "failed"),
+      // status: {
+      //   allowNull: true,
+      //   type: DataTypes.ENUM("queued", "processing", "completed", "failed"),
 
-        defaultValue: "queued",
-      },
+      //   defaultValue: "queued",
+      // },
     },
     {
       sequelize,
