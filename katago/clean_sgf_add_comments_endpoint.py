@@ -80,20 +80,27 @@ def inject_sgf_copy(cleaned_sgf_string, correct_moves_dictionary):
         correct_move_comments = []
 
         for inner_key in inner_dict:
-            # print("inner_key: ", inner_key)
             converted_inner_key = convert_to_sgf(inner_key, board_size)
+
+            if len(inner_dict[inner_key]) == 1:
+                correct_move_comments.append(f"(;{color}{[converted_inner_key]}C[CORRECT])")
+                continue
+
             correct_move_comments.append(f"(;{color}{[converted_inner_key]}C[CORRECT]")
 
-            # print("converted_inner_key: ", converted_inner_key)
-            # Skip the first element in the answer sequence since it's a duplicate
-            for correct_sequence in inner_dict[inner_key][1:]:
-                # print("correct sequence: ", correct_sequence)
+            for idx, correct_sequence in enumerate(inner_dict[inner_key][1:], start=1):  # Start index from 1 because you're skipping the first element
                 converted_correct_sequence = convert_to_sgf(correct_sequence, board_size)
                 if color == "B":
                     color = "W"
                 elif color == "W":
-                  color = "B"
-                correct_move_comments.append(f"(;{color}{[converted_correct_sequence]}C[CORRECT]")
+                    color = "B"
+
+                # Check if we are at the last index of the sequence
+                if idx == len(inner_dict[inner_key]) - 1:
+                    correct_move_comments.append(f";{color}{[converted_correct_sequence]}C[CORRECT])")
+                else:
+                    correct_move_comments.append(f";{color}{[converted_correct_sequence]}C[CORRECT]")
+
         print(correct_move_comments)
 
 
