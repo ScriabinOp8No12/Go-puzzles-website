@@ -33,7 +33,7 @@ router.post("/generate", requireAuth, async (req, res) => {
         "..",
         "..",
         "katago",
-        "sgf_to_largest_mistakes_for_ENDPOINT.py"
+        "sgf_to_largest_mistakes_for_endpoint.py"
       )
     );
 
@@ -71,6 +71,7 @@ router.post("/generate", requireAuth, async (req, res) => {
     const formattedPuzzles = createdPuzzles.map(puzzle => ({
       ...puzzle.get(),
       solution_coordinates: JSON.parse(puzzle.solution_coordinates), // parse the string to an object
+      // solution_coordinates: JSON.parse(puzzle.solution_coordinates.replace(/'/g, "\"")),
       createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
       updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     }));
