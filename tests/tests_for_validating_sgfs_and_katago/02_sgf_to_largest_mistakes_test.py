@@ -17,3 +17,5 @@ def test_run_katago_analysis():
   # Run the analysis
   json_analysis_results = run_katago_analysis(test_json_string)
   print(json_analysis_results)
+
+  # Takes CPU ~205 seconds for this 67 move game, took GPU ~35 seconds for same game.  GPU around 6x faster
