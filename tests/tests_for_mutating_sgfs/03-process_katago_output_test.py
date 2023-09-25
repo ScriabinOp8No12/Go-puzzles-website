@@ -1,4 +1,4 @@
-from katago.clean_sgf_add_comments_for_endpoint import process_katago_output
+from katago.clean_sgf_add_comments import process_katago_output
 
 
 def test_process_katago_output():

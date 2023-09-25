@@ -5,7 +5,7 @@ import os
 import subprocess
 import json
 from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
-from katago.sgf_to_oneLineJson_all_moves_for_endpoint import sgf_to_one_line_json
+from katago.sgf_to_oneLineJson_all_moves import sgf_to_one_line_json
 
 # sgf_folder_path = 'katago/positionsWithMoveOrder'
 # sgf_folder_path = 'katago/positions_test'

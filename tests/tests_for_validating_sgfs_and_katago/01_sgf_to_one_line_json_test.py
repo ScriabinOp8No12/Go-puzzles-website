@@ -1,4 +1,4 @@
-from katago.sgf_to_oneLineJson_all_moves_for_endpoint import sgf_to_one_line_json
+from katago.sgf_to_oneLineJson_all_moves import sgf_to_one_line_json
 import json
 
 def test_sgf_to_one_line_json():
