@@ -7,8 +7,17 @@ import pytest
     ("R3", 19, "qq"),
     ("K4", 19, "jp"),
     ("C18", 19, "cb"),
-    ("S2", 19, "rr")
-
+    ("S2", 19, "rr"),
+    ("A13", 13, "aa"),
+    ("H13", 13, "ha"),
+    ("N13", 13, "ma"),
+    ("F6", 13, "fh"),
+    ("J5", 13, "ii"),
+    ("A9", 9, "aa"),
+    ("D8", 9, "db"),
+    ("G8", 9, "gb"),
+    ("F5", 9, "fe"),
+    ("J6", 9, "id"),
 ])
 def test_convert_to_sgf(test_coord, board_size, expected):
     ''' Converts the KataGo move into sgf coordinates '''
