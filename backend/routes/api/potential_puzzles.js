@@ -5,7 +5,6 @@ const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { Sgf, PotentialPuzzle } = require("../../db/models");
-// const {captureSGFInfo} = require("./sgfs.js")
 const router = express.Router();
 
 // Trigger KataGo analysis (/potential_puzzles/generate)
@@ -44,7 +43,7 @@ router.post("/generate", requireAuth, async (req, res) => {
     );
 
     const category = "other";
-    const difficulty = 1500; // MAKE IT DYNAMIC LATER!  Make a functino in utils folder, and import it here, it converts the Go rank into elo rank
+    const difficulty = 1500; // MAKE IT DYNAMIC LATER!  Make a function in utils folder, and import it here, it converts the Go rank into elo rank
     // const status = "queued";
     // const job_id = null;
 
