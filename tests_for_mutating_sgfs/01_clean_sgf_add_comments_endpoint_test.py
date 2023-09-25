@@ -1,5 +1,5 @@
 # Using absolute import, but the test case works now
-from katago.clean_sgf_add_comments_for_endpoint import clean_sgf, convert_to_sgf, process_katago_output, add_comments_to_sgf
+from katago.clean_sgf_add_comments_for_endpoint import clean_sgf, convert_to_sgf, process_katago_output, add_comments_to_sgfs
 from sgfmill import sgf
 
 
@@ -70,7 +70,7 @@ def test_entire_workflow():
 
   correct_moves_dictionary, move_number = process_katago_output(katago_json_output)
   cleaned_sgf_string = clean_sgf(sgf_data, move_number)
-  final_sgf_string = add_comments_to_sgf(cleaned_sgf_string, correct_moves_dictionary)
+  final_sgf_string = add_comments_to_sgfs(cleaned_sgf_string, correct_moves_dictionary)
 
   print("final_sgf_string: ", final_sgf_string)
   print()
