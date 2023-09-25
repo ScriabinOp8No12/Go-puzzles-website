@@ -1,4 +1,4 @@
-from katago.clean_sgf_add_comments_for_endpoint import clean_sgf
+from katago.clean_sgf_add_comments import clean_sgf
 from sgfmill import sgf
 
 

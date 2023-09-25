@@ -1,4 +1,4 @@
-from katago.clean_sgf_add_comments_for_endpoint import convert_to_sgf
+from katago.clean_sgf_add_comments import convert_to_sgf
 import pytest
 
 

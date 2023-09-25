@@ -25,19 +25,19 @@ router.post("/generate", requireAuth, async (req, res) => {
     const jsonEncodedString = JSON.stringify(one_line_json_string);
 
     // Import KataGo analysis script
-    const sgf_to_largest_mistakes_for_endpoint = await python(
+    const sgf_to_largest_mistakes = await python(
       path.join(
         __dirname,
         "..",
         "..",
         "..",
         "katago",
-        "sgf_to_largest_mistakes_for_endpoint.py"
+        "sgf_to_largest_mistakes.py"
       )
     );
 
     const potential_puzzles = JSON.parse(
-      await sgf_to_largest_mistakes_for_endpoint.run_katago_analysis(
+      await sgf_to_largest_mistakes.run_katago_analysis(
         jsonEncodedString
       )
     );
