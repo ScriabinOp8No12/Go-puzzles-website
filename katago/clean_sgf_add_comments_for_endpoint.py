@@ -12,7 +12,8 @@ def clean_sgf(sgf_data, move_limit=None):
     for prop, values in root_node.get_raw_property_map().items():
         # These are properties that we do NOT want in our new cleaned SGF, we are mainly removing the comments, because they may interfere with glift's ability to determine what's a correct/incorrect moves
         # We are using FF[4] sgf properties: https://www.red-bean.com/sgf/properties.html, glift doesn't know about KTV, RL, RN, TT, or TC properties, and these are not valid FF[4] SGF properties either
-        if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ', 'KTV', 'RL', 'RN', 'TT', 'TC']:
+        # NOTE: BL and WL are valid, and display the time remaining for the player, but we don't need that when we are rendering the puzzle, so we are removing it
+        if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ', 'KTV', 'RL', 'RN', 'TT', 'TC', 'BL', 'WL']:
             for value in values:
                 cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
     node = root_node
@@ -23,7 +24,7 @@ def clean_sgf(sgf_data, move_limit=None):
         child = node[0]
         cleaned_sgf.append(";")
         for prop, values in child.get_raw_property_map().items():
-            if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ']:
+            if prop not in ['C', 'GC', 'GB', 'GW', 'TR', 'SQ', 'KTV', 'RL', 'RN', 'TT', 'TC', 'BL', 'WL']:
                 for value in values:
                     cleaned_sgf.append(f"{prop}[{value.decode('utf-8')}]")
         node = child
