@@ -1,7 +1,3 @@
-import sys
-print("Python Executable:", sys.executable)
-
-
 from io import BytesIO
 import base64
 import os
@@ -10,15 +6,12 @@ from sgfmill import sgf, boards
 
 
 def draw_board(board_size, star_points, num_moves, node, draw):
-    # def draw_board(board_size, star_points, num_moves, node, draw, initial_state=None):
-    # Draw the star points on the Go board
-    # 19 by 19 board uses 9 star points, 13 by 13 and 9 by 9 board use 5 star points
     # Iterate over each tuple in star_points list
     for x, y in star_points:
         # calculate the x and y coordinates of the center of the circle
         cx = x * cell_size
         cy = y * cell_size
-        # Use integer division (no decimal, just whatever integer it is) to get the radius of the stone
+        # Use integer division to get the radius of the stone
         r = stone_size // 10
         # second argument is the color, fill=0 means black
         draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
