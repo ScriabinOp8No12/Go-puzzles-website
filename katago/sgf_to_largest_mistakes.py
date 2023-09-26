@@ -1,8 +1,10 @@
 import time
 import subprocess
 import json
-# Absolute import instead of relative import is necessary otherwise pytest can't find the module
-from katago.parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
+# Absolute import instead of relative import is necessary otherwise pytest can't find the module,
+# but then pythonia throws an error "can't find module: katago"
+# from katago.parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
+from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
 
 katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 

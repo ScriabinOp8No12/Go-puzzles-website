@@ -440,7 +440,7 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
         "..",
         "..",
         "katago",
-        "sgf2OneLineJson_all_moves.py"
+        "sgf_to_oneLineJson_all_moves.py"
       )
     );
 
