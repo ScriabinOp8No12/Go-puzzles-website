@@ -83,7 +83,7 @@ router.post("/generate", requireAuth, async (req, res) => {
 });
 
 // Clean SGF and add comments for each potential puzzle so that Glift can render an array of potential puzzles
-router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
+router.put("/:sgf_id/clean_sgf_add_comments_add_thumbnail", requireAuth, async (req, res) => {
   try {
     // Extract sgf_id from URL parameters
     const sgfId = req.params.sgf_id;
@@ -121,11 +121,9 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
     const processedOutput = await cleanAndComment.process_katago_output(
       katagoJsonOutput
     );
-    // console.log("processedOutput:", processedOutput) // properly shows an array of dictionaries of move number and correct move sequences
 
     // Fetch existing database records for the specified sgfId, in ascending order
     const existingRecords = await fetchDatabaseRecordsOrdered(sgfId);
-    // console.log(existingRecords) // properly shows all potential puzzles records in ascending order (lowest to highest potential puzzle id)
 
     const cleanedSgfStrings = [];
 
@@ -143,6 +141,8 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
       }
     }
 
+    // Inject comments into SGF based on KataGo analysis output
+    // Glift determines a puzzle is correct if there's a comment saying "CORRECT" for that move
     const final_sgf_strings = await cleanAndComment.add_comments_to_sgfs(
       cleanedSgfStrings,
       processedOutput
@@ -158,30 +158,25 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
       const sgf_string = await final_sgf_strings[i];
       const correspondingRecord = existingRecords[i];
 
-      // Update the sgf_data column with the new sgf_string that includes comments for glift to render puzzles properly
+      // Update the sgf_data column in the database with the new sgf_string that includes comments
       correspondingRecord.sgf_data = String(sgf_string);
 
       await correspondingRecord.save();
     }
 
-    // properly displays array of sgf_strings in terminal
-    // console.log(await final_sgf_strings[7])
-    // const output = await final_sgf_strings[0]
-
-    const resolved_final_sgf_strings = []
+    // Pythonia needs everything awaited, if we don't do the block below, postman doesn't return the strings at all
+    const resolved_final_sgf_strings = [];
 
     for await (let final_sgf_string of final_sgf_strings) {
-      resolved_final_sgf_strings.push(final_sgf_string)
+      resolved_final_sgf_strings.push(final_sgf_string);
     }
 
-    return res.status(200).send(resolved_final_sgf_strings.join(''));
-
+    return res.status(200).send(resolved_final_sgf_strings.join(""));
   } catch (err) {
     res.status(500).send({ message: `Error: ${err.message}` });
   }
+  // Now we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
+  // ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
 });
-
-// Now we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
-// ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
 
 module.exports = router;
