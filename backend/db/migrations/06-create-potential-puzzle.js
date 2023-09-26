@@ -44,11 +44,14 @@ module.exports = {
           type: Sequelize.INTEGER,
           defaultValue: 1500,
         },
-        job_id: {
-          // allowNull to be true for now!
-          allowNull: true,
-          type: Sequelize.INTEGER,
+        thumbnail: {
+          type: Sequelize.STRING
         },
+        // job_id: {
+        //   // allowNull to be true for now!
+        //   allowNull: true,
+        //   type: Sequelize.INTEGER,
+        // },
         // status: {
         //   allowNull: true,
         //   // ENUM is a data type consisting of a set of named values, can't just be any random string value
