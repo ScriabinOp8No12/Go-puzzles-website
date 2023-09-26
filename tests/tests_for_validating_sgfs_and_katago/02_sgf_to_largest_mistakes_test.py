@@ -1,5 +1,7 @@
 from katago.sgf_to_largest_mistakes import run_katago_analysis
-# from katago.parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
+
+# Test fails, but if we use absolute paths in the sgf_to_largest_mistake script, pytest works,
+# but then backend pythonia says can't find katago module...
 
 def test_run_katago_analysis():
 
