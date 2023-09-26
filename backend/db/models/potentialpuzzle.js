@@ -38,11 +38,24 @@ module.exports = (sequelize, DataTypes) => {
 
         defaultValue: 1500,
       },
-      job_id: {
-        // Change allow null to be false later!
-        allowNull: true,
-        type: DataTypes.INTEGER,
+      thumbnail: {
+        // Allow thumbnail to be null initially because we will populate it later with our scripts
+        type: DataTypes.STRING,
+        defaultValue: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693682857/no_image_thumbnail_tpwuc0.jpg",
+        validate: {
+          notEmptyString(value) {
+            if (value.length === 0 || value.trim().length === 0) {
+              throw new Error("Thumbnail cannot be empty.");
+            }
+          },
+          isUrl: true,
+        },
       },
+      // job_id: {
+      //   // Change allow null to be false later!
+      //   allowNull: true,
+      //   type: DataTypes.INTEGER,
+      // },
       // status: {
       //   allowNull: true,
       //   type: DataTypes.ENUM("queued", "processing", "completed", "failed"),

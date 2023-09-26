@@ -37,9 +37,7 @@ router.post("/generate", requireAuth, async (req, res) => {
     );
 
     const potential_puzzles = JSON.parse(
-      await sgf_to_largest_mistakes.run_katago_analysis(
-        jsonEncodedString
-      )
+      await sgf_to_largest_mistakes.run_katago_analysis(jsonEncodedString)
     );
 
     const category = "other";
@@ -67,7 +65,7 @@ router.post("/generate", requireAuth, async (req, res) => {
       createdPuzzles.push(createdPuzzle);
     }
 
-    const formattedPuzzles = createdPuzzles.map(puzzle => ({
+    const formattedPuzzles = createdPuzzles.map((puzzle) => ({
       ...puzzle.get(),
       solution_coordinates: JSON.parse(puzzle.solution_coordinates), // parse the string to an object
       // solution_coordinates: JSON.parse(puzzle.solution_coordinates.replace(/'/g, "\"")),
@@ -86,7 +84,6 @@ router.post("/generate", requireAuth, async (req, res) => {
 
 // Clean SGF and add comments for each potential puzzle so that Glift can render an array of potential puzzles
 router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
-
   try {
     // Extract sgf_id from URL parameters
     const sgfId = req.params.sgf_id;
@@ -95,68 +92,96 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
     const sgfData = req.body.sgf_data;
     const katagoJsonOutput = req.body.katago_json_output;
 
+    // I'm pretty sure the database record will always be sorted properly in ascending order, so this
+    // function could be completely redundant or actually cause problems later?
     const fetchDatabaseRecordsOrdered = async (sgfId) => {
       return await PotentialPuzzle.findAll({
         where: { sgf_id: sgfId },
         order: [
           // id is the primary key column of our PotentialPuzzles's id column, we want to mutate the associated sgf_data text strings in order
           // because the KataGo output is stored in the database in order from first mistake to last mistake in the game
-          ['id', 'ASC']
-        ]
+          ["id", "ASC"],
+        ],
       });
     };
 
-
     // Initialize Python script for cleaning and commenting SGF
-    const cleanAndComment = await python(path.join(
-      __dirname,
-      "..",
-      "..",
-      "..",
-      "katago",
-      "clean_sgf_add_comments.py"
-    ));
+    const cleanAndComment = await python(
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "katago",
+        "clean_sgf_add_comments.py"
+      )
+    );
 
     // Process katago output with Python function
-    const processedOutput = await cleanAndComment.process_katago_output(katagoJsonOutput);
+    const processedOutput = await cleanAndComment.process_katago_output(
+      katagoJsonOutput
+    );
+    // console.log("processedOutput:", processedOutput) // properly shows an array of dictionaries of move number and correct move sequences
 
-    // Fetch existing database records for the specified sgfId, ordered as desired
+    // Fetch existing database records for the specified sgfId, in ascending order
     const existingRecords = await fetchDatabaseRecordsOrdered(sgfId);
+    // console.log(existingRecords) // properly shows all potential puzzles records in ascending order (lowest to highest potential puzzle id)
 
-    // Initialize an array to hold the updated SGF strings
-    const updatedSgfStrings = [];
+    const cleanedSgfStrings = [];
 
     // Generate cleaned SGF strings and update database records in order
-    for (let i = 0; i < processedOutput.length; i++) {
-      const outputDict = processedOutput[i];
-      for (const moveNumber in outputDict) {
-        const cleanedSgfString = await cleanAndComment.clean_sgf(sgfData, moveNumber);
+    for (let i = 0; i < (await processedOutput.length); i++) {
+      const outputDict = await processedOutput[i];
 
-        // Update corresponding database record
-        const correspondingRecord = existingRecords[i];
-        // Update corresponding sgf_data column, so glift can render the sgf_strings / puzzles properly
-        correspondingRecord.sgf_data = cleanedSgfString;
-        await correspondingRecord.save();
+      for (const moveNumber in await outputDict) {
+        const cleanedSgfString = await cleanAndComment.clean_sgf(
+          sgfData,
+          Number(moveNumber)
+        );
 
-        // Add updated SGF string to the array
-        updatedSgfStrings.push(cleanedSgfString);
+        cleanedSgfStrings.push(cleanedSgfString);
       }
     }
 
-    // Send response
-    return res.status(200).send({ updatedSgfStrings });
+    const final_sgf_strings = await cleanAndComment.add_comments_to_sgfs(
+      cleanedSgfStrings,
+      processedOutput
+    );
+
+    if (existingRecords.length !== (await final_sgf_strings.length)) {
+      return res
+        .status(400)
+        .json({ message: "Mismatch in record and output lengths" });
+    }
+
+    for (let i = 0; i < (await final_sgf_strings.length); i++) {
+      const sgf_string = await final_sgf_strings[i];
+      const correspondingRecord = existingRecords[i];
+
+      // Update the sgf_data column with the new sgf_string that includes comments for glift to render puzzles properly
+      correspondingRecord.sgf_data = String(sgf_string);
+
+      await correspondingRecord.save();
+    }
+
+    // properly displays array of sgf_strings in terminal
+    // console.log(await final_sgf_strings[7])
+    // const output = await final_sgf_strings[0]
+
+    const resolved_final_sgf_strings = []
+
+    for await (let final_sgf_string of final_sgf_strings) {
+      resolved_final_sgf_strings.push(final_sgf_string)
+    }
+
+    return res.status(200).send(resolved_final_sgf_strings.join(''));
+
   } catch (err) {
-    // Handle errors
     res.status(500).send({ message: `Error: ${err.message}` });
   }
 });
 
-// We will get the sgf_data and katago_json_output from the req.body (need to provide it in postman)
-  // Need to do a loop to return all the individual sgf_strings
-  // We should also update the database records for each potential puzzle table's sgf_data (mutate so glift can render them all separately)
-  // Then we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
-  // ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
-
-
+// Now we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
+// ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
 
 module.exports = router;
