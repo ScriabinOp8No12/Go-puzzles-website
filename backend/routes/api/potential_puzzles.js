@@ -186,7 +186,6 @@ router.put(
       const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
 
       for await (let move of moves) {
-
         let moveNumber = move.move_number;
 
         const thumbnailBase64 = await sgf2img.generatePreview(
@@ -234,12 +233,10 @@ router.put(
         (record) => thumbnailUrls[record.move_number]
       );
 
-      return res
-        .status(200)
-        .send({
-          sgfStrings: resolved_final_sgf_strings.join("").replace(/\n/g, ""),
-          thumbnails: orderedThumbnailUrls,
-        });
+      return res.status(200).send({
+        sgfStrings: resolved_final_sgf_strings.join("").replace(/\n/g, ""),
+        thumbnails: orderedThumbnailUrls,
+      });
     } catch (err) {
       res.status(500).send({ message: `Error: ${err.message}` });
     }
