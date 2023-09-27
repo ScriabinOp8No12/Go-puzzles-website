@@ -16,8 +16,8 @@ def testGeneratePreviewMoveSpecified():
   string_output = generatePreview(sgf_data, move_number1)
   string_output2 = generatePreview(sgf_data, move_number2)
 
-  # print(string_output)
-  # print(string_output2)
+  print(string_output)
+  print(string_output2)
 
   # Manually test the following 2 examples in the browser's console to see the thumbnail image!
   '''

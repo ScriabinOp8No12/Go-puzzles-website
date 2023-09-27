@@ -7,6 +7,14 @@ const { requireAuth } = require("../../utils/auth");
 const { Sgf, PotentialPuzzle } = require("../../db/models");
 const router = express.Router();
 
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 // Trigger KataGo analysis (/potential_puzzles/generate)
 router.post("/generate", requireAuth, async (req, res) => {
   try {
@@ -83,100 +91,161 @@ router.post("/generate", requireAuth, async (req, res) => {
 });
 
 // Clean SGF and add comments for each potential puzzle so that Glift can render an array of potential puzzles
-router.put("/:sgf_id/clean_sgf_add_comments_add_thumbnail", requireAuth, async (req, res) => {
-  try {
-    // Extract sgf_id from URL parameters
-    const sgfId = req.params.sgf_id;
+router.put(
+  "/:sgf_id/clean_sgf_add_comments_add_thumbnail",
+  requireAuth,
+  async (req, res) => {
+    try {
+      // Extract sgf_id from URL parameters
+      const sgfId = req.params.sgf_id;
 
-    // Extract other information from request body
-    const sgfData = req.body.sgf_data;
-    const katagoJsonOutput = req.body.katago_json_output;
+      // Extract other information from request body
+      const sgfData = req.body.sgf_data;
+      const katagoJsonOutput = req.body.katago_json_output;
 
-    // I'm pretty sure the database record will always be sorted properly in ascending order, so this
-    // function could be completely redundant or actually cause problems later?
-    const fetchDatabaseRecordsOrdered = async (sgfId) => {
-      return await PotentialPuzzle.findAll({
-        where: { sgf_id: sgfId },
-        order: [
-          // id is the primary key column of our PotentialPuzzles's id column, we want to mutate the associated sgf_data text strings in order
-          // because the KataGo output is stored in the database in order from first mistake to last mistake in the game
-          ["id", "ASC"],
-        ],
+      // I'm pretty sure the database record will always be sorted properly in ascending order, so this
+      // function could be completely redundant or actually cause problems later?
+      const fetchDatabaseRecordsOrdered = async (sgfId) => {
+        return await PotentialPuzzle.findAll({
+          where: { sgf_id: sgfId },
+          order: [
+            // id is the primary key column of our PotentialPuzzles's id column, we want to mutate the associated sgf_data text strings in order
+            // because the KataGo output is stored in the database in order from first mistake to last mistake in the game
+            ["id", "ASC"],
+          ],
+        });
+      };
+
+      // Grab the move_numbers column data for determining how to draw the potential puzzle's thumbnail
+      const moves = await PotentialPuzzle.findAll({
+        attributues: ["move_number"],
       });
-    };
 
-    // Initialize Python script for cleaning and commenting SGF
-    const cleanAndComment = await python(
-      path.join(
-        __dirname,
-        "..",
-        "..",
-        "..",
-        "katago",
-        "clean_sgf_add_comments.py"
-      )
-    );
+      // Initialize Python script for cleaning and commenting SGF
+      const cleanAndComment = await python(
+        path.join(
+          __dirname,
+          "..",
+          "..",
+          "..",
+          "katago",
+          "clean_sgf_add_comments.py"
+        )
+      );
 
-    // Process katago output with Python function
-    const processedOutput = await cleanAndComment.process_katago_output(
-      katagoJsonOutput
-    );
+      // Initialize Python script for generating thumbnail of Go board
+      const sgf2img = await python(
+        path.join(
+          __dirname,
+          "..",
+          "..",
+          "..",
+          "thumbnail_python_scripts",
+          "sgf2img.py"
+        )
+      );
 
-    // Fetch existing database records for the specified sgfId, in ascending order
-    const existingRecords = await fetchDatabaseRecordsOrdered(sgfId);
+      // Process katago output with Python function
+      const processedOutput = await cleanAndComment.process_katago_output(
+        katagoJsonOutput
+      );
 
-    const cleanedSgfStrings = [];
+      // Fetch existing database records for the specified sgfId, in ascending order
+      const existingRecords = await fetchDatabaseRecordsOrdered(sgfId);
 
-    // Generate cleaned SGF strings and update database records in order
-    for (let i = 0; i < (await processedOutput.length); i++) {
-      const outputDict = await processedOutput[i];
+      const cleanedSgfStrings = [];
 
-      for (const moveNumber in await outputDict) {
-        const cleanedSgfString = await cleanAndComment.clean_sgf(
-          sgfData,
-          Number(moveNumber)
-        );
+      // Generate cleaned SGF strings and update database records in order
+      for (let i = 0; i < (await processedOutput.length); i++) {
+        const outputDict = await processedOutput[i];
 
-        cleanedSgfStrings.push(cleanedSgfString);
+        for (const moveNumber in await outputDict) {
+          const cleanedSgfString = await cleanAndComment.clean_sgf(
+            sgfData,
+            Number(moveNumber)
+          );
+
+          cleanedSgfStrings.push(cleanedSgfString);
+        }
       }
-    }
 
-    // Inject comments into SGF based on KataGo analysis output
-    // Glift determines a puzzle is correct if there's a comment saying "CORRECT" for that move
-    const final_sgf_strings = await cleanAndComment.add_comments_to_sgfs(
-      cleanedSgfStrings,
-      processedOutput
-    );
+      // Inject comments into SGF based on KataGo analysis output, Glift determines a puzzle is correct if there's a comment saying "CORRECT" for that move
+      const final_sgf_strings = await cleanAndComment.add_comments_to_sgfs(
+        cleanedSgfStrings,
+        processedOutput
+      );
 
-    if (existingRecords.length !== (await final_sgf_strings.length)) {
+      if (existingRecords.length !== (await final_sgf_strings.length)) {
+        return res
+          .status(400)
+          .json({ message: "Mismatch in record and output lengths" });
+      }
+
+      // ************************ Thumbnail portion *****************************************************
+
+      const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
+
+      for await (let move of moves) {
+
+        let moveNumber = move.move_number;
+
+        const thumbnailBase64 = await sgf2img.generatePreview(
+          sgfData,
+          moveNumber - 1 // we need to draw the thumbnail for the move before the move_number of the mistake (move_number value in database)
+        );
+        const uploadResponse = await cloudinary.uploader.upload(
+          `data:image/png;base64,${thumbnailBase64}`
+        );
+        const thumbnailUrl = uploadResponse.url;
+        const httpsThumbnailUrl = thumbnailUrl.replace("http://", "https://");
+        thumbnailUrls[moveNumber] = httpsThumbnailUrl;
+        // Find the right record to update based on moveNumber
+        const recordToUpdate = existingRecords.find(
+          (record) => record.move_number === moveNumber
+        );
+        if (recordToUpdate) {
+          recordToUpdate.thumbnail = httpsThumbnailUrl;
+          await recordToUpdate.save();
+        }
+      }
+
+      //  ************************ Thumbnail portion end *********************************** //
+
+      // ******************* Updating sgf_data and thumbnail columns ************************ //
+
+      for (let i = 0; i < (await final_sgf_strings.length); i++) {
+        const sgf_string = await final_sgf_strings[i];
+        const correspondingRecord = existingRecords[i];
+
+        // Update the sgf_data column in the database with the new sgf_string that includes comments
+        correspondingRecord.sgf_data = String(sgf_string);
+
+        await correspondingRecord.save();
+      }
+
+      // Pythonia needs everything awaited, if we don't do the block below, postman doesn't return the strings at all
+      const resolved_final_sgf_strings = [];
+
+      for await (let final_sgf_string of final_sgf_strings) {
+        resolved_final_sgf_strings.push(final_sgf_string);
+      }
+
+      const orderedThumbnailUrls = existingRecords.map(
+        (record) => thumbnailUrls[record.move_number]
+      );
+
       return res
-        .status(400)
-        .json({ message: "Mismatch in record and output lengths" });
+        .status(200)
+        .send({
+          sgfStrings: resolved_final_sgf_strings.join("").replace(/\n/g, ""),
+          thumbnails: orderedThumbnailUrls,
+        });
+    } catch (err) {
+      res.status(500).send({ message: `Error: ${err.message}` });
     }
-
-    for (let i = 0; i < (await final_sgf_strings.length); i++) {
-      const sgf_string = await final_sgf_strings[i];
-      const correspondingRecord = existingRecords[i];
-
-      // Update the sgf_data column in the database with the new sgf_string that includes comments
-      correspondingRecord.sgf_data = String(sgf_string);
-
-      await correspondingRecord.save();
-    }
-
-    // Pythonia needs everything awaited, if we don't do the block below, postman doesn't return the strings at all
-    const resolved_final_sgf_strings = [];
-
-    for await (let final_sgf_string of final_sgf_strings) {
-      resolved_final_sgf_strings.push(final_sgf_string);
-    }
-
-    return res.status(200).send(resolved_final_sgf_strings.join(""));
-  } catch (err) {
-    res.status(500).send({ message: `Error: ${err.message}` });
+    // Now we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
+    // ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
   }
-  // Now we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
-  // ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
-});
+);
 
 module.exports = router;

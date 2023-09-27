@@ -8,11 +8,11 @@ const { requireAuth } = require("../../utils/auth");
 const { User, Puzzle, Sgf } = require("../../db/models");
 
 // Bull for queueing / asynchronous katago analysis engine endpoint
-const Bull = require("bull")
-const cmd = require('node-cmd')
-const fs = require('fs')
+// const Bull = require("bull")
+// const cmd = require('node-cmd')
+// const fs = require('fs')
 // Initializes new Bull queue named "katago"
-const katagoQueue = new Bull('katago');
+// const katagoQueue = new Bull('katago');
 
 // doesn't work for somereason, javascript can't find cloudinary.js
 // const cloudinary = require("../../../cloudinary.js");
