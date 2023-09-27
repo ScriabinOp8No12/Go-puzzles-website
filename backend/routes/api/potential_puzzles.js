@@ -90,7 +90,11 @@ router.post("/generate", requireAuth, async (req, res) => {
   }
 });
 
-// Clean SGF and add comments for each potential puzzle so that Glift can render an array of potential puzzles
+// Uses various python scripts (imported with Pythonia) to mutate SGF for glift
+// 1. Cleans SGF of unnecessary properties, especially comments, destroys SGF from puzzle number to end of game
+// 2. Updates SGF with comments and adds comments to follow up variations
+// 3. Draws a thumbnail of the Go board based on the move number of the mistake, also mutates thumbnail column of potential puzzles table
+
 router.put(
   "/:sgf_id/clean_sgf_add_comments_add_thumbnail",
   requireAuth,
@@ -234,7 +238,7 @@ router.put(
       );
 
       return res.status(200).send({
-        sgfStrings: resolved_final_sgf_strings.join("").replace(/\n/g, ""),
+        sgfStrings: resolved_final_sgf_strings.map(sgf => sgf.replace(/\n/g, "")),
         thumbnails: orderedThumbnailUrls,
       });
     } catch (err) {

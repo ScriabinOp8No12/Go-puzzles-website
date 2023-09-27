@@ -115,7 +115,7 @@ const GliftPuzzleDisplay = () => {
         divId: "gliftContainer",
         sgf: {
           sgfString: puzzleData.sgf_data, // sgf_data column from the database
-          initialPosition: puzzleData.move_number, // move_number is the column from the database
+          initialPosition: puzzleData.move_number - 1, // move_number is the column from the database, need to go back one because the mistake happens on the move_number
           problemConditions: { C: ["CORRECT"] },
           widgetType: "STANDARD_PROBLEM",
         },
