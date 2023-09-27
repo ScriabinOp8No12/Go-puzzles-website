@@ -1,8 +1,13 @@
-# test currently breaks because of relative/absolute import issues in the sgf_to_largest_mistakes.py module
-# from katago.sgf_to_largest_mistakes import run_katago_analysis
+# Importing error causes this test to fail.
+# NOTE Within sgf_to_largest_mistakes.py, if we change the import (from relative to absolute)
+# to the following line instead of the original line below it, this test works, but pythonia on the backend throws an error...
 
-# # Test fails, but if we use absolute paths in the sgf_to_largest_mistake script, pytest works,
-# # but then backend pythonia says can't find katago module...
+# from katago.parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
+# from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
+
+# **************************** #
+
+# from katago.sgf_to_largest_mistakes import run_katago_analysis
 
 # def test_run_katago_analysis():
 
