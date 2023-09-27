@@ -4,6 +4,8 @@ import os
 from PIL import Image, ImageDraw
 from sgfmill import sgf, boards
 
+# **** NOTE This is unused code, but here just in case for testing or if something horrible happened, I don't think this code actually
+# Works right now because I deleted the /backend/uploads folder, which is where the sgfs are read from when we pass in a SGF manually
 
 def draw_board(board_size, star_points, num_moves, node, draw):
     # Iterate over each tuple in star_points list
@@ -88,7 +90,7 @@ def draw_board(board_size, star_points, num_moves, node, draw):
 
 # Get the directory containing this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-# Construct the path to the uploads directory
+# Construct the path to the uploads directory (**** since we deleted the uploads directory, I think we have to create it in /backend/uploads for this to work! )
 sgf_dir = os.path.join(script_dir, '..', 'backend', 'uploads')
 
 # Set the directory for saving the generated images
