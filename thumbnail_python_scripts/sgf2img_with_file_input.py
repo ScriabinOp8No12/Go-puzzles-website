@@ -1,18 +1,8 @@
 from io import BytesIO
 import base64
+import os
 from PIL import Image, ImageDraw
 from sgfmill import sgf, boards
-
-# Set the size of each cell in the Go board
-cell_size = 80
-
-# Set the size of each stone
-stone_size = 72
-
-# Set the colors for the Go board and stones
-board_color = (255, 204, 102)
-black_stone_color = (0, 0, 0)
-white_stone_color = (255, 255, 255)
 
 
 def draw_board(board_size, star_points, num_moves, node, draw):
@@ -26,7 +16,7 @@ def draw_board(board_size, star_points, num_moves, node, draw):
         # second argument is the color, fill=0 means black
         draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
 
-    # Draw initial stones from AB and AW properties
+    # Draw initial stones from AB and AW properties (new code)
     initial_black_stones = node.get("AB") if node.has_property("AB") else []
     initial_white_stones = node.get("AW") if node.has_property("AW") else []
 
@@ -45,13 +35,15 @@ def draw_board(board_size, star_points, num_moves, node, draw):
     # Create a new Go board object to keep track of stone groups and captures
     go_board = boards.Board(board_size)
 
-    # Iterate over the first num_moves moves of the game or until the game is over
+    # Iterate over the first num_moves moves of the game or until the game ended
     for _ in range(num_moves):
+        # Get the next node in the game tree
         try:
             # attempts to get the next node in the game tree by accessing the first child of the current node
             # if the current node has no children (ex. it's a leaf node) an IndexError will be raised
             node = node[0]
-            # this catches the IndexError and then breaks out of the for loop, ending the game early if there are no more moves to play
+            # this catches the IndexError and then breaks out of the for loop, ending the game early
+            # if there are no more moves to play
         except IndexError:
             break
 
@@ -61,14 +53,14 @@ def draw_board(board_size, star_points, num_moves, node, draw):
         # Indicates that the move is a "pass", if so, the loop continues to the next iteration without playing a move
         if move is None:
             continue
-        # Unpack move coordinates (tuple) into separate variables row and column
+        # Unpack (destructure in JS) the move coordinates (tuple) into separate variables row and column
         row, col = move
         # This line attempts to play a stone of the specified color at the specified row and column on the Go board by calling its play() method
         try:
             go_board.play(col, row, color)
 
         except Exception as e:
-            # This line catches any exceptions that may be raised when attempting to play a move (ex. if it is an illegal move)
+            # This line catches any exceptions that may be raised when attempting to play a move (e.g., if it is an illegal move) and prints an error message
             print(f'Error playing move: {e}')
 
     # Iterate over rows and columns of Go board to draw stones based on state of Board object
@@ -79,26 +71,104 @@ def draw_board(board_size, star_points, num_moves, node, draw):
             stone = go_board.get(col, row)
             if stone == "b":
                 # Calculates the x-coordinate of the center of the stone
-                # by multiplying the column index by a scaling factor cell_size (defined at the top of this file) and adding 1 to account for the board margin
-                cx = (col+1) * cell_size
+                # by multiplying the column index by a scaling factor called cell_size and adding 1 to account for the board margin
+                cx = (col+1)*cell_size
                 cy = (board_size-row) * cell_size
                 # Calculates the radius of the stone by dividing a variable called stone_size by 2 using integer division
                 r = stone_size//2
                 draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=black_stone_color)
             elif stone == "w":
-                cx = (col+1) * cell_size
+                cx = (col+1)*cell_size
                 cy = (board_size-row) * cell_size
                 r = stone_size//2
                 draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=white_stone_color)
 
+# But Render can't find /backend/uploads now! so 2 line solution below
+
+
+# Get the directory containing this script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Construct the path to the uploads directory
+sgf_dir = os.path.join(script_dir, '..', 'backend', 'uploads')
+
+# Set the directory for saving the generated images
+output_dir = os.path.join('sgfThumbnails')
+
+# Create the output directory if it doesn't exist
+os.makedirs(output_dir, exist_ok=True)
+
+# Set the size of each cell in the Go board
+cell_size = 80
+
+# Set the size of each stone
+stone_size = 72
+
+# Set the colors for the Go board and stones
+board_color = (255, 204, 102)
+black_stone_color = (0, 0, 0)
+white_stone_color = (255, 255, 255)
+
+# Iterate over the SGF files in the directory
+for filename in os.listdir(sgf_dir):
+    # Set the input and output file names
+    input_file = os.path.join(sgf_dir, filename)
+    output_file = os.path.join(
+        output_dir, f'{os.path.splitext(filename)[0]}_thumbnail.png')
+
+    # Load the SGF file
+    with open(input_file, 'r') as f:
+        game = sgf.Sgf_game.from_string(f.read())
+
+    # Get the root node of the game tree
+    node = game.get_root()
+
+    # Get the size of the Go board from the SGF file (more dynamic than hard coding in board size of 19)
+    board_size = game.get_size()
+
+    # Create a new image for the Go board
+    img_size = cell_size * (board_size + 1)
+    img = Image.new('RGB', (img_size, img_size), board_color)
+    draw = ImageDraw.Draw(img)
+
+    # Draw the grid lines on the Go board
+    for i in range(board_size):
+        x = y = (i + 1) * cell_size
+        draw.line((x, cell_size, x, img_size - cell_size), fill=0)
+        draw.line((cell_size, y, img_size - cell_size, y), fill=0)
+
+    if board_size == 19:
+        star_points = [(4, 4), (4, 10), (4, 16), (10, 4),
+                       (10, 10), (10, 16), (16, 4), (16, 10), (16, 16)]
+        # num_moves set to 50 to draw on 19 by 19 board
+        draw_board(board_size=board_size,
+                   star_points=star_points,
+                   num_moves=50, node=node, draw=draw)
+    elif board_size == 13:
+        star_points = [(4, 4), (4, 10), (7, 7), (10, 4), (10, 10)]
+        # num_moves set to 20 to draw on 13 by 13 board
+        draw_board(board_size=board_size,
+                   star_points=star_points,
+                   num_moves=20, node=node, draw=draw)
+    elif board_size == 9:
+        star_points = [(3, 3), (3, 7), (5, 5), (7, 3), (7, 7)]
+        # num_moves set to 12 to draw on 9 by 9 board
+        draw_board(board_size=board_size,
+                   star_points=star_points,
+                   num_moves=12, node=node, draw=draw)
+
+    # Save image to file
+    img.save(output_file)
+
+
 def generatePreview(sgf_data, move_number = None):
 
     game = sgf.Sgf_game.from_string(sgf_data)
+
     node = game.get_root()
+
     # Get the size of the Go board from the SGF file (SZ property)
     board_size = game.get_size()
 
-    # Number of moves to draw for the thumbnail based on the board size
     if move_number is None:
         if board_size == 19:
             move_number = 50
@@ -118,7 +188,6 @@ def generatePreview(sgf_data, move_number = None):
         draw.line((x, cell_size, x, img_size - cell_size), fill=0)
         draw.line((cell_size, y, img_size - cell_size, y), fill=0)
 
-    # Different board sizes have different locations for their star points
     if board_size == 19:
         star_points = [(4, 4), (4, 10), (4, 16), (10, 4),
                        (10, 10), (10, 16), (16, 4), (16, 10), (16, 16)]
