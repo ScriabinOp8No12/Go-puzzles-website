@@ -34,3 +34,15 @@ body {
 .navbar {
   background-color: #393E46;
 }
+
+/* Remove scrollbar space for Chrome*/
+body::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Remove scrollbar space for FireFox, IE 10+ */
+body {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

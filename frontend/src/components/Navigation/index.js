@@ -15,8 +15,8 @@ function Navigation({ isLoaded }) {
   // Get information about the current URL, can determine which path the user is on
   const location = useLocation();
   // Checks if current path is /sgfs
-  const isActive = location.pathname === '/sgfs';
-
+  const isActive = location.pathname === "/sgfs";
+  const isPotentialPuzzlesActive = location.pathname === "/potential_puzzles";
   return (
     // Return "navbar navbar-expanded" className if showMenu state is true, and defaults to navbar otherwise, this controls CSS styling
     <div className={`navbar ${showMenu ? "navbar-expanded" : ""}`}>
@@ -28,10 +28,32 @@ function Navigation({ isLoaded }) {
       </div>
       {isLoaded && (
         <div className="navigation-container">
+          {/* Potential Puzzles button */}
+          {sessionUser && (
+            <div className="potential-puzzles-button-wrapper">
+              <div
+                className={`potential-puzzles-button ${
+                  isPotentialPuzzlesActive ? "active" : ""
+                }`}
+              >
+                {sessionUser && (
+                  <NavLink
+                    to="/potential_puzzles"
+                    className={`potential-puzzles-button-menu ${showMenu}`}
+                  >
+                    Potential Puzzles
+                  </NavLink>
+                )}
+              </div>
+            </div>
+          )}
+          {/* Upload / View Game Records button */}
           {sessionUser && (
             <div className="game-records-button-wrapper">
               {/* Checks if isActive is true, then it sets the className to "active" for styling, otherwise gets the default "game-records-button" className */}
-              <div className={`game-records-button ${isActive ? 'active' : ''}`}>
+              <div
+                className={`game-records-button ${isActive ? "active" : ""}`}
+              >
                 {sessionUser && (
                   <NavLink
                     to="/sgfs"
@@ -43,6 +65,7 @@ function Navigation({ isLoaded }) {
               </div>
             </div>
           )}
+
           <ProfileButton
             user={sessionUser}
             showMenu={showMenu}
