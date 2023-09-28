@@ -111,6 +111,15 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                     <button
                       className="create-puzzles-button"
                       onClick={() => alert("Feature coming soon")}
+                      // onClick={() => dispatch(generatePuzzlesThunk({
+                      //   id: sgf.id,
+                      //   sgf_data: sgf.sgf_data,
+                      //   // SGF thumbnail, not potential puzzles thumbnail
+                      //   thumbnail: sgf.thumbnail,
+                      //   sgf_name: sgf.sgf_name,
+                      //   game_date: sgf.game_date
+
+                      // }))}
                     >
                       Generate Puzzles!
                     </button>

@@ -279,7 +279,7 @@
   z-index: 1000;
 }
 
-/****** Create a new spot button styling below *****************/
+/****** Upload / View Game Records button styling below *****************/
 
 .game-records-button-menu {
   padding-top: 35px;
@@ -308,14 +308,10 @@
 }
 
 .game-records-button::before {
-  /* We need this because otherwise the underline stretches all the way to the right of the screen */
-  width: 227px;
   content: "";
   display: none; /* Initially hidden */
-  position: absolute;
-  bottom: -10px; /* 10px below the button */
-  left: 10px;
-  right: 0;
+  position: relative;
+  bottom: -40px; /* 40px below the center of the button */
   height: 2px;
   background-color: aliceblue;
 }
@@ -324,24 +320,39 @@
   display: block; /* Show when hovering or active */
 }
 
+/****** Potential Puzzles button styling below *****************/
 
-/*****************  Manage Spots button styling below *******************/
-
-/* .redirectCurrentSpotsButton {
+.potential-puzzles-button-menu {
+  padding-top: 35px;
+  color: aliceblue;
   text-decoration: none;
-  color: teal;
-  border: none;
-  background: none;
-  padding: 0;
-  font-size: 16px;
-  cursor: pointer;
+  font-weight: bold;
 }
 
-.redirectCurrentSpotsButton:hover {
-  padding: 5px;
-  background-color: lightgrey;
-  border: 3px solid black;
-  border-radius: 15px;
-  margin-top: 5px;
-  margin-bottom: 2px;
-} */
+.potential-puzzles-button-wrapper {
+  margin-right: 50px;
+}
+
+.potential-puzzles-button {
+  border: 3px solid black ;
+  margin-top: 33px ;
+  background-color: #00ADB5;
+  border-radius: 15px ;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.potential-puzzles-button:hover {
+  border: 3px solid white;
+}
+
+.potential-puzzles-button::before {
+  content: "";
+  display: none; /* Initially hidden */
+  position: relative;
+  bottom: -40px; /* 40px below the center of the button */
+  height: 2px;
+  background-color: aliceblue;
+}
