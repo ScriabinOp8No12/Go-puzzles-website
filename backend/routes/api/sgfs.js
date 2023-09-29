@@ -446,7 +446,7 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
 
     const one_line_json_string = await one_line_json.sgf_to_one_line_json(sgf_data)
 
-    return res.status(200).json({one_line_json_string: JSON.parse(one_line_json_string)})
+    return res.status(200).json(JSON.parse(one_line_json_string))
 
   } catch (err) {
     console.error(err)
