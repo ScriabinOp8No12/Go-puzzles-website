@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllSgfsThunk, fetchSgfByIdThunk, uploadSgfThunk } from "../store/sgfs";
+import {generatePotentialPuzzlesThunk} from "../store/potentialPuzzles"
 import { openModal } from "../store/modal";
 import { useHistory } from "react-router-dom";
 import DeleteSgfModal from "./DeleteSgfModal";
@@ -110,14 +111,8 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                     </div>
                     <button
                       className="create-puzzles-button"
-                      onClick={() => alert("Feature coming soon")}
-                      // onClick={() => dispatch(generatePuzzlesThunk({
-                      //   id: sgf.id,
-                      //   sgf_data: sgf.sgf_data
-                      // *** payload of this thunk only needs sgf id and sgf data!!!!!!
-                      // because the two tables are related, we can simply access the sgf's thumbnail in
-                      // in our potential puzzles component@
-                      // }))}
+                      // onClick={() => console.log("testing: ", sgf.id, "*************", sgf.sgf_data)}
+                      onClick={() => dispatch(generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data))}
                     >
                       Generate Puzzles!
                     </button>
