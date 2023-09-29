@@ -100,12 +100,17 @@ router.put(
   requireAuth,
   async (req, res) => {
     try {
-      // Extract sgf_id from URL parameters
-      const sgfId = req.params.sgf_id;
 
-      // Extract other information from request body
+      const sgfId = req.params.sgf_id;
+      //
+      const sgf = await Sgf.findByPk(sgfId)
+      const sgfThumbnail = sgf.thumbnail
+      //
       const sgfData = req.body.sgf_data;
+
       const katagoJsonOutput = req.body.katago_json_output;
+
+      // **** Remove this function below, and fetch the sgf.thumbnail column and return it in the response!
 
       // I'm pretty sure the database record will always be sorted properly in ascending order, so this
       // function could be completely redundant or actually cause problems later?
@@ -240,6 +245,7 @@ router.put(
       return res.status(200).send({
         sgfStrings: resolved_final_sgf_strings.map(sgf => sgf.replace(/\n/g, "")),
         thumbnails: orderedThumbnailUrls,
+        sgfThumbnail: sgfThumbnail
       });
     } catch (err) {
       res.status(500).send({ message: `Error: ${err.message}` });
