@@ -234,7 +234,8 @@
 
 .navigation-container {
   /* Keep in top right of screen, even on scroll, use position: fixed */
-  position: fixed;
+  position: fixed; /* Don't use nested position fixed */
+  /* width: 100vw; */
   top: 0;
   right: 0;
   display: flex;
@@ -252,7 +253,7 @@
   /* navbar was a tiny div with basically no height at the very top of the page */
   height: 95px;
   /* height: 80px; */
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: flex-end;
   align-items: center;

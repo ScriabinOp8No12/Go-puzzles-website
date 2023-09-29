@@ -113,12 +113,10 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                       onClick={() => alert("Feature coming soon")}
                       // onClick={() => dispatch(generatePuzzlesThunk({
                       //   id: sgf.id,
-                      //   sgf_data: sgf.sgf_data,
-                      //   // SGF thumbnail, not potential puzzles thumbnail
-                      //   thumbnail: sgf.thumbnail,
-                      //   sgf_name: sgf.sgf_name,
-                      //   game_date: sgf.game_date
-
+                      //   sgf_data: sgf.sgf_data
+                      // *** payload of this thunk only needs sgf id and sgf data!!!!!!
+                      // because the two tables are related, we can simply access the sgf's thumbnail in
+                      // in our potential puzzles component@
                       // }))}
                     >
                       Generate Puzzles!
