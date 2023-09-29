@@ -31,6 +31,7 @@ router.post("/generate", requireAuth, async (req, res) => {
     }
 
     const jsonEncodedString = JSON.stringify(one_line_json_string);
+    console.log("Input to KataGo Analysis:", jsonEncodedString);
 
     // Import KataGo analysis script
     const sgf_to_largest_mistakes = await python(
@@ -44,9 +45,13 @@ router.post("/generate", requireAuth, async (req, res) => {
       )
     );
 
+    // console.log("******************* 1")
+
     const potential_puzzles = JSON.parse(
       await sgf_to_largest_mistakes.run_katago_analysis(jsonEncodedString)
     );
+
+    // console.log("******************* 2")
 
     const category = "other";
     const difficulty = 1500; // MAKE IT DYNAMIC LATER!  Make a function in utils folder, and import it here, it converts the Go rank into elo rank
@@ -72,6 +77,8 @@ router.post("/generate", requireAuth, async (req, res) => {
 
       createdPuzzles.push(createdPuzzle);
     }
+
+    //  console.log("******************* 3")
 
     const formattedPuzzles = createdPuzzles.map((puzzle) => ({
       ...puzzle.get(),

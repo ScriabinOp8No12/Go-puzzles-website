@@ -46,8 +46,8 @@ def run_katago_analysis(json_string):
     except Exception as e:
         print(f"Error processing input: {e}")
         return None
-
     katago_output_dictionary = json.loads(json_string)
+    # print("katago_output_dictionary: ", katago_output_dictionary)
     if not katago_output_dictionary["moves"]:
         startMove = 0
     else:
