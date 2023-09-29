@@ -41,10 +41,10 @@ export const generatePotentialPuzzlesThunk =
 
     // If we reach this point, it means the response was successful
     const data = await response.json();
-    console.log("*** data ***", data);
+    // console.log("*** data ***", data);
     dispatch(generatePotentialPuzzles(data));
 
-    const actualData = data.one_line_json_string; // Extract the one_line_json_string
+    const actualData = data.one_line_json_string; // Extract the one_line_json_string, network tab showed it was nested inside {}
 
     const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
       method: "POST",
@@ -60,13 +60,9 @@ export const generatePotentialPuzzlesThunk =
 
     if (secondResponse.ok) {
       const kataGoData = await secondResponse.json();
-      console.log(
-        "************* KATAGO DATA ************************",
-        kataGoData
-      );
       dispatch(receiveKataGoAnalysis(kataGoData));
     } else {
-      // Optionally, you can also handle errors from the second API call here
+      // Handle errors from the second API call here
       const secondErrorMessage = await secondResponse.text();
       console.error("Error in second endpoint:", secondErrorMessage);
     }
