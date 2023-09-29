@@ -18,7 +18,7 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         sgf_id: {
-          allowNull: false,
+          // allowNull: false,
           type: Sequelize.INTEGER,
           references: { model: "Sgfs", key: "id" },
         },
