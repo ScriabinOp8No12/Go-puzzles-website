@@ -44,8 +44,6 @@ export const generatePotentialPuzzlesThunk =
     // console.log("*** data ***", data);
     dispatch(generatePotentialPuzzles(data));
 
-    const actualData = data.one_line_json_string; // Extract the one_line_json_string, network tab showed it was nested inside {}
-
     const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
       method: "POST",
       headers: {
@@ -54,7 +52,7 @@ export const generatePotentialPuzzlesThunk =
       body: JSON.stringify({
         sgf_id: sgf_id,
         sgf_data: sgf_data,
-        one_line_json_string: actualData,
+        one_line_json_string: data,
       }),
     });
 
