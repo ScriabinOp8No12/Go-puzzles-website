@@ -6,6 +6,8 @@ export const GENERATE_POTENTIAL_PUZZLES =
   "/potentialPuzzles/GENERATE_POTENTIAL_PUZZLES";
 export const RECEIVE_KATAGO_ANALYSIS =
   "potentialPuzzles/RECEIVE_KATAGO_ANALYSIS";
+export const INJECT_COMMENTS_AND_MUTATE_SGF_STRING =
+  "/potentialPuzzles/INJECT_COMMENTS_AND_MUTATE_SGF_STRING";
 
 // ********** Action Creators ********* //
 
@@ -16,6 +18,11 @@ export const generatePotentialPuzzles = (data) => ({
 
 export const receiveKataGoAnalysis = (data) => ({
   type: RECEIVE_KATAGO_ANALYSIS,
+  payload: data,
+});
+
+export const injectCommentsAndMutateSgfStrings = (data) => ({
+  type: INJECT_COMMENTS_AND_MUTATE_SGF_STRING,
   payload: data,
 });
 
@@ -36,12 +43,15 @@ export const generatePotentialPuzzlesThunk =
     if (!response.ok) {
       const errorMessage = await response.text();
       console.error("Error in first endpoint:", errorMessage);
-      return; // Exit the function
+      return;
     }
 
-    // If we reach this point, it means the response was successful
+    // if (!response.ok) {
+    //   return "Failed to create input for KataGo";
+    // }
+
+    // If we reach this point, it means the 1st response was successful (convert sgf to one line json for KataGo AI engine)
     const data = await response.json();
-    // console.log("*** data ***", data);
     dispatch(generatePotentialPuzzles(data));
 
     const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
@@ -56,15 +66,55 @@ export const generatePotentialPuzzlesThunk =
       }),
     });
 
-    if (secondResponse.ok) {
-      const kataGoData = await secondResponse.json();
-      dispatch(receiveKataGoAnalysis(kataGoData));
-    } else {
-      // Handle errors from the second API call here
-      const secondErrorMessage = await secondResponse.text();
-      console.error("Error in second endpoint:", secondErrorMessage);
+    // Check if the second response is not successful (run katago analysis)
+    if (!secondResponse.ok) {
+      const errorMessage = await response.text();
+      console.error("Error in second endpoint:", errorMessage);
+      return;
     }
+    // If we reach this point, it means the 2nd response was successful
+    const kataGoData = await secondResponse.json();
+    dispatch(receiveKataGoAnalysis(kataGoData));
+
+    // Prepare data for the third API call based on the second response
+    // sgf_data needs to not have \n to match postman request, but katago_json_output does have \n in postman
+
+    const sanitizedSgfData = kataGoData.createdPuzzles[0].sgf_data.replace(
+      /\n/g,
+      " "
+    );
+
+    // Prepare data for the third API call based on the second response
+    const thirdEndpointData = {
+      sgf_data: sanitizedSgfData,
+      katago_json_output: JSON.stringify(kataGoData),
+    };
+
+    const thirdResponse = await csrfFetch(
+      `/api/potential_puzzles/${sgf_id}/clean_sgf_add_comments_add_thumbnail`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(thirdEndpointData),
+      }
+    );
+
+    // Check if the third response is not successful
+    if (!thirdResponse.ok) {
+      const errorMessage = await thirdResponse.text();
+      console.error("Error in third endpoint:", errorMessage);
+      return;
+    }
+
+    // If we reach this point, it means the 3rd response was successful
+    const thirdEndpointResult = await thirdResponse.json();
+    dispatch(injectCommentsAndMutateSgfStrings(thirdEndpointResult));
   };
+
+// ************* Reducer ***************** //
+
 const initialState = {
   katagoJsonOutput: null,
   sgfThumbnail: null, // for storing the sgfThumbnail in the redux store
@@ -81,6 +131,11 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
       return {
         ...state,
         kataGoAnalysis: action.payload,
+      };
+    case INJECT_COMMENTS_AND_MUTATE_SGF_STRING:
+      return {
+        ...state,
+        injectedCommentsAndMutatedSgf: action.payload,
       };
     default:
       return state;

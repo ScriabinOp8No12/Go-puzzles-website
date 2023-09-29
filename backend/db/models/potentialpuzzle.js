@@ -3,13 +3,13 @@ const { Model, Sequelize } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class PotentialPuzzle extends Model {
     static associate(models) {
-      PotentialPuzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id" });
+      PotentialPuzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id", onDelete: 'SET NULL'  });
     }
   }
   PotentialPuzzle.init(
     {
       sgf_id: {
-        allowNull: false,
+        // allowNull: false,
         type: DataTypes.INTEGER,
       },
       sgf_data: {
