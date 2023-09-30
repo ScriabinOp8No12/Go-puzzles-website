@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSgfsThunk, fetchSgfByIdThunk, uploadSgfThunk } from "../store/sgfs";
-import {generatePotentialPuzzlesThunk} from "../store/potentialPuzzles"
+import {
+  fetchAllSgfsThunk,
+  fetchSgfByIdThunk,
+  uploadSgfThunk,
+} from "../store/sgfs";
+import { generatePotentialPuzzlesThunk } from "../store/potentialPuzzles";
 import { openModal } from "../store/modal";
 import { useHistory } from "react-router-dom";
 import DeleteSgfModal from "./DeleteSgfModal";
@@ -16,15 +20,15 @@ const UserSGFs = () => {
   const [uploadError, setUploadError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    dispatch(fetchAllSgfsThunk());
+  }, [dispatch]);
+
   // Edit sgf modal
   const openEditModal = async (sgfId) => {
     await dispatch(fetchSgfByIdThunk(sgfId));
     dispatch(openModal(<EditSgfModal sgfId={sgfId} />));
   };
-
-  useEffect(() => {
-    dispatch(fetchAllSgfsThunk());
-  }, [dispatch]);
 
   const handleFileChange = async (e) => {
     setUploadError("");
@@ -71,12 +75,12 @@ const UserSGFs = () => {
   };
 
   // Get the local timezone offset in minutes
-const localTimezoneOffsetMinutes = new Date().getTimezoneOffset();
+  const localTimezoneOffsetMinutes = new Date().getTimezoneOffset();
 
-// Convert the offset to hours (it could be a decimal)
-const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
+  // Convert the offset to hours (it could be a decimal)
+  const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
 
-// console.log("*****************", localTimezoneOffsetHours)
+  // console.log("*****************", localTimezoneOffsetHours)
 
   return (
     <div className="outer-wrapper">
@@ -93,7 +97,6 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
       <div className="user-sgf-table">
         {sortedSGFs &&
           sortedSGFs.map((sgf, index) => (
-
             <div className="uploaded-sgf-thumbnail" key={index}>
               <img
                 src={sgf.thumbnail}
@@ -112,16 +115,26 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                     <button
                       className="create-puzzles-button"
                       // onClick={() => console.log("testing: ", sgf.id, "*************", sgf.sgf_data)}
-                      onClick={() => dispatch(generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data))}
+                      onClick={() =>
+                        dispatch(
+                          generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data)
+                        )
+                      }
                     >
                       Generate Puzzles!
                     </button>
-                    <button className="pencil-icon" onClick={() => openEditModal(sgf.id)}>✏️</button>
+                    <button
+                      className="pencil-icon"
+                      onClick={() => openEditModal(sgf.id)}
+                    >
+                      ✏️
+                    </button>
                     <DeleteSgfModal sgfId={sgf.id} />
                   </div>
                 )}
                 {sgf.sgf_name &&
-                  sgf.sgf_name !== "? vs ?" && sgf.sgf_name !== "?" &&
+                  sgf.sgf_name !== "? vs ?" &&
+                  sgf.sgf_name !== "?" &&
                   sgf.sgf_name.trim() !== "" && (
                     <div className="sgf-page-sgf-name">{sgf.sgf_name}</div>
                   )}
@@ -130,9 +143,15 @@ const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
                   sgf.game_date !== "?" &&
                   sgf.game_date !== "Invalid date" &&
                   sgf.game_date.trim() !== "" && (
-                    <div>Game Date:
+                    <div>
+                      Game Date:
                       {/* We are UTC - 6 in Mountain Time, so we need to subtract NEGATIVE 6 to add 6 hours to the UTC 18 hour time to get time 0 UTC which matches the backend */}
-                    {" " + moment.utc(sgf.game_date).subtract(localTimezoneOffsetHours, 'hours').format("YYYY-MM-DD")}</div>
+                      {" " +
+                        moment
+                          .utc(sgf.game_date)
+                          .subtract(localTimezoneOffsetHours, "hours")
+                          .format("YYYY-MM-DD")}
+                    </div>
                   )}
               </div>
             </div>

@@ -100,11 +100,10 @@ router.put(
   requireAuth,
   async (req, res) => {
     try {
-
       const sgfId = req.params.sgf_id;
       //
-      const sgf = await Sgf.findByPk(sgfId)
-      const sgfThumbnail = sgf.thumbnail
+      const sgf = await Sgf.findByPk(sgfId);
+      const sgfThumbnail = sgf.thumbnail;
       //
       const sgfData = req.body.sgf_data;
 
@@ -243,9 +242,11 @@ router.put(
       );
 
       return res.status(200).send({
-        sgfStrings: resolved_final_sgf_strings.map(sgf => sgf.replace(/\n/g, "")),
+        sgfStrings: resolved_final_sgf_strings.map((sgf) =>
+          sgf.replace(/\n/g, "")
+        ),
         thumbnails: orderedThumbnailUrls,
-        sgfThumbnail: sgfThumbnail
+        sgfThumbnail: sgfThumbnail,
       });
     } catch (err) {
       res.status(500).send({ message: `Error: ${err.message}` });
@@ -254,5 +255,36 @@ router.put(
     // ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
   }
 );
+
+// Get all sgf thumbnails + sgf ids of potential puzzles
+router.get("/", requireAuth, async (req, res) => {
+  // make join query to get associated sgf.thumbnail based on specific sgf.id from our potential puzzles table
+  try {
+    const potentialPuzzleThumbnails = await PotentialPuzzle.findAll({
+      attributes: ["sgf_id"],
+      include: [
+        {
+          model: Sgf,
+          attributes: ["thumbnail"],
+        },
+      ],
+      raw: true,
+    });
+
+    // Remove duplicates since each sgf_id is likely to appear multiple times (we have many potential puzzles for the same sgf_id)
+    const uniqueResults = Array.from(
+      new Set(potentialPuzzleThumbnails.map((p) => p.sgf_id))
+    ).map((sgf_id) =>
+      potentialPuzzleThumbnails.find((p) => p.sgf_id === sgf_id)
+    );
+    return res.status(200).json(uniqueResults);
+  } catch (error) {
+    console.error(
+      "Failed to retrieve sgf thumbnail for potential puzzles",
+      error
+    );
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 module.exports = router;
