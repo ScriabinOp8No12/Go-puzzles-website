@@ -136,6 +136,7 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
       return {
         ...state,
         injectedCommentsAndMutatedSgf: action.payload,
+        sgfThumbnail: action.payload.sgfThumbnail // Also add the thumbnail into the state
       };
     default:
       return state;
