@@ -991,28 +991,30 @@ Body:
 
 ```json
 
-  [
-    {
-        "sgf_id": 22,
-        "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696054803/fcctla9ba6mf7xxbhic2.png"
-    },
-    {
-        "sgf_id": 23,
-        "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696055255/h4itatamg8frhi7v6zs1.png"
-    },
-    {
-        "sgf_id": 24,
-        "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696057415/af1t1l5aanf6taonyffg.png"
-    },
-    {
-        "sgf_id": 12,
-        "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028715/vqnappgjnx5oljz2nddb.png"
-    },
-    {
-        "sgf_id": 25,
-        "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696090389/q1mdrmup0kgkmxdzikz4.png"
-    }
-  ]
+  {
+    "PotentialPuzzles": [
+        {
+            "sgf_id": 22,
+            "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696054803/fcctla9ba6mf7xxbhic2.png"
+        },
+        {
+            "sgf_id": 23,
+            "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696055255/h4itatamg8frhi7v6zs1.png"
+        },
+        {
+            "sgf_id": 24,
+            "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696057415/af1t1l5aanf6taonyffg.png"
+        },
+        {
+            "sgf_id": 12,
+            "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028715/vqnappgjnx5oljz2nddb.png"
+        },
+        {
+            "sgf_id": 25,
+            "Sgf.thumbnail": "https://res.cloudinary.com/dn8rdavoi/image/upload/v1696090389/q1mdrmup0kgkmxdzikz4.png"
+        }
+    ]
+}
 
 
 

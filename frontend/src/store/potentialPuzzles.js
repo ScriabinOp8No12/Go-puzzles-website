@@ -8,7 +8,10 @@ export const RECEIVE_KATAGO_ANALYSIS =
   "potentialPuzzles/RECEIVE_KATAGO_ANALYSIS";
 export const INJECT_COMMENTS_AND_MUTATE_SGF_STRING =
   "/potentialPuzzles/INJECT_COMMENTS_AND_MUTATE_SGF_STRING";
-
+export const FETCH_ALL_POTENTIAL_PUZZLES =
+  "/potential_puzzles/FETCH_ALL_POTENTIAL_PUZZLES";
+export const FETCH_POTENTIAL_PUZZLES_BY_SGF_ID =
+  "/potential_puzzles/FETCH_POTENTIAL_PUZZLES_BY_SGF_ID";
 // ********** Action Creators ********* //
 
 export const generatePotentialPuzzles = (data) => ({
@@ -23,6 +26,16 @@ export const receiveKataGoAnalysis = (data) => ({
 
 export const injectCommentsAndMutateSgfStrings = (data) => ({
   type: INJECT_COMMENTS_AND_MUTATE_SGF_STRING,
+  payload: data,
+});
+
+export const fetchAllPotentialPuzzles = (data) => ({
+  type: FETCH_ALL_POTENTIAL_PUZZLES,
+  payload: data,
+});
+
+export const fetchAllPotentialPuzzlesBySgfId = (data) => ({
+  type: FETCH_POTENTIAL_PUZZLES_BY_SGF_ID,
   payload: data,
 });
 
@@ -45,10 +58,6 @@ export const generatePotentialPuzzlesThunk =
       console.error("Error in first endpoint:", errorMessage);
       return;
     }
-
-    // if (!response.ok) {
-    //   return "Failed to create input for KataGo";
-    // }
 
     // If we reach this point, it means the 1st response was successful (convert sgf to one line json for KataGo AI engine)
     const data = await response.json();
@@ -113,11 +122,29 @@ export const generatePotentialPuzzlesThunk =
     dispatch(injectCommentsAndMutateSgfStrings(thirdEndpointResult));
   };
 
+export const fetchAllPotentialPuzzlesThunk = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/potential_puzzles`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(fetchAllPotentialPuzzles(data.PotentialPuzzles)); // Structure looks like this in the response: {"PotentialPuzzles": [{ "sgf_id": 22, <placeholder>
+  }
+};
+
+export const fetchAllPotentialPuzzlesBySgfIdThunk = (sgfId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/potential_puzzles/${sgfId}`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(fetchAllPotentialPuzzlesBySgfId(data));
+  }
+};
+
 // ************* Reducer ***************** //
 
 const initialState = {
   katagoJsonOutput: null,
-  sgfThumbnails: [], // for storing the array of sgfThumbnails we want to display on the potential_puzzles page
+  potentialPuzzles: [],
+  currentSgfPotentialPuzzle: null,
 };
 
 const potentialPuzzlesReducer = (state = initialState, action) => {
@@ -136,7 +163,16 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
       return {
         ...state,
         injectedCommentsAndMutatedSgf: action.payload,
-        sgfThumbnails: [...state.sgfThumbnails, action.payload.sgfThumbnail], // Also add the thumbnail into the global redux state so we can access it
+      };
+    case FETCH_ALL_POTENTIAL_PUZZLES:
+      return {
+        ...state,
+        potentialPuzzles: action.payload,
+      };
+    case FETCH_POTENTIAL_PUZZLES_BY_SGF_ID:
+      return {
+        ...state,
+        currentSgfPotentialPuzzle: action.payload,
       };
     default:
       return state;

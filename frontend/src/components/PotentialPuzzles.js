@@ -1,31 +1,36 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { fetchAllPotentialPuzzlesThunk } from "../store/potentialPuzzles";
 import "./styles/PotentialPuzzles.css";
 
 // import moment from "moment-timezone";
 
 const PotentialPuzzles = () => {
-  // const userSGFs = useSelector((state) => state.sgfs.userSGFs);
-  const sgfThumbnails = useSelector((state) => state.potentialPuzzles.sgfThumbnails);
-  // console.log("sgfThumbnails! ", sgfThumbnails)
-  const sgfId = useSelector((state) => state.sgfs.sgf_id)
-  console.log("sgfId: ", sgfId)
+  const dispatch = useDispatch();
+  const userPotentialPuzzles = useSelector(
+    (state) => state.potentialPuzzles.potentialPuzzles
+  );
+
   const history = useHistory();
+  useEffect(() => {
+    dispatch(fetchAllPotentialPuzzlesThunk());
+  }, [dispatch]);
 
   return (
     <div className="outer-wrapper">
-      <div className="user-sgf-table">
-        {sgfThumbnails &&
-          sgfThumbnails.map((thumbnail, index) => (
-
-            <div className="uploaded-sgf-thumbnail" key={index}>
+      <div className="user-sgf-table"> {/* Have unique classname here? */}
+        {userPotentialPuzzles &&
+          userPotentialPuzzles.map((potentialPuzzle, index) => (
+            <div className="uploaded-sgf-thumbnail" key={index}> {/* Have unique classname here? */}
               <img
-                src={thumbnail}
+                src={potentialPuzzle["Sgf.thumbnail"]} // since the property is Sgf DOT thumbnail, we have to use square brackets
                 alt={`SGF Thumbnail ${index + 1}`}
-                title={`SGF Thumbnail ${index + 1}`}
-                // Change the url path to sgfs/sgf.id when we click on the thumbnail
-                onClick={() => history.push(`/potential_puzzles/${sgfId}`)}
+                title={`Potential Puzzles ${index + 1}`}
+                // Change the url path to potential_puzzles/sgf.id when we click on the thumbnail
+                onClick={() =>
+                  history.push(`/potential_puzzles/${potentialPuzzle.sgf_id}`)
+                }
                 style={{ cursor: "pointer" }}
               />
             </div>
