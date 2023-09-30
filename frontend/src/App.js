@@ -73,7 +73,7 @@ function App() {
           <Route path="/puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>
           <Route path="/sgfs/:sgf_id" component={SgfDisplay} />
           <Route path="/sgfs" component={UserSGFs} />
-          <Route path="/potential_puzzles/:sgf_id" component={PotentialPuzzlesDisplay}/>
+          <Route path="/potential_puzzles" component={PotentialPuzzlesDisplay}/>
           {/* <Route path="/potential_puzzles" component={UserPotentialPuzzles}/> */}
         </Switch>
       )}
