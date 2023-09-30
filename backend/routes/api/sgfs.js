@@ -5,7 +5,7 @@ const { python } = require("pythonia");
 const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
-const { User, Puzzle, Sgf } = require("../../db/models");
+const { User, Sgf, Puzzle, PotentialPuzzle} = require("../../db/models");
 
 // Bull for queueing / asynchronous katago analysis engine endpoint
 // const Bull = require("bull")
@@ -406,6 +406,7 @@ router.delete("/:sgf_id", requireAuth, async (req, res) => {
     }
 
     await Puzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
+    await PotentialPuzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
     // Delete the SGF record
     await sgfRecord.destroy();
 

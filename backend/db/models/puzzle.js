@@ -3,7 +3,7 @@ const { Model, Sequelize } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Puzzle extends Model {
     static associate(models) {
-      Puzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id"});
+      Puzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id", onDelete: "SET NULL"});
       // Many to many relationship between Puzzles and Users through the UserPuzzles join table!
       Puzzle.belongsToMany(models.User, {
         through: "UserPuzzles",
