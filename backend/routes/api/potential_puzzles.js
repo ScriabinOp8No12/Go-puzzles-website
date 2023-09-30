@@ -6,7 +6,8 @@ const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { Sgf, PotentialPuzzle } = require("../../db/models");
 const router = express.Router();
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
+const { diffieHellman } = require("crypto");
 
 const cloudinary = require("cloudinary").v2;
 
@@ -102,10 +103,7 @@ router.put(
   async (req, res) => {
     try {
       const sgfId = req.params.sgf_id;
-      //
-      const sgf = await Sgf.findByPk(sgfId);
-      const sgfThumbnail = sgf.thumbnail;
-      //
+
       const sgfData = req.body.sgf_data;
 
       const katagoJsonOutput = req.body.katago_json_output;
@@ -247,7 +245,6 @@ router.put(
           sgf.replace(/\n/g, "")
         ),
         thumbnails: orderedThumbnailUrls,
-        sgfThumbnail: sgfThumbnail,
       });
     } catch (err) {
       res.status(500).send({ message: `Error: ${err.message}` });
@@ -286,6 +283,47 @@ router.get("/", requireAuth, async (req, res) => {
     );
     res.status(500).send("Internal Server Error");
   }
+});
+
+// Get all potential_puzzles based on sgf_id
+router.get("/:sgf_id", requireAuth, async (req, res) => {
+
+  const sgfId = req.params.sgf_id;
+
+  // Find all records where the sgf_id matches the one in the url
+  const potentialPuzzles = await PotentialPuzzle.findAll({
+    where: { sgf_id: sgfId },
+    attributes: [
+      "id",
+      "sgf_id",
+      "sgf_data",
+      "category",
+      "move_number",
+      "solution_coordinates",
+      "difficulty",
+      "thumbnail"
+    ]
+  });
+
+  if (potentialPuzzles.length === 0) {
+    return res.status(404).json({ error: "Sgf with potential puzzles not found" });
+  }
+
+  // Format the SGF data for the response
+  const formattedPotentialPuzzles = potentialPuzzles.map(puzzle => ({
+    sgf_id: puzzle.sgf_id,
+    sgf_data: puzzle.sgf_data,
+    category: puzzle.category,
+    move_number: puzzle.move_number,
+    solution_coordinates: puzzle.solution_coordinates,
+    difficulty: puzzle.difficulty,
+    thumbnail: puzzle.thumbnail,
+    createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+    updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+  }));
+
+  return res.status(200).json(formattedPotentialPuzzles);
+
 });
 
 module.exports = router;

@@ -7,28 +7,30 @@ import "./styles/PotentialPuzzles.css";
 // import moment from "moment-timezone";
 
 const PotentialPuzzles = () => {
-
   const dispatch = useDispatch();
-  const userPotentialPuzzles = useSelector((state) => state.potentialPuzzles.potentialPuzzles)
-  const history = useHistory();
-    useEffect(() => {
-      dispatch(fetchAllPotentialPuzzlesThunk())
-}, [dispatch])
+  const userPotentialPuzzles = useSelector(
+    (state) => state.potentialPuzzles.potentialPuzzles
+  );
 
-console.log("user potential puzzles state:", userPotentialPuzzles)
+  const history = useHistory();
+  useEffect(() => {
+    dispatch(fetchAllPotentialPuzzlesThunk());
+  }, [dispatch]);
+
   return (
     <div className="outer-wrapper">
-      <div className="user-sgf-table">
+      <div className="user-sgf-table"> {/* Have unique classname here? */}
         {userPotentialPuzzles &&
           userPotentialPuzzles.map((potentialPuzzle, index) => (
-
-            <div className="uploaded-sgf-thumbnail" key={index}>
+            <div className="uploaded-sgf-thumbnail" key={index}> {/* Have unique classname here? */}
               <img
-                src={potentialPuzzle["Sgf.thumbnail"]}
+                src={potentialPuzzle["Sgf.thumbnail"]} // since the property is Sgf DOT thumbnail, we have to use square brackets
                 alt={`SGF Thumbnail ${index + 1}`}
-                title={`SGF Thumbnail ${index + 1}`}
-                // Change the url path to sgfs/sgf.id when we click on the thumbnail
-                onClick={() => history.push(`/potential_puzzles/${potentialPuzzle.sgf_id}`)}
+                title={`Potential Puzzles ${index + 1}`}
+                // Change the url path to potential_puzzles/sgf.id when we click on the thumbnail
+                onClick={() =>
+                  history.push(`/potential_puzzles/${potentialPuzzle.sgf_id}`)
+                }
                 style={{ cursor: "pointer" }}
               />
             </div>
