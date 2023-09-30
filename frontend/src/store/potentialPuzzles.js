@@ -117,7 +117,7 @@ export const generatePotentialPuzzlesThunk =
 
 const initialState = {
   katagoJsonOutput: null,
-  sgfThumbnail: null, // for storing the sgfThumbnail in the redux store
+  sgfThumbnails: [], // for storing the array of sgfThumbnails we want to display on the potential_puzzles page
 };
 
 const potentialPuzzlesReducer = (state = initialState, action) => {
@@ -136,6 +136,7 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
       return {
         ...state,
         injectedCommentsAndMutatedSgf: action.payload,
+        sgfThumbnails: [...state.sgfThumbnails, action.payload.sgfThumbnail], // Also add the thumbnail into the global redux state so we can access it
       };
     default:
       return state;
