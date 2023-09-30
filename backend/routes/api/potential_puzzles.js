@@ -6,6 +6,7 @@ const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { Sgf, PotentialPuzzle } = require("../../db/models");
 const router = express.Router();
+const Sequelize = require('sequelize')
 
 const cloudinary = require("cloudinary").v2;
 
@@ -277,7 +278,7 @@ router.get("/", requireAuth, async (req, res) => {
     ).map((sgf_id) =>
       potentialPuzzleThumbnails.find((p) => p.sgf_id === sgf_id)
     );
-    return res.status(200).json(uniqueResults);
+    return res.status(200).json({PotentialPuzzles: uniqueResults});
   } catch (error) {
     console.error(
       "Failed to retrieve sgf thumbnail for potential puzzles",

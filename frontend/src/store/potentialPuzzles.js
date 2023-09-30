@@ -8,6 +8,8 @@ export const RECEIVE_KATAGO_ANALYSIS =
   "potentialPuzzles/RECEIVE_KATAGO_ANALYSIS";
 export const INJECT_COMMENTS_AND_MUTATE_SGF_STRING =
   "/potentialPuzzles/INJECT_COMMENTS_AND_MUTATE_SGF_STRING";
+export const FETCH_ALL_POTENTIAL_PUZZLES =
+  "/potential_puzzles/FETCH_ALL_POTENTIAL_PUZZLES";
 
 // ********** Action Creators ********* //
 
@@ -23,6 +25,11 @@ export const receiveKataGoAnalysis = (data) => ({
 
 export const injectCommentsAndMutateSgfStrings = (data) => ({
   type: INJECT_COMMENTS_AND_MUTATE_SGF_STRING,
+  payload: data,
+});
+
+export const fetchAllPotentialPuzzles = (data) => ({
+  type: FETCH_ALL_POTENTIAL_PUZZLES,
   payload: data,
 });
 
@@ -113,11 +120,21 @@ export const generatePotentialPuzzlesThunk =
     dispatch(injectCommentsAndMutateSgfStrings(thirdEndpointResult));
   };
 
+export const fetchAllPotentialPuzzlesThunk = () => async (dispatch) => {
+  const response = await csrfFetch(`api/potential_puzzles`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(fetchAllPotentialPuzzles(data.PotentialPuzzles)); // Structure looks like this in the response: {"PotentialPuzzles": [{ "sgf_id": 22, <placeholder>
+  }
+};
+
 // ************* Reducer ***************** //
 
 const initialState = {
   katagoJsonOutput: null,
   sgfThumbnails: [], // for storing the array of sgfThumbnails we want to display on the potential_puzzles page
+  potentialPuzzles: [],
 };
 
 const potentialPuzzlesReducer = (state = initialState, action) => {
@@ -137,6 +154,11 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
         ...state,
         injectedCommentsAndMutatedSgf: action.payload,
         sgfThumbnails: [...state.sgfThumbnails, action.payload.sgfThumbnail], // Also add the thumbnail into the global redux state so we can access it
+      };
+    case FETCH_ALL_POTENTIAL_PUZZLES:
+      return {
+        ...state,
+        potentialPuzzles: action.payload,
       };
     default:
       return state;
