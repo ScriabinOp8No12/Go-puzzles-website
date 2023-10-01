@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+// import { useHistory, useLocation } from "react-router-dom";
 import { fetchAllPotentialPuzzlesThunk } from "../store/potentialPuzzles";
 import "./styles/PotentialPuzzles.css";
 
@@ -13,9 +14,27 @@ const PotentialPuzzles = () => {
   );
 
   const history = useHistory();
+  // const location = useLocation();
+
   useEffect(() => {
     dispatch(fetchAllPotentialPuzzlesThunk());
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   return history.listen((location) => {
+  //     // Temporarily hard refresh the home page to solve the glift instance bug issue, maybe we could pass in the filter query parameters as another temporary solution
+  //     if (location.pathname === "/potential_puzzles") {
+  //       window.location.reload();
+  //     }
+  //   });
+  // }, [history]);
+
+  // useEffect(() => {
+  //   if (location.pathname === "/potential_puzzles") { // Replace "/your-route-path" with the route path of this component
+  //     window.location.reload();
+  //   }
+  //   dispatch(fetchAllPotentialPuzzlesThunk());
+  // }, [dispatch, location.pathname]);
 
   return (
     <div className="outer-wrapper">
