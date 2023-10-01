@@ -28,7 +28,7 @@ def process_range(stdout_data, n, start, end):
 
 def define_ranges(stdout_data, startMove):
     # 3 mistakes in moves 1-50, 5 mistakes in moves 51-100, 5 mistakes in moves 101-150, and 3 mistakes in moves 151 to the end of the game
-    ranges = [(startMove, 50, 3, 'Opening'), (51, 100, 5, 'Early middlegame'), (101, 150, 5, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
+    ranges = [(startMove, 50, 3, 'Opening'), (51, 100, 3, 'Early middlegame'), (101, 150, 3, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
     results = []
     for start, end, n, _ in ranges:
         data = process_range(stdout_data.decode('utf-8'), n, start, end)
