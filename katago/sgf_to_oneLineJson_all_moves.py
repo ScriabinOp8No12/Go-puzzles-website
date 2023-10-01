@@ -13,13 +13,15 @@ def sgf_to_one_line_json(sgf_data):
 
     # Extract relevant properties from SGF
     try:
-      size = sgf_game.get_size()
-      # if no size property found in SGF, throw an error with a message!
+        size = sgf_game.get_size()
+        # if no size property found in SGF, throw an error with a message!
     except ValueError:
-      print("Invalid SGF, size of board unknown!")
+        print("Invalid SGF, size of board unknown!")
 
     komi = root_node.get('KM') if root_node.has_property('KM') else 0.5
-    rules = root_node.get('RU').lower() if root_node.has_property('RU') else "?"
+    # Since rules are required to feed into KataGo, we will default it to japanese if we can't find the rule property in the sgf
+    rules = root_node.get('RU').lower(
+    ) if root_node.has_property('RU') else "japanese"
     # Need to make sure that if there's no AB or AW property (like in an even game) that there's no error
     # *** This must be converting the stones into integer coordinates instead of using sgf letter coordinates
     black_stones = root_node.get(
@@ -79,7 +81,8 @@ def sgf_to_one_line_json(sgf_data):
         next_player_detected = True
 
     if not next_player_detected:
-      next_player = input("Select next player, please input B for black and W for white: ")
+        next_player = input(
+            "Select next player, please input B for black and W for white: ")
 
     # Set komi in JSON dictionary
     if komi and float(komi) > 100:
@@ -93,15 +96,13 @@ def sgf_to_one_line_json(sgf_data):
 
     # Create JSON dictionary
     result = {
-        "id": 'sgfTest3',
-        "rules": rules,
+        "id": 'sgfTest',
+        "rules": rules,  # Code above sets rules to "japanese" if it can't find the rules property
         "komi": komi,
         "boardXSize": size,
         "boardYSize": size,
-        # Json formatting below automatically converts initialPlayer to a capital B/W instead of a lowercase B/W
-        "initialPlayer": next_player,
-        # We need analyzeTurns to be set to an empty list with the move 0 in it to analyze positions with no move property
-        "analyzeTurns": analyzeTurns or [0],
+        "initialPlayer": next_player, # Json formatting auto converts initialPlayer to a capital B/W instead of a lowercase B/W
+        "analyzeTurns": analyzeTurns or [0], # Set to an empty list with the move 0 in it to analyze positions with no move property
         "initialStones": initial_stones,
         "moves": moves
     }
