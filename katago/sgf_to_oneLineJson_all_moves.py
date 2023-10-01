@@ -18,7 +18,7 @@ def sgf_to_one_line_json(sgf_data):
     except ValueError:
         print("Invalid SGF, size of board unknown!")
 
-    komi = root_node.get('KM') if root_node.has_property('KM') else 0.5
+    komi = root_node.get('KM') if root_node.has_property('KM') else 6.5
     # Since rules are required to feed into KataGo, we will default it to japanese if we can't find the rule property in the sgf
     rules = root_node.get('RU').lower(
     ) if root_node.has_property('RU') else "japanese"
@@ -85,8 +85,8 @@ def sgf_to_one_line_json(sgf_data):
             "Select next player, please input B for black and W for white: ")
 
     # Set komi in JSON dictionary
-    if komi and float(komi) > 100:
-        komi = 7.5
+    if abs(float(komi)) >= 150:
+        komi = 6.5
     # Fox games sometimes take the komi and sets it to 0.25, which shows up as 0.0 in the SGF
     # Also when forking from a puzzle or downloading it without the moves, it will set the komi to 0.0
     elif 0 <= float(komi) < 0.5:

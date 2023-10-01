@@ -540,6 +540,7 @@ def test_convert_string_to_json_for_postman():
     ]
 }
 '''
+  # json_output = json.dumps(katago_json_output)
   json_output = json.dumps(katago_json_output2)
   print(json_output)
 
