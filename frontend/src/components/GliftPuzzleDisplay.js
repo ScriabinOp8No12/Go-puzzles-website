@@ -28,6 +28,7 @@ const GliftPuzzleDisplay = () => {
     return history.listen((location) => {
       // Temporarily hard refresh the home page to solve the glift instance bug issue, maybe we could pass in the filter query parameters as another temporary solution
       if (location.pathname === "/") {
+        // if (location.pathname === "/" || location.pathname === "/potential_puzzles")
         window.location.reload();
       }
     });
