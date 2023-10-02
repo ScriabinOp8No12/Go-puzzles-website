@@ -3,6 +3,7 @@
   height: 600px;
   margin: 0 auto;
   position: relative;
+  overflow-y: hidden; /* Needed for properly hiding scroll on potential puzzles */
 }
 
 /* Position the ranking display component absolute to the parent container, which is relative positioning */

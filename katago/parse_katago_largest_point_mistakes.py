@@ -25,15 +25,23 @@ def process_turn_data(data, prev_score, heap, num_mistakes, correct_moves):
         # The best AI move has an "order" key of 0, the next best moves have order values of: 1, 2, 3, etc.
         best_move_info = [info for info in move_infos if info['order'] == 0][0]
         best_score_lead = best_move_info['scoreLead']
-        # The pv value shows the follow up sequence or variation
-        correct_moves_current_turn = [(best_move_info['move'], best_move_info['pv'])]
+
+        # Check if the best move is not 'pass' and 'pass' isn't in its pv
+        if best_move_info['move'] != "pass" and "pass" not in best_move_info['pv']:
+            # The pv value shows the follow up sequence or variation
+            correct_moves_current_turn = [(best_move_info['move'], best_move_info['pv'])]
+        else:
+            correct_moves_current_turn = []
 
         for move_info in move_infos:
             # If the point loss between the move and the best move less than 1, then it's also considered correct
             if move_info != best_move_info and abs(move_info['scoreLead'] - best_score_lead) <= 1:
-                correct_moves_current_turn.append((move_info['move'], move_info['pv']))
-
-        correct_moves.append((turn_number, correct_moves_current_turn))
+                # Check if the move isn't 'pass' and 'pass' isn't in its pv
+                if move_info['move'] != "pass" and "pass" not in move_info['pv']:
+                    correct_moves_current_turn.append((move_info['move'], move_info['pv']))
+        # Only append to correct moves if correct_moves_current_turn is NOT empty (we don't want to add an empty [] to the correct moves sequence)
+        if correct_moves_current_turn:
+            correct_moves.append((turn_number, correct_moves_current_turn))
 
     return score_lead
 
