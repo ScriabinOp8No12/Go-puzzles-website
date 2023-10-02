@@ -13,6 +13,7 @@ const PotentialPuzzles = () => {
   );
 
   const history = useHistory();
+
   useEffect(() => {
     dispatch(fetchAllPotentialPuzzlesThunk());
   }, [dispatch]);

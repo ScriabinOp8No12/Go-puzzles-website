@@ -26,8 +26,9 @@ const GliftPuzzleDisplay = () => {
   // Better solution would be to use .destroy() on the glift instance, then recreate it for each new puzzle when we click on it
   useEffect(() => {
     return history.listen((location) => {
-      // Temporarily hard refresh the home page to solve the glift instance bug issue, maybe we could pass in the filter query parameters as another temporary solution
-      if (location.pathname === "/") {
+      // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
+      // maybe we could pass in the filter query parameters as another temporary solution
+      if (location.pathname === "/" || location.pathname === "/potential_puzzles") {
         window.location.reload();
       }
     });

@@ -11,24 +11,28 @@ katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kat
 def process_range(stdout_data, n, start, end):
     mistakes, correct_moves = find_mistakes_and_correct_moves(stdout_data, n, start, end)
     results = []
-    if mistakes:
+
+    # Determine the number of puzzles to generate based on the available mistakes
+    num_puzzles = min(n, len(mistakes))
+    # if mistakes:
         # mistakes.sort(key=lambda x: x[1], reverse=True) # If we want to sort the mistakes in reverse order by the 2nd column (mistake amount)
-        correct_moves_dict = {turn: moves for turn, moves in correct_moves}
-        for turn, points in mistakes[:n]:
-            moves = correct_moves_dict.get(turn-1, [])
-            formatted_correct_moves = {}
-            for move, pv in moves:
-                formatted_correct_moves[move] = pv
-            results.append({
-                "move": turn,
-                "points_lost_on_next_move": round(points, 1),
-                "correct_moves": formatted_correct_moves
-            })
+    correct_moves_dict = {turn: moves for turn, moves in correct_moves}
+    # for turn, points in mistakes[:n]:
+    for turn, points in mistakes[:num_puzzles]:
+        moves = correct_moves_dict.get(turn-1, [])
+        formatted_correct_moves = {}
+        for move, pv in moves:
+            formatted_correct_moves[move] = pv
+        results.append({
+            "move": turn,
+            "points_lost_on_next_move": round(points, 1),
+            "correct_moves": formatted_correct_moves
+          })
     return results
 
 def define_ranges(stdout_data, startMove):
-    # 3 mistakes in moves 1-50, 5 mistakes in moves 51-100, 5 mistakes in moves 101-150, and 3 mistakes in moves 151 to the end of the game
-    ranges = [(startMove, 50, 3, 'Opening'), (51, 100, 3, 'Early middlegame'), (101, 150, 3, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
+    # 3 mistakes in moves 1-50, 3 mistakes in moves 51-100, 3 mistakes in moves 101-150, and 3 mistakes in moves 151 to the end of the game
+    ranges = [(startMove, 50, 2, 'Opening'), (51, 100, 3, 'Early middlegame'), (101, 150, 3, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
     results = []
     for start, end, n, _ in ranges:
         data = process_range(stdout_data.decode('utf-8'), n, start, end)

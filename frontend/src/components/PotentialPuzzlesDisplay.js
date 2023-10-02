@@ -20,24 +20,24 @@ const PotentialPuzzlesDisplay = () => {
 
   // Map the data from the store to the sgfCollection format
   // Ensure it's only called if the potentialPuzzlesdata is not null or not undefined
-  const sgfCollection = potentialPuzzlesData ? potentialPuzzlesData.map(puzzle => ({
-    sgfString: puzzle.sgf_data,
-    // Go one move before the mistake "move_number", so the user can try the puzzle
-    initialPosition: puzzle.move_number -1,
-    problemConditions: {
-      C: ["CORRECT"],
-    },
-    widgetType: "STANDARD_PROBLEM",
-  })) : [];
-
   useEffect(() => {
-    if (sgfCollection.length > 0) {
-      glift.create({
-        sgfCollection,
-        divId: "gliftContainer",
-      });
+    const sgfCollection = potentialPuzzlesData ? potentialPuzzlesData.map(puzzle => ({
+      sgfString: puzzle.sgf_data,
+      // Go one move before the mistake "move_number", so the user can try the puzzle
+      initialPosition: puzzle.move_number -1,
+      problemConditions: {
+        C: ["CORRECT"],
+      },
+      widgetType: "STANDARD_PROBLEM",
+    })) : [];
+
+      if (sgfCollection.length > 0) {
+        glift.create({
+          sgfCollection,
+          divId: "gliftContainer",
+        });
     }
-  }, [sgfCollection]);
+  }, [potentialPuzzlesData])
 
   return <div id="gliftContainer"></div>;
 };

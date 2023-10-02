@@ -12,8 +12,9 @@ def process_turn_data(data, prev_score, heap, num_mistakes, correct_moves):
     if prev_score is not None:
         score_diff = abs(prev_score - score_lead)
         # Only count it as a mistake if the point loss is greater than 1
-        # if score_diff > 1:
-        #   heappush(heap, (score_diff, turn_number))
+        if score_diff <= 1:
+          return score_lead
+
         heappush(heap, (score_diff, turn_number))
         if len(heap) > num_mistakes:
             heappop(heap)
