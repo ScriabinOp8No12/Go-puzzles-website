@@ -120,7 +120,10 @@ const GliftPuzzleDisplay = () => {
           problemConditions: { C: ["CORRECT"] },
           widgetType: "STANDARD_PROBLEM",
         },
-        display: { theme: "DEPTH" },
+        display:
+        { drawBoardCoords: true,
+          disableZoomForMobile: true,
+          theme: "DEPTH" },
         hooks: checkCorrectHook,
       });
     }
