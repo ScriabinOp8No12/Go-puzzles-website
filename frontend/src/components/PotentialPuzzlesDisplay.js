@@ -35,6 +35,11 @@ const PotentialPuzzlesDisplay = () => {
         glift.create({
           sgfCollection,
           divId: "gliftContainer",
+          display: {
+            drawBoardCoords: true,
+            disableZoomForMobile: true,
+            // theme: 'COLORFUL' // useful for debugging box issues.
+          },
         });
     }
   }, [potentialPuzzlesData])
