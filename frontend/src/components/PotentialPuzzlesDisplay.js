@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector} from 'react-redux';
 import { useParams} from 'react-router-dom';
-import "./styles/GliftPublicPuzzle.css";
+import "./styles/PotentialPuzzlesDisplay.css";
 import "../lib/glift";
 import { fetchAllPotentialPuzzlesBySgfIdThunk } from "../store/potentialPuzzles";
 
