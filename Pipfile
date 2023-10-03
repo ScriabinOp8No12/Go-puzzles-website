@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 pytest = "*"
+sgfmill = "==1.1.1"
+pillow = "==8.4.0"
 
 [dev-packages]
 
