@@ -85,4 +85,8 @@ source ~/.bashrc
 
 8. [DONE, but too complicated, skipping rest of setup for now] Install Remote - SSH extension in VSCode to view the SSH Google Cloud files ("Remote - SSH Open any folder on a remote machine" from Microsoft)
 
-9. pipenv install
+9. pipenv install from the project root
+
+10. Run npm install in the root and then again in the backend?! (Since there are 2 package.json files)
+
+10a. Move the .env from the home directory into the backend folder to match the structure of our local code. mv .env /Go-puzzles-website/backend/
