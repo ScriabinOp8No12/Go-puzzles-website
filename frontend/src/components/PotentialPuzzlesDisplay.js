@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector} from 'react-redux';
-import { useParams} from 'react-router-dom';
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import "./styles/PotentialPuzzlesDisplay.css";
 import "../lib/glift";
 import { fetchAllPotentialPuzzlesBySgfIdThunk } from "../store/potentialPuzzles";
@@ -12,37 +12,49 @@ const PotentialPuzzlesDisplay = () => {
   const dispatch = useDispatch();
 
   // Fetch the data from the Redux store
-  const potentialPuzzlesData = useSelector(state => state.potentialPuzzles.currentSgfPotentialPuzzle);
+  const potentialPuzzlesData = useSelector(
+    (state) => state.potentialPuzzles.currentSgfPotentialPuzzle
+  );
 
   useEffect(() => {
     dispatch(fetchAllPotentialPuzzlesBySgfIdThunk(sgf_id));
   }, [dispatch, sgf_id]);
 
+  // Use useRef to keep track of the current Glift instance
+  const gliftInstance = useRef(null);
+
   // Map the data from the store to the sgfCollection format
   // Ensure it's only called if the potentialPuzzlesdata is not null or not undefined
   useEffect(() => {
-    const sgfCollection = potentialPuzzlesData ? potentialPuzzlesData.map(puzzle => ({
-      sgfString: puzzle.sgf_data,
-      // Go one move before the mistake "move_number", so the user can try the puzzle
-      initialPosition: puzzle.move_number -1,
-      problemConditions: {
-        C: ["CORRECT"],
-      },
-      widgetType: "STANDARD_PROBLEM",
-    })) : [];
-
-      if (sgfCollection.length > 0) {
-        glift.create({
-          sgfCollection,
-          divId: "gliftContainer",
-          display: {
-            drawBoardCoords: true,
-            disableZoomForMobile: true,
-            // theme: 'COLORFUL' // useful for debugging box issues.
+    const sgfCollection = potentialPuzzlesData
+      ? potentialPuzzlesData.map((puzzle) => ({
+          sgfString: puzzle.sgf_data,
+          // Go one move before the mistake "move_number", so the user can try the puzzle
+          initialPosition: puzzle.move_number - 1,
+          problemConditions: {
+            C: ["CORRECT"],
           },
-        });
+          widgetType: "STANDARD_PROBLEM",
+        }))
+      : [];
+
+    if (sgfCollection.length > 0) {
+      // Destroy the previous instance if it exists
+      if (gliftInstance.current) {
+        gliftInstance.current.destroy();
+      }
+
+      // Create a new Glift instance
+      gliftInstance.current = glift.create({
+        sgfCollection,
+        divId: "gliftContainer",
+        display: {
+          drawBoardCoords: true,
+          disableZoomForMobile: true,
+        },
+      });
     }
-  }, [potentialPuzzlesData])
+  }, [potentialPuzzlesData]);
 
   return <div id="gliftContainer"></div>;
 };
