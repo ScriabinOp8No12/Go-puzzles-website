@@ -28,11 +28,12 @@ const EditSgfModal = ({ sgfId }) => {
 
   // ***************** Ranking fields 30k-1k, 1d/1p-9d/9p ************************* //
 
-  const kRanks = Array.from({ length: 30 }, (_, i) => `${30 - i}k`);
+  const kRanks = Array.from({ length: 20 }, (_, i) => `${20 - i}k`);
   const dRanks = Array.from({ length: 9 }, (_, i) => `${i + 1}d`);
-  const pRanks = Array.from({ length: 9 }, (_, i) => `${i + 1}p`);
+  // const pRanks = Array.from({ length: 9 }, (_, i) => `${i + 1}p`);
 
-  const rankOptions = [...kRanks, ...dRanks, ...pRanks];
+  const rankOptions = [...kRanks, ...dRanks];
+  // const rankOptions = [...kRanks, ...dRanks, ...pRanks];
 
   // Try React DatePicker instead?
 
