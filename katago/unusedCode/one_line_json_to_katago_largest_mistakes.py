@@ -4,7 +4,7 @@ startTime = time.time()
 import os
 import json
 import subprocess
-from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
+from katago.parse_katago_largest_point_mistakes_NOT_SHOWING_PV import find_mistakes_and_correct_moves
 
 # Set the path to the jsonDictionaryOutput folder
 json_folder_path = 'katago/json_Dict_ALL_TURNS'

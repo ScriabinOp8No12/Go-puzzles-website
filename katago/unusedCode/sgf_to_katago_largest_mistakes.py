@@ -4,7 +4,7 @@ startTime = time.time()
 import os
 import subprocess
 import json
-from parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
+from katago.parse_katago_largest_point_mistakes_NOT_SHOWING_PV import find_mistakes_and_correct_moves
 from katago.sgf_to_oneLineJson_all_moves import sgf_to_one_line_json
 
 # sgf_folder_path = 'katago/positionsWithMoveOrder'

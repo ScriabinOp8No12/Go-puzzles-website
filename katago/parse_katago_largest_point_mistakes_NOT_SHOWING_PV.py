@@ -1,8 +1,6 @@
 import json
 from heapq import heappush, heappop
 
-# ******* Older version, the other modified version doesn't show follow up moves properly after our changes to trying to filter out mistakes less than 1 point loss ********
-
 # Finds mistakes from KataGo Analysis output based on largest point loss, with mistakes grabbed from each stage of the game
 
 # Helper function to process each turn's data
@@ -13,6 +11,10 @@ def process_turn_data(data, prev_score, heap, num_mistakes, correct_moves):
     # Calculate the score difference and add to heap
     if prev_score is not None:
         score_diff = abs(prev_score - score_lead)
+        # Only count it as a mistake if the point loss is greater than 1
+        if score_diff <= 1:
+          return score_lead
+
         heappush(heap, (score_diff, turn_number))
         if len(heap) > num_mistakes:
             heappop(heap)
@@ -23,15 +25,23 @@ def process_turn_data(data, prev_score, heap, num_mistakes, correct_moves):
         # The best AI move has an "order" key of 0, the next best moves have order values of: 1, 2, 3, etc.
         best_move_info = [info for info in move_infos if info['order'] == 0][0]
         best_score_lead = best_move_info['scoreLead']
-        # The pv value shows the follow up sequence or variation
-        correct_moves_current_turn = [(best_move_info['move'], best_move_info['pv'])]
+
+        # Check if the best move is not 'pass' and 'pass' isn't in its pv
+        if best_move_info['move'] != "pass" and "pass" not in best_move_info['pv']:
+            # The pv value shows the follow up sequence or variation
+            correct_moves_current_turn = [(best_move_info['move'], best_move_info['pv'])]
+        else:
+            correct_moves_current_turn = []
 
         for move_info in move_infos:
             # If the point loss between the move and the best move less than 1, then it's also considered correct
             if move_info != best_move_info and abs(move_info['scoreLead'] - best_score_lead) <= 1:
-                correct_moves_current_turn.append((move_info['move'], move_info['pv']))
-
-        correct_moves.append((turn_number, correct_moves_current_turn))
+                # Check if the move isn't 'pass' and 'pass' isn't in its pv
+                if move_info['move'] != "pass" and "pass" not in move_info['pv']:
+                    correct_moves_current_turn.append((move_info['move'], move_info['pv']))
+        # Only append to correct moves if correct_moves_current_turn is NOT empty (we don't want to add an empty [] to the correct moves sequence)
+        if correct_moves_current_turn:
+            correct_moves.append((turn_number, correct_moves_current_turn))
 
     return score_lead
 
@@ -66,9 +76,3 @@ def find_mistakes_and_correct_moves(katago_output, num_mistakes, start_turn, end
         mistakes.append((score[1], score[0]))
 
     return list(mistakes), correct_moves
-
-
-# kataOutput = '''{"id":"sgfTest3","isDuringSearch":false,"moveInfos":[{"lcb":0.949013928,"move":"P18","order":0,"prior":0.976692855,"pv":["P18","O16","O6","O3","S9","N17"],"scoreLead":5.99942999,"scoreMean":5.99942999,"scoreSelfplay":8.20637113,"scoreStdev":14.8662875,"utility":0.860247985,"utilityLcb":0.94995461,"visits":24,"weight":33.727346109796486,"winrate":0.916975848},{"lcb":2.22026222,"move":"O6","order":1,"prior":0.00243354216,"pv":["O6"],"scoreLead":11.0965338,"scoreMean":11.0965338,"scoreSelfplay":12.2656183,"scoreStdev":14.1527813,"utility":1.00624334,"utilityLcb":4.50624335,"visits":1,"weight":1.7309293680954236,"winrate":0.970262213},{"lcb":2.21397983,"move":"Q15","order":2,"prior":0.000757954607,"pv":["Q15"],"scoreLead":11.4115992,"scoreMean":11.4115992,"scoreSelfplay":12.1958847,"scoreStdev":14.7406811,"utility":0.991983072,"utilityLcb":4.49198309,"visits":1,"weight":1.396496100075482,"winrate":0.963979824}],"rootInfo":{"currentPlayer":"W","rawStScoreError":2.25268579,"rawStWrError":0.0590167567,"rawVarTimeLeft":13.9276733,"scoreLead":5.99019091,"scoreSelfplay":8.21751597,"scoreStdev":14.8843515,"symHash":"2AF36EB1A416AE50BABC01DE5A7E2419","thisHash":"8ECBE553F76CD9539F7F5E5D1BA26FEF","utility":0.859766102,"visits":27,"weight":36.47822977892508,"winrate":0.916724168},"turnNumber":0}'''
-# turn, move = find_mistakes_and_correct_moves(kataOutput, 5, 0, 100)
-
-# print(turn, move)
