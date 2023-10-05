@@ -39,7 +39,7 @@ sudo apt install cmake g++ zlib1g-dev libzip-dev libeigen3-dev libssl-dev
 5b. rm -rf ~/KataGo (We got a duplicate because we git cloned into the root of our vm)
 
 
-## Download the strongest / most updated new b-18 model
+## Download the strongest / most updated new b-18 model (as of 10/4/2023)
 
 6. mkdir ~/katago/models
 6a. wget -P ~/katago/models/ https://media.katagotraining.org/uploaded/networks/models/kata1/kata1-b18c384nbt-s7529928448-d3667707199.bin.gz
@@ -58,6 +58,7 @@ First tuning / benchmark test on GTP_example.cfg (changed from 500 visits to 50 
 ## 8d. Run KataGo with a simple one line json to test it's speed and to make sure it works!
 MAKE SURE NOT TO INCLUDE THE .gz at the end of .bin, otherwise it can't find it, somehow we had .gz at the end of our local vscode script here, and it worked!?!?
 
+## Add the following command to the startup script for when the GPU instance boots up?
 ~/katago/KataGo/katago analysis -model ~/katago/models/kata1-b18c384nbt-s7529928448-d3667707199.bin -config ~/katago/KataGo/configs/analysis_example.cfg
 
 Use this one line json string, containing 67 moves as a test (*** TOOK only ~ 5.5 seconds! *** ):
@@ -66,3 +67,46 @@ Use this one line json string, containing 67 moves as a test (*** TOOK only ~ 5.
 
 9. cd ~
 9a. mkdir katago_python_scripts
+
+
+****** Command fails now, VM somehow doesn't have nvidia driver anymore
+
+sudo apt-get install --reinstall nvidia-driver-470 (failed!)
+sudo reboot
+sudo apt-get update
+
+***** Above failed *****
+created a snapshot of "instance-1" immediately after Nvidia driver is now missing
+
+**** TRYING OPENCL BACKEND instead of being forced to use CUDA ****
+
+1. Create new GPU VM (identical to other one)
+2. cd ~
+3. git clone https://github.com/lightvector/KataGo.git ~/katago/KataGo
+4. cd ~/katago/KataGo/cpp
+5. sudo apt update
+sudo apt install cmake g++ zlib1g-dev libzip-dev libeigen3-dev libssl-dev ocl-icd-opencl-dev
+cmake . -DUSE_BACKEND=OPENCL
+make -j 4
+
+Follow above steps, now cpp folder is here... lol? So have to change a few paths, see below...
+
+6. cd ~/katago/KataGo/cpp/configs$
+7. nano gtp_example.cfg (change max visits to 50, numSearchThreads to 8)
+8. ~/katago/KataGo/cpp/katago benchmark -model ~/katago/models/kata1-b18c384nbt-s7529928448-d3667707199.bin -config ~/katago/KataGo/cpp/configs/gtp_example.cfg
+
+Logs when running benchmark for opencl:
+
+Testing using 800 visits.
+  If you have a good GPU, you might increase this using "-visits N" to get more accurate results.
+  If you have a weak GPU and this is taking forever, you can decrease it instead to finish the benchmark faster.
+
+You are currently using the OpenCL version of KataGo.
+If you have a strong GPU capable of FP16 tensor cores (e.g. RTX2080), using the Cuda version of KataGo instead may give a mild performance boost.
+
+9. nano analysis_example.cfg -> change maxVisits to 50 from 500
+
+10. ~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s7529928448-d3667707199.bin -config ~/katago/KataGo/cpp/configs/analysis_example.cfg
+11. {"id":"sgfTest3","rules":"chinese","komi":7.5,"boardXSize":19,"boardYSize":19,"initialPlayer":"W","analyzeTurns":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67],"initialStones":[],"moves":[["B","R16"],["W","D4"],["B","Q3"],["W","D16"],["B","C17"],["W","D17"],["B","C16"],["W","C15"],["B","B15"],["W","B14"],["B","C14"],["W","D15"],["B","B13"],["W","B16"],["B","A14"],["W","B17"],["B","O17"],["W","R5"],["B","R8"],["W","P4"],["B","P3"],["W","O4"],["B","N2"],["W","M3"],["B","N3"],["W","N4"],["B","M4"],["W","L3"],["B","M5"],["W","S3"],["B","R2"],["W","S2"],["B","M2"],["W","L2"],["B","O3"],["W","P6"],["B","K4"],["W","J3"],["B","J4"],["W","H3"],["B","G5"],["W","F4"],["B","P8"],["W","O7"],["B","N9"],["W","S16"],["B","S15"],["W","R17"],["B","S17"],["W","Q16"],["B","R15"],["W","S18"],["B","T16"],["W","Q15"],["B","Q17"],["W","P17"],["B","R18"],["W","O16"],["B","P18"],["W","P16"],["B","N17"],["W","N16"],["B","M16"],["W","M15"],["B","L15"],["W","L14"],["B","L16"]]}
+
+Took 8 seconds instead of 5.5 seconds when using CUDA backend... YIKES!
