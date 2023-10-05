@@ -5,9 +5,8 @@ import json
 # added GCP to match new python script name
 from GCP_parse_katago_largest_point_mistakes import find_mistakes_and_correct_moves
 
-# Modified build command to not include .gz at teh end of the model name, note that /cpp is not in the CUDA vm version, so be careful with that command
-# katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s7529928448-d3667707199.bin -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
-katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s6981484800-d3524616345.bin.gz -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
+# Modified build command to not include .gz at the end of the model name, note that /cpp is not in the CUDA vm version, so be careful with that command
+katago_command = '~/katago/KataGo/cpp/katago analysis -model ~/katago/models/kata1-b18c384nbt-s7529928448-d3667707199.bin -config ~/katago/KataGo/cpp/configs/analysis_example.cfg'
 
 def process_range(stdout_data, n, start, end):
     mistakes, correct_moves = find_mistakes_and_correct_moves(stdout_data, n, start, end)
