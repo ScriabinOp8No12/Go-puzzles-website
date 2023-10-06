@@ -7,7 +7,6 @@ const { requireAuth } = require("../../utils/auth");
 const { Sgf, PotentialPuzzle } = require("../../db/models");
 const router = express.Router();
 const Sequelize = require('sequelize');
-const { diffieHellman } = require("crypto");
 
 const cloudinary = require("cloudinary").v2;
 

@@ -31,3 +31,22 @@ nvidia-smi works now... wow
 
 Count of stops and starts to instance and if nvidia-smi still works: ||||
 Count of GPU start and stops: |||
+
+
+## Setting up KataGo server
+
+1. Configure permanent external ip address -> it won't change after we start and stop the VM instance
+Type "VPC network" into the search bar at the top, select VPC networks
+On the left sidebar, click IP addresses, select the VM with cuda
+Click the 3 dots, click "promote to static IP address"
+
+2. Click the 3 dots on the external ip address one, do the same thing.  Maybe it didn't show up until we made the internal ip address static?  Idk, it seems to work now?
+
+In our VM, it should show the "external ip address" even when the VM is off!  That means it's working
+
+Test to see if the external ip address changes after we start stop then start the cuda VM
+
+Static now: 34.118.131.136
+
+1st time:
+34.118.131.136
