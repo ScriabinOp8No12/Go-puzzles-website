@@ -1,3 +1,4 @@
+const moment = require("moment");
 const express = require("express");
 const helmet = require("helmet");
 const { python } = require("pythonia");
@@ -48,16 +49,12 @@ app.post("/potential_puzzles/generate", async (req, res) => {
         move_number: puzzle.move,
         solution_coordinates: puzzle.correct_moves,
         difficulty,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdAt: moment(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt: moment(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"),
       };
     });
 
-    // Need to match redux thunk structure for 3rd response, look at working route in backend
 
-    // *************** This format (createdPuzzles: potential_puzzles) MIGHT be different than our redux thunk endpoint right now! *********************** //
-    // Since we're not saving to a database on the VM, just directly send back the processed puzzles
-    // return res.status(200).json({ createdPuzzles: potential_puzzles }); // I think our redux thunk wants it back as "createdPuzzles:"
     return res.status(200).json({ createdPuzzles: formattedPuzzles });
   } catch (error) {
     console.error(error);
