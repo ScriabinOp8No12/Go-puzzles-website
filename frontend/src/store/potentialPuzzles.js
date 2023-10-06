@@ -87,7 +87,7 @@ export const generatePotentialPuzzlesThunk =
 
     // Prepare data for the third API call based on the second response
     // sgf_data needs to not have \n to match postman request, but katago_json_output does have \n in postman
-
+    // ***** the output has a createdPuzzles property, so our 2nd endpoint (GCP VM) needs to match that with createdPuzzles returned in the response
     const sanitizedSgfData = kataGoData.createdPuzzles[0].sgf_data.replace(
       /\n/g,
       " "

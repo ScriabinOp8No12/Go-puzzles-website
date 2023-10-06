@@ -56,3 +56,17 @@ Click firewall from the left sidebar
 3. Fill out the form and click create, see image in /GoogleCloudSetup/screenshots/Firewall rule page 10_6_23 to see the inputs used
 4. Find our CUDA VM and click on it, then click edit
 5. Scroll down to "Network tags" and add katago-server
+
+## Adding katago-server.js to VM and running the server with the python scripts
+
+1. go into the katago_gpu_app folder, and
+nano katago-server.js
+2. Copy paste our katago-server.js file from this GoogleCloudSetup folder, ctrl + o, hit enter, ctrl + x (same 3 steps)
+3. Within the same directory, run:
+node katago-server.js
+
+The server will show:
+(base) situationpuzzles@katago-nvidia-t4-cuda:~/katago_gpu_app$ node katago-server.js
+Server running on http://0.0.0.0:3000
+
+4. In postman, go to the post route: http://34.118.131.136:3000/potential_puzzles/generate
