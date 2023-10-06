@@ -73,6 +73,9 @@ Server running on http://0.0.0.0:3000
 
 5. It WORKS!!!  I modified code to be formatted as similar as possible to the currently working local code, I made a new file called "katago-server-test.js"
 
+6. Install moment.js and use it to format the date properly (current output lower down is not formatted properly yet)
+7. ****** After we made the external IP address static, it now hangs when starting the VM instance, a simple hard page refresh let's us SSH into the VM instance
+
 So run:
 
 node katago-server-test.js
