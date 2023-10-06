@@ -69,8 +69,8 @@ export const generatePotentialPuzzlesThunk =
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        sgf_id: sgf_id,
-        sgf_data: sgf_data,
+        sgf_id: sgf_id, // get rid of this
+        sgf_data: sgf_data, // get rid of this
         one_line_json_string: data,
       }),
     });
