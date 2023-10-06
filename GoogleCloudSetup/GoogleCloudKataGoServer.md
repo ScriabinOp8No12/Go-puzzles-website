@@ -43,10 +43,16 @@ Click the 3 dots, click "promote to static IP address"
 2. Click the 3 dots on the external ip address one, do the same thing.  Maybe it didn't show up until we made the internal ip address static?  Idk, it seems to work now?
 
 In our VM, it should show the "external ip address" even when the VM is off!  That means it's working
-
 Test to see if the external ip address changes after we start stop then start the cuda VM
 
-Static now: 34.118.131.136
+Static now, External IP Address is: 34.118.131.136
 
-1st time:
-34.118.131.136
+## Setup firewall rules
+
+1. Search up VPC network, and click VPC networks
+Click firewall from the left sidebar
+
+2. Click "Create firewall rules" from the top of the page
+3. Fill out the form and click create, see image in /GoogleCloudSetup/screenshots/Firewall rule page 10_6_23 to see the inputs used
+4. Find our CUDA VM and click on it, then click edit
+5. Scroll down to "Network tags" and add katago-server
