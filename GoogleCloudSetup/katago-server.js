@@ -35,6 +35,8 @@ app.post("/potential_puzzles/generate", async (req, res) => {
       puzzle.sgf_data = sgf_data;
     }
 
+    // Need to match redux thunk structure for 3rd response, look at working route in backend
+
     // *************** This format (createdPuzzles: potential_puzzles) MIGHT be different than our redux thunk endpoint right now! *********************** //
     // Since we're not saving to a database on the VM, just directly send back the processed puzzles
     return res.status(200).json({ createdPuzzles: potential_puzzles }); // I think our redux thunk wants it back as "createdPuzzles:"
