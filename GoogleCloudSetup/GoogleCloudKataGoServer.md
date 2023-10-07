@@ -85,8 +85,20 @@ Server running on http://0.0.0.0:3000
 4. app.use(cors({
   origin: 'https://your-web-app-domain.com' // Replace with your actual domain
 }));
-
 add the above once we get it working when Render pings our Google VM
+
+
+## Set up HTTPS on Google Cloud
+
+1.
+
+
+## Set up domain name
+1. Purchase domain name from namecheap.com
+2. Select Domain List from the left sidebar and click on the Manage button next to our domain.
+Navigate to the Advanced DNS tab at the top of the page.
+3. Modify the CNAME record for www.go-puzzles.com, host is set to: www, value is set to: nathan-auth-me-mf51.onrender.com, TTL is set to 30 min
+4. Click "Add new record": select: ALIAS record, host is set to: @, value is set to: nathan-auth-me-mf51.onrender.com, TTL is set to 5 min
 
 ## Activating VM server and running postman request to that VM endpoint
 
