@@ -97,14 +97,16 @@ Output looks like this right now (probably should use moment to format the creat
                     "J4",
                     "J3",
                     "H3",
-                    "H2"
+                    "H2",
+                    "G3"
                 ],
                 "C18": [
                     "C18",
                     "B18",
                     "K4",
                     "K3",
-                    "J4"
+                    "J4",
+                    "J3"
                 ],
                 "R3": [
                     "R3",
@@ -114,40 +116,32 @@ Output looks like this right now (probably should use moment to format the creat
                     "Q4",
                     "P6"
                 ],
-                "P6": [
-                    "P6",
-                    "Q4",
-                    "R3",
-                    "S2"
+                "N6": [
+                    "N6",
+                    "O6",
+                    "K4"
                 ],
                 "S2": [
                     "S2",
                     "K4",
-                    "O6"
-                ],
-                "O6": [
                     "O6",
-                    "P6",
-                    "P7"
-                ],
-                "N6": [
-                    "N6",
-                    "P6",
-                    "K4",
-                    "K3",
-                    "J3"
+                    "P6"
                 ],
                 "J4": [
                     "J4",
                     "K4",
                     "K5",
                     "J3"
+                ],
+                "P6": [
+                    "P6",
+                    "Q4"
                 ]
             },
             "difficulty": 1500,
-            "createdAt": "2023-10-06T22:13:26.240Z",
-            "updatedAt": "2023-10-06T22:13:26.240Z"
+            "createdAt": "2023-10-06 22:26:22",
+            "updatedAt": "2023-10-06 22:26:22"
         },
-     <placeholder>
+     <placeholder for remaining puzzles>
     ]
 }
