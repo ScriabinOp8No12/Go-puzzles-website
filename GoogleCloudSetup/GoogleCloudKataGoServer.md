@@ -76,9 +76,22 @@ Server running on http://0.0.0.0:3000
 6. Install moment.js and use it to format the date properly (current output lower down is not formatted properly yet)
 7. ****** After we made the external IP address static, it now hangs when starting the VM instance, a simple hard page refresh let's us SSH into the VM instance
 
-So run:
 
-node katago-server-test.js
+## Set up CORS on VM
+
+1. npm install cors
+2. const cors = require('cors') // add to top of katago-server.js
+3. app.use(cors()); // Add this line right after helmet
+4. app.use(cors({
+  origin: 'https://your-web-app-domain.com' // Replace with your actual domain
+}));
+
+add the above once we get it working when Render pings our Google VM
+
+## Activating VM server and running postman request to that VM endpoint
+
+1. node katago-server-test.js
+2. Ping the server in our postman endpoint: post request to: http://34.118.131.136:3000/potential_puzzles/generate
 
 Output looks like this right now (probably should use moment to format the createdAt and updatedAt date/time to match local code and for rendering properly on frontend)
 
