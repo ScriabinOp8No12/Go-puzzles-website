@@ -1,12 +1,14 @@
 const moment = require("moment");
 const express = require("express");
 const helmet = require("helmet");
+const cors = require('cors');
 const { python } = require("pythonia");
 const path = require("path");
 const app = express();
 const port = 3000; // port 3000
 
 app.use(helmet()); // For basic security headers
+app.use(cors());
 app.use(express.json()); // For parsing application/json
 
 // KataGo Analysis endpoint
@@ -29,12 +31,6 @@ app.post("/potential_puzzles/generate", async (req, res) => {
     const potential_puzzles = JSON.parse(
       await GCP_sgf_to_largest_mistakes.run_katago_analysis(jsonEncodedString)
     );
-
-    // Add sgf_id and sgf_data to each puzzle in the array, so the client can use it in the next step
-    for (let puzzle of potential_puzzles) {
-      puzzle.sgf_id = sgf_id;
-      puzzle.sgf_data = sgf_data;
-    }
 
     const category = "other";
     const difficulty = 1500;

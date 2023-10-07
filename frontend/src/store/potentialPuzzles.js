@@ -63,7 +63,9 @@ export const generatePotentialPuzzlesThunk =
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
 
-    const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
+    const VM_ENDPOINT = "http://34.118.131.136:3000"
+    const secondResponse = await csrfFetch(`${VM_ENDPOINT}/potential_puzzles/generate`, {
+      // const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
