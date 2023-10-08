@@ -298,7 +298,7 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
       "sgf_data",
       "category",
       "move_number",
-      "solution_coordinates",
+      "solution_coordinates", // maybe convert to string if stuff doesn't work?
       "difficulty",
       "thumbnail"
     ]
@@ -323,6 +323,41 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
 
   return res.status(200).json(formattedPotentialPuzzles);
 
+});
+
+// Take Google Cloud VM output and store it in our database!
+router.post("/store_vm_results", async (req, res) => {
+  try {
+    const potential_puzzles = req.body.createdPuzzles;
+
+    const category = "other";
+    const difficulty = 1500;
+
+    const createdPuzzles = [];
+
+    for (const puzzle of potential_puzzles) {
+      const { sgf_id, sgf_data, move_number } = puzzle;
+      // Convert solution_coordinates object to string for storing in database
+      const solution_coordinates_string = JSON.stringify(puzzle.solution_coordinates);
+
+      const createdPuzzle = await PotentialPuzzle.create({
+        sgf_id,
+        sgf_data,
+        category,
+        move_number,
+        solution_coordinates: solution_coordinates_string,
+        difficulty,
+      });
+
+      createdPuzzles.push(createdPuzzle);
+    }
+
+    return res.status(200).json({ success: true });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "An error occurred while processing the request." });
+  }
 });
 
 module.exports = router;
