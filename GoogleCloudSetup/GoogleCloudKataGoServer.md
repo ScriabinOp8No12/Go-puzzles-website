@@ -271,6 +271,41 @@ sudo nano vm.go-puzzles.com (then change the proxy pass from 3000 to 8081)
 14. sudo systemctl restart nginx
 15. navigate to where katago-server.js is now
 16. node katago-server.js WORKS NOW, no issues with needing sudo permissions to run the server
+17. CORS header issue now, our katago-server.js code is working properly, let's fix the nginx code
+
+18.
+cd /etc/nginx/sites-available/
+sudo nano vm.go-puzzles.com (then change the proxy pass from 3000 to 8081)
+
+Our nginx code looks like this now:
+
+server {
+    listen 80;
+    server_name vm.go-puzzles.com;
+
+    location / {
+        proxy_pass http://localhost:8081; # katago-server.js is running on post 8081 right now
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+
+        # Add these lines to handle CORS
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+20. sudo systemctl restart nginx
 
 
 
