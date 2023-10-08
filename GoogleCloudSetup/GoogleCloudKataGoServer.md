@@ -152,6 +152,52 @@ httpsServer.listen(port, () => {
 });
 
 
+5. Modify thunk endpoint and postman endpoint to go to: "https://vm.go-puzzles.com/potential_puzzles/generate" instead
+
+6. Run the following 2 commands to adjust permissions of certificates
+
+sudo chown situationpuzzles:situationpuzzles /etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem
+sudo chmod 640 /etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem
+
+Run these additional commands for getting permission:
+
+sudo chmod 750 /etc/letsencrypt/archive
+sudo chmod 750 /etc/letsencrypt/archive/vm.go-puzzles.com
+
+Then these 2 (file not found):
+sudo chown situationpuzzles:situationpuzzles /etc/letsencrypt/archive/vm.go-puzzles.com/privkey*.pem
+sudo chmod 640 /etc/letsencrypt/archive/vm.go-puzzles.com/privkey*.pem
+
+Run this:
+sudo ls -l /etc/letsencrypt/live/vm.go-puzzles.com/
+
+*** Now run these 8 commands to adjust permissions ***:
+
+sudo chown situationpuzzles:situationpuzzles /etc/letsencrypt/archive/vm.go-puzzles.com/cert1.pem
+sudo chmod 640 /etc/letsencrypt/archive/vm.go-puzzles.com/cert1.pem
+
+sudo chown situationpuzzles:situationpuzzles /etc/letsencrypt/archive/vm.go-puzzles.com/chain1.pem
+sudo chmod 640 /etc/letsencrypt/archive/vm.go-puzzles.com/chain1.pem
+
+sudo chown situationpuzzles:situationpuzzles /etc/letsencrypt/archive/vm.go-puzzles.com/fullchain1.pem
+sudo chmod 640 /etc/letsencrypt/archive/vm.go-puzzles.com/fullchain1.pem
+
+sudo chown situationpuzzles:situationpuzzles /etc/letsencrypt/archive/vm.go-puzzles.com/privkey1.pem
+sudo chmod 640 /etc/letsencrypt/archive/vm.go-puzzles.com/privkey1.pem
+
+** still didn't work **
+
+sudo chmod 755 /etc/letsencrypt/live/
+sudo chmod 755 /etc/letsencrypt/archive/
+
+* still doesn't work *
+
+sudo chmod 755 /etc/letsencrypt/archive/vm.go-puzzles.com/
+sudo chmod 644 /etc/letsencrypt/archive/vm.go-puzzles.com/privkey1.pem
+
+**** BAD WORKAROUND, run server with SUDO, should use a reverse proxy with nginx or apache later ****
+
+sudo /home/situationpuzzles/.nvm/versions/node/v16.19.1/bin/node katago-server.js
 
 
 
