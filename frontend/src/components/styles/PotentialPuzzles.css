@@ -1,1 +1,13 @@
 /* For potential puzzles landing page, NOT the rendered glift potential puzzles array of sgfs */
+
+.user-potential-puzzle-table {
+  display: grid;
+  max-width: 1300px;
+  /* Center thumbnails at screen widths over 1200px */
+  margin: auto;
+  /* Center items to the center of the screen for any size, notably any screen width under 1200px */
+  /* Issue is this causing the upload sgf button to no longer be aligned with the thumbnails below it! */
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 40px;
+}

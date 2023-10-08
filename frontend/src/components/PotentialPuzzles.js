@@ -20,7 +20,7 @@ const PotentialPuzzles = () => {
 
   return (
     <div className="outer-wrapper">
-      <div className="user-sgf-table"> {/* Have unique classname here? */}
+      <div className="user-potential-puzzle-table"> {/* Have unique classname here to style slightly differently compared to sgf page*/}
         {userPotentialPuzzles &&
           userPotentialPuzzles.map((potentialPuzzle, index) => (
             <div className="uploaded-sgf-thumbnail" key={index}> {/* Have unique classname here? */}
