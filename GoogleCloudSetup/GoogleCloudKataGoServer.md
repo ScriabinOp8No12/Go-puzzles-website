@@ -292,10 +292,10 @@ server {
         proxy_cache_bypass $http_upgrade;
 
         # Add these lines to handle CORS
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-        add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
     }
 
     listen 443 ssl; # managed by Certbot
@@ -306,6 +306,14 @@ server {
 }
 
 20. sudo systemctl restart nginx
+21. CORs error still exists, add "always" keyword to end of each of the lines that start with add_header
+22. sudo systemctl restart nginx
+23. Delete the katago-server.js.save and the GCP ... .save too
+24. sudo cat /var/log/nginx/error.log (check error logs since it's still saying CORs error)
+25. Setup new firewall rule for port 8081, go to VPC Networks, firewall policies, create new firewall rule (at top of page)
+name it allow-port-8081
+Change targets to All instance in the network, add 0.0.0.0/0 for the source ipv4 ranges
+Check the TCP box and enter 8081 into the "Ports" field
 
 
 
