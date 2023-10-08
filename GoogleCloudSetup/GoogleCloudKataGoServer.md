@@ -314,8 +314,104 @@ server {
 name it allow-port-8081
 Change targets to All instance in the network, add 0.0.0.0/0 for the source ipv4 ranges
 Check the TCP box and enter 8081 into the "Ports" field
+26. Or we can reload nginx with this: sudo systemctl reload nginx
 
+Made a few changes to the nginx code:
 
+server {
+    listen 80;
+    server_name vm.go-puzzles.com;
+
+    location / {
+
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' 'https://go-puzzles.com' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Cont>
+            add_header 'Access-Control-Max-Age' 3600;
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+
+        proxy_pass http://localhost:8081; # katago-server.js is running on post 8081 right now
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+
+        # CORS Headers
+        add_header 'Access-Control-Allow-Origin' 'https://go-puzzles.com' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content->
+        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+27. Change nginx config to this (add s to end of http for localhost port 8081 and add the proxy_ssl_verify off line)
+
+server {
+    listen 80;
+    server_name vm.go-puzzles.com;
+
+    location / {
+
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' 'https://go-puzzles.com' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Cont>
+            add_header 'Access-Control-Max-Age' 3600;
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+
+        proxy_pass https://localhost:8081; # ********************** CHANGES MADE HERE!
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+
+        # CORS Headers
+        add_header 'Access-Control-Allow-Origin' 'https://go-puzzles.com' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content->
+        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+
+        proxy_ssl_verify off; # Disabling SSL verification
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+28. Comment out app.use(cors) inside the katago-server.js because nginx is already handling cors
+29. cd /etc/nginx/sites-available/
+sudo nano vm.go-puzzles.com
+
+30. Modify the below header to include ,Range,xsrf-token'
+
+ add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,xsrf-token' always;
+sudo systemctl reload nginx
+
+Restart nginx again: sudo systemctl reload nginx
+
+31. CORs error gone, but KataGo can't find nvidia-smi AGAIN  10/8/2023 1:01AM
+
+*** HAVE TO RUN THIS AGAIN WTF?????? *** sudo apt-get install linux-headers-`uname -r`
+
+32. SUCCESS ON RENDER, CAPSTONE PASSING NOW!!!!!!!!
 
 ## Load balancer stuff (didn't finish) -> thought this was doing https, but it's for load balancing the VMs instead...
 
