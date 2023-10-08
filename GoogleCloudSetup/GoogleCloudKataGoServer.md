@@ -90,7 +90,68 @@ add the above once we get it working when Render pings our Google VM
 
 ## Set up HTTPS on Google Cloud
 
-1. Certbot
+1. Create a subdomain on namecheap, go to the dns settings, and add an "A" record
+2. For host, enter vm, for value enter our external ip address, which is: 34.118.131.136, for TTL set it to 5 minutes
+3. In the root, install Certbot with these 2 commands:
+sudo apt update
+sudo apt install certbot
+4. Make sure ports 80 and 443 are open
+4a. Search VPC Network, click VPC networks, click on firewall, click create firewall rule
+5. Configure firewall rule:
+Name it: http-and-https
+Keep logs off, keep network at default, priority at 1000, direction of traffic at ingress, action on match allow
+5a. Change Targets to All instances in the network
+Leave IPV4 ranges set, and for Source IPv4 ranges, make it 0.0.0.0/0
+Leave the second source Filter and Destination filter as None
+Select Specified protocols and ports
+Check the TCP box, and enter 80,443 in the ports
+Click create
+
+6. Run this command: sudo certbot certonly --standalone -d vm.go-puzzles.com
+Enter my email
+Success message:
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem
+   Your certificate will expire on 2024-01-06. To obtain a new or
+   tweaked version of this certificate in the future, simply run
+   certbot again. To non-interactively renew *all* of your
+   certificates, run "certbot renew"
+
+-----------------------------------------------
+
+## Add certbot code to VM
+
+1. Add this at the top:
+const https = require('https');
+const fs = require('fs');
+2. Add this before the line const IP_ADDRESS = "0.0.0.0";
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/chain.pem', 'utf8');
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
+
+3. Comment this code out:
+// app.listen(port, () => {
+//   console.log(`Server running on http://${IP_ADDRESS}:${port}`);
+// });
+
+4. Add this instead and change port to 443 (comment out const port = 3000 at the top of the file)
+
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, () => {
+  console.log(`HTTPS Server running on https://${IP_ADDRESS}:${port}`);
+});
+
+
 
 
 
@@ -110,7 +171,6 @@ Leave port as 80
 Click dropdown on IP address which shows ephemeral by default, click "Create IP address"
 Name it: https-static-ip
 Leave description blank
-7.
 
 ## Set up domain name
 1. Purchase domain name from namecheap.com

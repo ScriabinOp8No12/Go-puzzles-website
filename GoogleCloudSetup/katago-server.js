@@ -1,11 +1,13 @@
-const moment = require("moment");
+const https = require('https');
+const fs = require('fs');
 const express = require("express");
 const helmet = require("helmet");
 const cors = require('cors');
+const moment = require("moment");
 const { python } = require("pythonia");
 const path = require("path");
 const app = express();
-const port = 3000; // port 3000
+// const port = 3000; // port 3000
 
 app.use(helmet()); // For basic security headers
 app.use(cors());
@@ -50,6 +52,7 @@ app.post("/potential_puzzles/generate", async (req, res) => {
       };
     });
 
+    // Need to match redux thunk structure for 3rd response, look at working route in backend
 
     return res.status(200).json({ createdPuzzles: formattedPuzzles });
   } catch (error) {
@@ -71,10 +74,27 @@ app.use((err, req, res, next) => {
   });
 });
 
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/chain.pem', 'utf8');
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
+
 const IP_ADDRESS = "0.0.0.0";
 // const IP_ADDRESS = '34.118.131.136' // change to this later
-app.listen(port, () => {
-  console.log(`Server running on http://${IP_ADDRESS}:${port}`);
+// app.listen(port, () => {
+//  console.log(`Server running on http://${IP_ADDRESS}:${port}`);
+// });
+
+const port = 443;
+
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, () => {
+  console.log(`HTTPS Server running on https://${IP_ADDRESS}:${port}`);
 });
 
 module.exports = app;
