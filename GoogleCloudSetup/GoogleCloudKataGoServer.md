@@ -90,8 +90,27 @@ add the above once we get it working when Render pings our Google VM
 
 ## Set up HTTPS on Google Cloud
 
-1.
+1. Certbot
 
+
+
+## Load balancer stuff (didn't finish) -> thought this was doing https, but it's for load balancing the VMs instead...
+
+1. Since our external IP address is already set to static, we can proceed to the next step of setting up the HTTPS load balancer
+2. Search for network services, click it, select load balancing, click create a load balancer
+3. Click start configuration for the HTTPs load balancer (left most one in our case)
+4. Leave "From internet to my VMs or serverless services" and "Regional external Application Load Balancer" checked, click continue
+5. Load Balancer name: https-load-balancer
+Leave Region as is,
+Change network to default, and click "reserve subnet", name it: load-balancer-subnet
+Set ip address range to: 10.0.0.0/24
+6. Name the New Frontend IP and port: http-frontend
+Leave protocol as HTTP for now
+Leave port as 80
+Click dropdown on IP address which shows ephemeral by default, click "Create IP address"
+Name it: https-static-ip
+Leave description blank
+7.
 
 ## Set up domain name
 1. Purchase domain name from namecheap.com
