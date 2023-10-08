@@ -63,7 +63,7 @@ export const generatePotentialPuzzlesThunk =
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
 
-    const VM_ENDPOINT = "http://34.118.131.136:3000"; // Change to https later?
+    const VM_ENDPOINT = "http://34.118.131.136:3000"; // Change to https once we get the VM setup with https
     const secondResponse = await csrfFetch(
       `${VM_ENDPOINT}/potential_puzzles/generate`,
       {
@@ -73,8 +73,8 @@ export const generatePotentialPuzzlesThunk =
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          sgf_id: sgf_id, // get rid of this
-          sgf_data: sgf_data, // get rid of this
+          sgf_id: sgf_id, // get rid of this / refactor?
+          sgf_data: sgf_data, // get rid of this / refactor?
           one_line_json_string: data,
         }),
       }
