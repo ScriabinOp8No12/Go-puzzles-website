@@ -90,7 +90,7 @@ const IP_ADDRESS = "0.0.0.0";
 //  console.log(`Server running on http://${IP_ADDRESS}:${port}`);
 // });
 
-const port = 443;
+const port = 8081; // ALSO CHANGED NGINX code to
 
 const httpsServer = https.createServer(credentials, app);
 httpsServer.listen(port, () => {

@@ -199,6 +199,79 @@ sudo chmod 644 /etc/letsencrypt/archive/vm.go-puzzles.com/privkey1.pem
 
 sudo /home/situationpuzzles/.nvm/versions/node/v16.19.1/bin/node katago-server.js
 
+*** KataGo engine just doesn't work now, https seems to work, so now let's use nginx
+
+## Nginx setup for port 443
+
+1.
+sudo apt update
+sudo apt install nginx
+
+2. cd /etc/nginx/sites-available/
+sudo nano vm.go-puzzles.com
+
+3. Add the following code to that now opened file:
+server {
+    listen 80;
+    server_name vm.go-puzzles.com;
+
+    location / {
+        proxy_pass http://localhost:3000; # assuming your app runs on port 3000
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+4. sudo ln -s /etc/nginx/sites-available/vm.go-puzzles.com /etc/nginx/sites-enabled/
+
+Test the Nginx configuration
+5. sudo nginx -t (FAILED)
+
+6. sudo certbot renew --force-renewal (DIDN'T work, manually creating the file now)
+
+7. sudo nano /etc/letsencrypt/options-ssl-nginx.conf
+Paste this in:
+
+# This file contains important security parameters. If you modify this file
+# manually, Certbot will be unable to automatically provide future security
+# updates. Instead, Certbot will print and log an error message with a path to
+# the up-to-date file that you will need to refer to when manually updating
+# this file.
+
+ssl_session_cache shared:le_nginx_SSL:10m;
+ssl_session_timeout 1440m;
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+ssl_prefer_server_ciphers off;
+
+ssl_ciphers "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
+
+
+8. Still missing something... LOL
+
+sudo openssl dhparam -out /etc/letsencrypt/ssl-dhparams.pem 2048
+
+9. sudo nginx -t (this finally works... lol?)
+10. sudo systemctl restart nginx (restart nginx)
+11. sudo nginx -s reload
+12. Change katago-server.js to run on port 8080 now instead of port 443 (near bottom of file)
+13. Change port number to 8081 since 8080 is in use apparently, change nginx code too
+
+13a. cd /etc/nginx/sites-available/
+sudo nano vm.go-puzzles.com (then change the proxy pass from 3000 to 8081)
+
+14. sudo systemctl restart nginx
+15. navigate to where katago-server.js is now
+16. node katago-server.js WORKS NOW, no issues with needing sudo permissions to run the server
+
 
 
 ## Load balancer stuff (didn't finish) -> thought this was doing https, but it's for load balancing the VMs instead...
