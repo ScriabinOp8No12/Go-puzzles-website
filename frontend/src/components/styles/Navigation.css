@@ -357,3 +357,7 @@
   height: 2px;
   background-color: aliceblue;
 }
+
+.potential-puzzles-button.active::before {
+  display: block; /* Show when hovering or active */
+}
