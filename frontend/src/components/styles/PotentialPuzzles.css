@@ -1,6 +1,7 @@
 /* For potential puzzles landing page, NOT the rendered glift potential puzzles array of sgfs */
 
 .user-potential-puzzle-table {
+  padding-top: 50px;
   display: grid;
   max-width: 1300px;
   /* Center thumbnails at screen widths over 1200px */
