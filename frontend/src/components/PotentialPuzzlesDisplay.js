@@ -55,9 +55,9 @@ const PotentialPuzzlesDisplay = () => {
       }
 
       // Log the SGF strings
-    sgfCollection.forEach((item, index) => {
-      console.log(`SGF string ${index + 1}:`, item.sgfString);
-    });
+    // sgfCollection.forEach((item, index) => {
+    //   console.log(`SGF string ${index + 1}:`, item.sgfString);
+    // });
 
       // Create a new Glift instance
       gliftInstance.current = glift.create({

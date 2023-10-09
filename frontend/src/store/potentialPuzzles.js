@@ -66,10 +66,10 @@ export const generatePotentialPuzzlesThunk =
     // const VM_ENDPOINT = "http://34.118.131.136:3000";
     const VM_ENDPOINT = "https://vm.go-puzzles.com";// Changed to https now, with our sub domain name
 
-    const secondResponse = await csrfFetch(
-      `${VM_ENDPOINT}/potential_puzzles/generate`,
-      {
-        // const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
+    // const secondResponse = await csrfFetch(
+    //   `${VM_ENDPOINT}/potential_puzzles/generate`,
+    //   {
+        const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,22 +93,22 @@ export const generatePotentialPuzzlesThunk =
     dispatch(receiveKataGoAnalysis(kataGoData));
 
     // ********** Store the Google Cloud VM response output into our database, so that the 3rd and final endpoint can edit those ******** //
-    const databaseResponse = await csrfFetch(
-      "/api/potential_puzzles/store_vm_results",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(kataGoData),
-      }
-    );
+    // const databaseResponse = await csrfFetch(
+    //   "/api/potential_puzzles/store_vm_results",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(kataGoData),
+    //   }
+    // );
 
-    if (!databaseResponse.ok) {
-      const errorMessage = await databaseResponse.text();
-      console.error("Error storing VM results:", errorMessage);
-      return;
-    }
+    // if (!databaseResponse.ok) {
+    //   const errorMessage = await databaseResponse.text();
+    //   console.error("Error storing VM results:", errorMessage);
+    //   return;
+    // }
 
     // Prepare data for the third API call based on the second response, sgf_data needs to not have \n to match postman request, but katago_json_output does have \n in postman
     const sanitizedSgfData = kataGoData.createdPuzzles[0].sgf_data.replace(

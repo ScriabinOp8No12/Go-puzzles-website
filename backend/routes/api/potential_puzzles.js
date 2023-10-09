@@ -98,9 +98,7 @@ router.put(
   async (req, res) => {
     try {
       const sgfId = req.params.sgf_id;
-
       const sgfData = req.body.sgf_data;
-
       const katagoJsonOutput = req.body.katago_json_output;
 
       // **** Remove this function below, and fetch the sgf.thumbnail column and return it in the response!
@@ -117,11 +115,12 @@ router.put(
           ],
         });
       };
+// *** REMOVE LATER *** //
 
       // Grab the move_numbers column data for determining how to draw the potential puzzle's thumbnail
-      const moves = await PotentialPuzzle.findAll({
-        attributues: ["move_number"],
-      });
+      // const moves = await PotentialPuzzle.findAll({
+      //   attributues: ["move_number"],
+      // });
 
       // Initialize Python script for cleaning and commenting SGF
       const cleanAndComment = await python(
@@ -135,17 +134,19 @@ router.put(
         )
       );
 
+      // *** REMOVE LATER *** //
+
       // Initialize Python script for generating thumbnail of Go board
-      const sgf2img = await python(
-        path.join(
-          __dirname,
-          "..",
-          "..",
-          "..",
-          "thumbnail_python_scripts",
-          "sgf2img.py"
-        )
-      );
+      // const sgf2img = await python(
+      //   path.join(
+      //     __dirname,
+      //     "..",
+      //     "..",
+      //     "..",
+      //     "thumbnail_python_scripts",
+      //     "sgf2img.py"
+      //   )
+      // );
 
       // Process katago output with Python function
       const processedOutput = await cleanAndComment.process_katago_output(
@@ -177,6 +178,8 @@ router.put(
         processedOutput
       );
 
+      // console.log("final sgf strings", final_sgf_strings)
+
       if (existingRecords.length !== (await final_sgf_strings.length)) {
         return res
           .status(400)
@@ -185,30 +188,30 @@ router.put(
 
       // ************************ Thumbnail portion *****************************************************
 
-      const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
+      // const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
 
-      for await (let move of moves) {
-        let moveNumber = move.move_number;
+      // for await (let move of moves) {
+      //   let moveNumber = move.move_number;
 
-        const thumbnailBase64 = await sgf2img.generatePreview(
-          sgfData,
-          moveNumber - 1 // we need to draw the thumbnail for the move before the move_number of the mistake (move_number value in database)
-        );
-        const uploadResponse = await cloudinary.uploader.upload(
-          `data:image/png;base64,${thumbnailBase64}`
-        );
-        const thumbnailUrl = uploadResponse.url;
-        const httpsThumbnailUrl = thumbnailUrl.replace("http://", "https://");
-        thumbnailUrls[moveNumber] = httpsThumbnailUrl;
-        // Find the right record to update based on moveNumber
-        const recordToUpdate = existingRecords.find(
-          (record) => record.move_number === moveNumber
-        );
-        if (recordToUpdate) {
-          recordToUpdate.thumbnail = httpsThumbnailUrl;
-          await recordToUpdate.save();
-        }
-      }
+      //   const thumbnailBase64 = await sgf2img.generatePreview(
+      //     sgfData,
+      //     moveNumber - 1 // we need to draw the thumbnail for the move before the move_number of the mistake (move_number value in database)
+      //   );
+      //   const uploadResponse = await cloudinary.uploader.upload(
+      //     `data:image/png;base64,${thumbnailBase64}`
+      //   );
+      //   const thumbnailUrl = uploadResponse.url;
+      //   const httpsThumbnailUrl = thumbnailUrl.replace("http://", "https://");
+      //   thumbnailUrls[moveNumber] = httpsThumbnailUrl;
+      //   // Find the right record to update based on moveNumber
+      //   const recordToUpdate = existingRecords.find(
+      //     (record) => record.move_number === moveNumber
+      //   );
+      //   if (recordToUpdate) {
+      //     recordToUpdate.thumbnail = httpsThumbnailUrl;
+      //     await recordToUpdate.save();
+      //   }
+      // }
 
       //  ************************ Thumbnail portion end *********************************** //
 
@@ -231,23 +234,25 @@ router.put(
         resolved_final_sgf_strings.push(final_sgf_string);
       }
 
-      const orderedThumbnailUrls = existingRecords.map(
-        (record) => thumbnailUrls[record.move_number]
-      );
+      // const orderedThumbnailUrls = existingRecords.map(
+      //   (record) => thumbnailUrls[record.move_number]
+      // );
 
       return res.status(200).send({
         sgfStrings: resolved_final_sgf_strings.map((sgf) =>
           sgf.replace(/\n/g, "")
         ),
-        thumbnails: orderedThumbnailUrls,
+        // thumbnails: orderedThumbnailUrls,
       });
     } catch (err) {
       res.status(500).send({ message: `Error: ${err.message}` });
     }
-    // Now we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
-    // ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
   }
 );
+
+// Save puzzle to user puzzles, then edit the thumbnail for the specific potential puzzle. We are not generating the thumbnail because we have a placeholder thumbnail already in the database
+
+
 
 // Get all sgf thumbnails + sgf ids of potential puzzles
 router.get("/", requireAuth, async (req, res) => {
