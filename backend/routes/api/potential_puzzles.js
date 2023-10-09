@@ -51,8 +51,6 @@ router.post("/generate", requireAuth, async (req, res) => {
 
     const category = "other";
     const difficulty = 1500; // MAKE IT DYNAMIC LATER!  Make a function in utils folder, and import it here, it converts the Go rank into elo rank
-    // const status = "queued";
-    // const job_id = null;
 
     const createdPuzzles = [];
     // Each puzzle needs to have it's own move number and solution coordinates
@@ -67,8 +65,6 @@ router.post("/generate", requireAuth, async (req, res) => {
         move_number,
         solution_coordinates,
         difficulty,
-        // status,
-        // job_id,
       });
 
       createdPuzzles.push(createdPuzzle);
