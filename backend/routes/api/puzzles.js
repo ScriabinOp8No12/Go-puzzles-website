@@ -1,6 +1,6 @@
 const express = require("express");
 const { requireAuth } = require("../../utils/auth");
-const { User, UserPuzzle, Puzzle, Sgf } = require("../../db/models");
+const { User, UserPuzzle, Puzzle, Sgf, PotentialPuzzle } = require("../../db/models");
 // const { incrementTimesSolved } = require("../../db/models/puzzle-utils"); // For incrementing times solved, see utils folder for likely not working code lol
 const { calculateNewElo } = require("../../utils/elo-ranking-utils");
 const { Op } = require("sequelize");
@@ -38,7 +38,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
 
     // Only fetch puzzles if their suspended value is false
     const where = {
-      suspended: false
+      suspended: false,
     };
 
     // Filter by user if 'source' is 'own' and user is authenticated, this is for displaying user's puzzles (not public puzzles on landing page)
@@ -124,7 +124,8 @@ router.get("/:puzzle_id", async (req, res) => {
 
     if (!puzzle) return res.status(404).json({ error: "Puzzle not found" });
     // Check if the puzzle is suspended
-    if (puzzle.suspended) return res.status(404).json({ error: "Puzzle not found" });
+    if (puzzle.suspended)
+      return res.status(404).json({ error: "Puzzle not found" });
 
     const formattedPuzzle = {
       // changed from puzzle_id: puzzle.id
@@ -149,98 +150,70 @@ router.get("/:puzzle_id", async (req, res) => {
   }
 });
 
-// Updates user and puzzle rankings after a puzzle attempt
-router.post("/:puzzle_id/ranking/update", requireAuth, async (req, res) => {
-  // calculateNewElo function that we imported into this file gives an output like this: [1020, 1080] which represents the new player's elo, then the new puzzle's elo as an array
+// Create a new puzzle then edit the thumbnail from the specific potential puzzle (defaults to no image thumbnail).
+// We are not generating the thumbnail because we have a placeholder thumbnail already in the database
+router.post("/", requireAuth, async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { puzzle_id } = req.params;
-    const { userWin } = req.body;
+    const sgfId = req.body.sgf_id;
+    const boardSize = req.body.boardXSize;
+    const moveNumber = req.body.move_number;
 
-    // Fetch the user and the puzzle from the database
-    const user = await User.findByPk(userId);
-    const puzzle = await Puzzle.findByPk(puzzle_id);
-
-    const oldUserRank = user.rank;
-    const oldPuzzleRank = puzzle.difficulty;
-
-    // Check if user exists
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    // Check if puzzle exists
-    if (!puzzle) {
-      return res.status(404).json({ error: "Puzzle not found" });
-    }
-
-    // Check for existing entry in user_puzzles
-    const userPuzzle = await UserPuzzle.findOne({
-      where: { user_id: userId, puzzle_id: puzzle_id },
+    // Get the specific potential puzzle that the user wants to save, since we have multiple puzzles with the same sgfId, we are differentiating those by the move_number property
+    const potentialPuzzle = await PotentialPuzzle.findOne({
+      where: {
+        sgf_id: sgfId,
+        move_number: moveNumber,
+      },
     });
 
-    // If the userPuzzle exists and the completed column is set to true, then the user has already attempted the puzzle, and we do NOT want to update the ranking again
-    if (userPuzzle && userPuzzle.completed) {
-      return res.json({
-        message:
-          "Ranking for this puzzle has already been updated for this user.",
-        oldUserRank: oldUserRank,
-        oldPuzzleRank: oldPuzzleRank,
-      });
+    console.log("potentialPuzzle, should be unique!", potentialPuzzle)
+
+    if (!potentialPuzzle) {
+      return res.status(404).send({ message: "Potential puzzle not found" });
     }
 
-    // Calculate new ELO ratings
-    const [newUserRank, newPuzzleRank] = calculateNewElo(
-      user.rank,
-      puzzle.difficulty,
-      userWin
+    // Create thumbnail for this puzzle
+    const sgf2img = await python(
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "thumbnail_python_scripts",
+        "sgf2img.py"
+      )
     );
+    const thumbnailBase64 = await sgf2img.generatePreview(
+      potentialPuzzle.sgf_data,
+      potentialPuzzle.move_number - 1
+    );
+    const uploadResponse = await cloudinary.uploader.upload(
+      `data:image/png;base64,${thumbnailBase64}`
+    );
+    const thumbnailUrl = uploadResponse.url.replace("http://", "https://");
 
-    // Update user and puzzle in the database
-    user.rank = newUserRank;
-    puzzle.difficulty = newPuzzleRank;
-
-    // Update user_puzzles table
-    if (userPuzzle) {
-      userPuzzle.completed = true;
-      await userPuzzle.save();
-    } else {
-      // If the userPuzzle doesn't exist, then create it by adding the user_id, puzzle_id, and setting completed to true
-      // This will happen most of the time, since there will be a puzzle that the user is trying, and it won't be in their userpuzzle table yet
-      // But for seed data, this block won't execute because the userpuzzle list will have seed data there already
-      await UserPuzzle.create({
-        user_id: userId,
-        puzzle_id: puzzle_id,
-        completed: true,
-      });
-    }
-
-    // Update user's solved_puzzles count and puzzle's times_solved count
-    const newUserSolvedPuzzlesCount = user.solved_puzzles + 1;
-    const newPuzzleTimesSolvedCount = puzzle.times_solved + 1;
-
-    user.solved_puzzles = newUserSolvedPuzzlesCount;
-    puzzle.times_solved = newPuzzleTimesSolvedCount;
-
-    // Save record to database
-    await user.save();
-    await puzzle.save();
-
-    // Send updated rankings in response
-    return res.status(200).json({
-      oldUserRank: oldUserRank,
-      oldPuzzleRank: oldPuzzleRank,
-      newUserRank: newUserRank,
-      newPuzzleRank: newPuzzleRank,
-      newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount,
-      newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount,
+    // Transfer the potential puzzle data to the puzzles table
+    const newPuzzle = await Puzzle.create({
+      sgf_id: sgfId,
+      sgf_data: potentialPuzzle.sgf_data,
+      category: potentialPuzzle.category,
+      move_number: potentialPuzzle.move_number,
+      solution_coordinates: potentialPuzzle.solution_coordinates,
+      difficulty: potentialPuzzle.difficulty,
+      times_solved: 0, // Initialized to 0
+      description: "", // Default to empty
+      vote_count: 0, // Initialized to 0
+      board_size: boardSize,
+      is_user_puzzle: true,
+      thumbnail: thumbnailUrl,
+      suspended: false, // Puzzle is not suspended by default
     });
-  } catch (error) {
-    // Error handling
-    console.error(error);
-    return res
-      .status(500)
-      .json({ error: "An error occurred while updating rankings" });
+
+    return res.status(200).send({
+      puzzle: newPuzzle,
+    });
+  } catch (err) {
+    res.status(500).send({ message: `Error: ${err.message}` });
   }
 });
 
@@ -354,12 +327,107 @@ router.delete("/:puzzle_id", requireAuth, async (req, res) => {
     }
 
     puzzle.suspended = true;
-    await puzzle.save()
+    await puzzle.save();
 
     return res.status(200).json({ message: "Successfully suspended Puzzle!" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });
+  }
+});
+
+// Updates user and puzzle rankings after a puzzle attempt
+router.post("/:puzzle_id/ranking/update", requireAuth, async (req, res) => {
+  // calculateNewElo function that we imported into this file gives an output like this: [1020, 1080] which represents the new player's elo, then the new puzzle's elo as an array
+  try {
+    const userId = req.user.id;
+    const { puzzle_id } = req.params;
+    const { userWin } = req.body;
+
+    // Fetch the user and the puzzle from the database
+    const user = await User.findByPk(userId);
+    const puzzle = await Puzzle.findByPk(puzzle_id);
+
+    const oldUserRank = user.rank;
+    const oldPuzzleRank = puzzle.difficulty;
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if puzzle exists
+    if (!puzzle) {
+      return res.status(404).json({ error: "Puzzle not found" });
+    }
+
+    // Check for existing entry in user_puzzles
+    const userPuzzle = await UserPuzzle.findOne({
+      where: { user_id: userId, puzzle_id: puzzle_id },
+    });
+
+    // If the userPuzzle exists and the completed column is set to true, then the user has already attempted the puzzle, and we do NOT want to update the ranking again
+    if (userPuzzle && userPuzzle.completed) {
+      return res.json({
+        message:
+          "Ranking for this puzzle has already been updated for this user.",
+        oldUserRank: oldUserRank,
+        oldPuzzleRank: oldPuzzleRank,
+      });
+    }
+
+    // Calculate new ELO ratings
+    const [newUserRank, newPuzzleRank] = calculateNewElo(
+      user.rank,
+      puzzle.difficulty,
+      userWin
+    );
+
+    // Update user and puzzle in the database
+    user.rank = newUserRank;
+    puzzle.difficulty = newPuzzleRank;
+
+    // Update user_puzzles table
+    if (userPuzzle) {
+      userPuzzle.completed = true;
+      await userPuzzle.save();
+    } else {
+      // If the userPuzzle doesn't exist, then create it by adding the user_id, puzzle_id, and setting completed to true
+      // This will happen most of the time, since there will be a puzzle that the user is trying, and it won't be in their userpuzzle table yet
+      // But for seed data, this block won't execute because the userpuzzle list will have seed data there already
+      await UserPuzzle.create({
+        user_id: userId,
+        puzzle_id: puzzle_id,
+        completed: true,
+      });
+    }
+
+    // Update user's solved_puzzles count and puzzle's times_solved count
+    const newUserSolvedPuzzlesCount = user.solved_puzzles + 1;
+    const newPuzzleTimesSolvedCount = puzzle.times_solved + 1;
+
+    user.solved_puzzles = newUserSolvedPuzzlesCount;
+    puzzle.times_solved = newPuzzleTimesSolvedCount;
+
+    // Save record to database
+    await user.save();
+    await puzzle.save();
+
+    // Send updated rankings in response
+    return res.status(200).json({
+      oldUserRank: oldUserRank,
+      oldPuzzleRank: oldPuzzleRank,
+      newUserRank: newUserRank,
+      newPuzzleRank: newPuzzleRank,
+      newUserSolvedPuzzlesCount: newUserSolvedPuzzlesCount,
+      newPuzzleTimesSolvedCount: newPuzzleTimesSolvedCount,
+    });
+  } catch (error) {
+    // Error handling
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while updating rankings" });
   }
 });
 
