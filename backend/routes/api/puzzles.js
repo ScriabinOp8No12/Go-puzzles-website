@@ -1,10 +1,20 @@
 const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { User, UserPuzzle, Puzzle, Sgf, PotentialPuzzle } = require("../../db/models");
+const { python } = require("pythonia");
+const path = require("path");
 // const { incrementTimesSolved } = require("../../db/models/puzzle-utils"); // For incrementing times solved, see utils folder for likely not working code lol
 const { calculateNewElo } = require("../../utils/elo-ranking-utils");
 const { Op } = require("sequelize");
 const moment = require("moment");
+
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 const router = express.Router();
 
@@ -166,7 +176,7 @@ router.post("/", requireAuth, async (req, res) => {
       },
     });
 
-    console.log("potentialPuzzle, should be unique!", potentialPuzzle)
+    // console.log("potentialPuzzle, should be unique!", potentialPuzzle)
 
     if (!potentialPuzzle) {
       return res.status(404).send({ message: "Potential puzzle not found" });

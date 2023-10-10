@@ -64,7 +64,7 @@ export const generatePotentialPuzzlesThunk =
     dispatch(generatePotentialPuzzles(data));
 
     // const VM_ENDPOINT = "http://34.118.131.136:3000";
-    const VM_ENDPOINT = "https://vm.go-puzzles.com";// Changed to https now, with our sub domain name
+    // const VM_ENDPOINT = "https://vm.go-puzzles.com";// Changed to https now, with our sub domain name
 
     // const secondResponse = await csrfFetch(
     //   `${VM_ENDPOINT}/potential_puzzles/generate`,

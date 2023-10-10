@@ -101,7 +101,7 @@ router.put(
       const sgfData = req.body.sgf_data;
       const katagoJsonOutput = req.body.katago_json_output;
 
-      // **** Remove this function below, and fetch the sgf.thumbnail column and return it in the response!
+      // **** Remove this function below??? and fetch the sgf.thumbnail column and return it in the response!
 
       // I'm pretty sure the database record will always be sorted properly in ascending order, so this
       // function could be completely redundant or actually cause problems later?
@@ -188,6 +188,7 @@ router.put(
 
       // ************************ Thumbnail portion *****************************************************
 
+      // *** REMOVE LATER *** //
       // const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
 
       // for await (let move of moves) {
@@ -234,6 +235,7 @@ router.put(
         resolved_final_sgf_strings.push(final_sgf_string);
       }
 
+      // *** REMOVE LATER? ***
       // const orderedThumbnailUrls = existingRecords.map(
       //   (record) => thumbnailUrls[record.move_number]
       // );
@@ -249,9 +251,6 @@ router.put(
     }
   }
 );
-
-
-
 
 // Get all sgf thumbnails + sgf ids of potential puzzles
 router.get("/", requireAuth, async (req, res) => {
