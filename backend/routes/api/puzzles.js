@@ -176,10 +176,21 @@ router.post("/", requireAuth, async (req, res) => {
       },
     });
 
-    // console.log("potentialPuzzle, should be unique!", potentialPuzzle)
-
     if (!potentialPuzzle) {
       return res.status(404).send({ message: "Potential puzzle not found" });
+    }
+
+    // Don't allow the user to save the same potential puzzle more than once
+
+    const puzzle = await Puzzle.findOne({
+      where: {
+        sgf_id: sgfId,
+        move_number: moveNumber
+      }
+    })
+
+    if (puzzle) {
+      return res.status(400).send({ message: "Potential puzzle already saved"})
     }
 
     // Create thumbnail for this puzzle
@@ -220,7 +231,11 @@ router.post("/", requireAuth, async (req, res) => {
     });
 
     return res.status(200).send({
-      puzzle: newPuzzle,
+      puzzle: {
+        ...newPuzzle.get({ plain: true }),
+        createdAt: moment(newPuzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt: moment(newPuzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+      }
     });
   } catch (err) {
     res.status(500).send({ message: `Error: ${err.message}` });
