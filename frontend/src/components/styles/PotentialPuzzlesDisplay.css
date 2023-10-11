@@ -9,3 +9,17 @@
 /* .glift-comment-box {
   background-color: lightgrey !important;
 } */
+
+.saveCurrentPuzzle {
+  position: absolute;
+  top: 530px;
+  right: 380px;
+  max-width: 280px;
+  font-weight: bold;
+  text-align: left;
+  border: 5px solid #00ADB5;
+  padding: 10px;
+  color: aliceblue;
+  background-color: #222831;
+  border-radius: 15px;
+}
