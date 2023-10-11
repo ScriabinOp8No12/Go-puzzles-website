@@ -90,10 +90,10 @@ router.post("/generate", requireAuth, async (req, res) => {
 // Uses various python scripts (imported with Pythonia) to mutate SGF for glift
 // 1. Cleans SGF of unnecessary properties, especially comments, destroys SGF from puzzle number to end of game
 // 2. Updates SGF with comments and adds comments to follow up variations
-// 3. Draws a thumbnail of the Go board based on the move number of the mistake, also mutates thumbnail column of potential puzzles table
+// Updating thumbnail moved to post /puzzles instead
 
 router.put(
-  "/:sgf_id/clean_sgf_add_comments_add_thumbnail",
+  "/:sgf_id/clean_sgf_add_comments",
   requireAuth,
   async (req, res) => {
     try {
@@ -115,12 +115,6 @@ router.put(
           ],
         });
       };
-      // *** REMOVE LATER *** //
-
-      // Grab the move_numbers column data for determining how to draw the potential puzzle's thumbnail
-      // const moves = await PotentialPuzzle.findAll({
-      //   attributues: ["move_number"],
-      // });
 
       // Initialize Python script for cleaning and commenting SGF
       const cleanAndComment = await python(
@@ -133,20 +127,6 @@ router.put(
           "clean_sgf_add_comments.py"
         )
       );
-
-      // *** REMOVE LATER *** //
-
-      // Initialize Python script for generating thumbnail of Go board
-      // const sgf2img = await python(
-      //   path.join(
-      //     __dirname,
-      //     "..",
-      //     "..",
-      //     "..",
-      //     "thumbnail_python_scripts",
-      //     "sgf2img.py"
-      //   )
-      // );
 
       // Process katago output with Python function
       const processedOutput = await cleanAndComment.process_katago_output(
@@ -186,36 +166,6 @@ router.put(
           .json({ message: "Mismatch in record and output lengths" });
       }
 
-      // ************************ Thumbnail portion *****************************************************
-
-      // *** REMOVE LATER *** //
-      // const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
-
-      // for await (let move of moves) {
-      //   let moveNumber = move.move_number;
-
-      //   const thumbnailBase64 = await sgf2img.generatePreview(
-      //     sgfData,
-      //     moveNumber - 1 // we need to draw the thumbnail for the move before the move_number of the mistake (move_number value in database)
-      //   );
-      //   const uploadResponse = await cloudinary.uploader.upload(
-      //     `data:image/png;base64,${thumbnailBase64}`
-      //   );
-      //   const thumbnailUrl = uploadResponse.url;
-      //   const httpsThumbnailUrl = thumbnailUrl.replace("http://", "https://");
-      //   thumbnailUrls[moveNumber] = httpsThumbnailUrl;
-      //   // Find the right record to update based on moveNumber
-      //   const recordToUpdate = existingRecords.find(
-      //     (record) => record.move_number === moveNumber
-      //   );
-      //   if (recordToUpdate) {
-      //     recordToUpdate.thumbnail = httpsThumbnailUrl;
-      //     await recordToUpdate.save();
-      //   }
-      // }
-
-      //  ************************ Thumbnail portion end *********************************** //
-
       // ******************* Updating sgf_data and thumbnail columns ************************ //
 
       for (let i = 0; i < (await final_sgf_strings.length); i++) {
@@ -234,11 +184,6 @@ router.put(
       for await (let final_sgf_string of final_sgf_strings) {
         resolved_final_sgf_strings.push(final_sgf_string);
       }
-
-      // *** REMOVE LATER? ***
-      // const orderedThumbnailUrls = existingRecords.map(
-      //   (record) => thumbnailUrls[record.move_number]
-      // );
 
       return res.status(200).send({
         sgfStrings: resolved_final_sgf_strings.map((sgf) =>
