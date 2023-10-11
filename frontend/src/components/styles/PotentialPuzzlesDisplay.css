@@ -23,3 +23,27 @@
   background-color: #222831;
   border-radius: 15px;
 }
+
+.saving-text {
+  position: absolute;
+  top: 420px;
+  right: 450px;
+  color: black;
+}
+
+.save-error {
+  position: absolute;
+  top: 420px;
+  right: 400px;
+  color: red;
+  font-weight: bold;
+}
+
+.save-success {
+  position: absolute;
+  top: 420px;
+  right: 400px;
+  color: green;
+  font-weight: bold;
+  margin: 10px 0;
+}

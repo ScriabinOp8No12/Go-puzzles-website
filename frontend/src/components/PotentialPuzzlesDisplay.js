@@ -12,6 +12,10 @@ const PotentialPuzzlesDisplay = () => {
   const { sgf_id: currentSgfId } = useParams();
   const dispatch = useDispatch();
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
+  const [saveError, setSaveError] = useState(null);
+  const [saveSuccessMessage, setSaveSuccessMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const potentialPuzzlesData = useSelector(
     (state) => state.potentialPuzzles.currentSgfPotentialPuzzle
@@ -83,21 +87,45 @@ const PotentialPuzzlesDisplay = () => {
     }
   }, [potentialPuzzlesData]);
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
+    setIsLoading(true);
     if (currentPuzzle) {
-      dispatch(savePotentialPuzzleThunk(currentSgfId, currentPuzzle.move_number));
-      console.log('Saving/saved puzzle with move_number:', currentPuzzle.move_number, 'and sgf_id:', currentSgfId);
+      try {
+        await dispatch(savePotentialPuzzleThunk(currentSgfId, currentPuzzle.move_number));
+        setSaveSuccessMessage("Puzzle saved successfully!");
+        setTimeout(() => {
+          setSaveSuccessMessage(null);
+        }, 3000);
+      } catch (error) {
+        setSaveError("Puzzle already saved or failed!");
+        // Clear the error after 3 seconds
+        setTimeout(() => {
+          setSaveError(null);
+        }, 3000);
+      }
+      setIsLoading(false);
     }
   };
 
   return (
     <div>
       <div id="gliftContainer"></div>
-      {/* <div class="saveCurrentPuzzle"> */}
-      <button  class="saveCurrentPuzzle" onClick={handleSaveClick}>Save Puzzle</button>
-      {/* </div> */}
+
+      {isLoading &&
+        <div style={{ display: 'inline-block', alignItems: 'center' }}>
+          <div className="loading-spinner"></div>
+          <span className="saving-text">Saving...</span>
+        </div>
+      }
+
+      {saveError && <div className="save-error">{saveError}</div>}
+      {saveSuccessMessage && <div className="save-success">{saveSuccessMessage}</div>}
+
+      <button className="saveCurrentPuzzle" onClick={handleSaveClick}>Save Puzzle</button>
     </div>
   );
+
+
 };
 
 export default PotentialPuzzlesDisplay;

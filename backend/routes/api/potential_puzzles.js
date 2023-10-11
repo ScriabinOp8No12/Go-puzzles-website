@@ -93,7 +93,7 @@ router.post("/generate", requireAuth, async (req, res) => {
 // Updating thumbnail moved to post /puzzles instead
 
 router.put(
-  "/:sgf_id/clean_sgf_add_comments_add_thumbnail",
+  "/:sgf_id/clean_sgf_add_comments",
   requireAuth,
   async (req, res) => {
     try {

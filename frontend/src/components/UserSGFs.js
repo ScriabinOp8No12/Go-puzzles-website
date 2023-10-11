@@ -93,6 +93,7 @@ const UserSGFs = () => {
         {uploadError && <div className="upload-error">{uploadError}</div>}
         {/* Display uploading text */}
         {isLoading && <div className="uploading-sgf">Uploading...</div>}
+        {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&

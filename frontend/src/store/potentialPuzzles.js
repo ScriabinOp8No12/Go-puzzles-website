@@ -135,7 +135,7 @@ export const generatePotentialPuzzlesThunk =
     };
 
     const thirdResponse = await csrfFetch(
-      `/api/potential_puzzles/${sgf_id}/clean_sgf_add_comments_add_thumbnail`,
+      `/api/potential_puzzles/${sgf_id}/clean_sgf_add_comments`,
       {
         method: "PUT",
         headers: {
