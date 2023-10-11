@@ -4,9 +4,9 @@ const { python } = require("pythonia");
 const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
-const { Sgf, PotentialPuzzle } = require("../../db/models");
+const { Sgf, PotentialPuzzle, Puzzle } = require("../../db/models");
 const router = express.Router();
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
 const cloudinary = require("cloudinary").v2;
 
@@ -98,12 +98,10 @@ router.put(
   async (req, res) => {
     try {
       const sgfId = req.params.sgf_id;
-
       const sgfData = req.body.sgf_data;
-
       const katagoJsonOutput = req.body.katago_json_output;
 
-      // **** Remove this function below, and fetch the sgf.thumbnail column and return it in the response!
+      // **** Remove this function below??? and fetch the sgf.thumbnail column and return it in the response!
 
       // I'm pretty sure the database record will always be sorted properly in ascending order, so this
       // function could be completely redundant or actually cause problems later?
@@ -117,11 +115,12 @@ router.put(
           ],
         });
       };
+      // *** REMOVE LATER *** //
 
       // Grab the move_numbers column data for determining how to draw the potential puzzle's thumbnail
-      const moves = await PotentialPuzzle.findAll({
-        attributues: ["move_number"],
-      });
+      // const moves = await PotentialPuzzle.findAll({
+      //   attributues: ["move_number"],
+      // });
 
       // Initialize Python script for cleaning and commenting SGF
       const cleanAndComment = await python(
@@ -135,17 +134,19 @@ router.put(
         )
       );
 
+      // *** REMOVE LATER *** //
+
       // Initialize Python script for generating thumbnail of Go board
-      const sgf2img = await python(
-        path.join(
-          __dirname,
-          "..",
-          "..",
-          "..",
-          "thumbnail_python_scripts",
-          "sgf2img.py"
-        )
-      );
+      // const sgf2img = await python(
+      //   path.join(
+      //     __dirname,
+      //     "..",
+      //     "..",
+      //     "..",
+      //     "thumbnail_python_scripts",
+      //     "sgf2img.py"
+      //   )
+      // );
 
       // Process katago output with Python function
       const processedOutput = await cleanAndComment.process_katago_output(
@@ -177,6 +178,8 @@ router.put(
         processedOutput
       );
 
+      // console.log("final sgf strings", final_sgf_strings)
+
       if (existingRecords.length !== (await final_sgf_strings.length)) {
         return res
           .status(400)
@@ -185,30 +188,31 @@ router.put(
 
       // ************************ Thumbnail portion *****************************************************
 
-      const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
+      // *** REMOVE LATER *** //
+      // const thumbnailUrls = {}; // Object to store moveNumber: httpsThumbnailUrl pairs.
 
-      for await (let move of moves) {
-        let moveNumber = move.move_number;
+      // for await (let move of moves) {
+      //   let moveNumber = move.move_number;
 
-        const thumbnailBase64 = await sgf2img.generatePreview(
-          sgfData,
-          moveNumber - 1 // we need to draw the thumbnail for the move before the move_number of the mistake (move_number value in database)
-        );
-        const uploadResponse = await cloudinary.uploader.upload(
-          `data:image/png;base64,${thumbnailBase64}`
-        );
-        const thumbnailUrl = uploadResponse.url;
-        const httpsThumbnailUrl = thumbnailUrl.replace("http://", "https://");
-        thumbnailUrls[moveNumber] = httpsThumbnailUrl;
-        // Find the right record to update based on moveNumber
-        const recordToUpdate = existingRecords.find(
-          (record) => record.move_number === moveNumber
-        );
-        if (recordToUpdate) {
-          recordToUpdate.thumbnail = httpsThumbnailUrl;
-          await recordToUpdate.save();
-        }
-      }
+      //   const thumbnailBase64 = await sgf2img.generatePreview(
+      //     sgfData,
+      //     moveNumber - 1 // we need to draw the thumbnail for the move before the move_number of the mistake (move_number value in database)
+      //   );
+      //   const uploadResponse = await cloudinary.uploader.upload(
+      //     `data:image/png;base64,${thumbnailBase64}`
+      //   );
+      //   const thumbnailUrl = uploadResponse.url;
+      //   const httpsThumbnailUrl = thumbnailUrl.replace("http://", "https://");
+      //   thumbnailUrls[moveNumber] = httpsThumbnailUrl;
+      //   // Find the right record to update based on moveNumber
+      //   const recordToUpdate = existingRecords.find(
+      //     (record) => record.move_number === moveNumber
+      //   );
+      //   if (recordToUpdate) {
+      //     recordToUpdate.thumbnail = httpsThumbnailUrl;
+      //     await recordToUpdate.save();
+      //   }
+      // }
 
       //  ************************ Thumbnail portion end *********************************** //
 
@@ -231,21 +235,20 @@ router.put(
         resolved_final_sgf_strings.push(final_sgf_string);
       }
 
-      const orderedThumbnailUrls = existingRecords.map(
-        (record) => thumbnailUrls[record.move_number]
-      );
+      // *** REMOVE LATER? ***
+      // const orderedThumbnailUrls = existingRecords.map(
+      //   (record) => thumbnailUrls[record.move_number]
+      // );
 
       return res.status(200).send({
         sgfStrings: resolved_final_sgf_strings.map((sgf) =>
           sgf.replace(/\n/g, "")
         ),
-        thumbnails: orderedThumbnailUrls,
+        // thumbnails: orderedThumbnailUrls,
       });
     } catch (err) {
       res.status(500).send({ message: `Error: ${err.message}` });
     }
-    // Now we can read from the database and pass each individual string into a glift component, it should be very straight forward to render them with glift as an array of sgfs
-    // ********* The thunk will call each endpoint one after another assuming the one before was successful! *******
   }
 );
 
@@ -270,7 +273,7 @@ router.get("/", requireAuth, async (req, res) => {
     ).map((sgf_id) =>
       potentialPuzzleThumbnails.find((p) => p.sgf_id === sgf_id)
     );
-    return res.status(200).json({PotentialPuzzles: uniqueResults});
+    return res.status(200).json({ PotentialPuzzles: uniqueResults });
   } catch (error) {
     console.error(
       "Failed to retrieve sgf thumbnail for potential puzzles",
@@ -282,7 +285,6 @@ router.get("/", requireAuth, async (req, res) => {
 
 // Get all potential_puzzles based on sgf_id
 router.get("/:sgf_id", requireAuth, async (req, res) => {
-
   const sgfId = req.params.sgf_id;
 
   // Find all records where the sgf_id matches the one in the url
@@ -296,16 +298,18 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
       "move_number",
       "solution_coordinates", // maybe convert to string if stuff doesn't work?
       "difficulty",
-      "thumbnail"
-    ]
+      "thumbnail",
+    ],
   });
 
   if (potentialPuzzles.length === 0) {
-    return res.status(404).json({ error: "Sgf with potential puzzles not found" });
+    return res
+      .status(404)
+      .json({ error: "Sgf with potential puzzles not found" });
   }
 
   // Format the SGF data for the response
-  const formattedPotentialPuzzles = potentialPuzzles.map(puzzle => ({
+  const formattedPotentialPuzzles = potentialPuzzles.map((puzzle) => ({
     sgf_id: puzzle.sgf_id,
     sgf_data: puzzle.sgf_data,
     category: puzzle.category,
@@ -318,7 +322,6 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
   }));
 
   return res.status(200).json(formattedPotentialPuzzles);
-
 });
 
 // Take Google Cloud VM output and store it in our database!
@@ -334,7 +337,9 @@ router.post("/store_vm_results", async (req, res) => {
     for (const puzzle of potential_puzzles) {
       const { sgf_id, sgf_data, move_number } = puzzle;
       // Convert solution_coordinates object to string for storing in database
-      const solution_coordinates_string = JSON.stringify(puzzle.solution_coordinates);
+      const solution_coordinates_string = JSON.stringify(
+        puzzle.solution_coordinates
+      );
 
       const createdPuzzle = await PotentialPuzzle.create({
         sgf_id,
@@ -349,10 +354,11 @@ router.post("/store_vm_results", async (req, res) => {
     }
 
     return res.status(200).json({ success: true });
-
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "An error occurred while processing the request." });
+    return res
+      .status(500)
+      .json({ error: "An error occurred while processing the request." });
   }
 });
 

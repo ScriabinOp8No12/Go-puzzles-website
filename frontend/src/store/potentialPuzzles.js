@@ -4,14 +4,21 @@ import { csrfFetch } from "./csrf";
 
 export const GENERATE_POTENTIAL_PUZZLES =
   "/potentialPuzzles/GENERATE_POTENTIAL_PUZZLES";
+
 export const RECEIVE_KATAGO_ANALYSIS =
   "potentialPuzzles/RECEIVE_KATAGO_ANALYSIS";
+
 export const INJECT_COMMENTS_AND_MUTATE_SGF_STRING =
   "/potentialPuzzles/INJECT_COMMENTS_AND_MUTATE_SGF_STRING";
+
 export const FETCH_ALL_POTENTIAL_PUZZLES =
   "/potential_puzzles/FETCH_ALL_POTENTIAL_PUZZLES";
+
 export const FETCH_POTENTIAL_PUZZLES_BY_SGF_ID =
   "/potential_puzzles/FETCH_POTENTIAL_PUZZLES_BY_SGF_ID";
+
+export const SAVE_POTENTIAL_PUZZLE = "/potentialPuzzles/SAVE_POTENTIAL_PUZZLE";
+
 // ********** Action Creators ********* //
 
 export const generatePotentialPuzzles = (data) => ({
@@ -39,6 +46,11 @@ export const fetchAllPotentialPuzzlesBySgfId = (data) => ({
   payload: data,
 });
 
+export const savePotentialPuzzle = (data) => ({
+  type: SAVE_POTENTIAL_PUZZLE,
+  payload: data,
+})
+
 // ********** Thunks ************ //
 
 export const generatePotentialPuzzlesThunk =
@@ -64,12 +76,12 @@ export const generatePotentialPuzzlesThunk =
     dispatch(generatePotentialPuzzles(data));
 
     // const VM_ENDPOINT = "http://34.118.131.136:3000";
-    const VM_ENDPOINT = "https://vm.go-puzzles.com";// Changed to https now, with our sub domain name
+    // const VM_ENDPOINT = "https://vm.go-puzzles.com";// Changed to https now, with our sub domain name
 
-    const secondResponse = await csrfFetch(
-      `${VM_ENDPOINT}/potential_puzzles/generate`,
-      {
-        // const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
+    // const secondResponse = await csrfFetch(
+    //   `${VM_ENDPOINT}/potential_puzzles/generate`,
+    //   {
+        const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,22 +105,22 @@ export const generatePotentialPuzzlesThunk =
     dispatch(receiveKataGoAnalysis(kataGoData));
 
     // ********** Store the Google Cloud VM response output into our database, so that the 3rd and final endpoint can edit those ******** //
-    const databaseResponse = await csrfFetch(
-      "/api/potential_puzzles/store_vm_results",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(kataGoData),
-      }
-    );
+    // const databaseResponse = await csrfFetch(
+    //   "/api/potential_puzzles/store_vm_results",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(kataGoData),
+    //   }
+    // );
 
-    if (!databaseResponse.ok) {
-      const errorMessage = await databaseResponse.text();
-      console.error("Error storing VM results:", errorMessage);
-      return;
-    }
+    // if (!databaseResponse.ok) {
+    //   const errorMessage = await databaseResponse.text();
+    //   console.error("Error storing VM results:", errorMessage);
+    //   return;
+    // }
 
     // Prepare data for the third API call based on the second response, sgf_data needs to not have \n to match postman request, but katago_json_output does have \n in postman
     const sanitizedSgfData = kataGoData.createdPuzzles[0].sgf_data.replace(
@@ -163,12 +175,29 @@ export const fetchAllPotentialPuzzlesBySgfIdThunk =
     }
   };
 
+export const savePotentialPuzzleThunk = (sgfId, moveNumber) => async (dispatch) => {
+
+  const response = await csrfFetch("/api/puzzles", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({sgf_id: sgfId, move_number: moveNumber})
+
+  })
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(savePotentialPuzzle(data))
+  }
+}
+
 // ************* Reducer ***************** //
 
 const initialState = {
   katagoJsonOutput: null,
   potentialPuzzles: [],
   currentSgfPotentialPuzzle: null,
+  savePotentialPuzzle: null,
 };
 
 const potentialPuzzlesReducer = (state = initialState, action) => {
@@ -198,6 +227,11 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
         ...state,
         currentSgfPotentialPuzzle: action.payload,
       };
+    case SAVE_POTENTIAL_PUZZLE:
+      return {
+        ...state,
+        savedPotentialPuzzle: action.payload,
+      }
     default:
       return state;
   }

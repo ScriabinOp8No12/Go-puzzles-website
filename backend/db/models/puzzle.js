@@ -76,13 +76,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         // maximum characters of description is 100
         validate: {
-          len: [0, 100],
-          // **** Change later?
-          notJustWhitespace(value) {
-            if (value.trim().length === 0 && value.length !== 0) {
-              throw new Error("Cannot consist solely of whitespace.");
-            }
-          },
+          len: [0, 100]
         },
       },
       vote_count: {
