@@ -9,8 +9,8 @@ The website is designed to help Go players of all ranks improve their skills thr
 
 What I'm currently working on and what I plan to work on (10/11/23):
 
-1. [CURRENTLY_WORKING_ON] Testing / finalizing the save current puzzle button in the potential puzzle component. This includes styling the potential puzzles page to show the count of puzzles and other details
-1a. [CURRENTLY_WORKING_ON] Adding loading + countdown timer / error messages to both the generate puzzles button, and the save current puzzle button.  The countdown timer will be an estimate of the time it will take to receive the response back from pinging KataGo on Google Cloud VM
+1. [Currently working on] Testing / finalizing the save current puzzle button in the potential puzzle component. This includes styling the potential puzzles page to show the count of puzzles and other details
+1a. [Currently working on] Adding loading + countdown timer / error messages to both the generate puzzles button, and the save current puzzle button.  The countdown timer will be an estimate of the time it will take to receive the response back from pinging KataGo on Google Cloud VM
 2. Moving the puzzles (public puzzles) into their own page, and having a different landing page on the home page.  Create the "public puzzles" page mentioned, "your puzzles" page which displays the puzzles the user just saved / or attempted from the "public puzzles" page,
 2a. The landing page will include a message asking the user to signup/login in order to upload/view their sgfs, create puzzles from them, and try puzzles
 2b. The landing page will include a series of interactive tutorials for learning the game, as well as a beginner set of puzzles. This will be done with multiple choice answers, and interactive puzzles on the go board (using glift) with comments / explanations
