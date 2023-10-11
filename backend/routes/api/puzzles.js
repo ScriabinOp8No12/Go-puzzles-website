@@ -165,7 +165,7 @@ router.get("/:puzzle_id", async (req, res) => {
 router.post("/", requireAuth, async (req, res) => {
   try {
     const sgfId = req.body.sgf_id;
-    const boardSize = req.body.boardXSize;
+    const boardSize = req.body.board_size;
     const moveNumber = req.body.move_number;
 
     // Get the specific potential puzzle that the user wants to save, since we have multiple puzzles with the same sgfId, we are differentiating those by the move_number property

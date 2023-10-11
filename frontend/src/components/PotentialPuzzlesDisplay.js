@@ -15,15 +15,20 @@ const PotentialPuzzlesDisplay = () => {
   const potentialPuzzlesData = useSelector(
     (state) => state.potentialPuzzles.currentSgfPotentialPuzzle
   );
-
+  // No need to rerender our react component when the glift internal state changes
+  // like when we add stones to the board, or when we use the left and right arrows (chevron-left and chevron-right)
   const gliftInstance = useRef(null);
+  // console.log(gliftInstance)
 
   useEffect(() => {
     dispatch(fetchAllPotentialPuzzlesBySgfIdThunk(currentSgfId));
   }, [dispatch, currentSgfId]);
 
   const updateCurrentPuzzle = () => {
+    // Access the "current" property of the glift instance, the sgfColIndex property of the gliftInstance keeps track of which sgf array index we are on,
+    // this changes when we use the right and left arrows (chevron-right and chevron-left) to keep track of which puzzle we are on!
     const currentSgfIndex = gliftInstance.current.sgfColIndex;
+    // console.log("currentSgfIndex", currentSgfIndex)
     const currentSgf = gliftInstance.current.sgfCollection[currentSgfIndex].sgfString;
     const puzzle = potentialPuzzlesData.find(p => p.sgf_data === currentSgf);
     setCurrentPuzzle(puzzle);
@@ -64,11 +69,12 @@ const PotentialPuzzlesDisplay = () => {
 
       gliftInstance.current = instance;
 
-      updateCurrentPuzzle(); // Initially set the current puzzle.
+      // Initially set the current puzzle
+      updateCurrentPuzzle();
 
+      // Clean up the glift instance
       return () => {
         instance.destroy();
-
         // Restore Glift's default behavior upon unmounting
         glift.api.iconActionDefaults['chevron-right'].click = defaultNextSgf;
         glift.api.iconActionDefaults['chevron-left'].click = defaultPrevSgf;
