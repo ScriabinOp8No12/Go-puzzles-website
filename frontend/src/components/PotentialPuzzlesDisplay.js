@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "./styles/PotentialPuzzlesDisplay.css";
 import "../lib/glift";
 import { fetchAllPotentialPuzzlesBySgfIdThunk } from "../store/potentialPuzzles";
+import { savePotentialPuzzleThunk } from "../store/potentialPuzzles";
 
 /* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
 
@@ -84,7 +85,8 @@ const PotentialPuzzlesDisplay = () => {
 
   const handleSaveClick = () => {
     if (currentPuzzle) {
-      console.log('Saving puzzle with move_number:', currentPuzzle.move_number, 'and sgf_id:', currentSgfId);
+      dispatch(savePotentialPuzzleThunk(currentSgfId, currentPuzzle.move_number));
+      console.log('Saving/saved puzzle with move_number:', currentPuzzle.move_number, 'and sgf_id:', currentSgfId);
     }
   };
 

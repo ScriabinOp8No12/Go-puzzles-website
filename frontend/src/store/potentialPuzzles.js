@@ -4,14 +4,21 @@ import { csrfFetch } from "./csrf";
 
 export const GENERATE_POTENTIAL_PUZZLES =
   "/potentialPuzzles/GENERATE_POTENTIAL_PUZZLES";
+
 export const RECEIVE_KATAGO_ANALYSIS =
   "potentialPuzzles/RECEIVE_KATAGO_ANALYSIS";
+
 export const INJECT_COMMENTS_AND_MUTATE_SGF_STRING =
   "/potentialPuzzles/INJECT_COMMENTS_AND_MUTATE_SGF_STRING";
+
 export const FETCH_ALL_POTENTIAL_PUZZLES =
   "/potential_puzzles/FETCH_ALL_POTENTIAL_PUZZLES";
+
 export const FETCH_POTENTIAL_PUZZLES_BY_SGF_ID =
   "/potential_puzzles/FETCH_POTENTIAL_PUZZLES_BY_SGF_ID";
+
+export const SAVE_POTENTIAL_PUZZLE = "/potentialPuzzles/SAVE_POTENTIAL_PUZZLE";
+
 // ********** Action Creators ********* //
 
 export const generatePotentialPuzzles = (data) => ({
@@ -38,6 +45,11 @@ export const fetchAllPotentialPuzzlesBySgfId = (data) => ({
   type: FETCH_POTENTIAL_PUZZLES_BY_SGF_ID,
   payload: data,
 });
+
+export const savePotentialPuzzle = (data) => ({
+  type: SAVE_POTENTIAL_PUZZLE,
+  payload: data,
+})
 
 // ********** Thunks ************ //
 
@@ -163,12 +175,29 @@ export const fetchAllPotentialPuzzlesBySgfIdThunk =
     }
   };
 
+export const savePotentialPuzzleThunk = (sgfId, moveNumber) => async (dispatch) => {
+
+  const response = await csrfFetch("/api/puzzles", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({sgf_id: sgfId, move_number: moveNumber})
+
+  })
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(savePotentialPuzzle(data))
+  }
+}
+
 // ************* Reducer ***************** //
 
 const initialState = {
   katagoJsonOutput: null,
   potentialPuzzles: [],
   currentSgfPotentialPuzzle: null,
+  savePotentialPuzzle: null,
 };
 
 const potentialPuzzlesReducer = (state = initialState, action) => {
@@ -198,6 +227,11 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
         ...state,
         currentSgfPotentialPuzzle: action.payload,
       };
+    case SAVE_POTENTIAL_PUZZLE:
+      return {
+        ...state,
+        savedPotentialPuzzle: action.payload,
+      }
     default:
       return state;
   }
