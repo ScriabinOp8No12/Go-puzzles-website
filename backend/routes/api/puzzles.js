@@ -2,6 +2,7 @@ const express = require("express");
 const { requireAuth } = require("../../utils/auth");
 const { User, UserPuzzle, Puzzle, Sgf, PotentialPuzzle } = require("../../db/models");
 const { python } = require("pythonia");
+const jssgf = require("jssgf");
 const path = require("path");
 // const { incrementTimesSolved } = require("../../db/models/puzzle-utils"); // For incrementing times solved, see utils folder for likely not working code lol
 const { calculateNewElo } = require("../../utils/elo-ranking-utils");
@@ -165,7 +166,7 @@ router.get("/:puzzle_id", async (req, res) => {
 router.post("/", requireAuth, async (req, res) => {
   try {
     const sgfId = req.body.sgf_id;
-    const boardSize = req.body.board_size;
+    // const boardSize = req.body.board_size;
     const moveNumber = req.body.move_number;
 
     // Get the specific potential puzzle that the user wants to save, since we have multiple puzzles with the same sgfId, we are differentiating those by the move_number property
@@ -192,6 +193,11 @@ router.post("/", requireAuth, async (req, res) => {
     if (puzzle) {
       return res.status(400).send({ message: "Potential puzzle already saved"})
     }
+
+    // Extract the board size
+    const parsedSgf = jssgf.parse(potentialPuzzle.sgf_data);
+    const gameInfo = parsedSgf[0];
+    const boardSize = gameInfo.SZ || 19;
 
     // Create thumbnail for this puzzle
     const sgf2img = await python(

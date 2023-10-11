@@ -91,7 +91,9 @@ const PotentialPuzzlesDisplay = () => {
   return (
     <div>
       <div id="gliftContainer"></div>
-      <button class="saveCurrentPuzzle" onClick={handleSaveClick}>Save Current Puzzle</button>
+      {/* <div class="saveCurrentPuzzle"> */}
+      <button  class="saveCurrentPuzzle" onClick={handleSaveClick}>Save Puzzle</button>
+      {/* </div> */}
     </div>
   );
 };
