@@ -123,20 +123,20 @@ const PotentialPuzzlesDisplay = () => {
   return (
     <div className="glift-wrapper">
       <div id="gliftContainer"></div>
-      {/* Need to put the text and the button in a container, give it a set height? */}
-      {isLoading && (
-        <div className="saving-container">
-          <span className="saving-text">Saving...</span>
-        </div>
-      )}
-      {saveError && <div className="save-error">{saveError}</div>}
-      {saveSuccessMessage && (
-        <div className="save-success">{saveSuccessMessage}</div>
-      )}
+
       <button className="saveCurrentPuzzle" onClick={handleSaveClick}>
         Save Puzzle
       </button>
+
+      <div className="message-container">
+        {isLoading && <span className="saving-text">Saving...</span>}
+        {saveError && <div className="save-error">{saveError}</div>}
+        {saveSuccessMessage && <div className="save-success">{saveSuccessMessage}</div>}
+      </div>
+
+
     </div>
   );
+
 };
 export default PotentialPuzzlesDisplay;
