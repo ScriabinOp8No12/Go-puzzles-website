@@ -1,15 +1,3 @@
-/* #gliftContainer {
-  width: 1000px;
-  height: 600px;
-  margin: 0 auto;
-  position: relative;
-  overflow-y: hidden;
-} */
-
-/* .glift-comment-box {
-  background-color: lightgrey !important;
-} */
-
 .glift-wrapper {
   position: relative;
   display: flex;
@@ -28,35 +16,28 @@
   color: aliceblue;
   background-color: #222831;
   border-radius: 15px;
-  z-index: 10000;
+  z-index: 1000; /* Anything above 1 seems to work, otherwise the button and text are "invisible" */
 }
 
-.saving-text {
-  position: absolute;
-  top: 420px;
-  right: 450px;
-  max-width: 150px;
-  font-weight: bold;
+.message-container {
+  height: 30px;
+  margin-top: 0px;
+  margin-right: -600px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.saving-text, .save-error, .save-success {
+  line-height: 30px;
   color: black;
-  z-index: 10000;
+  font-weight: bold;
+  z-index: 1000;
 }
 
 .save-error {
-  position: absolute;
-  top: 420px;
-  right: 400px;
-  font-weight: bold;
   color: red;
-  font-weight: bold;
-  z-index: 10000;
 }
 
 .save-success {
-  position: absolute;
-  top: 410px;
-  right: 410px;
   color: green;
-  font-weight: bold;
-  margin: 10px 0;
-  z-index: 10000;
 }
