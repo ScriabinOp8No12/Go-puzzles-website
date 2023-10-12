@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import "./styles/PotentialPuzzlesDisplay.css";
@@ -15,7 +15,6 @@ const PotentialPuzzlesDisplay = () => {
   const [saveError, setSaveError] = useState(null);
   const [saveSuccessMessage, setSaveSuccessMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const potentialPuzzlesData = useSelector(
     (state) => state.potentialPuzzles.currentSgfPotentialPuzzle
@@ -34,31 +33,43 @@ const PotentialPuzzlesDisplay = () => {
     // this changes when we use the right and left arrows (chevron-right and chevron-left) to keep track of which puzzle we are on!
     const currentSgfIndex = gliftInstance.current.sgfColIndex;
     // console.log("currentSgfIndex", currentSgfIndex)
-    const currentSgf = gliftInstance.current.sgfCollection[currentSgfIndex].sgfString;
-    const puzzle = potentialPuzzlesData.find(p => p.sgf_data === currentSgf);
+    const currentSgf =
+      gliftInstance.current.sgfCollection[currentSgfIndex].sgfString;
+    const puzzle = potentialPuzzlesData.find((p) => p.sgf_data === currentSgf);
     setCurrentPuzzle(puzzle);
   };
 
   useEffect(() => {
     if (potentialPuzzlesData) {
-      const sgfCollection = potentialPuzzlesData.map(puzzle => ({
+      const sgfCollection = potentialPuzzlesData.map((puzzle) => ({
         sgfString: puzzle.sgf_data,
         initialPosition: puzzle.move_number - 1,
         problemConditions: { C: ["CORRECT"] },
-        widgetType: "STANDARD_PROBLEM"
+        widgetType: "STANDARD_PROBLEM",
       }));
 
       // Backup the default actions
-      const defaultNextSgf = glift.api.iconActionDefaults['chevron-right'].click;
-      const defaultPrevSgf = glift.api.iconActionDefaults['chevron-left'].click;
+      const defaultNextSgf =
+        glift.api.iconActionDefaults["chevron-right"].click;
+      const defaultPrevSgf = glift.api.iconActionDefaults["chevron-left"].click;
 
       // Overwrite the default actions
-      glift.api.iconActionDefaults['chevron-right'].click = function(event, widget, icon, iconBar) {
+      glift.api.iconActionDefaults["chevron-right"].click = function (
+        event,
+        widget,
+        icon,
+        iconBar
+      ) {
         defaultNextSgf(event, widget, icon, iconBar);
         updateCurrentPuzzle();
       };
 
-      glift.api.iconActionDefaults['chevron-left'].click = function(event, widget, icon, iconBar) {
+      glift.api.iconActionDefaults["chevron-left"].click = function (
+        event,
+        widget,
+        icon,
+        iconBar
+      ) {
         defaultPrevSgf(event, widget, icon, iconBar);
         updateCurrentPuzzle();
       };
@@ -68,8 +79,8 @@ const PotentialPuzzlesDisplay = () => {
         divId: "gliftContainer",
         display: {
           drawBoardCoords: true,
-          disableZoomForMobile: true
-        }
+          disableZoomForMobile: true,
+        },
       });
 
       gliftInstance.current = instance;
@@ -81,8 +92,8 @@ const PotentialPuzzlesDisplay = () => {
       return () => {
         instance.destroy();
         // Restore Glift's default behavior upon unmounting
-        glift.api.iconActionDefaults['chevron-right'].click = defaultNextSgf;
-        glift.api.iconActionDefaults['chevron-left'].click = defaultPrevSgf;
+        glift.api.iconActionDefaults["chevron-right"].click = defaultNextSgf;
+        glift.api.iconActionDefaults["chevron-left"].click = defaultPrevSgf;
       };
     }
   }, [potentialPuzzlesData]);
@@ -91,13 +102,15 @@ const PotentialPuzzlesDisplay = () => {
     setIsLoading(true);
     if (currentPuzzle) {
       try {
-        await dispatch(savePotentialPuzzleThunk(currentSgfId, currentPuzzle.move_number));
+        await dispatch(
+          savePotentialPuzzleThunk(currentSgfId, currentPuzzle.move_number)
+        );
         setSaveSuccessMessage("Puzzle saved successfully!");
         setTimeout(() => {
           setSaveSuccessMessage(null);
         }, 3000);
       } catch (error) {
-        setSaveError("Puzzle already saved or failed!");
+        setSaveError("Puzzle already saved!");
         // Clear the error after 3 seconds
         setTimeout(() => {
           setSaveError(null);
@@ -111,21 +124,23 @@ const PotentialPuzzlesDisplay = () => {
     <div>
       <div id="gliftContainer"></div>
 
-      {isLoading &&
-        <div style={{ display: 'inline-block', alignItems: 'center' }}>
+      {isLoading && (
+        <div style={{ display: "inline-block", alignItems: "center" }}>
           <div className="loading-spinner"></div>
           <span className="saving-text">Saving...</span>
         </div>
-      }
+      )}
 
       {saveError && <div className="save-error">{saveError}</div>}
-      {saveSuccessMessage && <div className="save-success">{saveSuccessMessage}</div>}
+      {saveSuccessMessage && (
+        <div className="save-success">{saveSuccessMessage}</div>
+      )}
 
-      <button className="saveCurrentPuzzle" onClick={handleSaveClick}>Save Puzzle</button>
+      <button className="saveCurrentPuzzle" onClick={handleSaveClick}>
+        Save Puzzle
+      </button>
     </div>
   );
-
-
 };
 
 export default PotentialPuzzlesDisplay;

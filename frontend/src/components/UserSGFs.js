@@ -115,7 +115,6 @@ const UserSGFs = () => {
                     </div>
                     <button
                       className="create-puzzles-button"
-                      // onClick={() => console.log("testing: ", sgf.id, "*************", sgf.sgf_data)}
                       onClick={() =>
                         dispatch(
                           generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data)

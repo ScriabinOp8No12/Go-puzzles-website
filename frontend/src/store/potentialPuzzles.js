@@ -75,36 +75,36 @@ export const generatePotentialPuzzlesThunk =
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
 
-    // const VM_ENDPOINT = "http://34.118.131.136:3000";
-    const VM_ENDPOINT = "https://vm.go-puzzles.com";// Changed to https now, with our sub domain name
+    // ******* Manually change below boolean to use production external VM, or test locally with localhost ******* //
+    const useExternalVM = false;
+    const VM_ENDPOINT = useExternalVM ? "https://vm.go-puzzles.com/potential_puzzles/generate" : "/api/potential_puzzles/generate"
 
     const secondResponse = await csrfFetch(
-      `${VM_ENDPOINT}/potential_puzzles/generate`,
-      {
-        // const secondResponse = await csrfFetch("/api/potential_puzzles/generate", {
+      VM_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          sgf_id: sgf_id, // get rid of this / refactor?
-          sgf_data: sgf_data, // get rid of this / refactor?
+          sgf_id: sgf_id,
+          sgf_data: sgf_data,
           one_line_json_string: data,
         }),
       }
     );
 
-    // Check if the second response is not successful (run katago analysis)
+    // Check if the second response is not successful
     if (!secondResponse.ok) {
       const errorMessage = await secondResponse.text();
       console.error("Error in second endpoint:", errorMessage);
       return;
     }
-    // If we reach this point, it means the 2nd response was successful
+    // If we reach this point, it means the 2nd response was successful, so we run the KataGo Analysis Engine
     const kataGoData = await secondResponse.json();
     dispatch(receiveKataGoAnalysis(kataGoData));
 
-    // ********** Store the Google Cloud VM response output into our database, so that the 3rd and final endpoint can edit those ******** //
+    // Store the Google Cloud VM response output into our database, don't do this when testing locally because our route to /api/potential_puzzles/generate already stores to our database
+    if (useExternalVM) {
     const databaseResponse = await csrfFetch(
       "/api/potential_puzzles/store_vm_results",
       {
@@ -121,6 +121,7 @@ export const generatePotentialPuzzlesThunk =
       console.error("Error storing VM results:", errorMessage);
       return;
     }
+  }
 
     // Prepare data for the third API call based on the second response, sgf_data needs to not have \n to match postman request, but katago_json_output does have \n in postman
     const sanitizedSgfData = kataGoData.createdPuzzles[0].sgf_data.replace(
