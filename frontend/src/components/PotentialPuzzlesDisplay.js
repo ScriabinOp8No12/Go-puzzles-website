@@ -105,42 +105,37 @@ const PotentialPuzzlesDisplay = () => {
         await dispatch(
           savePotentialPuzzleThunk(currentSgfId, currentPuzzle.move_number)
         );
-        setSaveSuccessMessage("Puzzle saved successfully!");
+        setSaveSuccessMessage("Puzzle saved!");
         setTimeout(() => {
           setSaveSuccessMessage(null);
-        }, 3000);
+        }, 1500);
       } catch (error) {
         setSaveError("Puzzle already saved!");
-        // Clear the error after 3 seconds
+        // Clear the error after 1.5 seconds
         setTimeout(() => {
           setSaveError(null);
-        }, 3000);
+        }, 1500);
       }
       setIsLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="glift-wrapper">
       <div id="gliftContainer"></div>
-
       {isLoading && (
-        <div style={{ display: "inline-block", alignItems: "center" }}>
-          <div className="loading-spinner"></div>
+        <div className="saving-container">
           <span className="saving-text">Saving...</span>
         </div>
       )}
-
       {saveError && <div className="save-error">{saveError}</div>}
       {saveSuccessMessage && (
         <div className="save-success">{saveSuccessMessage}</div>
       )}
-
       <button className="saveCurrentPuzzle" onClick={handleSaveClick}>
         Save Puzzle
       </button>
     </div>
   );
 };
-
 export default PotentialPuzzlesDisplay;

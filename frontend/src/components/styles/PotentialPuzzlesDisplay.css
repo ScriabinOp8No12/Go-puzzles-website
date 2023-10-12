@@ -1,20 +1,26 @@
-#gliftContainer {
+/* #gliftContainer {
   width: 1000px;
   height: 600px;
   margin: 0 auto;
   position: relative;
   overflow-y: hidden;
-}
+} */
 
 /* .glift-comment-box {
   background-color: lightgrey !important;
 } */
 
+.glift-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .saveCurrentPuzzle {
-  position: absolute;
-  top: 500px;
-  right: 450px;
-  max-width: 200px;
+  margin-top: -150px;
+  margin-right: -600px;
+  max-width: 150px;
   font-weight: bold;
   text-align: left;
   border: 5px solid #00ADB5;
@@ -22,28 +28,35 @@
   color: aliceblue;
   background-color: #222831;
   border-radius: 15px;
+  z-index: 10000;
 }
 
 .saving-text {
   position: absolute;
   top: 420px;
   right: 450px;
+  max-width: 150px;
+  font-weight: bold;
   color: black;
+  z-index: 10000;
 }
 
 .save-error {
   position: absolute;
   top: 420px;
   right: 400px;
+  font-weight: bold;
   color: red;
   font-weight: bold;
+  z-index: 10000;
 }
 
 .save-success {
   position: absolute;
-  top: 420px;
-  right: 400px;
+  top: 410px;
+  right: 410px;
   color: green;
   font-weight: bold;
   margin: 10px 0;
+  z-index: 10000;
 }
