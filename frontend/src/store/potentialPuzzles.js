@@ -75,8 +75,8 @@ export const generatePotentialPuzzlesThunk =
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
 
-    // ******* Manually change below boolean to use production external VM, or test locally with localhost ******* //
-    const useExternalVM = false;
+    // ******* Manually change below boolean to use production external VM, or test locally with computer's CPU ******* //
+    const useExternalVM = true;
     const VM_ENDPOINT = useExternalVM ? "https://vm.go-puzzles.com/potential_puzzles/generate" : "/api/potential_puzzles/generate"
 
     const secondResponse = await csrfFetch(
