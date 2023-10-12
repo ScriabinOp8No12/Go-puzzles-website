@@ -31,6 +31,8 @@
   z-index: 10000;
 }
 
+/* The below css (saving text, error and success)  are in absolute positions, and aren't
+right above the save puzzle button, that's a problem */
 .saving-text {
   position: absolute;
   top: 420px;

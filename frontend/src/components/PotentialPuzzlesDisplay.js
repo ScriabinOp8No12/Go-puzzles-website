@@ -123,6 +123,7 @@ const PotentialPuzzlesDisplay = () => {
   return (
     <div className="glift-wrapper">
       <div id="gliftContainer"></div>
+      {/* Need to put the text and the button in a container, give it a set height? */}
       {isLoading && (
         <div className="saving-container">
           <span className="saving-text">Saving...</span>
