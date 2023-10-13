@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useDispatch, useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
 import "./styles/PotentialPuzzlesDisplay.css";
 import "../lib/glift";
@@ -28,7 +28,7 @@ const PotentialPuzzlesDisplay = () => {
     dispatch(fetchAllPotentialPuzzlesBySgfIdThunk(currentSgfId));
   }, [dispatch, currentSgfId]);
 
-  const updateCurrentPuzzle = () => {
+  const updateCurrentPuzzle = useCallback(() => {
     // Access the "current" property of the glift instance, the sgfColIndex property of the gliftInstance keeps track of which sgf array index we are on,
     // this changes when we use the right and left arrows (chevron-right and chevron-left) to keep track of which puzzle we are on!
     const currentSgfIndex = gliftInstance.current.sgfColIndex;
@@ -37,7 +37,7 @@ const PotentialPuzzlesDisplay = () => {
       gliftInstance.current.sgfCollection[currentSgfIndex].sgfString;
     const puzzle = potentialPuzzlesData.find((p) => p.sgf_data === currentSgf);
     setCurrentPuzzle(puzzle);
-  };
+  }, [potentialPuzzlesData]);
 
   useEffect(() => {
     if (potentialPuzzlesData) {
@@ -96,7 +96,7 @@ const PotentialPuzzlesDisplay = () => {
         glift.api.iconActionDefaults["chevron-left"].click = defaultPrevSgf;
       };
     }
-  }, [potentialPuzzlesData]);
+  }, [potentialPuzzlesData, updateCurrentPuzzle]);
 
   const handleSaveClick = async () => {
     setIsLoading(true);
@@ -107,6 +107,7 @@ const PotentialPuzzlesDisplay = () => {
         );
         setSaveSuccessMessage("Puzzle saved!");
         setTimeout(() => {
+          // Show success message for 1.5 seconds
           setSaveSuccessMessage(null);
         }, 1500);
       } catch (error) {
@@ -131,12 +132,11 @@ const PotentialPuzzlesDisplay = () => {
       <div className="message-container">
         {isLoading && <span className="saving-text">Saving...</span>}
         {saveError && <div className="save-error">{saveError}</div>}
-        {saveSuccessMessage && <div className="save-success">{saveSuccessMessage}</div>}
+        {saveSuccessMessage && (
+          <div className="save-success">{saveSuccessMessage}</div>
+        )}
       </div>
-
-
     </div>
   );
-
 };
 export default PotentialPuzzlesDisplay;
