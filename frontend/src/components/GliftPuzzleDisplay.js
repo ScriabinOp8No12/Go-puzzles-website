@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams} from "react-router-dom";
+import { useParams, useHistory} from "react-router-dom";
 import {
   fetchPublicPuzzleByIdThunk,
   updateRankingsAndSolvedCounterThunk,
@@ -14,11 +14,22 @@ import "../lib/glift";
 const GliftPuzzleDisplay = () => {
   const { puzzle_id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle);
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
   const [showRankingDisplay, setShowRankingDisplay] = useState(false); // Track if we want to display the ranking display component
+
+  useEffect(() => {
+    return history.listen((location) => {
+      // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
+      // maybe we could pass in the filter query parameters as another temporary solution
+      if (location.pathname === "/" || location.pathname ==="/potential_puzzles") {
+        window.location.reload();
+      }
+    });
+  }, [history]);
 
   useEffect(() => {
     // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
@@ -94,7 +105,7 @@ const GliftPuzzleDisplay = () => {
         problemIncorrect: onProblemIncorrect,
       });
 
-      const instance = glift.create({
+      glift.create({
         divId: "gliftContainer",
         sgf: {
           sgfString: puzzleData.sgf_data, // sgf_data column from the database
@@ -109,15 +120,15 @@ const GliftPuzzleDisplay = () => {
         hooks: checkCorrectHook,
       });
 
-    // Cleanup function, otherwise we need a hard refresh to show the puzzle (it'll show the previous puzzle we were on)
-    return () => {
-      instance.destroy();
-      glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
-      glift.api.iconActionDefaults["problem-explanation"].tooltip = "Explore the solution";
-      isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
-    };
+    // // Cleanup function, otherwise we need a hard refresh to show the puzzle (it'll show the previous puzzle we were on)
+    // return () => {
+    //   // instance.destroy();
+    //   glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
+    //   glift.api.iconActionDefaults["problem-explanation"].tooltip = "Explore the solution";
+    //   // isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
+    // };
   }
-  }, [puzzleData, onProblemCorrect, onProblemIncorrect, originalClick]);
+  }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
   return (
     <>
