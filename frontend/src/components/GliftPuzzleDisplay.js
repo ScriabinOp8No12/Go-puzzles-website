@@ -24,15 +24,18 @@ const GliftPuzzleDisplay = () => {
   // ****** Temporary solution for glift rendering issue when clicking a different puzzle -> simply refresh the home page whenever we go there ******
   // Issue with the temporary solution is that the filter on the home page would be reset too unless we save it, and user experience slightly less optimal with a refresh
   // Better solution would be to use .destroy() on the glift instance, then recreate it for each new puzzle when we click on it
-  useEffect(() => {
-    return history.listen((location) => {
-      // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
-      // maybe we could pass in the filter query parameters as another temporary solution
-      if (location.pathname === "/" || location.pathname === "/potential_puzzles") {
-        window.location.reload();
-      }
-    });
-  }, [history]);
+  // useEffect(() => {
+  //   return history.listen((location) => {
+  //     // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
+  //     // maybe we could pass in the filter query parameters as another temporary solution
+  //     if (location.pathname === "/") {
+  //       window.location.reload();
+  //     }
+  //     // if (location.pathname === "/" || location.pathname === "/potential_puzzles") {
+  //     //   window.location.reload();
+  //     // }
+  //   });
+  // }, [history]);
 
   useEffect(() => {
     // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
@@ -112,7 +115,7 @@ const GliftPuzzleDisplay = () => {
         problemIncorrect: onProblemIncorrect,
       });
 
-      glift.create({
+      const instance = glift.create({
         divId: "gliftContainer",
         sgf: {
           sgfString: puzzleData.sgf_data, // sgf_data column from the database
@@ -126,8 +129,15 @@ const GliftPuzzleDisplay = () => {
           theme: "DEPTH" },
         hooks: checkCorrectHook,
       });
-    }
-  }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
+
+    return () => {  // Cleanup function
+      instance.destroy();
+      glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
+      glift.api.iconActionDefaults["problem-explanation"].tooltip = "Explore the solution";
+      isBoardInitialized.current = false; // Reset the flag here
+    };
+  }
+  }, [puzzleData, onProblemCorrect, onProblemIncorrect, originalClick]);
 
   // console.log("isRankingUpdated VALUE near end of code: ", isRankingUpdated.current)
   return (
