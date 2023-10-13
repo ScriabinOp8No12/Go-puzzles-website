@@ -144,3 +144,19 @@ const GliftPuzzleDisplay = () => {
 };
 
 export default GliftPuzzleDisplay;
+
+// ******************************************** //
+
+// Code snippet for destroying the gliftinstance so when we click different puzzles, it reloads glift, but we have to recreate it otherwise the original
+// puzzle functionality is messed up again, so this is pretty tricky
+
+// useEffect(() => {
+//   return () => {
+//     // Cleanup code to destroy the existing Glift board instance
+//     if (gliftInstance.current) {
+//       gliftInstance.current.destroy();
+//       gliftInstance.current = null;
+//       isBoardInitialized.current = false;
+//     }
+//   };
+// }, [puzzle_id]);  // Dependency on puzzle_id
