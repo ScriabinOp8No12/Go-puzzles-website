@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import {
   fetchPublicPuzzleByIdThunk,
   updateRankingsAndSolvedCounterThunk,
@@ -14,28 +14,11 @@ import "../lib/glift";
 const GliftPuzzleDisplay = () => {
   const { puzzle_id } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle);
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
   const [showRankingDisplay, setShowRankingDisplay] = useState(false); // Track if we want to display the ranking display component
-
-  // ****** Temporary solution for glift rendering issue when clicking a different puzzle -> simply refresh the home page whenever we go there ******
-  // Issue with the temporary solution is that the filter on the home page would be reset too unless we save it, and user experience slightly less optimal with a refresh
-  // Better solution would be to use .destroy() on the glift instance, then recreate it for each new puzzle when we click on it
-  // useEffect(() => {
-  //   return history.listen((location) => {
-  //     // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
-  //     // maybe we could pass in the filter query parameters as another temporary solution
-  //     if (location.pathname === "/") {
-  //       window.location.reload();
-  //     }
-  //     // if (location.pathname === "/" || location.pathname === "/potential_puzzles") {
-  //     //   window.location.reload();
-  //     // }
-  //   });
-  // }, [history]);
 
   useEffect(() => {
     // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
@@ -81,12 +64,8 @@ const GliftPuzzleDisplay = () => {
     );
   }, []);
 
-  // console.log("value of problemSolved right before disable button: ", problemSolved)
-
   useEffect(() => {
-    // console.log("value of problemSolved within useEffect that triggers disabled button: ", problemSolved)
     if (!problemSolved) {
-      // console.log("problem solved state within 1st useEffect:", problemSolved)
       // Disable problem explanation (? button) when the problem isn't solved yet
       glift.api.iconActionDefaults["problem-explanation"].click = function () {
         // Do nothing when the icon is clicked.
@@ -130,16 +109,16 @@ const GliftPuzzleDisplay = () => {
         hooks: checkCorrectHook,
       });
 
-    return () => {  // Cleanup function
+    // Cleanup function, otherwise we need a hard refresh to show the puzzle (it'll show the previous puzzle we were on)
+    return () => {
       instance.destroy();
       glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
       glift.api.iconActionDefaults["problem-explanation"].tooltip = "Explore the solution";
-      isBoardInitialized.current = false; // Reset the flag here
+      isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
     };
   }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect, originalClick]);
 
-  // console.log("isRankingUpdated VALUE near end of code: ", isRankingUpdated.current)
   return (
     <>
       <div id="gliftContainer">
@@ -154,19 +133,3 @@ const GliftPuzzleDisplay = () => {
 };
 
 export default GliftPuzzleDisplay;
-
-// ******************************************** //
-
-// Code snippet for destroying the gliftinstance so when we click different puzzles, it reloads glift, but we have to recreate it otherwise the original
-// puzzle functionality is messed up again, so this is pretty tricky
-
-// useEffect(() => {
-//   return () => {
-//     // Cleanup code to destroy the existing Glift board instance
-//     if (gliftInstance.current) {
-//       gliftInstance.current.destroy();
-//       gliftInstance.current = null;
-//       isBoardInitialized.current = false;
-//     }
-//   };
-// }, [puzzle_id]);  // Dependency on puzzle_id
