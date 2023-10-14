@@ -49,7 +49,7 @@ export const fetchAllPotentialPuzzlesBySgfId = (data) => ({
 export const savePotentialPuzzle = (data) => ({
   type: SAVE_POTENTIAL_PUZZLE,
   payload: data,
-})
+});
 
 // ********** Thunks ************ //
 
@@ -77,21 +77,21 @@ export const generatePotentialPuzzlesThunk =
 
     // ******* Manually change below boolean to use production external VM, or test locally with computer's CPU ******* //
     const useExternalVM = false;
-    const VM_ENDPOINT = useExternalVM ? "https://vm.go-puzzles.com/potential_puzzles/generate" : "/api/potential_puzzles/generate"
+    const VM_ENDPOINT = useExternalVM
+      ? "https://vm.go-puzzles.com/potential_puzzles/generate"
+      : "/api/potential_puzzles/generate";
 
-    const secondResponse = await csrfFetch(
-      VM_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sgf_id: sgf_id,
-          sgf_data: sgf_data,
-          one_line_json_string: data,
-        }),
-      }
-    );
+    const secondResponse = await csrfFetch(VM_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sgf_id: sgf_id,
+        sgf_data: sgf_data,
+        one_line_json_string: data,
+      }),
+    });
 
     // Check if the second response is not successful
     if (!secondResponse.ok) {
@@ -105,23 +105,23 @@ export const generatePotentialPuzzlesThunk =
 
     // Store the Google Cloud VM response output into our database, don't do this when testing locally because our route to /api/potential_puzzles/generate already stores to our database
     if (useExternalVM) {
-    const databaseResponse = await csrfFetch(
-      "/api/potential_puzzles/store_vm_results",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(kataGoData),
-      }
-    );
+      const databaseResponse = await csrfFetch(
+        "/api/potential_puzzles/store_vm_results",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(kataGoData),
+        }
+      );
 
-    if (!databaseResponse.ok) {
-      const errorMessage = await databaseResponse.text();
-      console.error("Error storing VM results:", errorMessage);
-      return;
+      if (!databaseResponse.ok) {
+        const errorMessage = await databaseResponse.text();
+        console.error("Error storing VM results:", errorMessage);
+        return;
+      }
     }
-  }
 
     // Prepare data for the third API call based on the second response, sgf_data needs to not have \n to match postman request, but katago_json_output does have \n in postman
     const sanitizedSgfData = kataGoData.createdPuzzles[0].sgf_data.replace(
@@ -177,21 +177,20 @@ export const fetchAllPotentialPuzzlesBySgfIdThunk =
     }
   };
 
-export const savePotentialPuzzleThunk = (sgfId, moveNumber) => async (dispatch) => {
-
-  const response = await csrfFetch("/api/puzzles", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({sgf_id: sgfId, move_number: moveNumber})
-
-  })
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(savePotentialPuzzle(data))
-  }
-}
+export const savePotentialPuzzleThunk =
+  (sgfId, moveNumber) => async (dispatch) => {
+    const response = await csrfFetch("/api/puzzles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sgf_id: sgfId, move_number: moveNumber }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(savePotentialPuzzle(data));
+    }
+  };
 
 // ************* Reducer ***************** //
 
@@ -223,7 +222,7 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
       return {
         ...state,
         potentialPuzzles: action.payload.PotentialPuzzles,
-    countsBySgfId: action.payload.CountsBySgfId,
+        countsBySgfId: action.payload.CountsBySgfId,
       };
     case FETCH_POTENTIAL_PUZZLES_BY_SGF_ID:
       return {
@@ -234,7 +233,7 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
       return {
         ...state,
         savedPotentialPuzzle: action.payload,
-      }
+      };
     default:
       return state;
   }

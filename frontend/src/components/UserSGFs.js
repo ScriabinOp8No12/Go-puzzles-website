@@ -125,10 +125,12 @@ const UserSGFs = () => {
                     </button>
                     <button
                       className="pencil-icon"
+                      title="Edit SGF"
                       onClick={() => openEditModal(sgf.id)}
                     >
                       ✏️
                     </button>
+
                     <DeleteSgfModal sgfId={sgf.id} />
                   </div>
                 )}
