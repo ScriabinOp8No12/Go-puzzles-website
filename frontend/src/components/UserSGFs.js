@@ -19,6 +19,9 @@ const UserSGFs = () => {
   const history = useHistory();
   const [uploadError, setUploadError] = useState("");
   const [isLoading, setIsLoading] = useState("");
+  const [currentSgfId, setCurrentSgfId] = useState(null);
+  const [successNotification, setSuccessNotification] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     dispatch(fetchAllSgfsThunk());
@@ -32,12 +35,24 @@ const UserSGFs = () => {
 
   const handleGeneratePuzzles = async (sgf) => {
     setIsLoading("GENERATING_PUZZLES");
+    setCurrentSgfId(sgf.id); // update current SGF being processed
     try {
       await dispatch(generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data));
+      setSuccessNotification(sgf.id); // Show the success notification
+      setTimeout(() => setSuccessNotification(null), 3000);
     } catch (error) {
-      // Handle error here if necessary
+      setErrorMessage("Failed to generate puzzles");
+      // specific error message block not working right now
+      // if (error.response) {
+      //   setErrorMessage(error.response.data.error); // Show backend error message
+      // } else {
+      //   setErrorMessage("An unexpected error occurred."); // in case we geta pythonia timeout error, or server error
+      // }
+      // Clear the error message after 3 seconds
+      setTimeout(() => setErrorMessage(""), 3000);
     }
-    setIsLoading("");  // Reset to empty string when the operation is complete
+    setIsLoading(""); // Reset to empty string when the operation is complete
+    setCurrentSgfId(null); // Reset the current SGF being processed
   };
   const handleFileChange = async (e) => {
     setUploadError("");
@@ -49,7 +64,6 @@ const UserSGFs = () => {
       // Handle the case where no file is selected or the upload is cancelled.
       return;
     }
-
 
     // Reset file input value so the same file can trigger the onChange event again
     e.target.value = null;
@@ -99,16 +113,31 @@ const UserSGFs = () => {
           Upload SGF
           <input type="file" accept=".sgf" onChange={handleFileChange} />
         </label>
+        {/* Display failed generate puzzles error message if it exists */}
+        {errorMessage && (
+          <div className="generate-puzzles-error-message">{errorMessage}</div>
+        )}
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
         {/* Display uploading text */}
-        {isLoading === "UPLOADING" && <div className="uploading-sgf">Uploading...</div>}
+        {isLoading === "UPLOADING" && (
+          <div className="uploading-sgf">Uploading...</div>
+        )}
         {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
           sortedSGFs.map((sgf, index) => (
             <div className="uploaded-sgf-thumbnail" key={index}>
+              {isLoading === "GENERATING_PUZZLES" &&
+                currentSgfId === sgf.id && (
+                  <div className="generating-text">Generating...</div>
+                )}
+              {successNotification === sgf.id && (
+                <div className="success-notification">
+                  Puzzles generated, go to "Potential Puzzles" to try them!
+                </div>
+              )}
               <img
                 src={sgf.thumbnail}
                 alt="SGF Thumbnail"
@@ -125,12 +154,10 @@ const UserSGFs = () => {
                     </div>
                     <button
                       className="create-puzzles-button"
-                      onClick={() =>
-                        handleGeneratePuzzles(sgf)}
-                        disabled={isLoading === "GENERATING_PUZZLES"}
+                      onClick={() => handleGeneratePuzzles(sgf)}
+                      disabled={isLoading === "GENERATING_PUZZLES"}
                     >
-                      {isLoading === "GENERATING_PUZZLES" ? "Generating..." : "Generate Puzzles!"}
-                      {/* Generate Puzzles! */}
+                      Generate Puzzles!
                     </button>
                     <button
                       className="pencil-icon"

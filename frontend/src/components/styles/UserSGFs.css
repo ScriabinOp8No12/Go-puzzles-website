@@ -123,3 +123,11 @@
   color: aliceblue;
   margin-top: 5px;
 }
+
+.generate-puzzles-error-message {
+  color: red;
+}
+
+.generating-text {
+  color: aliceblue;
+}
