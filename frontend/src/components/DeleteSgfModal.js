@@ -34,7 +34,7 @@ const DeleteSgfModal = ({ sgfId }) => {
   return (
     <>
       <div className="deleteSgfButton">
-        <button className="trashcan-icon" onClick={() => setShowModal(true)}>
+        <button className="trashcan-icon" title="Delete SGF" onClick={() => setShowModal(true)}>
         <i className="fa fa-trash" style={{color: '#000000'}}></i>
         </button>
       </div>

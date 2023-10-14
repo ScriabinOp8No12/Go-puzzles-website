@@ -18,7 +18,10 @@ const UserSGFs = () => {
   const userSGFs = useSelector((state) => state.sgfs.userSGFs);
   const history = useHistory();
   const [uploadError, setUploadError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState("");
+  const [currentSgfId, setCurrentSgfId] = useState(null);
+  const [successNotification, setSuccessNotification] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     dispatch(fetchAllSgfsThunk());
@@ -30,13 +33,34 @@ const UserSGFs = () => {
     dispatch(openModal(<EditSgfModal sgfId={sgfId} />));
   };
 
+  const handleGeneratePuzzles = async (sgf) => {
+    setIsLoading("GENERATING_PUZZLES");
+    setCurrentSgfId(sgf.id); // update current SGF being processed
+    try {
+      await dispatch(generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data));
+      setSuccessNotification(sgf.id); // Show the success notification
+      setTimeout(() => setSuccessNotification(null), 3000);
+    } catch (error) {
+      setErrorMessage("Failed to generate puzzles");
+      // specific error message block not working right now
+      // if (error.response) {
+      //   setErrorMessage(error.response.data.error); // Show backend error message
+      // } else {
+      //   setErrorMessage("An unexpected error occurred."); // in case we geta pythonia timeout error, or server error
+      // }
+      // Clear the error message after 3 seconds
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
+    setIsLoading(""); // Reset to empty string when the operation is complete
+    setCurrentSgfId(null); // Reset the current SGF being processed
+  };
   const handleFileChange = async (e) => {
     setUploadError("");
-    setIsLoading(true); // Set isLoading to true when upload starts
+    setIsLoading("UPLOADING"); // Set isLoading to true when upload starts
 
     const file = e.target.files[0];
     if (!file) {
-      setIsLoading(false); // Reset isLoading if no file is selected
+      setIsLoading(""); // Reset isLoading if no file is selected
       // Handle the case where no file is selected or the upload is cancelled.
       return;
     }
@@ -54,12 +78,12 @@ const UserSGFs = () => {
         await dispatch(uploadSgfThunk(sgf_data));
       } catch (error) {
         setUploadError("Invalid SGF!");
-        // Clear the error after 4 seconds
+        // Clear the error after 3 seconds
         setTimeout(() => {
           setUploadError("");
-        }, 4000);
+        }, 3000);
       }
-      setIsLoading(false); // Reset isLoading when upload is complete or error occurs
+      setIsLoading(""); // Reset isLoading when upload is complete or error occurs
     };
 
     reader.readAsText(file);
@@ -89,16 +113,31 @@ const UserSGFs = () => {
           Upload SGF
           <input type="file" accept=".sgf" onChange={handleFileChange} />
         </label>
+        {/* Display failed generate puzzles error message if it exists */}
+        {errorMessage && (
+          <div className="generate-puzzles-error-message">{errorMessage}</div>
+        )}
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
         {/* Display uploading text */}
-        {isLoading && <div className="uploading-sgf">Uploading...</div>}
+        {isLoading === "UPLOADING" && (
+          <div className="uploading-sgf">Uploading...</div>
+        )}
         {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
           sortedSGFs.map((sgf, index) => (
             <div className="uploaded-sgf-thumbnail" key={index}>
+              {isLoading === "GENERATING_PUZZLES" &&
+                currentSgfId === sgf.id && (
+                  <div className="generating-text">Generating...</div>
+                )}
+              {successNotification === sgf.id && (
+                <div className="success-notification">
+                  Puzzles generated, go to "Potential Puzzles" to try them!
+                </div>
+              )}
               <img
                 src={sgf.thumbnail}
                 alt="SGF Thumbnail"
@@ -115,20 +154,19 @@ const UserSGFs = () => {
                     </div>
                     <button
                       className="create-puzzles-button"
-                      onClick={() =>
-                        dispatch(
-                          generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data)
-                        )
-                      }
+                      onClick={() => handleGeneratePuzzles(sgf)}
+                      disabled={isLoading === "GENERATING_PUZZLES"}
                     >
                       Generate Puzzles!
                     </button>
                     <button
                       className="pencil-icon"
+                      title="Edit SGF"
                       onClick={() => openEditModal(sgf.id)}
                     >
                       ✏️
                     </button>
+
                     <DeleteSgfModal sgfId={sgf.id} />
                   </div>
                 )}
