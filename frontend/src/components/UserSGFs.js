@@ -18,7 +18,7 @@ const UserSGFs = () => {
   const userSGFs = useSelector((state) => state.sgfs.userSGFs);
   const history = useHistory();
   const [uploadError, setUploadError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState("");
 
   useEffect(() => {
     dispatch(fetchAllSgfsThunk());
@@ -30,16 +30,26 @@ const UserSGFs = () => {
     dispatch(openModal(<EditSgfModal sgfId={sgfId} />));
   };
 
+  const handleGeneratePuzzles = async (sgf) => {
+    setIsLoading("GENERATING_PUZZLES");
+    try {
+      await dispatch(generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data));
+    } catch (error) {
+      // Handle error here if necessary
+    }
+    setIsLoading("");  // Reset to empty string when the operation is complete
+  };
   const handleFileChange = async (e) => {
     setUploadError("");
-    setIsLoading(true); // Set isLoading to true when upload starts
+    setIsLoading("UPLOADING"); // Set isLoading to true when upload starts
 
     const file = e.target.files[0];
     if (!file) {
-      setIsLoading(false); // Reset isLoading if no file is selected
+      setIsLoading(""); // Reset isLoading if no file is selected
       // Handle the case where no file is selected or the upload is cancelled.
       return;
     }
+
 
     // Reset file input value so the same file can trigger the onChange event again
     e.target.value = null;
@@ -54,12 +64,12 @@ const UserSGFs = () => {
         await dispatch(uploadSgfThunk(sgf_data));
       } catch (error) {
         setUploadError("Invalid SGF!");
-        // Clear the error after 4 seconds
+        // Clear the error after 3 seconds
         setTimeout(() => {
           setUploadError("");
-        }, 4000);
+        }, 3000);
       }
-      setIsLoading(false); // Reset isLoading when upload is complete or error occurs
+      setIsLoading(""); // Reset isLoading when upload is complete or error occurs
     };
 
     reader.readAsText(file);
@@ -92,7 +102,7 @@ const UserSGFs = () => {
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
         {/* Display uploading text */}
-        {isLoading && <div className="uploading-sgf">Uploading...</div>}
+        {isLoading === "UPLOADING" && <div className="uploading-sgf">Uploading...</div>}
         {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
       </div>
       <div className="user-sgf-table">
@@ -116,12 +126,11 @@ const UserSGFs = () => {
                     <button
                       className="create-puzzles-button"
                       onClick={() =>
-                        dispatch(
-                          generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data)
-                        )
-                      }
+                        handleGeneratePuzzles(sgf)}
+                        disabled={isLoading === "GENERATING_PUZZLES"}
                     >
-                      Generate Puzzles!
+                      {isLoading === "GENERATING_PUZZLES" ? "Generating..." : "Generate Puzzles!"}
+                      {/* Generate Puzzles! */}
                     </button>
                     <button
                       className="pencil-icon"
