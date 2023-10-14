@@ -76,7 +76,7 @@ export const generatePotentialPuzzlesThunk =
     dispatch(generatePotentialPuzzles(data));
 
     // ******* Manually change below boolean to use production external VM, or test locally with computer's CPU ******* //
-    const useExternalVM = true;
+    const useExternalVM = false;
     const VM_ENDPOINT = useExternalVM ? "https://vm.go-puzzles.com/potential_puzzles/generate" : "/api/potential_puzzles/generate"
 
     const secondResponse = await csrfFetch(
@@ -163,7 +163,8 @@ export const fetchAllPotentialPuzzlesThunk = () => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(fetchAllPotentialPuzzles(data.PotentialPuzzles)); // Structure looks like this in the response: {"PotentialPuzzles": [{ "sgf_id": 22, <placeholder>
+    // Pass in entire data object, since we are also including the count in the response now. This used to be: data.PotentialPuzzles
+    dispatch(fetchAllPotentialPuzzles(data));
   }
 };
 
@@ -221,7 +222,8 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
     case FETCH_ALL_POTENTIAL_PUZZLES:
       return {
         ...state,
-        potentialPuzzles: action.payload,
+        potentialPuzzles: action.payload.PotentialPuzzles,
+    countsBySgfId: action.payload.CountsBySgfId,
       };
     case FETCH_POTENTIAL_PUZZLES_BY_SGF_ID:
       return {

@@ -11,6 +11,9 @@ const PotentialPuzzles = () => {
   const userPotentialPuzzles = useSelector(
     (state) => state.potentialPuzzles.potentialPuzzles
   );
+  const countsBySgfId = useSelector(
+    (state) => state.potentialPuzzles.countsBySgfId
+  );
 
   const history = useHistory();
 
@@ -20,10 +23,14 @@ const PotentialPuzzles = () => {
 
   return (
     <div className="outer-wrapper">
-      <div className="user-potential-puzzle-table"> {/* Have unique classname here to style slightly differently compared to sgf page*/}
+      <div className="user-potential-puzzle-table">
+        {" "}
+        {/* Have unique classname here to style slightly differently compared to sgf page*/}
         {userPotentialPuzzles &&
           userPotentialPuzzles.map((potentialPuzzle, index) => (
-            <div className="uploaded-sgf-thumbnail" key={index}> {/* Have unique classname here? */}
+            <div className="uploaded-sgf-thumbnail" key={index}>
+              {" "}
+              {/* Have unique classname here? */}
               <img
                 src={potentialPuzzle["Sgf.thumbnail"]} // since the property is Sgf DOT thumbnail, we have to use square brackets
                 alt={`SGF Thumbnail ${index + 1}`}
@@ -34,6 +41,9 @@ const PotentialPuzzles = () => {
                 }
                 style={{ cursor: "pointer" }}
               />
+              <div className="count-value">
+                {countsBySgfId[potentialPuzzle.sgf_id]} Puzzles Found!
+              </div>
             </div>
           ))}
       </div>
