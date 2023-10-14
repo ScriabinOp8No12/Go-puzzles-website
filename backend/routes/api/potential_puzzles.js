@@ -92,111 +92,108 @@ router.post("/generate", requireAuth, async (req, res) => {
 // 2. Updates SGF with comments and adds comments to follow up variations
 // Updating thumbnail moved to post /puzzles instead
 
-router.put(
-  "/:sgf_id/clean_sgf_add_comments",
-  requireAuth,
-  async (req, res) => {
-    try {
-      const sgfId = req.params.sgf_id;
-      const sgfData = req.body.sgf_data;
-      const katagoJsonOutput = req.body.katago_json_output;
+router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
+  try {
+    const sgfId = req.params.sgf_id;
+    const sgfData = req.body.sgf_data;
+    const katagoJsonOutput = req.body.katago_json_output;
 
-      // **** Remove this function below??? and fetch the sgf.thumbnail column and return it in the response!
+    // **** Remove this function below??? and fetch the sgf.thumbnail column and return it in the response!
 
-      // I'm pretty sure the database record will always be sorted properly in ascending order, so this
-      // function could be completely redundant or actually cause problems later?
-      const fetchDatabaseRecordsOrdered = async (sgfId) => {
-        return await PotentialPuzzle.findAll({
-          where: { sgf_id: sgfId },
-          order: [
-            // id is the primary key column of our PotentialPuzzles's id column, we want to mutate the associated sgf_data text strings in order
-            // because the KataGo output is stored in the database in order from first mistake to last mistake in the game
-            ["id", "ASC"],
-          ],
-        });
-      };
-
-      // Initialize Python script for cleaning and commenting SGF
-      const cleanAndComment = await python(
-        path.join(
-          __dirname,
-          "..",
-          "..",
-          "..",
-          "katago",
-          "clean_sgf_add_comments.py"
-        )
-      );
-
-      // Process katago output with Python function
-      const processedOutput = await cleanAndComment.process_katago_output(
-        katagoJsonOutput
-      );
-
-      // Fetch existing database records for the specified sgfId, in ascending order
-      const existingRecords = await fetchDatabaseRecordsOrdered(sgfId);
-
-      const cleanedSgfStrings = [];
-
-      // Generate cleaned SGF strings and update database records in order
-      for (let i = 0; i < (await processedOutput.length); i++) {
-        const outputDict = await processedOutput[i];
-
-        for (const moveNumber in await outputDict) {
-          const cleanedSgfString = await cleanAndComment.clean_sgf(
-            sgfData,
-            Number(moveNumber)
-          );
-
-          cleanedSgfStrings.push(cleanedSgfString);
-        }
-      }
-
-      // Inject comments into SGF based on KataGo analysis output, Glift determines a puzzle is correct if there's a comment saying "CORRECT" for that move
-      const final_sgf_strings = await cleanAndComment.add_comments_to_sgfs(
-        cleanedSgfStrings,
-        processedOutput
-      );
-
-      // console.log("final sgf strings", final_sgf_strings)
-
-      if (existingRecords.length !== (await final_sgf_strings.length)) {
-        return res
-          .status(400)
-          .json({ message: "Mismatch in record and output lengths" });
-      }
-
-      // ******************* Updating sgf_data and thumbnail columns ************************ //
-
-      for (let i = 0; i < (await final_sgf_strings.length); i++) {
-        const sgf_string = await final_sgf_strings[i];
-        const correspondingRecord = existingRecords[i];
-
-        // Update the sgf_data column in the database with the new sgf_string that includes comments
-        correspondingRecord.sgf_data = String(sgf_string);
-
-        await correspondingRecord.save();
-      }
-
-      // Pythonia needs everything awaited, if we don't do the block below, postman doesn't return the strings at all
-      const resolved_final_sgf_strings = [];
-
-      for await (let final_sgf_string of final_sgf_strings) {
-        resolved_final_sgf_strings.push(final_sgf_string);
-      }
-
-      return res.status(200).send({
-        sgfStrings: resolved_final_sgf_strings.map((sgf) =>
-          sgf.replace(/\n/g, "")
-        ),
-        // thumbnails: orderedThumbnailUrls,
+    // I'm pretty sure the database record will always be sorted properly in ascending order, so this
+    // function could be completely redundant or actually cause problems later?
+    const fetchDatabaseRecordsOrdered = async (sgfId) => {
+      return await PotentialPuzzle.findAll({
+        where: { sgf_id: sgfId },
+        order: [
+          // id is the primary key column of our PotentialPuzzles's id column, we want to mutate the associated sgf_data text strings in order
+          // because the KataGo output is stored in the database in order from first mistake to last mistake in the game
+          ["id", "ASC"],
+        ],
       });
-    } catch (err) {
-      res.status(500).send({ message: `Error: ${err.message}` });
-    }
-  }
-);
+    };
 
+    // Initialize Python script for cleaning and commenting SGF
+    const cleanAndComment = await python(
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "katago",
+        "clean_sgf_add_comments.py"
+      )
+    );
+
+    // Process katago output with Python function
+    const processedOutput = await cleanAndComment.process_katago_output(
+      katagoJsonOutput
+    );
+
+    // Fetch existing database records for the specified sgfId, in ascending order
+    const existingRecords = await fetchDatabaseRecordsOrdered(sgfId);
+
+    const cleanedSgfStrings = [];
+
+    // Generate cleaned SGF strings and update database records in order
+    for (let i = 0; i < (await processedOutput.length); i++) {
+      const outputDict = await processedOutput[i];
+
+      for (const moveNumber in await outputDict) {
+        const cleanedSgfString = await cleanAndComment.clean_sgf(
+          sgfData,
+          Number(moveNumber)
+        );
+
+        cleanedSgfStrings.push(cleanedSgfString);
+      }
+    }
+
+    // Inject comments into SGF based on KataGo analysis output, Glift determines a puzzle is correct if there's a comment saying "CORRECT" for that move
+    const final_sgf_strings = await cleanAndComment.add_comments_to_sgfs(
+      cleanedSgfStrings,
+      processedOutput
+    );
+
+    // console.log("final sgf strings", final_sgf_strings)
+
+    if (existingRecords.length !== (await final_sgf_strings.length)) {
+      return res
+        .status(400)
+        .json({ message: "Mismatch in record and output lengths" });
+    }
+
+    // ******************* Updating sgf_data and thumbnail columns ************************ //
+
+    for (let i = 0; i < (await final_sgf_strings.length); i++) {
+      const sgf_string = await final_sgf_strings[i];
+      const correspondingRecord = existingRecords[i];
+
+      // Update the sgf_data column in the database with the new sgf_string that includes comments
+      correspondingRecord.sgf_data = String(sgf_string);
+
+      await correspondingRecord.save();
+    }
+
+    // Pythonia needs everything awaited, if we don't do the block below, postman doesn't return the strings at all
+    const resolved_final_sgf_strings = [];
+
+    for await (let final_sgf_string of final_sgf_strings) {
+      resolved_final_sgf_strings.push(final_sgf_string);
+    }
+
+    return res.status(200).send({
+      sgfStrings: resolved_final_sgf_strings.map((sgf) =>
+        sgf.replace(/\n/g, "")
+      ),
+      // thumbnails: orderedThumbnailUrls,
+    });
+  } catch (err) {
+    res.status(500).send({ message: `Error: ${err.message}` });
+  }
+});
+
+// ************* ADD COUNT TO THIS ENDPOINT, THEN WE CAN DISPLAY IT FOR EACH POTENTIAL PUZZLE THUMBNAIL!!!!!! ******************
 // Get all sgf thumbnails + sgf ids of potential puzzles
 router.get("/", requireAuth, async (req, res) => {
   // make join query to get associated sgf.thumbnail based on specific sgf.id from our potential puzzles table
@@ -212,13 +209,24 @@ router.get("/", requireAuth, async (req, res) => {
       raw: true,
     });
 
+    const potentialPuzzleCounts = await PotentialPuzzle.count({
+      attributes: ["sgf_id"],
+      group: ["sgf_id"],
+      raw: true,
+    });
+    const countsBySgfId = Object.fromEntries(
+      potentialPuzzleCounts.map(({ sgf_id, count }) => [sgf_id, count])
+    );
+
     // Remove duplicates since each sgf_id is likely to appear multiple times (we have many potential puzzles for the same sgf_id)
     const uniqueResults = Array.from(
       new Set(potentialPuzzleThumbnails.map((p) => p.sgf_id))
     ).map((sgf_id) =>
       potentialPuzzleThumbnails.find((p) => p.sgf_id === sgf_id)
     );
-    return res.status(200).json({ PotentialPuzzles: uniqueResults });
+    return res
+      .status(200)
+      .json({ PotentialPuzzles: uniqueResults, CountsBySgfId: countsBySgfId }); // Include the counts in the response
   } catch (error) {
     console.error(
       "Failed to retrieve sgf thumbnail for potential puzzles",
