@@ -22,7 +22,6 @@ const UserSGFs = () => {
   const [isLoading, setIsLoading] = useState("");
   const [currentSgfId, setCurrentSgfId] = useState(null);
   const [successNotification, setSuccessNotification] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     dispatch(fetchAllSgfsThunk());
