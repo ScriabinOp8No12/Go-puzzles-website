@@ -138,6 +138,20 @@ const UserSGFs = () => {
                   Puzzles generated, go to "Potential Puzzles" to try them!
                 </div>
               )}
+              {/* This shows error above all the sgf thumbnails */}
+              {/* {errorMessage && (
+                    <div className="generate-puzzles-error-message">{errorMessage}</div>
+                  )} */}
+                        {/* ********** This doesn't show the error at */}
+                        {/* {currentSgfId === sgf.id &&
+            (isLoading === "GENERATING_PUZZLES" ? (
+              <div className="generating-text">Generating...</div>
+            ) : (
+              <div className="generate-puzzles-error-message">
+                {errorMessage}
+              </div>
+            ))
+          } */}
               <img
                 src={sgf.thumbnail}
                 alt="SGF Thumbnail"
