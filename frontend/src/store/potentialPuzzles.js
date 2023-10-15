@@ -63,26 +63,27 @@ export const setError = (error) => ({
 export const generatePotentialPuzzlesThunk =
   (sgf_id, sgf_data) => async (dispatch) => {
     // First api call to get the one line json for KataGo
-    const response = await csrfFetch(`/api/sgfs/${sgf_id}/katago_json_input`, {
+    let response;
+    try {
+    response = await csrfFetch(`/api/sgfs/${sgf_id}/katago_json_input`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ sgf_data: sgf_data }),
     });
+  } catch (error) {
+    console.error("Error in 1st endpoint with generating one line json for KataGo")
+    dispatch(setError("Failed to generate puzzles")) // Dispatch the error to Redux state
+    setTimeout(() => {
+      dispatch(setError(null)); // Clear the error after 3 seconds (frontend would immediately remove the error message otherwise)
+    }, 3000);
+  }
 
-    // Check if the first response is not successful
-    if (!response.ok) {
-      const errorJson = await response.json(); // Assuming the error is a JSON object
-      const errorMessage = errorJson.error;
-      console.error("Error in first endpoint:", errorMessage);
-      dispatch(setError(errorMessage)); // Dispatch the error to Redux state
-      return;
-    }
-
-    // If we reach this point, it means the 1st response was successful (convert sgf to one line json for KataGo AI engine)
+    // If we reach this point, it means the 1st response to convert sgf to 1 line json was successful
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
+
     // ******* Manually change below boolean to use production external VM, or test locally with computer's CPU ******* //
     const useExternalVM = false;
     const VM_ENDPOINT = useExternalVM
@@ -90,7 +91,6 @@ export const generatePotentialPuzzlesThunk =
       : "/api/potential_puzzles/generate";
 
     let secondResponse;
-    // Wrap secondResponse in a try catch to display an error on the frontend
     try {
       secondResponse = await csrfFetch(VM_ENDPOINT, {
         method: "POST",
@@ -104,26 +104,22 @@ export const generatePotentialPuzzlesThunk =
         }),
       });
     } catch (error) {
-      dispatch(setError("Failed to generate puzzles")); // Dispatch the error to Redux state
+      console.error("Error in 2nd endpoint with Google Cloud Virtual Machine")
+      dispatch(setError("Failed to generate puzzles"));
       setTimeout(() => {
-        dispatch(setError(null)); // Clear the error after 3 seconds (frontend would immediately remove the error message otherwise)
+        dispatch(setError(null));
       }, 3000);
     }
-    // Check if the second response is not successful
-    if (!secondResponse.ok) {
-      const errorJson = await secondResponse.json(); // Assuming the error is a JSON object
-      const errorMessage = errorJson.error;
-      console.error("Error in second endpoint:", errorMessage);
-      dispatch(setError(errorMessage)); // Dispatch the error to Redux state
-      return;
-    }
+
     // If we reach this point, it means the 2nd response was successful, so we run the KataGo Analysis Engine
     const kataGoData = await secondResponse.json();
     dispatch(receiveKataGoAnalysis(kataGoData));
 
     // Store the Google Cloud VM response output into our database, don't do this when testing locally because our route to /api/potential_puzzles/generate already stores to our database
     if (useExternalVM) {
-      const databaseResponse = await csrfFetch(
+      let databaseResponse
+      try {
+      databaseResponse = await csrfFetch(
         "/api/potential_puzzles/store_vm_results",
         {
           method: "POST",
@@ -133,11 +129,9 @@ export const generatePotentialPuzzlesThunk =
           body: JSON.stringify(kataGoData),
         }
       );
-
-      if (!databaseResponse.ok) {
-        const errorMessage = await databaseResponse.text();
-        console.error("Error storing VM results:", errorMessage);
-        return;
+      } catch (error) {
+        console.error("Error in adding Google Cloud Virtual Machine data into database")
+        dispatch(setError("Failed to generate puzzles"))
       }
     }
 
@@ -153,7 +147,9 @@ export const generatePotentialPuzzlesThunk =
       katago_json_output: JSON.stringify(kataGoData),
     };
 
-    const thirdResponse = await csrfFetch(
+    let thirdResponse
+    try {
+    thirdResponse = await csrfFetch(
       `/api/potential_puzzles/${sgf_id}/clean_sgf_add_comments`,
       {
         method: "PUT",
@@ -163,12 +159,8 @@ export const generatePotentialPuzzlesThunk =
         body: JSON.stringify(thirdEndpointData),
       }
     );
-
-    // Check if the third response is not successful
-    if (!thirdResponse.ok) {
-      const errorMessage = await thirdResponse.text();
-      console.error("Error in third endpoint:", errorMessage);
-      return;
+    } catch(error) {
+      console.error("Failed to clean SGF and add comments")
     }
 
     // If we reach this point, it means the 3rd response was successful
