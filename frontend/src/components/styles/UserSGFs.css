@@ -1,12 +1,6 @@
-
-/* .outer-wrapper {
-  max-width: 1300px;
-  margin: auto;
-} */
-
 .upload-sgf-button {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-top: 115px;
 }
 
@@ -105,7 +99,6 @@
 
 /* 2nd row (sgf name) styling */
 
-
 .sgf-page-sgf-name {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -124,10 +117,26 @@
   margin-top: 5px;
 }
 
-.generate-puzzles-error-message {
+.generating-text {
+  color: aliceblue;
+}
+
+.error-notification {
   color: red;
 }
 
-.generating-text {
-  color: aliceblue;
+.success-notification {
+  color: rgb(57, 233, 57);
+}
+
+.message-placeholder {
+  height: 10px;  /* Height of message */
+  margin-bottom: 15px;  /* Space above the thumbnail */
+}
+
+.generating-text,
+.error-notification,
+.success-notification {
+  height: 20px;
+  line-height: 20px;  /* Vertically center text if needed */
 }
