@@ -48,7 +48,7 @@
     "node-cmd": "^5.0.0",
     "per-env": "^1.0.2",
     "pg": "^8.11.1",
-    "pythonia": "^1.0.2",
+    "pythonia": "^1.0.3",
     "redis": "^4.6.10",
     "sequelize": "^6.32.1",
     "sequelize-cli": "^6.6.1",
