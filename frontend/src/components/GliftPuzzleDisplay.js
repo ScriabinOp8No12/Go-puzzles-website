@@ -20,16 +20,16 @@ const GliftPuzzleDisplay = () => {
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
   const [showRankingDisplay, setShowRankingDisplay] = useState(false); // Track if we want to display the ranking display component
-
-  useEffect(() => {
-    return history.listen((location) => {
-      // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
-      // maybe we could pass in the filter query parameters as another temporary solution
-      if (location.pathname === "/" || location.pathname ==="/potential_puzzles") {
-        window.location.reload();
-      }
-    });
-  }, [history]);
+  const [gliftState, setGliftState] = useState(null)
+  // useEffect(() => {
+  //   return history.listen((location) => {
+  //     // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
+  //     // maybe we could pass in the filter query parameters as another temporary solution
+  //     if (location.pathname === "/" || location.pathname ==="/potential_puzzles") {
+  //       window.location.reload();
+  //     }
+  //   });
+  // }, [history]);
 
   useEffect(() => {
     // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
@@ -77,20 +77,37 @@ const GliftPuzzleDisplay = () => {
 
   useEffect(() => {
     if (!problemSolved) {
-      // Disable problem explanation (? button) when the problem isn't solved yet
-      glift.api.iconActionDefaults["problem-explanation"].click = function () {
-        // Do nothing when the icon is clicked.
-      };
+      console.log("Reached here")
+
+
+        const problem_explanation_buttons = document.querySelectorAll('[id$="button_problem-explanation"]');
+
+        Array.from(problem_explanation_buttons).forEach((problem_explanation_button)=> {
+          if (problem_explanation_button) {
+            console.log(problem_explanation_button)
+
+            problem_explanation_button.style.pointerEvents = "none";
+          }
+        })
+
+
+
+      // // Disable problem explanation (? button) when the problem isn't solved yet
+      // glift.api.iconActionDefaults["problem-explanation"].click = function () {
+      //   // Do nothing when the icon is clicked.
+      //   console.log("reached inside the disabled button")
+      // };
       // Change tooltip text to "Explore the solution disabled"
-      glift.api.iconActionDefaults["problem-explanation"].tooltip =
-        "Explore the solution disabled";
+      // glift.api.iconActionDefaults["problem-explanation"].tooltip =
+      //   "Explore the solution disabled";
     } else if (problemSolved) {
+      console.log("reached here too")
       // Restore the original function by setting it to the originalClick state! Manually change the tooltip back too.
       glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
         "Explore the solution";
     }
-  }, [problemSolved, originalClick]); // Effect runs whenever problemSolved or originalClick changes
+  }, [problemSolved, originalClick, gliftState]); // Effect runs whenever problemSolved or originalClick changes
 
   // ****** Above block disables the explore the solution button until the user has tried solving the puzzle ****** //
 
@@ -104,8 +121,9 @@ const GliftPuzzleDisplay = () => {
         problemCorrect: onProblemCorrect,
         problemIncorrect: onProblemIncorrect,
       });
-
-      glift.create({
+      // glift.destroy()
+      console.log("create glift instance")
+      setGliftState(glift.create({
         divId: "gliftContainer",
         sgf: {
           sgfString: puzzleData.sgf_data, // sgf_data column from the database
@@ -118,15 +136,17 @@ const GliftPuzzleDisplay = () => {
           disableZoomForMobile: true,
           theme: "DEPTH" },
         hooks: checkCorrectHook,
-      });
+      }));
 
-    // // Cleanup function, otherwise we need a hard refresh to show the puzzle (it'll show the previous puzzle we were on)
-    // return () => {
-    //   // instance.destroy();
-    //   glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
-    //   glift.api.iconActionDefaults["problem-explanation"].tooltip = "Explore the solution";
-    //   // isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
-    // };
+    // Cleanup function, otherwise we need a hard refresh to show the puzzle (it'll show the previous puzzle we were on)
+    return () => {
+      if (gliftState) {
+        gliftState.destroy();
+      }
+      glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
+      glift.api.iconActionDefaults["problem-explanation"].tooltip = "Explore the solution";
+      isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
+    };
   }
   }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
 
