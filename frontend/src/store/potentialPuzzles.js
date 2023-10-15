@@ -19,6 +19,8 @@ export const FETCH_POTENTIAL_PUZZLES_BY_SGF_ID =
 
 export const SAVE_POTENTIAL_PUZZLE = "/potentialPuzzles/SAVE_POTENTIAL_PUZZLE";
 
+export const SET_ERROR = "/potentialPuzzles/SET_ERROR";
+
 // ********** Action Creators ********* //
 
 export const generatePotentialPuzzles = (data) => ({
@@ -51,6 +53,11 @@ export const savePotentialPuzzle = (data) => ({
   payload: data,
 });
 
+export const setError = (error) => ({
+  type: SET_ERROR,
+  payload: error,
+});
+
 // ********** Thunks ************ //
 
 export const generatePotentialPuzzlesThunk =
@@ -66,37 +73,48 @@ export const generatePotentialPuzzlesThunk =
 
     // Check if the first response is not successful
     if (!response.ok) {
-      const errorMessage = await response.text();
+      const errorJson = await response.json(); // Assuming the error is a JSON object
+      const errorMessage = errorJson.error;
       console.error("Error in first endpoint:", errorMessage);
+      dispatch(setError(errorMessage)); // Dispatch the error to Redux state
       return;
     }
 
     // If we reach this point, it means the 1st response was successful (convert sgf to one line json for KataGo AI engine)
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
-
     // ******* Manually change below boolean to use production external VM, or test locally with computer's CPU ******* //
     const useExternalVM = false;
     const VM_ENDPOINT = useExternalVM
       ? "https://vm.go-puzzles.com/potential_puzzles/generate"
       : "/api/potential_puzzles/generate";
 
-    const secondResponse = await csrfFetch(VM_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sgf_id: sgf_id,
-        sgf_data: sgf_data,
-        one_line_json_string: data,
-      }),
-    });
-
+    let secondResponse;
+    // Wrap secondResponse in a try catch to display an error on the frontend
+    try {
+      secondResponse = await csrfFetch(VM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sgf_id: sgf_id,
+          sgf_data: sgf_data,
+          one_line_json_string: data,
+        }),
+      });
+    } catch (error) {
+      dispatch(setError("Failed to generate puzzles")); // Dispatch the error to Redux state
+      setTimeout(() => {
+        dispatch(setError(null)); // Clear the error after 3 seconds (frontend would immediately remove the error message otherwise)
+      }, 3000);
+    }
     // Check if the second response is not successful
     if (!secondResponse.ok) {
-      const errorMessage = await secondResponse.text();
+      const errorJson = await secondResponse.json(); // Assuming the error is a JSON object
+      const errorMessage = errorJson.error;
       console.error("Error in second endpoint:", errorMessage);
+      dispatch(setError(errorMessage)); // Dispatch the error to Redux state
       return;
     }
     // If we reach this point, it means the 2nd response was successful, so we run the KataGo Analysis Engine
@@ -199,6 +217,7 @@ const initialState = {
   potentialPuzzles: [],
   currentSgfPotentialPuzzle: null,
   savePotentialPuzzle: null,
+  error: null, // add this for displaying errors on the frontend
 };
 
 const potentialPuzzlesReducer = (state = initialState, action) => {
@@ -233,6 +252,11 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
       return {
         ...state,
         savedPotentialPuzzle: action.payload,
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
