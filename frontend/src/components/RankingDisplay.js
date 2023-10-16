@@ -19,8 +19,7 @@ const RankingDisplay = () => {
           newPuzzleRank >= oldPuzzleRank ? "increased" : "decreased";
 
         message = `Your rank ${userRankDirection} from ${oldUserRank} to ${newUserRank}.
-      The puzzle's rank ${puzzleRankDirection} from ${oldPuzzleRank} to ${newPuzzleRank}.
-      To explore the solution, please go back to the initial puzzle position, and then click the circular ? button!`;
+      The puzzle's rank ${puzzleRankDirection} from ${oldPuzzleRank} to ${newPuzzleRank}.`;
       } else {
         message = `Your rank is ${oldUserRank}. The puzzle's rank is ${oldPuzzleRank}.`
       }
