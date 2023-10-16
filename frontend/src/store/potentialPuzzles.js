@@ -85,7 +85,7 @@ export const generatePotentialPuzzlesThunk =
     dispatch(generatePotentialPuzzles(data));
 
     // ******* Manually change below boolean to use production external VM, or test locally with computer's CPU ******* //
-    const useExternalVM = true;
+    const useExternalVM = false;
     const VM_ENDPOINT = useExternalVM
       ? "https://vm.go-puzzles.com/potential_puzzles/generate"
       : "/api/potential_puzzles/generate";
@@ -132,6 +132,11 @@ export const generatePotentialPuzzlesThunk =
       } catch (error) {
         console.error("Error in adding Google Cloud Virtual Machine data into database")
         dispatch(setError("Failed to generate puzzles"))
+      }
+
+      if (!databaseResponse.ok) {
+        console.error("Failed to store VM results into database")
+        return;
       }
     }
 
