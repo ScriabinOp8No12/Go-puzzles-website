@@ -1,6 +1,12 @@
 const express = require("express");
 const { requireAuth } = require("../../utils/auth");
-const { User, UserPuzzle, Puzzle, Sgf, PotentialPuzzle } = require("../../db/models");
+const {
+  User,
+  UserPuzzle,
+  Puzzle,
+  Sgf,
+  PotentialPuzzle,
+} = require("../../db/models");
 const { python } = require("pythonia");
 const jssgf = require("jssgf");
 const path = require("path");
@@ -165,8 +171,8 @@ router.get("/:puzzle_id", async (req, res) => {
 // We are not generating the thumbnail because we have a placeholder thumbnail already in the database
 router.post("/", requireAuth, async (req, res) => {
   try {
+    const userId = req.user.id;
     const sgfId = req.body.sgf_id;
-    // const boardSize = req.body.board_size;
     const moveNumber = req.body.move_number;
 
     // Get the specific potential puzzle that the user wants to save, since we have multiple puzzles with the same sgfId, we are differentiating those by the move_number property
@@ -181,17 +187,33 @@ router.post("/", requireAuth, async (req, res) => {
       return res.status(404).send({ message: "Potential puzzle not found" });
     }
 
-    // Don't allow the user to save the same potential puzzle more than once
-
-    const puzzle = await Puzzle.findOne({
+    // Check if this puzzle is already in the Puzzle table
+    const existingPuzzle = await Puzzle.findOne({
       where: {
         sgf_id: sgfId,
-        move_number: moveNumber
-      }
-    })
+        move_number: moveNumber,
+      },
+    });
 
-    if (puzzle) {
-      return res.status(400).send({ message: "Potential puzzle already saved"})
+    if (existingPuzzle) {
+      // Check if the user already saved this puzzle
+      const existingUserPuzzle = await UserPuzzle.findOne({
+        where: {
+          user_id: userId,
+          puzzle_id: existingPuzzle.id,
+        },
+      });
+
+      if (existingUserPuzzle) {
+        return res
+          .status(400)
+          .send({ message: "Puzzle already saved", isSaved: true });
+      }
+
+      // If we reached this point, the puzzle exists but isn't saved by this user
+      return res
+        .status(400)
+        .send({ message: "Potential puzzle already saved" });
     }
 
     // Extract the board size
@@ -236,12 +258,19 @@ router.post("/", requireAuth, async (req, res) => {
       suspended: false, // Puzzle is not suspended by default
     });
 
+    // Insert a new record into the UserPuzzles table so the user can access their own created puzzles too
+    await UserPuzzle.create({
+      user_id: userId,
+      puzzle_id: newPuzzle.id,
+      completed: true
+    });
+
     return res.status(200).send({
       puzzle: {
         ...newPuzzle.get({ plain: true }),
         createdAt: moment(newPuzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
         updatedAt: moment(newPuzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
-      }
+      },
     });
   } catch (err) {
     res.status(500).send({ message: `Error: ${err.message}` });
