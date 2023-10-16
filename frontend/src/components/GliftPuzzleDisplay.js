@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useHistory} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import {
   fetchPublicPuzzleByIdThunk,
   updateRankingsAndSolvedCounterThunk,
@@ -14,36 +14,24 @@ import "../lib/glift";
 const GliftPuzzleDisplay = () => {
   const { puzzle_id } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle);
   const [problemSolved, setProblemSolved] = useState(false);
   const isBoardInitialized = useRef(false); // Keep track of board initialization
   const isRankingUpdated = useRef(false); // Track if the ranking has been updated.
   const [showRankingDisplay, setShowRankingDisplay] = useState(false); // Track if we want to display the ranking display component
-  const [gliftState, setGliftState] = useState(null)
-  // useEffect(() => {
-  //   return history.listen((location) => {
-  //     // Temporarily hard refresh the home page and potential_puzzles page to solve the glift instance bug issue,
-  //     // maybe we could pass in the filter query parameters as another temporary solution
-  //     if (location.pathname === "/" || location.pathname ==="/potential_puzzles") {
-  //       window.location.reload();
-  //     }
-  //   });
-  // }, [history]);
+  const [gliftState, setGliftState] = useState(null);
+  const [originalClick, setOriginalClick] = useState(null);
 
   useEffect(() => {
     // Fetch the puzzle data when the component mounts, put query parameters inside the thunk?
     dispatch(fetchPublicPuzzleByIdThunk(puzzle_id));
   }, [dispatch, puzzle_id]);
 
-  // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
-  const [originalClick, setOriginalClick] = useState(null);
-
   const updateUserRanking = useCallback(
     (isCorrect) => {
       // Only proceed if the ranking has not yet been updated
       if (!isRankingUpdated.current) {
-        // Adding this here properly dispatches the action, and updates the user ranking in the backend! :) now we have to display the component
+        // Adding this here properly dispatches the action, and updates the user ranking in the backend!
         dispatch(updateRankingsAndSolvedCounterThunk(puzzle_id, isCorrect));
         isRankingUpdated.current = true;
       }
@@ -68,6 +56,7 @@ const GliftPuzzleDisplay = () => {
     }
   }, [problemSolved, updateUserRanking]);
 
+    // ****** Block below is used to disable the explore the solution button, until the problemSolved state becomes true! ****** //
   // Capture original function only once, when the component mounts, so we can reset it back to the original function after our problemSolved state becomes true
   useEffect(() => {
     setOriginalClick(
@@ -77,36 +66,28 @@ const GliftPuzzleDisplay = () => {
 
   useEffect(() => {
     if (!problemSolved) {
-      console.log("Reached here")
 
+      // Grab all 4 elements of the explanation_buttons and disable them with css property
+      const problem_explanation_buttons = document.querySelectorAll(
+        '[id$="button_problem-explanation"]'
+      );
 
-        const problem_explanation_buttons = document.querySelectorAll('[id$="button_problem-explanation"]');
-
-        Array.from(problem_explanation_buttons).forEach((problem_explanation_button)=> {
+      Array.from(problem_explanation_buttons).forEach(
+        (problem_explanation_button) => {
           if (problem_explanation_button) {
-            console.log(problem_explanation_button)
-
             problem_explanation_button.style.pointerEvents = "none";
           }
-        })
+        }
+      );
 
-
-
-      // // Disable problem explanation (? button) when the problem isn't solved yet
-      // glift.api.iconActionDefaults["problem-explanation"].click = function () {
-      //   // Do nothing when the icon is clicked.
-      //   console.log("reached inside the disabled button")
-      // };
-      // Change tooltip text to "Explore the solution disabled"
-      // glift.api.iconActionDefaults["problem-explanation"].tooltip =
-      //   "Explore the solution disabled";
     } else if (problemSolved) {
-      console.log("reached here too")
+
       // Restore the original function by setting it to the originalClick state! Manually change the tooltip back too.
       glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
       glift.api.iconActionDefaults["problem-explanation"].tooltip =
         "Explore the solution";
     }
+    // Need gliftstate in dependency array because otherwise the disabled button is not disabled on initial render
   }, [problemSolved, originalClick, gliftState]); // Effect runs whenever problemSolved or originalClick changes
 
   // ****** Above block disables the explore the solution button until the user has tried solving the puzzle ****** //
@@ -121,34 +102,38 @@ const GliftPuzzleDisplay = () => {
         problemCorrect: onProblemCorrect,
         problemIncorrect: onProblemIncorrect,
       });
-      // glift.destroy()
-      console.log("create glift instance")
-      setGliftState(glift.create({
-        divId: "gliftContainer",
-        sgf: {
-          sgfString: puzzleData.sgf_data, // sgf_data column from the database
-          initialPosition: puzzleData.move_number - 1, // move_number is the column from the database, need to go back one because the mistake happens on the move_number
-          problemConditions: { C: ["CORRECT"] },
-          widgetType: "STANDARD_PROBLEM",
-        },
-        display:
-        { drawBoardCoords: true,
-          disableZoomForMobile: true,
-          theme: "DEPTH" },
-        hooks: checkCorrectHook,
-      }));
 
-    // Cleanup function, otherwise we need a hard refresh to show the puzzle (it'll show the previous puzzle we were on)
-    return () => {
-      if (gliftState) {
-        gliftState.destroy();
-      }
-      glift.api.iconActionDefaults["problem-explanation"].click = originalClick;
-      glift.api.iconActionDefaults["problem-explanation"].tooltip = "Explore the solution";
-      isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
-    };
-  }
-  }, [puzzleData, onProblemCorrect, onProblemIncorrect]);
+      setGliftState(
+        glift.create({
+          divId: "gliftContainer",
+          sgf: {
+            sgfString: puzzleData.sgf_data, // sgf_data column from the database
+            initialPosition: puzzleData.move_number - 1, // move_number is the column from the database, need to go back one because the mistake happens on the move_number
+            problemConditions: { C: ["CORRECT"] },
+            widgetType: "STANDARD_PROBLEM",
+          },
+          display: {
+            drawBoardCoords: true,
+            disableZoomForMobile: true,
+            theme: "DEPTH",
+          },
+          hooks: checkCorrectHook,
+        })
+      );
+
+      // Cleanup function, otherwise we need a hard refresh to show the puzzle (it'll show the previous puzzle we were on)
+      return () => {
+        if (gliftState) {
+          gliftState.destroy();
+        }
+        glift.api.iconActionDefaults["problem-explanation"].click =
+          originalClick;
+        glift.api.iconActionDefaults["problem-explanation"].tooltip =
+          "Explore the solution";
+        isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
+      };
+    }
+  }, [puzzleData, onProblemCorrect, onProblemIncorrect, originalClick]);
 
   return (
     <>
@@ -164,19 +149,3 @@ const GliftPuzzleDisplay = () => {
 };
 
 export default GliftPuzzleDisplay;
-
-// ******************************************** //
-
-// Code snippet for destroying the gliftinstance so when we click different puzzles, it reloads glift, but we have to recreate it otherwise the original
-// puzzle functionality is messed up again, so this is pretty tricky
-
-// useEffect(() => {
-//   return () => {
-//     // Cleanup code to destroy the existing Glift board instance
-//     if (gliftInstance.current) {
-//       gliftInstance.current.destroy();
-//       gliftInstance.current = null;
-//       isBoardInitialized.current = false;
-//     }
-//   };
-// }, [puzzle_id]);  // Dependency on puzzle_id
