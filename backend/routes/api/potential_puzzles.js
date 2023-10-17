@@ -60,6 +60,7 @@ router.post("/generate", requireAuth, async (req, res) => {
 
       const createdPuzzle = await PotentialPuzzle.create({
         sgf_id,
+        user_id: req.user.id,
         sgf_data,
         category,
         move_number,
@@ -195,9 +196,11 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
 
 // Get all sgf thumbnails + sgf ids of potential puzzles
 router.get("/", requireAuth, async (req, res) => {
+  const userId = req.user.id;
   // make join query to get associated sgf.thumbnail based on specific sgf.id from our potential puzzles table
   try {
     const potentialPuzzleThumbnails = await PotentialPuzzle.findAll({
+      where: { user_id: userId }, // Only display the potential puzzles for the potential puzzles of the logged in user
       attributes: ["sgf_id"],
       include: [
         {
@@ -209,6 +212,7 @@ router.get("/", requireAuth, async (req, res) => {
     });
 
     const potentialPuzzleCounts = await PotentialPuzzle.count({
+      where: { user_id: userId }, // Only display the potential puzzles for the potential puzzles of the logged in user
       attributes: ["sgf_id"],
       group: ["sgf_id"],
       raw: true,
