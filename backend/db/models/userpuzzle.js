@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      completed: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-      },
     },
     {
       sequelize,
