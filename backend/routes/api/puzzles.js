@@ -442,7 +442,7 @@ router.post("/:puzzle_id/ranking/update", requireAuth, async (req, res) => {
       puzzle.difficulty,
       userWin
     );
-
+``
     // Update user and puzzle in the database
     user.rank = newUserRank;
     puzzle.difficulty = newPuzzleRank;

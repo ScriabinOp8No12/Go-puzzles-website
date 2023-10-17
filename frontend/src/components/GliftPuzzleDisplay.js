@@ -133,6 +133,8 @@ const GliftPuzzleDisplay = () => {
         isBoardInitialized.current = false; // Reset the flag here otherwise the Go board doesn't show up when we swap to a different puzzle
       };
     }
+    // gliftState in the dependency array messes up the rendering as it goes into an infinite loop
+    // eslint-disable-next-line
   }, [puzzleData, onProblemCorrect, onProblemIncorrect, originalClick]);
 
   return (

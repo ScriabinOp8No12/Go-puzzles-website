@@ -104,6 +104,8 @@ export const generatePotentialPuzzlesThunk =
         }),
       });
     } catch (error) {
+      // let error1 = await secondResponse.json()
+      // console.log(error1)
       console.error("Error in 2nd endpoint with Google Cloud Virtual Machine")
       dispatch(setError("Failed to generate puzzles"));
       setTimeout(() => {
