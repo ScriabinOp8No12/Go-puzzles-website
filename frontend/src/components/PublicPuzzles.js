@@ -6,7 +6,7 @@ import { openModal } from "../store/modal";
 import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
-import "./styles/LandingPage.css";
+import "./styles/PublicPuzzles.css";
 
 const PublicPuzzles = () => {
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ const PublicPuzzles = () => {
                 src={puzzle.thumbnail}
                 alt={`Puzzle ${index}`}
                 // Changed get /puzzles endpoint to id: puzzle.id instead of puzzle_id as the column name
-                onClick={() => history.push(`/puzzles/${puzzle.id}`)}
+                onClick={() => history.push(`/public_puzzles/${puzzle.id}`)}
                 style={{ cursor: "pointer" }}
               />
               <div className="puzzle-details">

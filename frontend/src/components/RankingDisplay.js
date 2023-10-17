@@ -12,6 +12,8 @@ const RankingDisplay = () => {
 
       let message;
 
+      // NOTE: If the user's / puzzles rank wouldn't change after the attempt at the puzzle, meaning the rank difference was too large between the user and the puzzle,
+      // we won't see the following "Your rank increased/decreased ..." message, instead we will see: "Your rank is <rank here> and the puzzle's rank ..."
       if (newUserRank && newPuzzleRank) {
         const userRankDirection =
           newUserRank >= oldUserRank ? "increased" : "decreased";

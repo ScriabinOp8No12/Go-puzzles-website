@@ -196,7 +196,7 @@ export const fetchAllPotentialPuzzlesBySgfIdThunk =
 
 export const savePotentialPuzzleThunk =
   (sgfId, moveNumber) => async (dispatch) => {
-    const response = await csrfFetch("/api/puzzles", {
+    const response = await csrfFetch("/api/public_puzzles", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
