@@ -32,7 +32,7 @@ const conditionalAuth = (req, res, next) => {
   return next();
 };
 
-// Get all puzzles for home / landing page (20 by default) or for user's puzzles (if source is own, that's the conditional Auth)
+// Get all public puzzles (20 by default) or for user's puzzles (if source is own, that's the conditional Auth)
 router.get("/", conditionalAuth, async (req, res, next) => {
   try {
     // Destructure query parameters from request

@@ -42,7 +42,7 @@ export const suspendPublicPuzzleById = (puzzleId) => ({
 // ************* Thunks ***************** //
 
 export const fetchPublicPuzzlesThunk = () => async (dispatch) => {
-  const response = await csrfFetch("/api/puzzles");
+  const response = await csrfFetch("/api/public_puzzles");
 
   if (response.ok) {
     const data = await response.json();
@@ -52,7 +52,7 @@ export const fetchPublicPuzzlesThunk = () => async (dispatch) => {
 };
 
 export const fetchPublicPuzzleByIdThunk = (puzzleId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/puzzles/${puzzleId}`);
+  const response = await csrfFetch(`/api/public_puzzles/${puzzleId}`);
   // console.log("Inside fetchPublicPuzzleByIdThunk, *** puzzleId", puzzleId);
   if (response.ok) {
     const data = await response.json();
@@ -63,7 +63,7 @@ export const fetchPublicPuzzleByIdThunk = (puzzleId) => async (dispatch) => {
 export const updateRankingsAndSolvedCounterThunk =
   (puzzleId, userWin) => async (dispatch) => {
     const response = await csrfFetch(
-      `/api/puzzles/${puzzleId}/ranking/update`,
+      `/api/public_puzzles/${puzzleId}/ranking/update`,
       {
         method: "POST",
         headers: {
@@ -81,7 +81,7 @@ export const updateRankingsAndSolvedCounterThunk =
 
 export const editPublicPuzzlesByIdThunk =
   (puzzleId, puzzleDetails) => async (dispatch) => {
-    const response = await csrfFetch(`/api/puzzles/${puzzleId}`, {
+    const response = await csrfFetch(`/api/public_puzzles/${puzzleId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +96,7 @@ export const editPublicPuzzlesByIdThunk =
   };
 
   export const suspendPublicPuzzleByIdThunk = (puzzleId) => async (dispatch) => {
-    const response = await csrfFetch(`api/puzzles/${puzzleId}`, {
+    const response = await csrfFetch(`api/public_puzzles/${puzzleId}`, {
       method: "DELETE",
     })
     if (response.ok) {

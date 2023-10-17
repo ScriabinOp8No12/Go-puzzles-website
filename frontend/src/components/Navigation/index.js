@@ -10,13 +10,15 @@ import "../styles/Navigation.css";
 function Navigation({ isLoaded }) {
   // useSelector for grabbing slice of state from session store, syntax is state.session because our reducer is "session (see stores/index.js)" and our state is "user" as we can see in store/session in the reducer's state
   const sessionUser = useSelector((state) => state.session.user);
-  // Controls visibility state of menu, like the "Upload / View Game Records" button near line 33
+  // Controls visibility state of menu, like the "Upload / View Game Records" button
   const [showMenu, setShowMenu] = useState(false);
   // Get information about the current URL, can determine which path the user is on
   const location = useLocation();
   // Checks if current path is /sgfs
   const isActive = location.pathname === "/sgfs";
   const isPotentialPuzzlesActive = location.pathname === "/potential_puzzles";
+  const isPublicPuzzlesActive = location.pathname === "/public_puzzles";
+
   return (
     // Return "navbar navbar-expanded" className if showMenu state is true, and defaults to navbar otherwise, this controls CSS styling
     <div className={`navbar ${showMenu ? "navbar-expanded" : ""}`}>
@@ -28,6 +30,25 @@ function Navigation({ isLoaded }) {
       </div>
       {isLoaded && (
         <div className="navigation-container">
+          {/* Public Puzzles button */}
+          {sessionUser && (
+            <div className="potential-puzzles-button-wrapper">
+              <div
+                className={`potential-puzzles-button ${
+                  isPublicPuzzlesActive ? "active" : ""
+                }`}
+              >
+                {sessionUser && (
+                  <NavLink
+                    to="/public_puzzles"
+                    className={`potential-puzzles-button-menu ${showMenu}`}
+                  >
+                    Public Puzzles
+                  </NavLink>
+                )}
+              </div>
+            </div>
+          )}
           {/* Potential Puzzles button */}
           {sessionUser && (
             <div className="potential-puzzles-button-wrapper">

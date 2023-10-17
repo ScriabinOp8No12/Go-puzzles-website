@@ -6,7 +6,7 @@ import { closeModal } from "./store/modal"; // import closeModal action so we ca
 import Navigation from "./components/Navigation";
 import UserSGFs from "./components/UserSGFs";
 import SgfDisplay from "./components/SgfDisplay";
-import PublicPuzzles from "./components/LandingPagePublicPuzzles"
+import PublicPuzzles from "./components/PublicPuzzles"
 import GliftPuzzleDisplay from "./components/GliftPuzzleDisplay";
 import PotentialPuzzles from "./components/PotentialPuzzles";
 import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
@@ -69,8 +69,9 @@ function App() {
       {/* If isLoaded is true, render the Switch component from react-router-dom, which is used to render different components based on the current URL */}
       {isLoaded && (
         <Switch>
-          <Route exact path="/" component={PublicPuzzles} />
-          <Route path="/puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>
+          {/* <Route exact path="/" component={PublicPuzzles} /> */}
+          <Route path="/public_puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>
+          <Route path="/public_puzzles" component={PublicPuzzles} />
           <Route path="/sgfs/:sgf_id" component={SgfDisplay} />
           <Route path="/sgfs" component={UserSGFs} />
           <Route path="/potential_puzzles/:sgf_id" component={PotentialPuzzlesDisplay}/>

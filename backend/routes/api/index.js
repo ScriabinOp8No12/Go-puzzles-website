@@ -16,7 +16,7 @@ router.use(restoreUser);
 router.use("/session", sessionRouter);
 router.use("/users", usersRouter);
 router.use("/sgfs", sgfsRouter);
-router.use("/puzzles", puzzlesRouter);
+router.use("/public_puzzles", puzzlesRouter);
 router.use("/potential_puzzles", potentialPuzzlesRouter)
 
 module.exports = router;
