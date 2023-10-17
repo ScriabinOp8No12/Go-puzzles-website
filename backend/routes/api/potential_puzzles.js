@@ -193,7 +193,6 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
   }
 });
 
-// ************* ADD COUNT TO THIS ENDPOINT, THEN WE CAN DISPLAY IT FOR EACH POTENTIAL PUZZLE THUMBNAIL!!!!!! ******************
 // Get all sgf thumbnails + sgf ids of potential puzzles
 router.get("/", requireAuth, async (req, res) => {
   // make join query to get associated sgf.thumbnail based on specific sgf.id from our potential puzzles table
