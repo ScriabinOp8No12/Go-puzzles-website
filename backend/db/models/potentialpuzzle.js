@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class PotentialPuzzle extends Model {
     static associate(models) {
       PotentialPuzzle.belongsTo(models.Sgf, { foreignKey: "sgf_id", onDelete: 'SET NULL' });
+      PotentialPuzzle.belongsTo(models.User, {foreignKey: "user_id"})
     }
   }
   PotentialPuzzle.init(
@@ -12,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         // allowNull: false,
         allowNull: true,
         type: DataTypes.INTEGER,
+      },
+      user_id: {
+        allowNull: false,
+        type:DataTypes.INTEGER
       },
       sgf_data: {
         allowNull: false,

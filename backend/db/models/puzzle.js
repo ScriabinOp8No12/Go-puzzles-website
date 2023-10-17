@@ -101,11 +101,6 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
-      is_user_puzzle: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-      },
       solution_coordinates: {
         allowNull: false,
         type: DataTypes.TEXT,
