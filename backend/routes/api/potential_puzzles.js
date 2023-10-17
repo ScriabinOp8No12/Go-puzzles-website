@@ -212,7 +212,7 @@ router.get("/", requireAuth, async (req, res) => {
     });
 
     const potentialPuzzleCounts = await PotentialPuzzle.count({
-      where: { user_id: userId }, // Only display the potential puzzles for the potential puzzles of the logged in user
+      where: { user_id: userId }, // Only display the potential puzzles count for the potential puzzles of the logged in user
       attributes: ["sgf_id"],
       group: ["sgf_id"],
       raw: true,
