@@ -18,6 +18,8 @@ function Navigation({ isLoaded }) {
   const isActive = location.pathname === "/sgfs";
   const isPotentialPuzzlesActive = location.pathname === "/potential_puzzles";
   const isPublicPuzzlesActive = location.pathname === "/public_puzzles";
+  const isLearnAndPracticeActive = location.pathname === "/learn_and_practice"
+  const isUserPuzzlesActive = location.pathname === "/user_puzzles"
 
   return (
     // Return "navbar navbar-expanded" className if showMenu state is true, and defaults to navbar otherwise, this controls CSS styling
@@ -30,7 +32,45 @@ function Navigation({ isLoaded }) {
       </div>
       {isLoaded && (
         <div className="navigation-container">
-          {/* Public Puzzles button */}
+          {/* Learn & Practice -> Change class name?? */}
+          {sessionUser && (
+            <div className="potential-puzzles-button-wrapper">
+              <div
+                className={`potential-puzzles-button ${
+                  isLearnAndPracticeActive ? "active" : ""
+                }`}
+              >
+                {sessionUser && (
+                  <NavLink
+                    to="/learn_and_practice"
+                    className={`potential-puzzles-button-menu ${showMenu}`}
+                  >
+                    Learn & Practice
+                  </NavLink>
+                )}
+              </div>
+            </div>
+          )}
+          {/* Your puzzles -> Change class name?? */}
+          {sessionUser && (
+            <div className="potential-puzzles-button-wrapper">
+              <div
+                className={`potential-puzzles-button ${
+                  isUserPuzzlesActive ? "active" : ""
+                }`}
+              >
+                {sessionUser && (
+                  <NavLink
+                    to="/user_puzzles"
+                    className={`potential-puzzles-button-menu ${showMenu}`}
+                  >
+                    Your Puzzles
+                  </NavLink>
+                )}
+              </div>
+            </div>
+          )}
+          {/* Public Puzzles button -> Change class name????? */}
           {sessionUser && (
             <div className="potential-puzzles-button-wrapper">
               <div
