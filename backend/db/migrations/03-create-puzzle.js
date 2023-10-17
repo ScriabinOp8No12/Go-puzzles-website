@@ -59,11 +59,6 @@ module.exports = {
         board_size: {
           type: Sequelize.INTEGER,
         },
-        is_user_puzzle: {
-          allowNull: false,
-          type: Sequelize.BOOLEAN,
-          defaultValue: false,
-        },
         solution_coordinates: {
           allowNull: false,
           type: Sequelize.TEXT,
