@@ -70,10 +70,10 @@ function App() {
       {isLoaded && (
         <Switch>
           {/* <Route exact path="/" component={PublicPuzzles} /> */}
-          <Route path="/public_puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>
-          <Route path="/public_puzzles" component={PublicPuzzles} />
           <Route path="/sgfs/:sgf_id" component={SgfDisplay} />
           <Route path="/sgfs" component={UserSGFs} />
+          <Route path="/public_puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>
+          <Route path="/public_puzzles" component={PublicPuzzles} />
           <Route path="/potential_puzzles/:sgf_id" component={PotentialPuzzlesDisplay}/>
           <Route path="/potential_puzzles" component={PotentialPuzzles}/>
         </Switch>
