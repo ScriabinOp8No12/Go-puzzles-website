@@ -15,18 +15,21 @@ module.exports = {
         {
           user_id: 1,
           puzzle_id: 1,
+          completed: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           user_id: 1,
           puzzle_id: 2,
+          completed: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           user_id: 1,
           puzzle_id: 3,
+          completed: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
