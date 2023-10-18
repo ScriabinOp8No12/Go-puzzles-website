@@ -28,6 +28,10 @@ module.exports = {
           type: Sequelize.INTEGER,
           references: { model: "Puzzles", key: "id" },
         },
+        completed: {
+          allowNull: false,
+          type: Sequelize.BOOLEAN,
+        },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,

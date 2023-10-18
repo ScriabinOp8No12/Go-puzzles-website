@@ -32,7 +32,7 @@ const conditionalAuth = (req, res, next) => {
   return next();
 };
 
-// Get all public puzzles (20 by default) or for user's puzzles (if source is own, that's the conditional Auth)
+// Get all puzzles for home / landing page (20 by default) or for user's puzzles (if source is own, that's the conditional Auth)
 router.get("/", conditionalAuth, async (req, res, next) => {
   try {
     // Destructure query parameters from request
@@ -101,7 +101,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
         move_number: puzzle.move_number,
         difficulty: puzzle.difficulty, // column name in DB is difficulty, not difficulty_rank anymore
         description: puzzle.description,
-        is_user_puzzle: puzzle.user_id === (req.user ? req.user.id : false),
+        // is_user_puzzle: puzzle.user_id === (req.user ? req.user.id : false),
         vote_count: puzzle.vote_count,
         thumbnail: puzzle.thumbnail,
         suspended: puzzle.suspended,
@@ -131,7 +131,7 @@ router.get("/:puzzle_id", async (req, res) => {
         "move_number",
         "difficulty",
         "description",
-        "is_user_puzzle",
+        // "is_user_puzzle",
         "vote_count",
         "suspended",
         "createdAt",
@@ -153,7 +153,7 @@ router.get("/:puzzle_id", async (req, res) => {
       difficulty: puzzle.difficulty,
       move_number: puzzle.move_number,
       description: puzzle.description,
-      is_user_puzzle: puzzle.is_user_puzzle,
+      // is_user_puzzle: puzzle.is_user_puzzle,
       vote_count: puzzle.vote_count,
       suspended: puzzle.suspended,
       createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
@@ -253,7 +253,7 @@ router.post("/", requireAuth, async (req, res) => {
       description: "", // Default to empty
       vote_count: 0, // Initialized to 0
       board_size: boardSize,
-      is_user_puzzle: true,
+      // is_user_puzzle: true,
       thumbnail: thumbnailUrl,
       suspended: false, // Puzzle is not suspended by default
     });
