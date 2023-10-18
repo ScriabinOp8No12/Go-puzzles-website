@@ -32,7 +32,7 @@ const conditionalAuth = (req, res, next) => {
   return next();
 };
 
-// Get all puzzles for home / landing page (20 by default) or for user's puzzles (if source is own, that's the conditional Auth)
+// Get all puzzles for public puzzles page (20 by default)
 router.get("/", conditionalAuth, async (req, res, next) => {
   try {
     // Destructure query parameters from request
@@ -71,21 +71,19 @@ router.get("/", conditionalAuth, async (req, res, next) => {
 
     /***************** Filter the public puzzles to not show puzzles that the user created *******************/
 
-    // Fetch IDs of puzzles to be included
-    let includePuzzleIds = [];
-
+    // Fetch SGF IDs created by the user
+    let excludeSgfIds = [];
     if (req.user) {
-      // If a user is logged in, fetch all user puzzles where the user ID is NOT equal to the logged-in user's ID
-      const userPuzzles = await UserPuzzle.findAll({
-        attributes: ['puzzle_id'], // Only select the 'puzzle_id' attribute from the result set
-        where: { user_id: { [Op.ne]: req.user.id } } // Use the "not equal" operator -> Op.ne to filter out puzzles belonging to the logged-in user
+      const ownSgfs = await Sgf.findAll({
+        attributes: ["id"],
+        where: { user_id: req.user.id },
       });
-      includePuzzleIds = userPuzzles.map(up => up.puzzle_id); // Map over the result to extract the puzzle IDs into our includePuzzleIds array
+      excludeSgfIds = ownSgfs.map((sgf) => sgf.id);
     }
 
-    // If there are puzzle IDs to include, then add a condition to the "where" clause that limits the selection to puzzles with IDs in the includePuzzleIds array
-    if (includePuzzleIds.length > 0) {
-      where.id = { [Op.in]: includePuzzleIds }; // Use the "in" operator -> Op.in to match against an array of possible values
+    // Exclude puzzles created from these SGFs
+    if (excludeSgfIds.length > 0) {
+      where.sgf_id = { [Op.notIn]: excludeSgfIds };
     }
 
     // Prepare query options for Sequelize
@@ -97,7 +95,7 @@ router.get("/", conditionalAuth, async (req, res, next) => {
         {
           model: User,
           attributes: ["username"],
-        }
+        },
       ],
     };
 
@@ -275,7 +273,7 @@ router.post("/", requireAuth, async (req, res) => {
     await UserPuzzle.create({
       user_id: userId,
       puzzle_id: newPuzzle.id,
-      completed: true
+      completed: true,
     });
 
     return res.status(200).send({
@@ -455,7 +453,7 @@ router.post("/:puzzle_id/ranking/update", requireAuth, async (req, res) => {
       puzzle.difficulty,
       userWin
     );
-``
+    ``;
     // Update user and puzzle in the database
     user.rank = newUserRank;
     puzzle.difficulty = newPuzzleRank;
