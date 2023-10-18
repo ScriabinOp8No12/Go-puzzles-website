@@ -6,9 +6,9 @@
 /* use pixel values instead of relative values because we want the logo and button to stay the same size on a resize of the viewport */
 .logo {
   position: fixed;
-  top: 17px;
+  top: 18px;
   left: 35px;
-  width: 60px;
+  width: 70px;
   border: 3px solid black;
   border-radius: 15px;
 }
@@ -33,7 +33,7 @@
 }
 /* move the STARTING POSITION of the profile button slightly away from the top right corner of the screen */
 .profile-button {
-  transform: translate(-45px, 20px);
+  transform: translate(-45px, 22px);
   cursor: pointer;
   /* align the profile icon to the top of the login and signup buttons on the right of it */
   align-self: flex-start;
@@ -119,21 +119,6 @@
 .profile-dropdown li:last-child button:hover {
   cursor: pointer;
   background-color:#00ADB5;
-}
-
-/* Adding lines above and below "manage spots" in logged in user menu */
-
-.li-manage-spots-button {
-  padding-top: 2px;
-  padding-bottom: 2px;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-}
-
-.li-manage-spots-button .redirectCurrentSpotsButton {
-  font-weight: bold;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .logout-button {
@@ -282,11 +267,17 @@
 
 /****** Upload / View Game Records button styling below *****************/
 
+/* Style all text in the nav bar to have font-size of 15px */
+.navigation-container * {
+  font-size: 15px;
+}
+
 .game-records-button-menu {
-  padding-top: 35px;
+  /* padding-top: 35px; */
   color: aliceblue;
   text-decoration: none;
   font-weight: bold;
+  /* font-size: 14px; */
 }
 
 .game-records-button-wrapper {
@@ -297,7 +288,7 @@
   border: 3px solid black ;
   margin-top: 33px ;
   background-color: #00ADB5;
-  border-radius: 15px ;
+  border-radius: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 15px;
