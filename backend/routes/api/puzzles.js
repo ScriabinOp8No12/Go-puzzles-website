@@ -37,7 +37,6 @@ router.get("/", conditionalAuth, async (req, res, next) => {
   try {
     // Destructure query parameters from request
     let {
-      source,
       // min_rank,
       // max_rank,
       // difficulty,
@@ -58,11 +57,6 @@ router.get("/", conditionalAuth, async (req, res, next) => {
       suspended: false,
     };
 
-    // Filter by user if 'source' is 'own' and user is authenticated, this is for displaying user's puzzles (not public puzzles on landing page)
-    if (source === "own" && req.user) {
-      where.user_id = req.user.id;
-    }
-
     // Setting filtering conditions based on query parameters
     // if (min_rank) where.difficulty_rank = { [Op.gte]: min_rank };
     // if (max_rank)
@@ -75,33 +69,52 @@ router.get("/", conditionalAuth, async (req, res, next) => {
     if (max_votes)
       where.vote_count = { ...where.vote_count, [Op.lte]: max_votes };
 
+    /***************** Filter the public puzzles to not show puzzles that the user created *******************/
+
+    // Fetch IDs of puzzles to be included
+    let includePuzzleIds = [];
+
+    if (req.user) {
+      // If a user is logged in, fetch all user puzzles where the user ID is NOT equal to the logged-in user's ID
+      const userPuzzles = await UserPuzzle.findAll({
+        attributes: ['puzzle_id'], // Only select the 'puzzle_id' attribute from the result set
+        where: { user_id: { [Op.ne]: req.user.id } } // Use the "not equal" operator -> Op.ne to filter out puzzles belonging to the logged-in user
+      });
+      includePuzzleIds = userPuzzles.map(up => up.puzzle_id); // Map over the result to extract the puzzle IDs into our includePuzzleIds array
+    }
+
+    // If there are puzzle IDs to include, then add a condition to the "where" clause that limits the selection to puzzles with IDs in the includePuzzleIds array
+    if (includePuzzleIds.length > 0) {
+      where.id = { [Op.in]: includePuzzleIds }; // Use the "in" operator -> Op.in to match against an array of possible values
+    }
+
     // Prepare query options for Sequelize
     const options = {
       where,
-      limit, // set the limit here
-      offset: parseInt(offset) || 0, // Default offset to 0 if not specified, which means we would get puzzles 1-20 by default, if offset is 20, then we would get 21-40
+      limit,
+      offset: parseInt(offset) || 0,
       include: [
         {
           model: User,
           attributes: ["username"],
-        },
+        }
       ],
     };
+
     // Fetch puzzles from database using Sequelize
     const puzzles = await Puzzle.findAll(options);
 
-    // Transform the resulting array of puzzles to desired format (using moment js for time)
+    /***************** Above block: Filter the public puzzles to not show puzzles that the user created *******************/
+
     const formattedPuzzles = puzzles.map((puzzle) => {
       return {
-        // changed from puzzle_id: puzzle.id
         id: puzzle.id,
         sgf_data: puzzle.sgf_data,
         solution_coordinates: puzzle.solution_coordinates,
         category: puzzle.category,
         move_number: puzzle.move_number,
-        difficulty: puzzle.difficulty, // column name in DB is difficulty, not difficulty_rank anymore
+        difficulty: puzzle.difficulty,
         description: puzzle.description,
-        // is_user_puzzle: puzzle.user_id === (req.user ? req.user.id : false),
         vote_count: puzzle.vote_count,
         thumbnail: puzzle.thumbnail,
         suspended: puzzle.suspended,
