@@ -10,6 +10,7 @@ import PublicPuzzles from "./components/PublicPuzzles"
 import GliftPuzzleDisplay from "./components/GliftPuzzleDisplay";
 import PotentialPuzzles from "./components/PotentialPuzzles";
 import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
+import UserPuzzles from "./components/UserPuzzles"
 
 function App() {
   // dispatch is used to send actions to the store and trigger them
@@ -76,6 +77,7 @@ function App() {
           <Route path="/public_puzzles" component={PublicPuzzles} />
           <Route path="/potential_puzzles/:sgf_id" component={PotentialPuzzlesDisplay}/>
           <Route path="/potential_puzzles" component={PotentialPuzzles}/>
+          <Route path="/user_puzzles" component={UserPuzzles}/>
         </Switch>
       )}
     </>

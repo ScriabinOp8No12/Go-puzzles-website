@@ -20,7 +20,22 @@ router.get("/", requireAuth, async (req, res) => {
       ],
     });
 
-    res.status(200).json(userPuzzles);
+    // Format the dates using moment.js
+    const formattedUserPuzzles = userPuzzles.map((userPuzzle) => {
+      return {
+        ...userPuzzle.get(),  // Spread to get all the other fields
+        createdAt: moment(userPuzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt: moment(userPuzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+        // Also format Puzzle's createdAt and updatedAt
+        Puzzle: {
+          ...userPuzzle.Puzzle.get(),
+          createdAt: moment(userPuzzle.Puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+          updatedAt: moment(userPuzzle.Puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+        }
+      };
+    });
+    res.status(200).json(formattedUserPuzzles);
+
   } catch (error) {
     console.error("Failed to retrieve puzzles for user", error);
     res.status(500).send("Internal Server Error");
