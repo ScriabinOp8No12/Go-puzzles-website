@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import { openModal } from "../store/modal";
@@ -8,17 +8,16 @@ import "./styles/UserPuzzles.css";
 const UserPuzzles = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  // state.slicename.property (state.reducer.publicPuzzles array)
   const userPuzzles = useSelector((state) => state.userPuzzles.userPuzzles);
-
-  console.log(userPuzzles)
 
   useEffect(() => {
     dispatch(fetchAllUserPuzzlesThunk())
   }, [dispatch])
 
   return (
-    <>
+    <div className="outer-wrapper">
+      <h1 className="your-puzzles-header-title">Your Puzzles: Click on the thumbnails to review your saved puzzles!</h1>
+    {/* classNames are all "public-puzzle" to keep the same formatting, but should make the classNames consistent so they make sense */}
     <div className="public-puzzle-table">
         {userPuzzles &&
           userPuzzles.map((userPuzzle, index) => (
@@ -39,7 +38,7 @@ const UserPuzzles = () => {
             </div>
           ))}
       </div>
-    </>
+    </div>
 
   )
 }

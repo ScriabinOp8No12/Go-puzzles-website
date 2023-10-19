@@ -34,7 +34,7 @@ const SuspendPublicPuzzleModal = ({ puzzleId }) => {
   return (
     <>
       <div className="suspendPublicPuzzleButton">
-        <button className="suspend-puzzle-trashcan-icon" onClick={() => setShowModal(true)}>
+        <button className="suspend-puzzle-trashcan-icon" onClick={() => setShowModal(true)} title="Suspend public puzzle">
         <i className="fa fa-trash" style={{color: '#000000'}}></i>
         </button>
       </div>
