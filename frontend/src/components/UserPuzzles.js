@@ -16,7 +16,9 @@ const UserPuzzles = () => {
 
   return (
     <div className="outer-wrapper">
+      {userPuzzles && userPuzzles.length > 0 && (
       <h1 className="your-puzzles-header-title">Your Puzzles: Click on the thumbnails to review your saved puzzles!</h1>
+      )}
     {/* classNames are all "public-puzzle" to keep the same formatting, but should make the classNames consistent so they make sense */}
     <div className="public-puzzle-table">
         {userPuzzles &&
