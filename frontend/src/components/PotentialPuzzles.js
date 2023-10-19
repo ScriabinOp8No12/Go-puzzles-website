@@ -22,7 +22,9 @@ const PotentialPuzzles = () => {
 
   return (
     <div className="outer-wrapper">
+      {userPotentialPuzzles && userPotentialPuzzles.length > 0 && (
       <h1 className="header-title">Potential Puzzles: Click on the thumbnail to try the AI generated puzzles!</h1>
+    )}
       <div className="user-potential-puzzle-table">
         {/* Have unique classname here to style slightly differently compared to sgf page*/}
         {userPotentialPuzzles &&
