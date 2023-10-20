@@ -201,7 +201,7 @@ router.get("/", requireAuth, async (req, res) => {
   try {
     const potentialPuzzleThumbnails = await PotentialPuzzle.findAll({
       where: { user_id: userId }, // Only display the potential puzzles for the potential puzzles of the logged in user
-      attributes: ["sgf_id"],
+      attributes: ["sgf_id", "createdAt", "updatedAt"],
       include: [
         {
           model: Sgf,
@@ -227,9 +227,19 @@ router.get("/", requireAuth, async (req, res) => {
     ).map((sgf_id) =>
       potentialPuzzleThumbnails.find((p) => p.sgf_id === sgf_id)
     );
+
+    const formattedResults = uniqueResults.map(puzzle => {
+      return {
+        sgf_id: puzzle.sgf_id,
+        "Sgf.thumbnail": puzzle["Sgf.thumbnail"],
+        createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+      };
+    });
+
     return res
       .status(200)
-      .json({ PotentialPuzzles: uniqueResults, CountsBySgfId: countsBySgfId }); // Include the counts in the response
+      .json({ PotentialPuzzles: formattedResults, CountsBySgfId: countsBySgfId }); // Include the counts in the response
   } catch (error) {
     console.error(
       "Failed to retrieve sgf thumbnail for potential puzzles",
