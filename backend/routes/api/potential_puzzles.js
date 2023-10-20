@@ -252,12 +252,13 @@ router.get("/", requireAuth, async (req, res) => {
 // Get all potential_puzzles based on sgf_id
 router.get("/:sgf_id", requireAuth, async (req, res) => {
   const sgfId = req.params.sgf_id;
-
+  const userId = req.user.id // grab the logged in user's id
   // Find all records where the sgf_id matches the one in the url
   const potentialPuzzles = await PotentialPuzzle.findAll({
-    where: { sgf_id: sgfId },
+    where: { sgf_id: sgfId, user_id: userId },
     attributes: [
       "id",
+      "user_id",
       "sgf_id",
       "sgf_data",
       "category",
@@ -271,12 +272,13 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
   if (potentialPuzzles.length === 0) {
     return res
       .status(404)
-      .json({ error: "Sgf with potential puzzles not found" });
+      .json({ error: "Sgf with potential puzzles not found or you don't have permission to access this resource" });
   }
 
   // Format the SGF data for the response
   const formattedPotentialPuzzles = potentialPuzzles.map((puzzle) => ({
     sgf_id: puzzle.sgf_id,
+    user_id: puzzle.user_id,
     sgf_data: puzzle.sgf_data,
     category: puzzle.category,
     move_number: puzzle.move_number,

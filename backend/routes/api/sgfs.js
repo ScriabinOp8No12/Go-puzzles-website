@@ -433,7 +433,7 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
 
     const {sgf_data} = req.body
 
-    // I need to pass sgf_data into the sgf2OneLineJson_all_moves.py script
+    // Pass sgf_data into the sgf2OneLineJson_all_moves.py script
     const one_line_json = await python(
       path.join(
         __dirname,
