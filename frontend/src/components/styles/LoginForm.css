@@ -10,6 +10,7 @@
   background-color: #ebedef;
   border: 3px solid black;
   border-radius: 15px;
+  text-shadow: none; /* Don't show .75 pixel black border around letters */
 }
 
 .usernameField,
