@@ -1,0 +1,22 @@
+.go-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.home-page-left-column {
+  flex: 1;
+  padding: 1rem;
+  /* Add any additional styles for the left column */
+}
+
+.home-page-right-column {
+  flex: 1;
+  padding: 1rem;
+  /* Add any additional styles for the right column */
+}
+
+.home-page-h1 {
+  color: aliceblue;
+}
