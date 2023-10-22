@@ -71,6 +71,7 @@
   z-index: 1002;
   background: white;
   border: 3px solid black;
+  text-shadow: none; /* Don't show .75 pixel black border around letters */
 }
 
 .profile-dropdown.not-logged-in {
@@ -84,6 +85,7 @@
   border: 3px solid black;
   width: 100px;
   cursor: pointer;
+  text-shadow: none; /* Don't show .75 pixel black border around letters */
 }
 
 .profile-dropdown.not-logged-in li {

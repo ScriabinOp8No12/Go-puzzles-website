@@ -11,6 +11,7 @@ import GliftPuzzleDisplay from "./components/GliftPuzzleDisplay";
 import PotentialPuzzles from "./components/PotentialPuzzles";
 import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
 import UserPuzzles from "./components/UserPuzzles"
+import LandingPage from "./components/LandingPage"
 
 function App() {
   // dispatch is used to send actions to the store and trigger them
@@ -70,7 +71,7 @@ function App() {
       {/* If isLoaded is true, render the Switch component from react-router-dom, which is used to render different components based on the current URL */}
       {isLoaded && (
         <Switch>
-          {/* <Route exact path="/" component={PublicPuzzles} /> */}
+          <Route exact path="/" component={LandingPage} />
           <Route path="/sgfs/:sgf_id" component={SgfDisplay} />
           <Route path="/sgfs" component={UserSGFs} />
           <Route path="/public_puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>

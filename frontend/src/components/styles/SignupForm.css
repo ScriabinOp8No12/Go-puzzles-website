@@ -16,6 +16,7 @@
   overflow-y: auto;
   scrollbar-width: none; /* Hiding scroll bar in FireFox*/
   -ms-overflow-style: none; /* Hiding scroll bar in FireFox*/
+  text-shadow: none; /* Don't show .75 pixel black border around letters */
 }
 
 /* Hiding scrollbar in Chrome in safari */

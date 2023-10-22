@@ -7,6 +7,7 @@
 .filter-public-puzzles, .filter-dropdown {
   display: inline-block;
   vertical-align: top;
+  text-shadow: none; /* Don't show .75 pixel black border around letters */
 }
 
 .filter-public-puzzles label {
