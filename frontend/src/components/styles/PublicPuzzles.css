@@ -19,6 +19,11 @@
   cursor: pointer;
   border: 3px solid black;
   border-radius: 15px;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
 }
 
 .filter-public-puzzles label:hover {
@@ -78,6 +83,11 @@
   margin-top: 0px;
   font-size: 8px;
   cursor: pointer;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
 }
 
 .public-puzzles-pencil-icon:hover {

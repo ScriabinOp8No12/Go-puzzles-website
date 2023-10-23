@@ -93,12 +93,17 @@
   display: block;
   margin-top: 10px;
   padding: 5px 15px;
-  background-color: #00ADB5;
+  background-color: rgb(100, 99, 99);
   border: 3px solid black;
   cursor: pointer;
   border-radius: 15px;
   color: aliceblue;
   font-size: 12px;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
 }
 
 .landing-page-columns button:hover {
