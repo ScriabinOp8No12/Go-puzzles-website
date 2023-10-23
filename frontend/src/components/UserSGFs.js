@@ -12,13 +12,11 @@ import DeleteSgfModal from "./DeleteSgfModal";
 import EditSgfModal from "./EditSgfModal";
 import "./styles/UserSGFs.css";
 import moment from "moment-timezone";
-import UnauthorizedMessage from "./UnauthorizedMessage";
 
 const UserSGFs = () => {
   const dispatch = useDispatch();
   const userSGFs = useSelector((state) => state.sgfs.userSGFs);
   const error = useSelector((state) => state.potentialPuzzles.error); // get errors from redux store state
-  const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const [uploadError, setUploadError] = useState("");
   const [isLoading, setIsLoading] = useState("");
@@ -26,12 +24,12 @@ const UserSGFs = () => {
   const [successNotification, setSuccessNotification] = useState(null);
 
   // Refetch the all sgfs thunk (rerender) when the user logs in after they weren't logged in before
-  // Combines the logic with the original fetchAllSgfs when component mounts
+  // Combines the logic with the original fetchAllSgfs when component mounts, this fixes the original issue
+  // Where we would briefly see a large red error message on the screen where the browser would show a 401 unauthorized error
+  // since this fetch request was triggering on the component mounting regardless of if the user was logged in or not
   useEffect(() => {
-    if (user) {
-      dispatch(fetchAllSgfsThunk());
-    }
-  }, [user, dispatch]);
+    dispatch(fetchAllSgfsThunk());
+  }, [dispatch]);
 
   // Edit sgf modal
   const openEditModal = async (sgfId) => {
@@ -107,10 +105,6 @@ const UserSGFs = () => {
   const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
 
   // console.log("*****************", localTimezoneOffsetHours)
-
-  if (!user) {
-    return <UnauthorizedMessage />;
-  }
 
   return (
     <div className="outer-wrapper">
