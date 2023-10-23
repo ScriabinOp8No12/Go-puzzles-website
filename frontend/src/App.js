@@ -89,7 +89,7 @@ function App() {
             path="/potential_puzzles"
             component={PotentialPuzzles}
           />
-          <AuthorizedRoute path="/your_puzzles/:puzzle_id" component={UserPuzzlesDisplay} />
+          {/* <AuthorizedRoute path="/your_puzzles/:puzzle_id" component={UserPuzzlesDisplay} /> */}
           <AuthorizedRoute path="/your_puzzles" component={UserPuzzles} />
           {/* <AuthorizedRoute path="/learn_and_practice" component={LearnAndPracticeLandingPage} /> */}
         </Switch>

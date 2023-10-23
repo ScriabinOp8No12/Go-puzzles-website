@@ -61,7 +61,7 @@ function Navigation({ isLoaded }) {
               >
                 {sessionUser && (
                   <NavLink
-                    to="/user_puzzles"
+                    to="/your_puzzles"
                     className={`potential-puzzles-button-menu ${showMenu}`}
                   >
                     Your Puzzles
