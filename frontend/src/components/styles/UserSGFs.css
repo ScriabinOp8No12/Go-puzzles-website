@@ -79,6 +79,11 @@
   padding-top: 0px;
   font-weight: bold;
   border-radius: 15px;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
 }
 
 .create-puzzles-button:hover {
@@ -91,6 +96,11 @@
   font-size: 11px;
   /* margin-left: 10px; */
   cursor: pointer;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
 }
 
 .pencil-icon:hover {

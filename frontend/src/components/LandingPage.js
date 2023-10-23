@@ -66,11 +66,13 @@ const LandingPage = () => {
               <button>Puzzles on fundamentals</button>
             </div>
           </div>
-          {/* Two-Column Layout for Buttons Ends Here */}
+          {/* End of Two-Column Layout for Buttons */}
         </div>
       </div>
       {/* Right Column */}
-      <div className="landing-page-right-column"></div>
+      <div className="landing-page-right-column">
+
+      </div>
     </div>
   );
 };

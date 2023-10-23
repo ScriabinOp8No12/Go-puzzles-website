@@ -36,8 +36,10 @@
 
 .save-error {
   color: red;
+  text-shadow: none;
 }
 
 .save-success {
   color: green;
+  text-shadow: none;
 }
