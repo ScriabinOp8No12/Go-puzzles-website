@@ -5,6 +5,17 @@
   padding: 1rem;
 }
 
+.landing-page-1st-container {
+  background-color: #2E3A4B;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+
 .landing-page-left-column {
   flex: 1;
   padding: 1rem;
@@ -21,13 +32,7 @@
   color: aliceblue;
   padding-right: 30px;
   font-size: 28px;
-}
-
-.landing-page-turtle-logo-h1 {
-  width: 50px;
-  height: 40px;
-  border: 3px solid black;
-  border-radius: 15px;
+  margin-top: -10px;
 }
 
 .landing-page-slogan {
@@ -39,10 +44,10 @@
 
 .landing-page-header-section {
   display: flex;
-  align-items: center;  /* This will vertically center the text and the image */
+  align-items: center;  /* Vertically center the text and the image */
 }
 
-/* Signup and login on landing page h2 */
+/********** Signup and login on landing page h2 ****************/
 
 /* CSS for OpenModalMenuItem to look like a button */
 .landing-page-signup-login-button li {
@@ -59,3 +64,48 @@
 .landing-page-signup-login-button li:hover {
   border: 3px solid white;
 }
+
+/******** End of Signup and login on landing page h2 ***************/
+
+/********** Two Column Flexbox Layout for Buttons ****************/
+
+.landing-page-2nd-container {
+  background-color: #2E3A4B;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-around;
+}
+
+.inner-flexbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.landing-page-columns {
+  flex: 1;  /* Makes sure each column takes up half of the available width */
+}
+
+.landing-page-columns button {
+  display: block;
+  margin-top: 10px;
+  padding: 5px 15px;
+  background-color: #00ADB5;
+  border: 3px solid black;
+  cursor: pointer;
+  border-radius: 15px;
+  color: aliceblue;
+  font-size: 12px;
+}
+
+.landing-page-columns button:hover {
+
+  border: 3px solid white;
+}
+
+/******** End of Two Column Flexbox Layout for Buttons ***************/
+
+/******** CSS for buttons below "New to the game?" and "Improve your fundamentals" ***********/
