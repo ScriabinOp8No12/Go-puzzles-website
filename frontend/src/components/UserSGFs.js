@@ -12,20 +12,26 @@ import DeleteSgfModal from "./DeleteSgfModal";
 import EditSgfModal from "./EditSgfModal";
 import "./styles/UserSGFs.css";
 import moment from "moment-timezone";
+import UnauthorizedMessage from "./UnauthorizedMessage";
 
 const UserSGFs = () => {
   const dispatch = useDispatch();
   const userSGFs = useSelector((state) => state.sgfs.userSGFs);
   const error = useSelector((state) => state.potentialPuzzles.error); // get errors from redux store state
+  const user = useSelector((state) => state.session.user);
   const history = useHistory();
   const [uploadError, setUploadError] = useState("");
   const [isLoading, setIsLoading] = useState("");
   const [currentSgfId, setCurrentSgfId] = useState(null);
   const [successNotification, setSuccessNotification] = useState(null);
 
+  // Refetch the all sgfs thunk (rerender) when the user logs in after they weren't logged in before
+  // Combines the logic with the original fetchAllSgfs when component mounts
   useEffect(() => {
-    dispatch(fetchAllSgfsThunk());
-  }, [dispatch]);
+    if (user) {
+      dispatch(fetchAllSgfsThunk());
+    }
+  }, [user, dispatch]);
 
   // Edit sgf modal
   const openEditModal = async (sgfId) => {
@@ -45,7 +51,7 @@ const UserSGFs = () => {
     } catch (error) {
       setTimeout(() => {
         setIsLoading("");
-        setCurrentSgfId(null);  // Reset after 2.9 seconds to ensure we don't see "generating..." for a fraction of a second after the error disappears
+        setCurrentSgfId(null); // Reset after 2.9 seconds to ensure we don't see "generating..." for a fraction of a second after the error disappears
       }, 2900);
     }
   };
@@ -102,6 +108,10 @@ const UserSGFs = () => {
 
   // console.log("*****************", localTimezoneOffsetHours)
 
+  if (!user) {
+    return <UnauthorizedMessage />;
+  }
+
   return (
     <div className="outer-wrapper">
       <div className="upload-sgf-button">
@@ -123,19 +133,20 @@ const UserSGFs = () => {
           sortedSGFs.map((sgf, index) => (
             <div className="uploaded-sgf-thumbnail" key={index}>
               <div className="message-placeholder">
-              {!error && isLoading === "GENERATING_PUZZLES" &&
-                currentSgfId === sgf.id && (
-                  <div className="generating-text">Generating...</div>
+                {!error &&
+                  isLoading === "GENERATING_PUZZLES" &&
+                  currentSgfId === sgf.id && (
+                    <div className="generating-text">Generating...</div>
+                  )}
+                {!error && successNotification === sgf.id && (
+                  <div className="success-notification">
+                    Success! Go to Potential Puzzles
+                  </div>
                 )}
-              {!error && successNotification === sgf.id && (
-                <div className="success-notification">
-                  Success! Go to Potential Puzzles
-                </div>
-              )}
-              {error && currentSgfId === sgf.id && (
-              <div className="error-notification">{error}</div>
-            )}
-            </div>
+                {error && currentSgfId === sgf.id && (
+                  <div className="error-notification">{error}</div>
+                )}
+              </div>
               <img
                 src={sgf.thumbnail}
                 alt="SGF Thumbnail"

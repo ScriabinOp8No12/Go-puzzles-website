@@ -44,6 +44,20 @@ body {
   background-color: #393E46;
 }
 
+.unauthorized-centered-message {
+  color: aliceblue;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* z-index: 1000; */
+}
+
 /* Remove scrollbar space for Chrome */
 /* body::-webkit-scrollbar {
   width: 0;

@@ -6,6 +6,9 @@ import { openModal } from "../store/modal";
 import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
+import OpenModalMenuItem from "../components/Navigation/OpenModalMenuItem";
+import LoginFormModal from "./LoginFormModal";
+import SignupFormModal from "./SignupFormModal";
 import "./styles/PublicPuzzles.css";
 
 const PublicPuzzles = () => {
@@ -13,6 +16,7 @@ const PublicPuzzles = () => {
   const history = useHistory();
   // state.slicename.property (state.reducer.publicPuzzles array)
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
+  const user = useSelector((state) => state.session.user);
   const [showFilter, setShowFilter] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({}); // Key-value pairs for filters
 
@@ -46,6 +50,24 @@ const PublicPuzzles = () => {
 
   // **** Filter block above **** //
   // console.log("publicPuzzles: ", publicPuzzles)
+
+  if (!user) {
+    return <div className="unauthorized-centered-message">
+    <h2 className="landing-page-signup-login-button">
+      Please
+      <OpenModalMenuItem
+        itemText="signup"
+        modalComponent={<SignupFormModal />}
+      />
+      or
+      <OpenModalMenuItem
+        itemText="login"
+        modalComponent={<LoginFormModal />}
+      />
+      to use this website
+    </h2>
+  </div>
+  }
 
   return (
     <div className="outer-wrapper">
