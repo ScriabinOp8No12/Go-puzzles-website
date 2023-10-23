@@ -32,6 +32,7 @@
   color: black;
   font-weight: bold;
   z-index: 1000;
+  text-shadow: none;
 }
 
 .save-error {
