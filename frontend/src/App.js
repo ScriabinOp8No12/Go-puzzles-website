@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, useHistory} from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import { closeModal } from "./store/modal"; // import closeModal action so we can close the modal with a click outside the modal
 import Navigation from "./components/Navigation";
 import UserSGFs from "./components/UserSGFs";
 import SgfDisplay from "./components/SgfDisplay";
-import PublicPuzzles from "./components/PublicPuzzles"
+import PublicPuzzles from "./components/PublicPuzzles";
 import GliftPuzzleDisplay from "./components/GliftPuzzleDisplay";
 import PotentialPuzzles from "./components/PotentialPuzzles";
 import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
-import UserPuzzles from "./components/UserPuzzles"
-import LandingPage from "./components/LandingPage"
+import UserPuzzles from "./components/UserPuzzles";
+import LandingPage from "./components/LandingPage";
+import AuthorizedRoute from "./components/AuthorizedRoute";
 
 function App() {
   // dispatch is used to send actions to the store and trigger them
@@ -72,13 +73,23 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route path="/sgfs/:sgf_id" component={SgfDisplay} />
-          <Route path="/sgfs" component={UserSGFs} />
-          <Route path="/public_puzzles/:puzzle_id" component = {GliftPuzzleDisplay}/>
-          <Route path="/public_puzzles" component={PublicPuzzles} />
-          <Route path="/potential_puzzles/:sgf_id" component={PotentialPuzzlesDisplay}/>
-          <Route path="/potential_puzzles" component={PotentialPuzzles}/>
-          <Route path="/user_puzzles" component={UserPuzzles}/>
+          <AuthorizedRoute path="/sgfs/:sgf_id" component={SgfDisplay} />
+          <AuthorizedRoute path="/sgfs" component={UserSGFs} />
+          <AuthorizedRoute
+            path="/public_puzzles/:puzzle_id"
+            component={GliftPuzzleDisplay}
+          />
+          <AuthorizedRoute path="/public_puzzles" component={PublicPuzzles} />
+          <AuthorizedRoute
+            path="/potential_puzzles/:sgf_id"
+            component={PotentialPuzzlesDisplay}
+          />
+          <AuthorizedRoute
+            path="/potential_puzzles"
+            component={PotentialPuzzles}
+          />
+          <AuthorizedRoute path="/user_puzzles" component={UserPuzzles} />
+          {/* <AuthorizedRoute path="/learn_and_practice" component={LearnAndPracticeLandingPage} /> */}
         </Switch>
       )}
     </>
