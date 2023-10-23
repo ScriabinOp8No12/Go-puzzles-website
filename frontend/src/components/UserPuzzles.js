@@ -1,40 +1,17 @@
 import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-// import { openModal } from "../store/modal";
 import { fetchAllUserPuzzlesThunk } from "../store/userPuzzles";
-import OpenModalMenuItem from "../components/Navigation/OpenModalMenuItem";
-import LoginFormModal from "./LoginFormModal";
-import SignupFormModal from "./SignupFormModal";
 import "./styles/UserPuzzles.css";
 
 const UserPuzzles = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const userPuzzles = useSelector((state) => state.userPuzzles.userPuzzles);
-  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(fetchAllUserPuzzlesThunk())
   }, [dispatch])
-
-  if (!user) {
-    return <div className="unauthorized-centered-message">
-    <h2 className="landing-page-signup-login-button">
-      Please
-      <OpenModalMenuItem
-        itemText="signup"
-        modalComponent={<SignupFormModal />}
-      />
-      or
-      <OpenModalMenuItem
-        itemText="login"
-        modalComponent={<LoginFormModal />}
-      />
-      to use this website
-    </h2>
-  </div>
-  }
 
   return (
     <div className="outer-wrapper">
@@ -50,7 +27,7 @@ const UserPuzzles = () => {
                 src={userPuzzle.Puzzle.thumbnail}
                 alt={`Puzzle ${userPuzzle.Puzzle.id}`}
                 // Changed get /puzzles endpoint to id: puzzle.id instead of puzzle_id as the column name
-                onClick={() => history.push(`/user_puzzles/${userPuzzle.Puzzle.id}`)}
+                onClick={() => history.push(`/your_puzzles/${userPuzzle.Puzzle.id}`)}
                 style={{ cursor: "pointer" }}
               />
               {/* <div className="puzzle-details">

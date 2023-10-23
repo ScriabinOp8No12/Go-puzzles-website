@@ -88,7 +88,7 @@ function App() {
             path="/potential_puzzles"
             component={PotentialPuzzles}
           />
-          <AuthorizedRoute path="/user_puzzles" component={UserPuzzles} />
+          <AuthorizedRoute path="/your_puzzles" component={UserPuzzles} />
           {/* <AuthorizedRoute path="/learn_and_practice" component={LearnAndPracticeLandingPage} /> */}
         </Switch>
       )}
