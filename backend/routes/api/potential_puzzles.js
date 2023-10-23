@@ -311,6 +311,7 @@ router.post("/store_vm_results", async (req, res) => {
 
       const createdPuzzle = await PotentialPuzzle.create({
         sgf_id,
+        user_id: req.user.id, // need to add user_id here now too because changed our database to include this column
         sgf_data,
         category,
         move_number,
