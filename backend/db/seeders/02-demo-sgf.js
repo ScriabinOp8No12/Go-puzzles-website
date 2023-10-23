@@ -245,8 +245,31 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/13by13test1_thumbnail_z9haxr.png",
           result: "Black + 5.5",
         },
-        // Demo user (id: 3)  Include sgfs of smaller boards too for testing
-        // Game 1
+        // Demo user id 3 (our demo login user) sgf id of 12?
+        // Game 1 -> copy of Shin Jinseo sgf id of 2
+        {
+          user_id: 3,
+          sgf_data: `(;EV[9th Ing Cup, final 2]
+            DT[2023-08-23]
+            PB[Xie Ke]BR[9p]
+            PW[Shin Jinseo]WR[9p]
+            KM[7.5]RE[W+R]
+            SO[Go4Go.net]
+            ;B[qd];W[dd];B[pq];W[dp];B[oc];W[qo];B[np];W[nd];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fe];B[bc];W[dg];B[bd];W[cg];B[ce];W[nc];B[od];W[ne];B[fg];W[di];B[if];W[jd];B[fi];W[dk];B[cq];W[cp];B[dq];W[ep];B[eq];W[fq];B[fr];W[gq];B[gr];W[hq];B[qk];W[gk];B[qp];W[ij];B[ih];W[ki];B[kg];W[mh];B[ld];W[le];B[ke];W[kd];B[mg];W[je];B[nh];W[kf];B[lh];W[rp];B[rq];W[ol];B[mj];W[pj];B[qm];W[qe];B[re];W[no];B[oo];W[mp];B[nn];W[mo];B[mn];W[lk];B[ln];W[pe];B[oe];W[of];B[nf];W[mf];B[ng];W[pd];B[pc];W[qc];B[pf];W[qf];B[rd];W[pg];B[qb];W[qj];B[qg];W[qh];B[rg];W[rk];B[ql];W[mk];B[kj];W[lj];B[li];W[ji];B[jf];W[nj];B[kp];W[op];B[po];W[lq];B[nq];W[kq];B[om];W[ph];B[hd];W[hc];B[ge];W[nb];B[rf];W[pf];B[bp];W[bo];B[bq];W[cn];B[ej];W[ek];B[bg];W[bh];B[bf];W[mi];B[gj];W[hk];B[jm];W[hi];B[hh];W[gi];B[gh];W[eh];B[ic];W[id];B[kh];W[hj];B[jj];W[ii];B[hf];W[fh];B[ff];W[gc];B[ib];W[jc];B[lf];W[lg];B[jb];W[kb];B[lf];W[rc];B[rb];W[lg];B[cj];W[dj];B[lf];W[me];B[ke];W[ja];B[kl];W[ni];B[jq];W[jr];B[iq];W[nr];B[oq];W[ir];B[hr];W[mr];B[ch];W[bi];B[bm];W[go];B[gn];W[cm];B[ho];W[io];B[hp];W[ip];B[fp];W[jp];B[iq];W[jq];B[gp];W[eb];B[fl];W[fk];B[jh];W[iq];B[eo];W[en];B[em];W[dn];B[in];W[fn];B[ob];W[oa];B[pb];W[kf];B[fo];W[hm];B[cl];W[dl];B[ao];W[hn];B[ci];W[ck];B[bj];W[bk];B[ah];W[lg];B[ai];W[lf];B[bn];W[dh];B[db];W[fa];B[il];W[hl])
+            `,
+          sgf_name: "Xie Ke vs Shin Jinseo",
+          black_player: "Xie Ke",
+          white_player: "Shin Jinseo",
+          black_rank: "9p",
+          white_rank: "9p",
+          komi: 7.5,
+          game_date: "2023-08-23 15:00:00.000",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886733/Seeder%20Data/Shin-Jinseo2_thumbnail_jebjvy.png",
+          result: "W+R",
+        },
+        // Include sgfs of smaller boards too for testing
+        // Game 2
         {
           user_id: 3,
           sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-05] PC[OGS: https://online-go.com/game/56820296] GN[Vriendschappelijke Wedstrijd] PB[goloveye2] PW[erikdeviking] BR[6k] WR[6k] TM[150]OT[5x60 byo-yomi] RE[B+2.5] SZ[13] KM[5.5] RU[Japanese] ;B[dd] (;W[jj] (;B[kd] (;W[cj] (;B[gk] (;W[ek] (;B[jk] (;W[kk] (;B[jl] (;W[kl] (;B[ij] (;W[ji] (;B[fi] (;W[dh] (;B[cg] (;W[ch] (;B[gd] (;W[dg] (;B[cf] (;W[jc] (;B[kc] (;W[kb] (;B[lb] (;W[ib] (;B[ka] (;W[gb] (;B[fc] (;W[fb] (;B[eb] (;W[gc] (;B[fd] (;W[jb] (;B[jd] (;W[id] (;B[ie] (;W[hd] (;B[he] (;W[ea] (;B[db] (;W[ja] (;B[fa] (;W[ga] (;B[hc] (;W[ic] (;B[kh] (;W[ki] (;B[jh] (;W[ii] (;B[hj] (;W[ih] (;B[ig] (;W[df] (;B[de] (;W[la] (;B[mb] (;W[bg] (;B[bf] (;W[lh] (;B[lg] (;W[li] (;B[kg] (;W[bh] (;B[ef] (;W[eg] (;B[ff] (;W[hg] (;B[hf] (;W[fg] (;B[gg] (;W[gh] (;B[hh] (;W[hi] (;B[hg] (;W[gi] (;B[gj] (;W[fj] (;B[fk] (;W[ej] (;B[el] (;W[dl] (;B[em] (;W[il] (;B[ik] (;W[hl] (;B[jm] (;W[gl] (;B[fl] (;W[km] (;B[gm] (;W[hm] (;B[hk] (;W[fm] (;B[hb] (;W[dm] (;B[gm] (;W[lc] (;B[ld] (;W[fm] (;B[ha] (;W[ia] (;B[gm] (;W[hb] (;B[im] (;W[be] (;B[ce] (;W[bd] (;B[af] (;W[cb] (;B[da] (;W[ca] (;B[cc] (;W[bc] (;B[bb] (;W[ag] (;B[mh] (;W[mi] (;B[mg] (;W[fa] (;B[mc] (;W[ka] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
@@ -261,7 +284,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028715/vqnappgjnx5oljz2nddb.png",
           result: "Black + 2.5",
         },
-        // Game 2
+        // Game 3
         {
           user_id: 3,
           sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 2]
@@ -283,7 +306,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
           result: "B+R",
         },
-        // Game 3 9by9
+        // Game 4 9by9
         {
           user_id: 3,
           sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-03] PC[OGS: https://online-go.com/game/56766164] GN[play for fun] PB[iself101] PW[erikdeviking] BR[7k] WR[6k] TM[0]OT[15 simple] RE[B+16.5] SZ[9] KM[5.5] RU[Japanese] ;B[gc] (;W[df] (;B[gg] (;W[ge] (;B[dg] (;W[ef] (;B[eg] (;W[ec] (;B[cc] (;W[db] (;B[bf] (;W[cf] (;B[be] (;W[cg] (;B[ff] (;W[fe] (;B[gf] (;W[cb] (;B[bb] (;W[ba] (;B[bc] (;W[bg] (;B[ag] (;W[ad] (;B[ce] (;W[ed] (;B[dd] (;W[de] (;B[dc] (;W[bd] (;B[bh] (;W[ch] (;B[ah] (;W[bi] (;B[dh] (;W[di] (;B[ei] (;W[ci] (;B[fd] (;W[gd] (;B[fc] (;W[hc] (;B[eb] (;W[ee] (;B[fb] (;W[af] (;B[ae] (;W[ai] (;B[da] (;W[af] (;B[ag] (;W[fh] (;B[fg] (;W[eh] (;B[gh] (;W[fi] (;B[gi] (;W[ei] (;B[hb] (;W[hf] (;B[hg] (;W[he] (;B[ih] (;W[hi] (;B[ic] (;W[id] (;B[hd] (;W[ie] (;B[hc] (;W[ah] (;B[cd] (;W[af] (;B[ac] (;W[ag] (;B[ig] (;W[ii] (;B[hh] (;W[ii] (;B[hi] (;W[] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
@@ -298,7 +321,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028141/b7q8a1csj5wycsfd4zp1.png",
           result: "Black + 16.5",
         },
-        // Game 4
+        // Game 5
         {
           user_id: 3,
           sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 1]
@@ -320,7 +343,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
           result: "W+R",
         },
-        // Game 5
+        // Game 6
         {
           user_id: 3,
           sgf_data: `(;EV[9th Kuksu Mountains Tournament, final]
@@ -343,7 +366,7 @@ module.exports = {
           result: "W+R",
         },
 
-        // Game 6
+        // Game 7
         {
           user_id: 3,
           sgf_data: `(;EV[9th Ing Cup, final 1]
@@ -366,7 +389,7 @@ module.exports = {
           result: "W+R",
         },
 
-        // Game 7
+        // Game 8
         {
           user_id: 3,
           sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-02] PC[OGS: https://online-go.com/game/56740614] GN[Friendly Match] PB[erikdeviking] PW[blammin] BR[6k] WR[5k] TM[120]OT[3x30 byo-yomi] RE[B+0.5] SZ[9] KM[5.5] RU[Japanese] ;B[ff] (;W[df] (;B[fc] (;W[dd] (;B[eg] (;W[gd] (;B[fd] (;W[gc] (;B[gb] (;W[hb] (;B[fb] (;W[hf] (;B[hg] (;W[gf] (;B[gg] (;W[ge] (;B[dg] (;W[cf] (;B[ee] (;W[cc] (;B[cg] (;W[bg] (;B[bh] (;W[bf] (;B[de] (;W[ce] (;B[ed] (;W[ha] (;B[dc] (;W[cb] (;B[cd] (;W[bd] (;B[db] (;W[ig] (;B[ih] (;W[if] (;B[hi] (;W[ah] (;B[bb] (;W[bc] (;B[ca] (;W[ab] (;B[ba] (;W[ae] (;B[ch] (;W[ac] (;B[ag] (;W[af] (;B[bi] (;W[fe] (;B[ef] (;W[dd] (;B[ic] (;W[ib] (;B[cd] (;W[da] (;B[ea] (;W[dd] (;B[hc] (;W[hd] (;B[cd] (;W[aa] (;B[da] (;W[dd] (;B[ga] (;W[id] (;B[cd] (;W[fh] (;B[fg] (;W[dd] (;B[ai] (;W[ag] (;B[cd] (;W[gh] (;B[hh] (;W[dd] (;B[] (;W[cd] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
@@ -381,7 +404,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029192/qerzwfuss56al6d1y3tn.png",
           result: "Black + 0.5",
         },
-        // Game 8
+        // Game 9
         {
           user_id: 3,
           sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-01] PC[OGS: https://online-go.com/game/56701948] GN[Friendly Match] PB[erikdeviking] PW[dAsper] BR[6k] WR[7k] TM[30]OT[5x20 byo-yomi] RE[B+R] SZ[9] KM[5.5] RU[Japanese] ;B[ff] (;W[dg] (;B[eg] (;W[df] (;B[fc] (;W[dc] (;B[ed] (;W[dd] (;B[dh] (;W[ef] (;B[fg] (;W[ee] (;B[fe] (;W[ec] (;B[cg] (;W[fd] (;B[gd] (;W[gc] (;B[fb] (;W[hd] (;B[ed] (;W[gb] (;B[fd] (;W[he] (;B[cf] (;W[de] (;B[bd] (;W[bc] (;B[ac] (;W[cd] (;B[be] (;W[ab] (;B[bb] (;W[ad] (;B[cb] (;W[db] (;B[cc] (;W[ca] (;B[ac] (;W[eh] (;B[aa] (;W[ch] (;B[fh] (;W[di] (;B[bh] (;W[hg] (;B[fi] (;W[gh] (;B[ea] (;W[da] (;B[ba] (;W[bi] (;B[ah] (;W[ga] (;B[ei] (;W[fa] (;B[eb] (;W[dh] (;B[ce] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
@@ -396,7 +419,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029329/iiybzoialwlvgtrdvpie.png",
           result: "B+R",
         },
-        // Game 9
+        // Game 10
         {
           user_id: 3,
           sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-06] PC[OGS: https://online-go.com/game/56846957] GN[Vriendschappelijke Wedstrijd] PB[erikdeviking] PW[aizmaylov] BR[5k] WR[4k] TM[150]OT[5x60 byo-yomi] RE[B+R] SZ[13] KM[5.5] RU[Japanese] ;B[jj] (;W[dd] (;B[cj] (;W[jd] (;B[kh] (;W[kf] (;B[fk] (;W[jk] (;B[kk] (;W[ik] (;B[kl] (;W[ij] (;B[ji] (;W[ii] (;B[ih] (;W[gi] (;B[fi] (;W[hh] (;B[gj] (;W[ig] (;B[jh] (;W[fh] (;B[ei] (;W[eh] (;B[dh] (;W[dg] (;B[ch] (;W[cg] (;B[ce] (;W[cd] (;B[de] (;W[bg] (;B[eg] (;W[fg] (;B[ef] (;W[be] (;B[ed] (;W[dc] (;B[ec] (;W[bc] (;B[ff] (;W[hc] (;B[hg] (;W[hf] (;B[gg] (;W[jf] (;B[db] (;W[cb] (;B[fb] (;W[bi] (;B[bj] (;W[ci] (;B[di] (;W[bh] (;B[jb] (;W[jc] (;B[kc] (;W[ib] (;B[lb] (;W[ja] (;B[ld] (;W[kb] (;B[kd] (;W[la] (;B[lf] (;W[lg] (;B[mf] (;W[kg] (;B[mc] (;W[mg] (;B[le] (;W[li] (;B[lh] (;W[mh] (;B[lj] (;W[mj] (;B[mk] (;W[mi] (;B[kj] (;W[ml] (;B[lk] (;W[jl] (;B[gh] (;W[hi] (;B[jm] (;W[im] (;B[km] (;W[jg] (;B[hm] (;W[il] (;B[hl] (;W[ge] (;B[gc] (;W[gd] (;B[ca] (;W[ba] (;B[da] (;W[gb] (;B[ga] (;W[fc] (;B[ha] (;W[hb] (;B[fd] (;W[gc] (;B[fe] (;W[aj] (;B[ak] (;W[ai] (;B[bl] (;W[ia] (;B[eb] (;W[fa] (;B[ga] (;W[ha] (;B[gf] (;W[ke] (;B[mb] (;W[cf] (;B[df] (;W[ga] (;B[hj] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
@@ -411,7 +434,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029477/v6fhjbggnwyxsizbbeio.png",
           result: "B+R",
         },
-        // Game 10 (DON'T CHANGE)
+        // Game 11 (DON'T CHANGE)
         {
           user_id: 3,
           sgf_data: `(;EV[46th Korean Myeongin, round 1]
@@ -433,7 +456,7 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
           result: "B+R",
         },
-        // Arthur 67 move Fox game (sgf_id 22)
+        // Arthur 67 move Fox game (sgf_id 23)
         {
           user_id: 3,
           sgf_data: "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[7.50]TM[300] GN[]PW[青瓦楼阁]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3ㅤ​]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30] ;B[qd] ;W[dp] ;B[pq] ;W[dd] ;B[cc] ;W[dc] ;B[cd] ;W[ce] ;B[be] ;W[bf] ;B[cf] ;W[de] ;B[bg] ;W[bd] ;B[af] ;W[bc] ;B[nc] ;W[qo] ;B[ql] ;W[op] ;B[oq] ;W[np] ;B[mr] ;W[lq] ;B[mq] ;W[mp] ;B[lp] ;W[kq] ;B[lo] ;W[rq] ;B[qr]C[Move 31: B R2 Score: W+3.9 Win rate: W 71.1% Estimated point loss: 4.3 Predicted top move was S2 (B+0.5). PV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6 Move was #96 according to policy (0.00%). Top policy move was K4 (40.0%). ㅤ​] ;W[rr] ;B[lr] ;W[kr] ;B[nq]C[Move 35: B O3 Score: W+8.9 Win rate: W 87.0% Estimated point loss: 4.4 Predicted top move was J4 (W+4.2). PV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4 Move was #33 according to policy (0.03%). Top policy move was J4 (29.8%). ㅤ​] ;W[on] ;B[jp] ;W[iq] ;B[ip] ;W[hq] ;B[go] ;W[fp] ;B[ol] ;W[nm] ;B[mk] ;W[rd] ;B[re] ;W[qc] ;B[rc] ;W[pd] ;B[qe] ;W[rb] ;B[sd] ;W[pe] ;B[pc] ;W[oc] ;B[qb] ;W[nd] ;B[ob] ;W[od]C[Move 60: W P16 Score: W+5.4 Win rate: W 78.3% Estimated point loss: 4.8 Predicted top move was M7 (W+10.4). PV: WM7 K7 L8 K8 L9 K9 L10 N12 Move was #134 according to policy (0.01%). Top policy move was M7 (32.0%). ㅤ​] ;B[mc] ;W[md] ;B[ld] ;W[le] ;B[ke] ;W[kf]C[Move 66: W L14 Score: W+0.5 Win rate: W 55.3% Estimated point loss: 5.4 Predicted top move was M14 (W+6.0). PV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9 Move was #3 according to policy (1.72%). Top policy move was M14 (75.8%). ㅤ​] ;B[kd]) ",

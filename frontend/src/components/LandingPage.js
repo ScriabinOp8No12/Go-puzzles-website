@@ -74,7 +74,7 @@ const LandingPage = () => {
         <div className="image-text-container">
           <img
             src="landing-page-images/landing-page-public-puzzle-image.png"
-            alt="Public puzzle image"
+            alt="Public puzzle"
             className="landing-image"
           />
           <p className="landing-text">
@@ -85,7 +85,7 @@ const LandingPage = () => {
         <div className="image-text-container">
           <img
             src="landing-page-images/landing-page-upload-sgf-image.png"
-            alt="Upload SGF image"
+            alt="Upload SGF"
             className="landing-image"
           />
           <div className="landing-text-group">
@@ -97,7 +97,7 @@ const LandingPage = () => {
         <div className="image-text-container">
           <img
             src="landing-page-images/landing-page-potential-puzzle-image.png"
-            alt="Public puzzle image"
+            alt="Public puzzle"
             className="landing-image"
           />
           <p className="landing-text">
