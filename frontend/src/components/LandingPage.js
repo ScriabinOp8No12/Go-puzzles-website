@@ -51,7 +51,7 @@ const LandingPage = () => {
               <button>Scoring</button>
               <button>More rules & strategy</button>
               <button>Reading</button>
-              <button>Puzzles on rules</button>
+              <button>Puzzles</button>
               <button>External Resources</button>
             </div>
 
@@ -63,7 +63,7 @@ const LandingPage = () => {
               <button>Direction of Play</button>
               <button>Judgment</button>
               <button>Life & Death</button>
-              <button>Puzzles on fundamentals</button>
+              <button>Puzzles</button>
             </div>
           </div>
           {/* End of Two-Column Layout for Buttons */}
@@ -71,7 +71,39 @@ const LandingPage = () => {
       </div>
       {/* Right Column */}
       <div className="landing-page-right-column">
-
+        <div className="image-text-container">
+          <img
+            src="landing-page-images/landing-page-public-puzzle-image.png"
+            alt="Public puzzle image"
+            className="landing-image"
+          />
+          <p className="landing-text">
+            Attempt puzzles from the Public Puzzles page. Filter puzzles by
+            category, rank, and game state.
+          </p>
+        </div>
+        <div className="image-text-container">
+          <img
+            src="landing-page-images/landing-page-upload-sgf-image.png"
+            alt="Upload SGF image"
+            className="landing-image"
+          />
+          <div className="landing-text-group">
+    <p className="landing-text">Generate your own puzzles!</p>
+    <p className="landing-text">Step 1: Click Upload SGF from the Upload & View Game Records page.</p>
+    <p className="landing-text spaced-text">Step 2: Click Generate Puzzles</p>
+  </div>
+        </div>
+        <div className="image-text-container">
+          <img
+            src="landing-page-images/landing-page-potential-puzzle-image.png"
+            alt="Public puzzle image"
+            className="landing-image"
+          />
+          <p className="landing-text">
+          Step 3: Navigate to Potential Puzzles to try the generated puzzles
+          </p>
+        </div>
       </div>
     </div>
   );

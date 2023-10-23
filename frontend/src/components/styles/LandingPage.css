@@ -6,13 +6,18 @@
 }
 
 .landing-page-1st-container {
+  max-width: 85%;
   background-color: #2E3A4B;
-  padding: 15px;
+  padding-right: 35px;
+  padding-left: 35px;
+  padding-top: 30px;
+  padding-bottom: 15px;
   border-radius: 15px;
+  margin-top: 10px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   justify-content: center;
 }
 
@@ -23,10 +28,7 @@
   font-size: 12px;
 }
 
-.landing-page-right-column {
-  flex: 1;
-  padding: 1rem;
-}
+
 
 .landing-page-h1 {
   color: aliceblue;
@@ -70,14 +72,17 @@
 /********** Two Column Flexbox Layout for Buttons ****************/
 
 .landing-page-2nd-container {
+  max-width: 85%;
   background-color: #2E3A4B;
-  padding: 15px;
+  padding: 35px;
+  padding-top: 0px;
   border-radius: 10px;
-  margin-top: 20px;
+  /* margin-top: 10px; */
   display: flex;
   flex-direction: column;
-  align-items: left;
-  justify-content: space-around;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding-bottom: 30px;
 }
 
 .inner-flexbox {
@@ -86,7 +91,8 @@
 }
 
 .landing-page-columns {
-  flex: 1;  /* Makes sure each column takes up half of the available width */
+  flex: 1;  /* Ensure column takes up half of the available width */
+  /* text-align: center; */
 }
 
 .landing-page-columns button {
@@ -113,4 +119,43 @@
 
 /******** End of Two Column Flexbox Layout for Buttons ***************/
 
-/******** CSS for buttons below "New to the game?" and "Improve your fundamentals" ***********/
+
+/******** Right column landing page ***************/
+
+.landing-page-right-column {
+  display: flex;
+  flex: 1;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns content left */
+  padding: 1rem;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.image-text-container {
+  display: flex;
+  align-items: center; /* Vertically center-aligns the image with the text */
+}
+
+.landing-image {
+  max-width: 70%;
+  height: auto; /* To maintain aspect ratio */
+  margin-right: 1rem; /* Space between the image and the text */
+}
+
+.landing-text {
+  flex: 1; /* Ensures the text takes up the remaining width */
+  color: aliceblue;
+}
+
+.landing-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.spaced-text {
+  margin-top: 10px; /* adjust this value to the amount of space you desire */
+}
+
+/******** End of right column landing page ***************/
