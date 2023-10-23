@@ -11,6 +11,7 @@ import GliftPuzzleDisplay from "./components/GliftPuzzleDisplay";
 import PotentialPuzzles from "./components/PotentialPuzzles";
 import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
 import UserPuzzles from "./components/UserPuzzles";
+import UserPuzzlesDisplay from "./components/UserPuzzlesDisplay";
 import LandingPage from "./components/LandingPage";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 
@@ -88,6 +89,7 @@ function App() {
             path="/potential_puzzles"
             component={PotentialPuzzles}
           />
+          <AuthorizedRoute path="/your_puzzles/:puzzle_id" component={UserPuzzlesDisplay} />
           <AuthorizedRoute path="/your_puzzles" component={UserPuzzles} />
           {/* <AuthorizedRoute path="/learn_and_practice" component={LearnAndPracticeLandingPage} /> */}
         </Switch>

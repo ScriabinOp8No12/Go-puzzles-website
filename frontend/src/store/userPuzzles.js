@@ -30,6 +30,10 @@ export const fetchAllUserPuzzlesThunk = () => async (dispatch) => {
   }
 };
 
+export const fetchUserPuzzleByIdThunk = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/user_puzzles/ `)
+}
+
 
 // ************** REDUCER ********************* //
 
