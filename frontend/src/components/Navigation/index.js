@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
   const isPotentialPuzzlesActive = location.pathname === "/potential_puzzles";
   const isPublicPuzzlesActive = location.pathname === "/public_puzzles";
   const isLearnAndPracticeActive = location.pathname === "/learn_and_practice"
-  const isUserPuzzlesActive = location.pathname === "/user_puzzles"
+  const isUserPuzzlesActive = location.pathname === "/your_puzzles"
 
   return (
     // Return "navbar navbar-expanded" className if showMenu state is true, and defaults to navbar otherwise, this controls CSS styling
