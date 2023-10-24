@@ -42,4 +42,32 @@ router.get("/", requireAuth, async (req, res) => {
   }
 });
 
+// Get a single "userpuzzles" based on puzzle_id
+router.get("/:puzzle_id", requireAuth, async (req, res) => {
+  try {
+    const puzzleId = req.params.puzzle_id;
+    const userId = req.user.id;
+
+    const userPuzzle = await UserPuzzle.findOne({
+      where: { puzzle_id: puzzleId, user_id: userId },
+      include: [ { model: Puzzle } ] // Include associated Puzzle model
+    });
+
+    if (!userPuzzle) {
+      return res.status(404).json({ error: "User puzzle not found or you don't have permission to access this resource" });
+    }
+
+    const formattedUserPuzzle = {
+      ...userPuzzle.get(),
+      createdAt: moment(userPuzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(userPuzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+    };
+
+    return res.status(200).json(formattedUserPuzzle);
+  } catch (error) {
+    console.error("Failed to retrieve user puzzle", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;

@@ -7,10 +7,11 @@ import Navigation from "./components/Navigation";
 import UserSGFs from "./components/UserSGFs";
 import SgfDisplay from "./components/SgfDisplay";
 import PublicPuzzles from "./components/PublicPuzzles";
-import GliftPuzzleDisplay from "./components/GliftPuzzleDisplay";
+import PublicPuzzleDisplay from "./components/PublicPuzzleDisplay";
 import PotentialPuzzles from "./components/PotentialPuzzles";
 import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
 import UserPuzzles from "./components/UserPuzzles";
+import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 
@@ -77,7 +78,7 @@ function App() {
           <AuthorizedRoute path="/sgfs" component={UserSGFs} />
           <AuthorizedRoute
             path="/public_puzzles/:puzzle_id"
-            component={GliftPuzzleDisplay}
+            component={PublicPuzzleDisplay}
           />
           <AuthorizedRoute path="/public_puzzles" component={PublicPuzzles} />
           <AuthorizedRoute
@@ -88,6 +89,7 @@ function App() {
             path="/potential_puzzles"
             component={PotentialPuzzles}
           />
+          <AuthorizedRoute path="/your_puzzles/:puzzle_id" component={UserPuzzleDisplay} />
           <AuthorizedRoute path="/your_puzzles" component={UserPuzzles} />
           {/* <AuthorizedRoute path="/learn_and_practice" component={LearnAndPracticeLandingPage} /> */}
         </Switch>
