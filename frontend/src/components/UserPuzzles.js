@@ -27,7 +27,7 @@ const UserPuzzles = () => {
                 src={userPuzzle.Puzzle.thumbnail}
                 alt={`Puzzle ${userPuzzle.Puzzle.id}`}
                 // Changed get /puzzles endpoint to id: puzzle.id instead of puzzle_id as the column name
-                onClick={() => history.push(`/your_puzzles/${userPuzzle.Puzzle.id}`)}
+                onClick={() => history.push(`/your-puzzles/${userPuzzle.Puzzle.id}`)}
                 style={{ cursor: "pointer" }}
               />
               {/* Fix className? */}

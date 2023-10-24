@@ -87,7 +87,7 @@ const PublicPuzzles = () => {
                 src={puzzle.thumbnail}
                 alt={`Puzzle ${index}`}
                 // Changed get /puzzles endpoint to id: puzzle.id instead of puzzle_id as the column name
-                onClick={() => history.push(`/public_puzzles/${puzzle.id}`)}
+                onClick={() => history.push(`/public-puzzles/${puzzle.id}`)}
                 style={{ cursor: "pointer" }}
               />
               <div className="puzzle-details">

@@ -77,21 +77,21 @@ function App() {
           <AuthorizedRoute path="/sgfs/:sgf_id" component={SgfDisplay} />
           <AuthorizedRoute path="/sgfs" component={UserSGFs} />
           <AuthorizedRoute
-            path="/public_puzzles/:puzzle_id"
+            path="/public-puzzles/:puzzle_id"
             component={PublicPuzzleDisplay}
           />
-          <AuthorizedRoute path="/public_puzzles" component={PublicPuzzles} />
+          <AuthorizedRoute path="/public-puzzles" component={PublicPuzzles} />
           <AuthorizedRoute
-            path="/potential_puzzles/:sgf_id"
+            path="/potential-puzzles/:sgf_id"
             component={PotentialPuzzlesDisplay}
           />
           <AuthorizedRoute
-            path="/potential_puzzles"
+            path="/potential-puzzles"
             component={PotentialPuzzles}
           />
-          <AuthorizedRoute path="/your_puzzles/:puzzle_id" component={UserPuzzleDisplay} />
-          <AuthorizedRoute path="/your_puzzles" component={UserPuzzles} />
-          {/* <AuthorizedRoute path="/learn_and_practice" component={LearnAndPracticeLandingPage} /> */}
+          <AuthorizedRoute path="/your-puzzles/:puzzle_id" component={UserPuzzleDisplay} />
+          <AuthorizedRoute path="/your-puzzles" component={UserPuzzles} />
+          {/* <AuthorizedRoute path="/learn-and-practice" component={LearnAndPracticeLandingPage} /> */}
         </Switch>
       )}
     </>
