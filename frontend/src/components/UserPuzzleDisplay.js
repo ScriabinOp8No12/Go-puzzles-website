@@ -22,8 +22,8 @@ const UserPuzzleDisplay = () => {
   }, [dispatch, puzzle_id]);
 
   useEffect(() => {
-    if (userPuzzle) {
-      const puzzle = userPuzzle.Puzzle; // userPuzzle has a nested Puzzle object, which contains the relevant puzzle data
+    if (userPuzzle && userPuzzle.Puzzle) { // Check that both userPuzzle and its nested Puzzle object are defined
+      const puzzle = userPuzzle.Puzzle; // userPuzzle.Puzzle contains the relevant puzzle data
       const userPuzzleSgf = {
         sgfString: puzzle.sgf_data,
         initialPosition: puzzle.move_number - 1,
