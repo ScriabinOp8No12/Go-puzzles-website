@@ -21,26 +21,22 @@ const UserPuzzles = () => {
     {/* classNames are all "public-puzzle" to keep the same formatting, but should make the classNames consistent so they make sense */}
     <div className="public-puzzle-table">
         {userPuzzles &&
-          userPuzzles.map((userPuzzle, index) => (
+          [...userPuzzles].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map((userPuzzle, index) => (
             <div className="public-puzzle-thumbnail" key={index}>
               <img
                 src={userPuzzle.Puzzle.thumbnail}
                 alt={`Puzzle ${userPuzzle.Puzzle.id}`}
                 // Changed get /puzzles endpoint to id: puzzle.id instead of puzzle_id as the column name
-                onClick={() => history.push(`/your_puzzles/${userPuzzle.Puzzle.id}`)}
+                onClick={() => history.push(`/your-puzzles/${userPuzzle.Puzzle.id}`)}
                 style={{ cursor: "pointer" }}
               />
-              {/* <div className="puzzle-details">
-                  <div className = "puzzle-category">Category: {puzzle.category}</div>
-                  <div className = "puzzle-rank">Rank: {puzzle.difficulty}</div>
-                  <button className="public-puzzles-pencil-icon" onClick={() => openEditModal(puzzle.id)}>✏️</button>
-                  <SuspendPublicPuzzleModal puzzleId={puzzle.id} />
-              </div> */}
+              {/* Fix className? */}
+              <div className="puzzle-details">Created: {new Date(userPuzzle.createdAt).toLocaleString()}
+              </div>
             </div>
           ))}
       </div>
     </div>
-
   )
 }
 

@@ -16,10 +16,10 @@ function Navigation({ isLoaded }) {
   const location = useLocation();
   // Checks if current path is /sgfs
   const isActive = location.pathname === "/sgfs";
-  const isPotentialPuzzlesActive = location.pathname === "/potential_puzzles";
-  const isPublicPuzzlesActive = location.pathname === "/public_puzzles";
-  const isLearnAndPracticeActive = location.pathname === "/learn_and_practice"
-  const isUserPuzzlesActive = location.pathname === "/your_puzzles"
+  const isPotentialPuzzlesActive = location.pathname === "/potential-puzzles";
+  const isPublicPuzzlesActive = location.pathname === "/public-puzzles";
+  const isUserPuzzlesActive = location.pathname === "/your-puzzles"
+  const isLearnAndPracticeActive = location.pathname === "/learn_and-practice"
 
   return (
     // Return "navbar navbar-expanded" className if showMenu state is true, and defaults to navbar otherwise, this controls CSS styling
@@ -42,7 +42,7 @@ function Navigation({ isLoaded }) {
               >
                 {sessionUser && (
                   <NavLink
-                    to="/learn_and_practice"
+                    to="/learn-and-practice"
                     className={`potential-puzzles-button-menu ${showMenu}`}
                   >
                     Learn & Practice
@@ -61,7 +61,7 @@ function Navigation({ isLoaded }) {
               >
                 {sessionUser && (
                   <NavLink
-                    to="/your_puzzles"
+                    to="/your-puzzles"
                     className={`potential-puzzles-button-menu ${showMenu}`}
                   >
                     Your Puzzles
@@ -80,7 +80,7 @@ function Navigation({ isLoaded }) {
               >
                 {sessionUser && (
                   <NavLink
-                    to="/public_puzzles"
+                    to="/public-puzzles"
                     className={`potential-puzzles-button-menu ${showMenu}`}
                   >
                     Public Puzzles
@@ -99,7 +99,7 @@ function Navigation({ isLoaded }) {
               >
                 {sessionUser && (
                   <NavLink
-                    to="/potential_puzzles"
+                    to="/potential-puzzles"
                     className={`potential-puzzles-button-menu ${showMenu}`}
                   >
                     Potential Puzzles

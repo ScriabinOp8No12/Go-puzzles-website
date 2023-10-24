@@ -37,7 +37,7 @@ const PotentialPuzzles = () => {
                 title={`Potential Puzzles ${index + 1}`}
                 // Change the url path to potential_puzzles/sgf.id when we click on the thumbnail
                 onClick={() =>
-                  history.push(`/potential_puzzles/${potentialPuzzle.sgf_id}`)
+                  history.push(`/potential-puzzles/${potentialPuzzle.sgf_id}`)
                 }
                 style={{ cursor: "pointer" }}
               />
