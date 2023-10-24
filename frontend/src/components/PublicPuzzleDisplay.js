@@ -11,7 +11,7 @@ import "./styles/GliftPublicPuzzle.css";
 import "../lib/glift";
 /* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
 
-const GliftPuzzleDisplay = () => {
+const PublicPuzzleDisplay = () => {
   const { puzzle_id } = useParams();
   const dispatch = useDispatch();
   const puzzleData = useSelector((state) => state.puzzles.currentPublicPuzzle);
@@ -150,4 +150,4 @@ const GliftPuzzleDisplay = () => {
   );
 };
 
-export default GliftPuzzleDisplay;
+export default PublicPuzzleDisplay;

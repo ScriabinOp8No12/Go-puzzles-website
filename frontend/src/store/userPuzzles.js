@@ -30,15 +30,20 @@ export const fetchAllUserPuzzlesThunk = () => async (dispatch) => {
   }
 };
 
-export const fetchUserPuzzleByIdThunk = () => async (dispatch) => {
-  const response = await csrfFetch(`/api/user_puzzles/ `)
-}
+export const fetchUserPuzzleByIdThunk = (puzzle_id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/user_puzzles/${puzzle_id}`)
 
+  if (response.ok) {
+    const data = await response.json()
+    dispatch(fetchUserPuzzleById(data))
+  }
+}
 
 // ************** REDUCER ********************* //
 
 const initialState = {
-  userPuzzles: []
+  userPuzzles: [],
+  userPuzzle: null
 };
 
 const userPuzzlesReducer = (state = initialState, action) => {
@@ -47,12 +52,12 @@ const userPuzzlesReducer = (state = initialState, action) => {
     case FETCH_ALL_USER_PUZZLES:
       return {
         ...state,
-        userPuzzles: action.payload, // the postman output is just a regular array with a comma separate series of objects inside it
+        userPuzzles: action.payload,
       };
     case FETCH_USER_PUZZLE_BY_ID:
       return {
         ...state,
-        // currentSgfPotentialPuzzle: action.payload,
+        userPuzzle: action.payload,
       };
     default:
       return state;

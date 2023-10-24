@@ -50,6 +50,7 @@ router.get("/:puzzle_id", requireAuth, async (req, res) => {
 
     const userPuzzle = await UserPuzzle.findOne({
       where: { puzzle_id: puzzleId, user_id: userId },
+      include: [ { model: Puzzle } ] // Include associated Puzzle model
     });
 
     if (!userPuzzle) {
