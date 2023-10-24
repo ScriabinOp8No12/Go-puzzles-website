@@ -3,6 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 1rem;
+  overflow: hidden; /* Hide main container's scrollbar */
 }
 
 .landing-page-1st-container {
@@ -27,8 +28,6 @@
   color: aliceblue;
   font-size: 12px;
 }
-
-
 
 .landing-page-h1 {
   color: aliceblue;
@@ -131,6 +130,8 @@
   padding: 1rem;
   max-height: 75vh;
   overflow-y: auto;
+  height: 100vh;
+  /* height: calc(100vh - 100px); */
 }
 
 .image-text-container {

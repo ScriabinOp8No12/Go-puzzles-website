@@ -13,6 +13,7 @@ import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
 import UserPuzzles from "./components/UserPuzzles";
 import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
+import LearnAndPracticeLandingPage from "./components/LearnAndPractice/LearnAndPracticeLandingPage";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 
 function App() {
@@ -89,9 +90,15 @@ function App() {
             path="/potential-puzzles"
             component={PotentialPuzzles}
           />
-          <AuthorizedRoute path="/your-puzzles/:puzzle_id" component={UserPuzzleDisplay} />
+          <AuthorizedRoute
+            path="/your-puzzles/:puzzle_id"
+            component={UserPuzzleDisplay}
+          />
           <AuthorizedRoute path="/your-puzzles" component={UserPuzzles} />
-          {/* <AuthorizedRoute path="/learn-and-practice" component={LearnAndPracticeLandingPage} /> */}
+          <AuthorizedRoute
+            path="/learn-and-practice"
+            component={LearnAndPracticeLandingPage}
+          />
         </Switch>
       )}
     </>
