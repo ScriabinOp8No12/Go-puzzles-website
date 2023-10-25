@@ -1,0 +1,80 @@
+/********** Container holding everything on the learn and practice pages **********/
+
+.learn-and-practice-container {
+  display: flex;
+  height: calc(100vh - 140px); /* 100vh shows a scroll bar because of the top navbar, so we adjust it to take off 140 pixels */
+}
+
+/* Make all text aliceblue color on the learn and practice container (entire page) */
+.learn-and-practice-container * {
+  color: aliceblue;
+}
+
+/********** End of Container holding everything on the learn and practice pages **********/
+
+/********** Styling for left nav-bar **********/
+
+.left-nav-bar {
+  width: 15%;
+  height: calc(100vh - 140px); /* Subtract extra height to account for padding and the windows horizontal bar at the bottom */
+  overflow-y: auto;
+  padding: 16px;
+  /* border-right: 1px solid #ccc; */
+}
+
+.interactive-tutorial-text {
+  font-size: 20px;
+}
+
+/* h2 text on the left side navbar */
+.left-nav-bar h2 {
+  color: rgb(255, 204, 102);
+  font-size: 20px;
+}
+
+/* Styling the topics in the left navbar */
+.left-nav-bar ul {
+  font-size: 14px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+/********** End of Styling for left nav-bar **********/
+
+/********** Styling for main content (everything outside of the left navbar) **********/
+
+.main-content {
+  width: 83%;
+  height: 100%;
+  padding: 16px;
+  /* overflow-y: hidden; */
+}
+
+.main-content h2 {
+  color: rgb(255, 204, 102);
+  font-size: 26px;
+}
+
+/********** End of Styling for main content **********/
+
+.content-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-section p {
+  font-size: 16px;
+}
+
+.content-text-section {
+  width: 50%;
+}
+
+.content-image-section {
+  width: 50%;
+  text-align: center;
+}
+
+.content-image-section img {
+  max-width: 100%;
+}

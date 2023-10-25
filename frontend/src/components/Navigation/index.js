@@ -15,11 +15,11 @@ function Navigation({ isLoaded }) {
   // Get information about the current URL, can determine which path the user is on
   const location = useLocation();
   // Checks if current path is /sgfs
-  const isActive = location.pathname === "/sgfs";
-  const isPotentialPuzzlesActive = location.pathname === "/potential-puzzles";
-  const isPublicPuzzlesActive = location.pathname === "/public-puzzles";
-  const isUserPuzzlesActive = location.pathname === "/your-puzzles"
-  const isLearnAndPracticeActive = location.pathname === "/learn_and-practice"
+  const isActive = location.pathname.startsWith("/sgfs");
+  const isPotentialPuzzlesActive = location.pathname.startsWith("/potential-puzzles");
+  const isPublicPuzzlesActive = location.pathname.startsWith("/public-puzzles");
+  const isUserPuzzlesActive = location.pathname.startsWith("/your-puzzles");
+  const isLearnAndPracticeActive = location.pathname.startsWith("/learn-and-practice");
 
   return (
     // Return "navbar navbar-expanded" className if showMenu state is true, and defaults to navbar otherwise, this controls CSS styling
@@ -42,7 +42,7 @@ function Navigation({ isLoaded }) {
               >
                 {sessionUser && (
                   <NavLink
-                    to="/learn-and-practice"
+                    to="/learn-and-practice/basic-rules"
                     className={`potential-puzzles-button-menu ${showMenu}`}
                   >
                     Learn & Practice
