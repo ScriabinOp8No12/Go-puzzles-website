@@ -23,7 +23,6 @@ const PotentialPuzzlesDisplay = () => {
   // like when we add stones to the board, or when we use the left and right arrows (chevron-left and chevron-right)
   const gliftInstance = useRef(null);
   // console.log(gliftInstance)
-
   useEffect(() => {
     dispatch(fetchAllPotentialPuzzlesBySgfIdThunk(currentSgfId));
   }, [dispatch, currentSgfId]);
@@ -43,6 +42,7 @@ const PotentialPuzzlesDisplay = () => {
     if (potentialPuzzlesData) {
       const sgfCollection = potentialPuzzlesData.map((puzzle) => ({
         sgfString: puzzle.sgf_data,
+        // initialPosition: '106.0.0.0', ******* THIS AUTO PLAYS THE NEXT MOVE IN THE SGF if we play the sgf move?!?!?!?
         initialPosition: puzzle.move_number - 1,
         problemConditions: { C: ["CORRECT"] },
         widgetType: "STANDARD_PROBLEM",
