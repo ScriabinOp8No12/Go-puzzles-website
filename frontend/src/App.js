@@ -13,8 +13,11 @@ import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
 import UserPuzzles from "./components/UserPuzzles";
 import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
-import LearnAndPracticeLandingPage from "./components/LearnAndPractice/LearnAndPracticeLandingPage";
+import LearnAndPracticeBasicRules from "./components/LearnAndPractice/LearnAndPracticeBasicRules";
 import AuthorizedRoute from "./components/AuthorizedRoute";
+// ***************** TESTING BELOW COMPONENT MANUALLY ******************* //
+import AutoMovesDisplay from "./components/TestAutoMove";
+// ***************** TESTING ABOVE COMPONENT MANUALLY ******************* //
 
 function App() {
   // dispatch is used to send actions to the store and trigger them
@@ -96,9 +99,17 @@ function App() {
           />
           <AuthorizedRoute path="/your-puzzles" component={UserPuzzles} />
           <AuthorizedRoute
-            path="/learn-and-practice"
-            component={LearnAndPracticeLandingPage}
+            path="/learn-and-practice/test"
+            component={AutoMovesDisplay}
           />
+          <AuthorizedRoute
+            path="/learn-and-practice/basic-rules"
+            component={LearnAndPracticeBasicRules}
+          />
+          {/* <AuthorizedRoute
+            path="/learn-and-practice/basic-rules"
+            component={LearnAndPracticeLandingPage}
+          /> */}
         </Switch>
       )}
     </>
