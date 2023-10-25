@@ -15,6 +15,9 @@ import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
 import LearnAndPracticeLandingPage from "./components/LearnAndPractice/LearnAndPracticeLandingPage";
 import AuthorizedRoute from "./components/AuthorizedRoute";
+// ***************** TESTING BELOW COMPONENT MANUALLY ******************* //
+import AutoMovesDisplay from "./components/AutoMoves_Look_At_PotentialPuzzlesDisplay";
+// ***************** TESTING ABOVE COMPONENT MANUALLY ******************* //
 
 function App() {
   // dispatch is used to send actions to the store and trigger them
@@ -95,6 +98,10 @@ function App() {
             component={UserPuzzleDisplay}
           />
           <AuthorizedRoute path="/your-puzzles" component={UserPuzzles} />
+          <AuthorizedRoute
+            path="/learn-and-practice/test"
+            component={AutoMovesDisplay}
+          />
           <AuthorizedRoute
             path="/learn-and-practice"
             component={LearnAndPracticeLandingPage}
