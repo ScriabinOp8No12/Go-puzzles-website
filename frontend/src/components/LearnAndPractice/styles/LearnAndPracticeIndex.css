@@ -2,6 +2,7 @@
 
 .learn-and-practice-container {
   display: flex;
+  position: relative; /* Sets the positioning context for child elements */
   /* height: calc(100vh - 140px); 100vh shows a scroll bar because of the top navbar, so we adjust it to take off 140 pixels */
 }
 
@@ -117,20 +118,29 @@
   max-width: 400px;
 }
 
-.next-page-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #008CBA; /* Blue */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-}
-
 .image-text-wrap {
   position: relative;
+}
+
+.next-page-button {
+  position: absolute;
+  bottom: 50px;
+  right: 30px;
+  background-color: #00ADB5;
+  border: 3px solid black;
+  color: aliceblue;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
+}
+
+.next-page-button:hover {
+  border: 3px solid aliceblue;
 }
