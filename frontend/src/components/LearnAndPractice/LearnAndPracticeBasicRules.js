@@ -1,66 +1,20 @@
 import React from "react";
 import "./styles/LearnAndPracticeIndex.css";
+import { useHistory, useParams } from "react-router-dom";
+import LeftNavBar from "./LeftNavBar";
 
 const LearnAndPracticeBasicRules = () => {
+  const history = useHistory();
+  const { pageNumber } = useParams();
+
+  const navigateToNextPage = () => {
+    const nextPage = parseInt(pageNumber, 10) + 1;
+    history.push(`/learn-and-practice/basic-rules/${nextPage}`);
+  };
+
   return (
     <div className="learn-and-practice-container">
-      {/* Left Sidebar */}
-      <div className="left-nav-bar">
-        <h1 className="interactive-tutorial-text">Interactive Tutorials</h1>
-        <div className="nav-section">
-          <h2>Basic Rules</h2>
-          <ul className="small-spaced-list">
-            <li>Placing stones & surrounding territory</li>
-            <li>Counting liberties and capturing stones</li>
-          </ul>
-        </div>
-        <div className="nav-section">
-          <h2>More Rules and Strategy</h2>
-          <ul className="small-spaced-list">
-            <li>Illegal moves</li>
-            <li>Eyes</li>
-            <li>Seki</li>
-            <li>Ko</li>
-            <li>Game ending condition</li>
-            <li>Strategy</li>
-          </ul>
-        </div>
-        <div className="nav-section">
-          <h2>Basic Rules Puzzles</h2>
-          <ul className="small-spaced-list">
-            <li>Basic Rules Puzzles 1</li>
-            <li>Basic Rules Puzzles 2</li>
-          </ul>
-        </div>
-        <div className="nav-section">
-          <h2>Fundamentals</h2>
-          <ul className="small-spaced-list">
-            <li>Reading</li>
-            <li>Ladders & Nets</li>
-            <li>Cuts</li>
-            <li>Counting</li>
-            <li>Direction of Play</li>
-            <li>Judgment</li>
-            <li>Life & Death</li>
-            <li>Sente & Gote</li>
-          </ul>
-        </div>
-        <div className="nav-section">
-          <h2>Fundamentals Puzzles</h2>
-          <ul className="small-spaced-list">
-            <li>Fundamentals Puzzles 1</li>
-            <li>Fundamentals Puzzles 2</li>
-          </ul>
-        </div>
-        <div className="nav-section">
-          <h2>Resources</h2>
-          <ul className="small-spaced-list">
-            <li>Terminology</li>
-            <li>Sensei's Library</li>
-            <li>Go servers</li>
-          </ul>
-        </div>
-      </div>
+      <LeftNavBar></LeftNavBar>
 
       {/* Main Content */}
       <div className="main-content">
@@ -102,15 +56,38 @@ const LearnAndPracticeBasicRules = () => {
               </li>
             </ul>
           </div>
-
-          {/* Images on the right half */}
+          {/* Image(s) on the right half */}
           <div className="content-image-section">
-            <img src="/learn-and-practice-images/basic-rules-1.png" alt="basic-rules-1" />
-            <p>Text for basic rule 1</p>
-            {/* <img src="/learn-and-practice-images/basic-rules-1.png" alt="basic-rules-1" />
-            <p>Text for basic rule 2</p>
-            <img src="/learn-and-practice-images/basic-rules-1.png" alt="basic-rules-1" />
-            <p>Text for basic rule 3</p> */}
+            <img
+              src="/learn-and-practice-images/basic-rules-1.png"
+              alt="basic-rules-1"
+            />
+            <p>Diagram 1: Black has surrounded 4 points of territory</p>
+          </div>
+        </div>
+        {/* Under the "content-section" where we render 2 more diagrams */}
+        <div className="basic-rules-2-3">
+          {/* For making the text stack vertically with the image above it */}
+          <div className="image-text-wrap">
+            <img
+              src="/learn-and-practice-images/basic-rules-2.png"
+              alt="basic-rules-2"
+            />
+            <p>Diagram 2: Highlighting the 4 points of territory</p>
+          </div>
+          <div className="image-text-wrap">
+            <img
+              src="/learn-and-practice-images/basic-rules-3.png"
+              alt="basic-rules-3"
+            />
+            <p>
+              Diagram 3: How many points are each of the above black groups
+              surrounding? Go to the next page to check your answer! 😄{" "}
+            </p>
+            <button onClick={navigateToNextPage} className="next-page-button">
+  Next Page
+</button>
+
           </div>
         </div>
       </div>

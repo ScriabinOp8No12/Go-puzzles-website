@@ -103,7 +103,7 @@ function App() {
             component={AutoMovesDisplay}
           />
           <AuthorizedRoute
-            path="/learn-and-practice/basic-rules"
+            path="/learn-and-practice/basic-rules/:pageNumber"
             component={LearnAndPracticeBasicRules}
           />
           {/* <AuthorizedRoute

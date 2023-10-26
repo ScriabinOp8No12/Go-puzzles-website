@@ -42,7 +42,7 @@ function Navigation({ isLoaded }) {
               >
                 {sessionUser && (
                   <NavLink
-                    to="/learn-and-practice/basic-rules"
+                    to="/learn-and-practice/basic-rules/1"
                     className={`potential-puzzles-button-menu ${showMenu}`}
                   >
                     Learn & Practice
