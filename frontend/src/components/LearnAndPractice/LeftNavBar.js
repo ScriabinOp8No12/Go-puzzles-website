@@ -23,10 +23,10 @@ const LeftNavBar = () => {
         </ul>
       </div>
       <div className="nav-section">
-        <h2>Basic Rules Puzzles</h2>
+        <h2>Rules & Strategy Puzzles</h2>
         <ul className="small-spaced-list">
-          <li>Basic Rules Puzzles 1</li>
-          <li>Basic Rules Puzzles 2</li>
+          <li>Rules & Strategy Puzzles 1</li>
+          <li>Rules & Strategy Puzzles 2</li>
         </ul>
       </div>
       <div className="nav-section">
