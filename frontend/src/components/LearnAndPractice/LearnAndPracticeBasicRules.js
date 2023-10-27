@@ -38,6 +38,7 @@ const LearnAndPracticeBasicRules = () => {
       {
         pageNumber === '1' ? <BasicRulesPage1 /> :
         pageNumber === '2' ? <BasicRulesPage2 /> :
+        pageNumber === '3' ? <BasicRulesPage2 /> :
         <div>Page not found</div>
       }
       <button onClick={navigateToNextPage} className="next-page-button">
