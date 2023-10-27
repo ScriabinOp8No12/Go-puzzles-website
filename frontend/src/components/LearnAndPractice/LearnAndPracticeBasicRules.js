@@ -4,6 +4,9 @@ import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "./LeftNavBar";
 import BasicRulesPage1 from "./BasicRulesPage1";
 import BasicRulesPage2 from "./BasicRulesPage2";
+import BasicRulesPage3 from "./BasicRulesPage3";
+import BasicRulesPage4 from "./BasicRulesPage4";
+import BasicRulesPage5 from "./BasicRulesPage5";
 
 const LearnAndPracticeBasicRules = () => {
   const history = useHistory();
@@ -38,7 +41,9 @@ const LearnAndPracticeBasicRules = () => {
       {
         pageNumber === '1' ? <BasicRulesPage1 /> :
         pageNumber === '2' ? <BasicRulesPage2 /> :
-        pageNumber === '3' ? <BasicRulesPage2 /> :
+        pageNumber === '3' ? <BasicRulesPage3 /> :
+        pageNumber === '4' ? <BasicRulesPage4 /> :
+        pageNumber === '5' ? <BasicRulesPage5 /> :
         <div>Page not found</div>
       }
       <button onClick={navigateToNextPage} className="next-page-button">

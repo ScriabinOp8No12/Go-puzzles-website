@@ -102,6 +102,8 @@
 
 /********** End of Styling for content section **********/
 
+/********** Styling diagrams, text for diagrams, and next page button **********/
+
 .diagram-container {
   display: flex;
 }
@@ -145,7 +147,19 @@
   border: 3px solid aliceblue;
 }
 
+/********** End of Styling diagrams, text for diagrams, and next page button **********/
+
 .takeaway {
   color: rgb(255, 204, 102);
   font-weight: bold;
+}
+
+/************** Styling tutorial puzzle pages (centering everything, vertical layout) *************/
+
+.tutorial-puzzle-page {
+  margin: 0 auto; /* Center text in container */
+}
+
+.tutorial-puzzle-page h2 {
+  color: rgb(255, 204, 102);
 }
