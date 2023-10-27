@@ -102,11 +102,11 @@
 
 /********** End of Styling for content section **********/
 
-.basic-rules-2-3 {
+.diagram-container {
   display: flex;
 }
 
-.basic-rules-2-3 img {
+.diagram-container img {
   width: 400px;
   height: 400px;
 }
@@ -143,4 +143,9 @@
 
 .next-page-button:hover {
   border: 3px solid aliceblue;
+}
+
+.takeaway {
+  color: rgb(255, 204, 102);
+  font-weight: bold;
 }

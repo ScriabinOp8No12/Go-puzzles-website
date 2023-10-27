@@ -51,7 +51,7 @@ const BasicRulesPage1 = () => {
           </div>
         </div>
         {/* Under the "content-section" where we render 2 more diagrams */}
-        <div className="basic-rules-2-3">
+        <div className="diagram-container">
           {/* For making the text stack vertically with the image above it */}
           <div className="image-text-wrap">
             <img
