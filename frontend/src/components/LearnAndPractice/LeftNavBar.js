@@ -9,6 +9,7 @@ const LeftNavBar = () => {
         <ul className="small-spaced-list">
           <li>Placing stones & surrounding territory</li>
           <li>Counting liberties and capturing stones</li>
+          <li>Terminology</li>
         </ul>
       </div>
       <div className="nav-section">
@@ -52,7 +53,6 @@ const LeftNavBar = () => {
       <div className="nav-section">
         <h2>Resources</h2>
         <ul className="small-spaced-list">
-          <li>Terminology</li>
           <li>Sensei's Library</li>
           <li>Go servers</li>
         </ul>
