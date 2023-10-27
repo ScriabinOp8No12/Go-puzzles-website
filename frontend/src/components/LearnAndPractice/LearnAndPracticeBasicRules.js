@@ -17,7 +17,12 @@ const LearnAndPracticeBasicRules = () => {
   useEffect(() => {
     // When location changes, scroll to the top of the page
     const unlisten = history.listen(() => {
-      setTimeout(() => window.scrollTo(0, 0), 0);
+
+      setTimeout(() => {
+        if (window.scrollY > 0) {
+          window.scrollTo(0, 0);
+        }
+      }, 0);
     });
 
     return () => {
