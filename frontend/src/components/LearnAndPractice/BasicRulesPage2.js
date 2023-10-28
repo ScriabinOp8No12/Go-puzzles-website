@@ -14,11 +14,8 @@ const BasicRulesPage2 = () => {
             8 stones to surround 4 points with group A.
           </p>
 
-          <p className="takeaway">Takeaway:</p>
-
           <p>
-            We want to surround the corners first, then move to the sides, then
-            finally the center because that is the most efficient way to surround territory.
+          <span className="takeaway">Takeaway:</span> We want to surround the corners first, then the sides, then the center.
           </p>
 
           <p>

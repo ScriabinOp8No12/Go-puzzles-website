@@ -1,6 +1,7 @@
 /********** Container holding everything on the learn and practice pages **********/
 
 .learn-and-practice-container {
+  height: calc(100vh - 115px);
   display: flex;
   position: relative; /* Sets the positioning context for child elements */
   /* height: calc(100vh - 140px); 100vh shows a scroll bar because of the top navbar, so we adjust it to take off 140 pixels */
@@ -17,7 +18,6 @@
 
 .left-nav-bar {
   width: 210px;
-  /* height: 100%; */
   /* height: calc(100vh - 140px); /* Subtract extra height to account for padding and the windows horizontal bar at the bottom */
   overflow-y: auto;
   padding: 12px 16px 0px 16px;
@@ -58,7 +58,7 @@
 
 .main-content {
   width: 75%;
-  height: 100%;
+  height: calc(100vh - 115px);
   padding: 0px 50px 15px 50px; /* top right bottom left */
 }
 
@@ -125,7 +125,7 @@
 }
 
 .next-page-button {
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   right: 30px;
   background-color: #00ADB5;
