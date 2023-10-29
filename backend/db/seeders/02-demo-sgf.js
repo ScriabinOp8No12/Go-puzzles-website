@@ -32,6 +32,7 @@ module.exports = {
           game_date: "2023-08-30 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
+          suspended: false,
           result: "B+R",
         },
         // Game 2 Shin Jinseo
@@ -54,6 +55,7 @@ module.exports = {
           game_date: "2023-08-23 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886733/Seeder%20Data/Shin-Jinseo2_thumbnail_jebjvy.png",
+          suspended: false,
           result: "W+R",
         },
         // Game 3 Shin Jinseo
@@ -76,6 +78,7 @@ module.exports = {
           game_date: "2023-08-21 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886995/Seeder%20Data/Shin-Jinseo3_thumbnail_sykatb.png",
+          suspended: false,
           result: "W+R",
         },
         // Game 4 Shin Jinseo
@@ -97,6 +100,7 @@ module.exports = {
           game_date: "2023-08-06 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955474/Seeder%20Data/Shin-Jinseo4_thumbnail_xdtivw.png",
+          suspended: false,
           result: "W+R",
         },
         // Game 5 Shin Jinseo
@@ -119,6 +123,7 @@ module.exports = {
           game_date: "2023-08-04 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955660/Seeder%20Data/Shin-Jinseo5_thumbnail_grp4np.png",
+          suspended: false,
           result: "W+R",
         },
         // Game 6 Shin Jinseo
@@ -141,6 +146,7 @@ module.exports = {
           game_date: "2023-08-04 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955875/Seeder%20Data/Shin-Jinseo6_thumbnail_zrejkg.png",
+          suspended: false,
           result: "B+3.5",
         },
         // Game 7 Shin Jinseo
@@ -163,6 +169,7 @@ module.exports = {
           game_date: "2023-07-28 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956063/Seeder%20Data/Shin-Jinseo7_thumbnail_acfagz.png",
+          suspended: false,
           result: "W+R",
         },
         // Game 8 Shin Jinseo
@@ -185,6 +192,7 @@ module.exports = {
           game_date: "2023-07-27 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956181/Seeder%20Data/Shin-Jinseo8_thumbnail_cvdvme.png",
+          suspended: false,
           result: "B+R",
         },
         // Game 9 Shin Jinseo
@@ -207,6 +215,7 @@ module.exports = {
           game_date: "2023-07-26 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
+          suspended: false,
           result: "B+R",
         },
         // Game 10 Shin Jinseo
@@ -229,6 +238,7 @@ module.exports = {
           game_date: "2023-07-26 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
+          suspended: false,
           result: "W+R",
         },
         {
@@ -243,6 +253,7 @@ module.exports = {
           game_date: "2023-01-06 00:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/13by13test1_thumbnail_z9haxr.png",
+          suspended: false,
           result: "Black + 5.5",
         },
         // Demo user id 3 (our demo login user) sgf id of 12?
@@ -266,6 +277,7 @@ module.exports = {
           game_date: "2023-08-23 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886733/Seeder%20Data/Shin-Jinseo2_thumbnail_jebjvy.png",
+          suspended: false,
           result: "W+R",
         },
         // Include sgfs of smaller boards too for testing
@@ -282,6 +294,7 @@ module.exports = {
           game_date: "2023-09-05 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028715/vqnappgjnx5oljz2nddb.png",
+          suspended: false,
           result: "Black + 2.5",
         },
         // Game 3
@@ -304,6 +317,7 @@ module.exports = {
           game_date: "2023-07-26 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
+          suspended: false,
           result: "B+R",
         },
         // Game 4 9by9
@@ -319,6 +333,7 @@ module.exports = {
           game_date: "2023-09-03 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028141/b7q8a1csj5wycsfd4zp1.png",
+          suspended: false,
           result: "Black + 16.5",
         },
         // Game 5
@@ -341,6 +356,7 @@ module.exports = {
           game_date: "2023-07-26 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
+          suspended: false,
           result: "W+R",
         },
         // Game 6
@@ -363,6 +379,7 @@ module.exports = {
           game_date: "2023-07-28 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956063/Seeder%20Data/Shin-Jinseo7_thumbnail_acfagz.png",
+          suspended: false,
           result: "W+R",
         },
 
@@ -386,6 +403,7 @@ module.exports = {
           game_date: "2023-08-21 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886995/Seeder%20Data/Shin-Jinseo3_thumbnail_sykatb.png",
+          suspended: false,
           result: "W+R",
         },
 
@@ -402,6 +420,7 @@ module.exports = {
           game_date: "2023-09-02 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029192/qerzwfuss56al6d1y3tn.png",
+          suspended: false,
           result: "Black + 0.5",
         },
         // Game 9
@@ -417,6 +436,7 @@ module.exports = {
           game_date: "2023-09-01 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029329/iiybzoialwlvgtrdvpie.png",
+          suspended: false,
           result: "B+R",
         },
         // Game 10
@@ -432,6 +452,7 @@ module.exports = {
           game_date: "2023-09-06 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029477/v6fhjbggnwyxsizbbeio.png",
+          suspended: false,
           result: "B+R",
         },
         // Game 11 (DON'T CHANGE)
@@ -454,12 +475,14 @@ module.exports = {
           game_date: "2023-08-30 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
+          suspended: false,
           result: "B+R",
         },
         // Arthur 67 move Fox game (sgf_id 23)
         {
           user_id: 3,
-          sgf_data: "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[7.50]TM[300] GN[]PW[青瓦楼阁]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3ㅤ​]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30] ;B[qd] ;W[dp] ;B[pq] ;W[dd] ;B[cc] ;W[dc] ;B[cd] ;W[ce] ;B[be] ;W[bf] ;B[cf] ;W[de] ;B[bg] ;W[bd] ;B[af] ;W[bc] ;B[nc] ;W[qo] ;B[ql] ;W[op] ;B[oq] ;W[np] ;B[mr] ;W[lq] ;B[mq] ;W[mp] ;B[lp] ;W[kq] ;B[lo] ;W[rq] ;B[qr]C[Move 31: B R2 Score: W+3.9 Win rate: W 71.1% Estimated point loss: 4.3 Predicted top move was S2 (B+0.5). PV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6 Move was #96 according to policy (0.00%). Top policy move was K4 (40.0%). ㅤ​] ;W[rr] ;B[lr] ;W[kr] ;B[nq]C[Move 35: B O3 Score: W+8.9 Win rate: W 87.0% Estimated point loss: 4.4 Predicted top move was J4 (W+4.2). PV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4 Move was #33 according to policy (0.03%). Top policy move was J4 (29.8%). ㅤ​] ;W[on] ;B[jp] ;W[iq] ;B[ip] ;W[hq] ;B[go] ;W[fp] ;B[ol] ;W[nm] ;B[mk] ;W[rd] ;B[re] ;W[qc] ;B[rc] ;W[pd] ;B[qe] ;W[rb] ;B[sd] ;W[pe] ;B[pc] ;W[oc] ;B[qb] ;W[nd] ;B[ob] ;W[od]C[Move 60: W P16 Score: W+5.4 Win rate: W 78.3% Estimated point loss: 4.8 Predicted top move was M7 (W+10.4). PV: WM7 K7 L8 K8 L9 K9 L10 N12 Move was #134 according to policy (0.01%). Top policy move was M7 (32.0%). ㅤ​] ;B[mc] ;W[md] ;B[ld] ;W[le] ;B[ke] ;W[kf]C[Move 66: W L14 Score: W+0.5 Win rate: W 55.3% Estimated point loss: 5.4 Predicted top move was M14 (W+6.0). PV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9 Move was #3 according to policy (1.72%). Top policy move was M14 (75.8%). ㅤ​] ;B[kd]) ",
+          sgf_data:
+            "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[7.50]TM[300] GN[]PW[青瓦楼阁]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3ㅤ​]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30] ;B[qd] ;W[dp] ;B[pq] ;W[dd] ;B[cc] ;W[dc] ;B[cd] ;W[ce] ;B[be] ;W[bf] ;B[cf] ;W[de] ;B[bg] ;W[bd] ;B[af] ;W[bc] ;B[nc] ;W[qo] ;B[ql] ;W[op] ;B[oq] ;W[np] ;B[mr] ;W[lq] ;B[mq] ;W[mp] ;B[lp] ;W[kq] ;B[lo] ;W[rq] ;B[qr]C[Move 31: B R2 Score: W+3.9 Win rate: W 71.1% Estimated point loss: 4.3 Predicted top move was S2 (B+0.5). PV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6 Move was #96 according to policy (0.00%). Top policy move was K4 (40.0%). ㅤ​] ;W[rr] ;B[lr] ;W[kr] ;B[nq]C[Move 35: B O3 Score: W+8.9 Win rate: W 87.0% Estimated point loss: 4.4 Predicted top move was J4 (W+4.2). PV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4 Move was #33 according to policy (0.03%). Top policy move was J4 (29.8%). ㅤ​] ;W[on] ;B[jp] ;W[iq] ;B[ip] ;W[hq] ;B[go] ;W[fp] ;B[ol] ;W[nm] ;B[mk] ;W[rd] ;B[re] ;W[qc] ;B[rc] ;W[pd] ;B[qe] ;W[rb] ;B[sd] ;W[pe] ;B[pc] ;W[oc] ;B[qb] ;W[nd] ;B[ob] ;W[od]C[Move 60: W P16 Score: W+5.4 Win rate: W 78.3% Estimated point loss: 4.8 Predicted top move was M7 (W+10.4). PV: WM7 K7 L8 K8 L9 K9 L10 N12 Move was #134 according to policy (0.01%). Top policy move was M7 (32.0%). ㅤ​] ;B[mc] ;W[md] ;B[ld] ;W[le] ;B[ke] ;W[kf]C[Move 66: W L14 Score: W+0.5 Win rate: W 55.3% Estimated point loss: 5.4 Predicted top move was M14 (W+6.0). PV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9 Move was #3 according to policy (1.72%). Top policy move was M14 (75.8%). ㅤ​] ;B[kd]) ",
           sgf_name: "Arthur Fox seeder game",
           black_player: "anning97",
           white_player: "fox opponent",
@@ -469,6 +492,7 @@ module.exports = {
           game_date: "2023-08-30 15:00:00.000",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1697658286/pznbdvcfgyn7m9vopejc.png",
+          suspended: false,
           result: "B+R",
         },
       ],

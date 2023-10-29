@@ -119,6 +119,11 @@ module.exports = (sequelize, DataTypes) => {
           isUrl: true,
         },
       },
+      suspended: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
     },
     {
       sequelize,

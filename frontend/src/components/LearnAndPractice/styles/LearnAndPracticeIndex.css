@@ -158,6 +158,7 @@
 
 .tutorial-puzzle-page {
   margin: 0 auto; /* Center text in container */
+  width: 50%;
 }
 
 .tutorial-puzzle-page h2 {
