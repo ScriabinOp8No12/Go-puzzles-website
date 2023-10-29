@@ -5,7 +5,7 @@ const { python } = require("pythonia");
 const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
-const { User, Sgf, Puzzle, PotentialPuzzle} = require("../../db/models");
+const { User, Sgf, Puzzle, PotentialPuzzle } = require("../../db/models");
 
 // Bull for queueing / asynchronous katago analysis engine endpoint
 // const Bull = require("bull")
@@ -30,7 +30,9 @@ const router = express.Router();
 // Get all SGFs of the current user
 router.get("/", requireAuth, async (req, res) => {
   const sgfs = await Sgf.findAll({
-    where: { user_id: req.user.id },
+    // Only show the user the sgf if the suspended column is set to false,
+    // this allows us to soft delete the SGF, instead of causing issues where the associated puzzles / other tables get null validation errors
+    where: { user_id: req.user.id, suspended: false },
     attributes: [
       "id",
       "user_id",
@@ -50,7 +52,9 @@ router.get("/", requireAuth, async (req, res) => {
     ],
   });
 
-  const numberOfSGFs = await Sgf.count({ where: { user_id: req.user.id } });
+  const numberOfSGFs = await Sgf.count({
+    where: { user_id: req.user.id, suspended: false },
+  });
 
   const formattedSGFs = {
     SGFs: sgfs.map((sgf) => ({
@@ -389,29 +393,31 @@ router.put("/:sgf_id", requireAuth, async (req, res) => {
   }
 });
 
-// Delete an SGF (do NOT delete the puzzles with it)
+// Suspend an SGF (do NOT delete the puzzles associated with it)
 router.delete("/:sgf_id", requireAuth, async (req, res) => {
   try {
     // Find the SGF record based on the provided sgf_id
-    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
+    const sgf = await Sgf.findOne({ where: { id: req.params.sgf_id } });
 
-    // If the SGF doesn't exist, return a 404 error
-    if (!sgfRecord) {
+    if (!sgf) {
       return res.status(404).json({ message: "SGF couldn't be found" });
     }
 
-    // Check for authorization
-    if (sgfRecord.user_id !== req.user.id) {
+    // Only allow the user that owns the sgf the ability to suspend it
+    if (sgf.user_id !== req.user.id) {
       return res.status(403).json({ message: "Not authorized!" });
     }
 
-    await Puzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
-    await PotentialPuzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
-    // Delete the SGF record
-    await sgfRecord.destroy();
+    sgf.suspended = true;
+    await sgf.save();
+
+    // await Puzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
+    // await PotentialPuzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
+    // // Delete the SGF record
+    // await sgf.destroy();
 
     // Return a success response
-    return res.status(200).json({ message: "Successfully deleted SGF" });
+    return res.status(200).json({ message: "Successfully suspended SGF" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });
@@ -420,7 +426,6 @@ router.delete("/:sgf_id", requireAuth, async (req, res) => {
 
 // Create one line json to feed into KataGo AI analysis engine (from SGF specified by SGF id)
 router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
-
   try {
     // Check authorization and find the record
     const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
@@ -431,7 +436,7 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
-    const {sgf_data} = req.body
+    const { sgf_data } = req.body;
 
     // Pass sgf_data into the sgf2OneLineJson_all_moves.py script
     const one_line_json = await python(
@@ -445,16 +450,17 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
       )
     );
 
-    const one_line_json_string = await one_line_json.sgf_to_one_line_json(sgf_data)
+    const one_line_json_string = await one_line_json.sgf_to_one_line_json(
+      sgf_data
+    );
 
-    return res.status(200).json(JSON.parse(one_line_json_string))
-
+    return res.status(200).json(JSON.parse(one_line_json_string));
   } catch (err) {
-    console.error(err)
+    console.error(err);
     res.status(500).json({
-      error: "Could not convert SGF into one line JSON"
-    })
+      error: "Could not convert SGF into one line JSON",
+    });
   }
-})
+});
 
-module.exports = router
+module.exports = router;

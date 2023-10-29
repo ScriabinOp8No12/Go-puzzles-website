@@ -385,7 +385,7 @@ router.put("/:puzzle_id", requireAuth, async (req, res) => {
   }
 });
 
-// Delete a public puzzle (suspend it later)
+// Suspend a public puzzle
 
 router.delete("/:puzzle_id", requireAuth, async (req, res) => {
   try {
