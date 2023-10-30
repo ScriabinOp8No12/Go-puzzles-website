@@ -164,3 +164,10 @@
 .tutorial-puzzle-page h2 {
   color: rgb(255, 204, 102);
 }
+
+.tutorial-puzzle-page img {
+  height: 100%;
+  max-width: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
