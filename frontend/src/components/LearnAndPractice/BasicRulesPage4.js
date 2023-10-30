@@ -8,15 +8,14 @@ const BasicRulesPage4 = () => {
 
 
   return (
-    <div className="main-content">
-      <h2>Basic Rules: Counting Liberties and Capturing Stones</h2>
-      <p>A liberty is any straight line coming off of the stone(s)</p>
-      <p>To capture a stone, you must take away all of the stone(s) liberties</p>
-      <p>See the diagrams to see how we capture stones</p>
+    <div className="tutorial-puzzle-page">
+      <h2>Basic Rules: Placing Stones & Surrounding Territory 4</h2>
+      <p>If you said that it's a tie, great job! Both players have 29 points</p>
+      <img
+        src="/learn-and-practice-images/basic-rules-6.png"
+        alt="basic-rules-6"
+      />
 
-      <div className="glift-wrapper">
-      <div id="gliftContainer"></div>
-      </div>
     </div>
   );
 };

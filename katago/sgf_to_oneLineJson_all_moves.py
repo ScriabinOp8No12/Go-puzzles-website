@@ -19,11 +19,13 @@ def sgf_to_one_line_json(sgf_data):
         print("Invalid SGF, size of board unknown!")
 
     komi = root_node.get('KM') if root_node.has_property('KM') else 6.5
-    # Since rules are required to feed into KataGo, we will default it to japanese if we can't find the rule property in the sgf
-    rules = root_node.get('RU').lower(
-    ) if root_node.has_property('RU') else "japanese"
+
+    # Since rules are required to feed into KataGo, we will default it to japanese if we can't find a valid rule property in the sgf
+    valid_rules = ["tromp-taylor", "chinese", "chinese-ogs", "chinese-kgs", "japanese", "korean", "stone-scoring", "aga", "bga", "new-zealand", "aga-button"]
+    rules = root_node.get('RU').lower() if (root_node.has_property('RU') and root_node.get('RU').lower() in valid_rules) else "japanese"
+
     # Need to make sure that if there's no AB or AW property (like in an even game) that there's no error
-    # *** This must be converting the stones into integer coordinates instead of using sgf letter coordinates
+    # *** This is converting the stones into integer coordinates instead of using sgf letter coordinates
     black_stones = root_node.get(
         'AB') if root_node.has_property('AB') else None
     white_stones = root_node.get(
