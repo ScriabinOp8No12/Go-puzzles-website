@@ -12,6 +12,31 @@ button {
   border-radius: 15px;
   color: aliceblue;
   cursor: pointer;
+
+}
+
+.updateButton {
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
+}
+
+.deleteButton {
+  text-shadow:
+  -.5px -.5px 0 #000,
+  .5px -.5px 0 #000,
+  -.5px .5px 0 #000,
+  .5px .5px 0 #000;
+}
+
+.cancelButton {
+  text-shadow:
+  -.5px -.5px 0 #000,
+  .5px -.5px 0 #000,
+  -.5px .5px 0 #000,
+  .5px .5px 0 #000;
 }
 
 /* Exclude the profile button to have a black background color and text color of white */
