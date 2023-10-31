@@ -1,21 +1,34 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 const LeftNavBar = () => {
-
-  const history = useHistory()
+  const history = useHistory();
+  const location = useLocation();
 
   const navigateToBasicRules1 = () => {
-    history.push('/learn-and-practice/basic-rules/1')
-  }
+    history.push("/learn-and-practice/basic-rules/1");
+  };
 
   const navigateToBasicRules6 = () => {
-    history.push('/learn-and-practice/basic-rules/6')
-  }
+    history.push("/learn-and-practice/basic-rules/6");
+  };
 
   const navigateToBasicRules7 = () => {
-    history.push('/learn-and-practice/basic-rules/7')
-  }
+    history.push("/learn-and-practice/basic-rules/7");
+  };
+
+  // Determines if the current URL contains any of the specified path segments.
+  // Accepts either a single string or an array of strings.
+  // Returns true if a match is found, otherwise returns false.
+
+  const isActive = (paths) => {
+    if (Array.isArray(paths)) {
+      return paths.some((path) => location.pathname.includes(path));
+    } else if (typeof paths === "string") {
+      return location.pathname.includes(paths);
+    }
+    return false;
+  };
 
   return (
     <div className="left-nav-bar">
@@ -23,9 +36,24 @@ const LeftNavBar = () => {
       <div className="nav-section">
         <h2>Basic Rules</h2>
         <ul className="small-spaced-list">
-          <li onClick={navigateToBasicRules1}>Placing stones & surrounding territory</li>
-          <li onClick={navigateToBasicRules6}>Counting liberties and capturing stones</li>
-          <li onClick={navigateToBasicRules7}>Capturing Puzzles</li>
+          <li
+            onClick={navigateToBasicRules1}
+            className={isActive(["/1", "/2", "/3", "/4", "/5"]) ? "active" : ""}
+          >
+            Placing stones & surrounding territory
+          </li>
+          <li
+            onClick={navigateToBasicRules6}
+            className={isActive("/6") ? "active" : ""}
+          >
+            Counting liberties and capturing stones
+          </li>
+          <li
+            onClick={navigateToBasicRules7}
+            className={isActive("/7") ? "active" : ""}
+          >
+            Capturing Puzzles
+          </li>
           <li>Basic Rules Quiz</li>
           <li>Terminology</li>
         </ul>
