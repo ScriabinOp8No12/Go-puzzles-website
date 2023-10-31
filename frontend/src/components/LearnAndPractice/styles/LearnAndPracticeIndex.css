@@ -171,3 +171,21 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+/********* Toggle show answer text ****************/
+
+.toggle-text {
+  cursor: pointer;
+  border: 1px solid #000;
+  display: inline-block;
+  padding: 2px 8px;
+  margin-top: 8px;
+  border: 3px solid aliceblue;
+  border-radius: 15px;
+}
+
+.toggle-text:hover {
+  background-color: rgb(255, 204, 102);
+}
+
+/********* End of Toggle show answer text ****************/

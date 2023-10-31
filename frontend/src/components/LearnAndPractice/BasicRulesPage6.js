@@ -1,21 +1,68 @@
-import React, { useEffect, useRef} from "react";
-
-import "../../lib/glift";
-
-/* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
+import React, { useState } from "react";
 
 const BasicRulesPage6 = () => {
-
+  // State for show answer clickable buttons
+  const [showAnswer1, setShowAnswer1] = useState(false);
+  const [showAnswer2, setShowAnswer2] = useState(false);
 
   return (
     <div className="main-content">
       <h2>Basic Rules: Counting Liberties and Capturing Stones</h2>
-      <p>A liberty is any straight line coming off of the stone(s)</p>
-      <p>To capture a stone, you must take away all of the stone(s) liberties</p>
-      <p>See the diagrams to see how we capture stones</p>
+      <div className="content-section">
+        {/* Text section on the left half, images / diagrams on the right half */}
+        <div className="content-text-section">
+          <p>
+            Now that you know how to place stones and how to surround territory,
+            we will explore one of the most interesting parts of this game,
+            capturing stones! But first we need to learn how to capture stones.
+          </p>
+          <li>
+            A <span className="important-text">liberty</span> is any{" "}
+            <span className="important-text">straight line</span> coming off of
+            the stone or stones
+          </li>
+          <li>
+            To <span className="important-text">capture</span> a stone, you must
+            take away <span className="important-text">all</span> of the
+            liberties
+          </li>
+          <li>
+            Captured stones, also known as{" "}
+            <span className="important-text">prisoners</span> or captures (less
+            common term) are <span className="important-text">removed</span>{" "}
+            from the board{" "}
+          </li>
+          <li>
+            During the counting/scoring phase of the game, prisoners are placed
+            into your <span className="important-text">opponent's territory</span> (counts against their total territory)
+          </li>
+          <p>How many liberties does the stone in the diagram have?</p>
+          {/* Add answer-container wrapper div so that we give the p tags space.  It won't shift the elements above it as a result */}
+      <div className="answer-container">
+        {showAnswer1 && <p>The single black stone has 4 liberties (4 straight lines coming off of it).</p>}
+      </div>
+      <p className="toggle-text" onClick={() => setShowAnswer1(!showAnswer1)}>
+        {showAnswer1 ? 'Hide answer' : 'Show answer'}
+      </p>
 
-      <div className="glift-wrapper">
-      <div id="gliftContainer"></div>
+      <p>How many moves in a row would it take to capture the stone in the diagram?</p>
+      <div className="answer-container">
+        {showAnswer2 && <p>To capture a stone, we must take away all of the stone's liberties. Since the stone has 4 liberties, we need to play 4 times to capture it.</p>}
+      </div>
+      <p className="toggle-text" onClick={() => setShowAnswer2(!showAnswer2)}>
+        {showAnswer2 ? 'Hide answer' : 'Show answer'}
+      </p>
+
+        </div>
+        {/* Image(s) on the right half */}
+        <div className="diagram-container">
+          <div className="image-text-wrap">
+          <img
+            src="/learn-and-practice-images/basic-rules-8.png"
+            alt="basic-rules-8"
+          />
+        </div>
+        </div>
       </div>
     </div>
   );

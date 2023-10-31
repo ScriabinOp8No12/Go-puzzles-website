@@ -1,8 +1,4 @@
-import React, { useEffect, useRef} from "react";
-
-import "../../lib/glift";
-
-/* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
+import React from "react";
 
 const BasicRulesPage4 = () => {
 
