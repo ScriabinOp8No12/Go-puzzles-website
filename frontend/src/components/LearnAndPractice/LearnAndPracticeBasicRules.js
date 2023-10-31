@@ -8,6 +8,7 @@ import BasicRulesPage3 from "./BasicRulesPage3";
 import BasicRulesPage4 from "./BasicRulesPage4";
 import BasicRulesPage5 from "./BasicRulesPage5";
 import BasicRulesPage6 from "./BasicRulesPage6";
+import BasicRulesPage7 from "./BasicRulesPage7";
 
 const LearnAndPracticeBasicRules = () => {
   const history = useHistory();
@@ -46,6 +47,7 @@ const LearnAndPracticeBasicRules = () => {
         pageNumber === '4' ? <BasicRulesPage4 /> :
         pageNumber === '5' ? <BasicRulesPage5 /> :
         pageNumber === '6' ? <BasicRulesPage6 /> :
+        pageNumber === '7' ? <BasicRulesPage7 /> :
         <div>Page not found</div>
       }
       <button onClick={navigateToNextPage} className="next-page-button">

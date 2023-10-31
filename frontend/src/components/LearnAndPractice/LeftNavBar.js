@@ -1,14 +1,23 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 const LeftNavBar = () => {
+
+  const history = useHistory()
+
+  const navigateToBasicRules1 = () => {
+    history.push('/learn-and-practice/basic-rules/1')
+  }
+
   return (
     <div className="left-nav-bar">
       <h1 className="interactive-tutorial-text">Interactive Tutorials</h1>
       <div className="nav-section">
         <h2>Basic Rules</h2>
         <ul className="small-spaced-list">
-          <li>Placing stones & surrounding territory</li>
+          <li onClick={navigateToBasicRules1}>Placing stones & surrounding territory</li>
           <li>Counting liberties and capturing stones</li>
+          <li>Basic Rules Quiz</li>
           <li>Terminology</li>
         </ul>
       </div>

@@ -1,79 +1,68 @@
-import React, { useEffect, useRef} from "react";
-
-import "../../lib/glift";
-
-/* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
+import React, { useState } from "react";
 
 const BasicRulesPage6 = () => {
-
-  const gliftInstance = useRef(null);
-
-  useEffect(() => {
-    // if (potentialPuzzlesData) {
-      const sgfCollection = [{
-        sgfString: "(;GM[1]FF[4]CA[UTF-8]AP[Glift]ST[2]\n" +
-        "RU[Japanese]SZ[19]KM[0.00]\n" +
-        "C[Black to play. There aren't many options " +
-        "to choose from, but you might be surprised at the answer!]" +
-        "PW[White]PB[Black]AW[pa][qa][nb][ob][qb][oc][pc][md][pd][ne][oe]\n" +
-        "AB[na][ra][mb][rb][lc][qc][ld][od][qd][le][pe][qe][mf][nf][of][pg]\n" +
-        "(;B[mc]\n" +
-          ";W[nc]C[White lives.])\n" +
-        "(;B[ma]\n" +
-          "(;W[oa]\n" +
-            ";B[nc]\n" +
-            ";W[nd]\n" +
-            ";B[mc]C[White dies.]GB[1])\n" +
-          "(;W[mc]\n" +
-            "(;B[oa]\n" +
-            ";W[nd]\n" +
-            ";B[pb]C[White lives])\n" +
-            "(;B[nd]\n" +
-              ";W[nc]\n" +
-              ";B[oa]C[White dies.]GB[1]))\n" +
-          "(;W[nd]\n" +
-            ";B[mc]\n" +
-            ";W[oa]\n" +
-            ";B[nc]C[White dies.]GB[1]))\n" +
-        "(;B[nc]\n" +
-          ";W[mc]C[White lives])\n" +
-        "(;B[]C[A default consideration]\n" +
-          ";W[mc]C[White lives easily]))",
-        // initialPosition: '', // ******* THIS AUTO PLAYS THE NEXT MOVE IN THE SGF if we play the sgf move?!?!?!?
-        // // initialPosition: puzzle.move_number - 1,
-        problemConditions: { GB: [] },
-        widgetType: "STANDARD_PROBLEM",
-      }];
-
-      const instance = glift.create({
-        sgfCollection,
-        divId: "gliftContainer",
-        display: {
-          drawBoardCoords: true,
-          disableZoomForMobile: true,
-        },
-      });
-
-      gliftInstance.current = instance;
-
-      return () => {
-        instance.destroy();
-        // Restore Glift's default behavior upon unmounting
-        // glift.api.iconActionDefaults["chevron-right"].click = defaultNextSgf;
-        // glift.api.iconActionDefaults["chevron-left"].click = defaultPrevSgf;
-      };
-    // }
-  }, []);
+  // State for show answer clickable buttons
+  const [showAnswer1, setShowAnswer1] = useState(false);
+  const [showAnswer2, setShowAnswer2] = useState(false);
 
   return (
-    <div className="tutorial-puzzle-page">
-      <h2>Basic Rules: Capturing Stones</h2>
-      <p>To capture a stone, you must take away all of the stone(s) liberties</p>
-      <p>A liberty is any straight line coming off of the stone(s)</p>
-      <p>How would we capture the following stone?</p>
+    <div className="main-content">
+      <h2>Basic Rules: Counting Liberties and Capturing Stones</h2>
+      <div className="content-section">
+        {/* Text section on the left half, images / diagrams on the right half */}
+        <div className="content-text-section">
+          <p>
+            Now that you know how to place stones and how to surround territory,
+            we will explore one of the most interesting parts of this game,
+            capturing stones! But first we need to learn how to capture stones.
+          </p>
+          <li>
+            A <span className="important-text">liberty</span> is any{" "}
+            <span className="important-text">straight line</span> coming off of
+            the stone or stones
+          </li>
+          <li>
+            To <span className="important-text">capture</span> a stone, you must
+            take away <span className="important-text">all</span> of the
+            liberties
+          </li>
+          <li>
+            Captured stones, also known as{" "}
+            <span className="important-text">prisoners</span> or captures (less
+            common term) are <span className="important-text">removed</span>{" "}
+            from the board{" "}
+          </li>
+          <li>
+            During the counting/scoring phase of the game, prisoners are placed
+            into your <span className="important-text">opponent's territory</span> (counts against their total territory)
+          </li>
+          <p>How many liberties does the stone in the diagram have?</p>
+          {/* Add answer-container wrapper div so that we give the p tags space.  It won't shift the elements above it as a result */}
+      <div className="answer-container">
+        {showAnswer1 && <p>The single black stone has 4 liberties (4 straight lines coming off of it).</p>}
+      </div>
+      <p className="toggle-text" onClick={() => setShowAnswer1(!showAnswer1)}>
+        {showAnswer1 ? 'Hide answer' : 'Show answer'}
+      </p>
 
-      <div className="glift-wrapper">
-      <div id="gliftContainer"></div>
+      <p>How many moves in a row would it take to capture the stone in the diagram?</p>
+      <div className="answer-container">
+        {showAnswer2 && <p>To capture a stone, we must take away all of the stone's liberties. Since the stone has 4 liberties, we need to play 4 times to capture it.</p>}
+      </div>
+      <p className="toggle-text" onClick={() => setShowAnswer2(!showAnswer2)}>
+        {showAnswer2 ? 'Hide answer' : 'Show answer'}
+      </p>
+
+        </div>
+        {/* Image(s) on the right half */}
+        <div className="diagram-container">
+          <div className="image-text-wrap">
+          <img
+            src="/learn-and-practice-images/basic-rules-8.png"
+            alt="basic-rules-8"
+          />
+        </div>
+        </div>
       </div>
     </div>
   );

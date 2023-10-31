@@ -15,7 +15,7 @@ const BasicRulesPage2 = () => {
           </p>
 
           <p>
-          <span className="takeaway">Takeaway:</span> We want to surround the corners first, then the sides, then the center.
+          <span className="important-text">Takeaway:</span> We want to surround the corners first, then the sides, then the center.
           </p>
 
           <p>
