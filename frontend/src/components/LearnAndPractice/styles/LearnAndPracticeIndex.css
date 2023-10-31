@@ -26,6 +26,10 @@
   /* box-shadow: 30px 30px 30px rgba(255, 255, 255, 0.1); */
 }
 
+.active {
+  color: rgb(255, 204, 102);
+}
+
 .small-spaced-list li{
   margin-bottom: 5px;
 }
