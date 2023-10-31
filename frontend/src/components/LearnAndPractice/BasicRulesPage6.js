@@ -16,6 +16,7 @@ const BasicRulesPage6 = () => {
             we will explore one of the most interesting parts of this game,
             capturing stones! But first we need to learn how to capture stones.
           </p>
+          <ul className="spaced-list">
           <li>
             A <span className="important-text">liberty</span> is any{" "}
             <span className="important-text">straight line</span> coming off of
@@ -36,6 +37,12 @@ const BasicRulesPage6 = () => {
             During the counting/scoring phase of the game, prisoners are placed
             into your <span className="important-text">opponent's territory</span> (counts against their total territory)
           </li>
+          <li>
+          Terminology: <span className="important-text">Atari </span> (uh-tar-e) means the stone or stones are one move (liberty) away from being captured.
+            If you play in person, you'll often hear teachers say "Atari" to help new players learn, but this not mandatory to say.
+            Outside of the learning phase, it's probably not the best strategy to help your opponent out! 🤣
+          </li>
+          </ul>
           <p>How many liberties does the stone in the diagram have?</p>
           {/* Add answer-container wrapper div so that we give the p tags space.  It won't shift the elements above it as a result */}
       <div className="answer-container">
@@ -47,7 +54,7 @@ const BasicRulesPage6 = () => {
 
       <p>How many moves in a row would it take to capture the stone in the diagram?</p>
       <div className="answer-container">
-        {showAnswer2 && <p>To capture a stone, we must take away all of the stone's liberties. Since the stone has 4 liberties, we need to play 4 times to capture it.</p>}
+        {showAnswer2 && <p>To capture a stone, we must take away all of the stone's liberties. Since the stone has 4 liberties, we need to play 4 times to capture it. Remember that you only get one move at a time though.</p>}
       </div>
       <p className="toggle-text" onClick={() => setShowAnswer2(!showAnswer2)}>
         {showAnswer2 ? 'Hide answer' : 'Show answer'}
