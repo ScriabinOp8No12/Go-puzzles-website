@@ -94,3 +94,11 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 } */
+
+/******** glift comment text  ************/
+.glift-text-box p {
+  color: black;
+  font-weight: bold;
+  padding-top: 200px !important;
+  padding-left: 10px !important;
+}
