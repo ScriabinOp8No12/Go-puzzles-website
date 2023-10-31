@@ -9,6 +9,10 @@ const LeftNavBar = () => {
     history.push('/learn-and-practice/basic-rules/1')
   }
 
+  const navigateToBasicRules6 = () => {
+    history.push('/learn-and-practice/basic-rules/6')
+  }
+
   return (
     <div className="left-nav-bar">
       <h1 className="interactive-tutorial-text">Interactive Tutorials</h1>
@@ -16,7 +20,7 @@ const LeftNavBar = () => {
         <h2>Basic Rules</h2>
         <ul className="small-spaced-list">
           <li onClick={navigateToBasicRules1}>Placing stones & surrounding territory</li>
-          <li>Counting liberties and capturing stones</li>
+          <li onClick={navigateToBasicRules6}>Counting liberties and capturing stones</li>
           <li>Basic Rules Quiz</li>
           <li>Terminology</li>
         </ul>
