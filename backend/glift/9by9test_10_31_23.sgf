@@ -1,0 +1,9 @@
+(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]
+RU[Japanese]SZ[9]KM[6.50]
+AW[fa][fb][cc][ec][ed][ee][cf][ef]AB[ga][gb][gc][gd][ge][gf][gg]
+(;B[eh]C[CORRECT]
+;W[dg]C[CORRECT]
+;B[dh]C[CORRECT]
+;W[ch]C[CORRECT]
+;B[eg]C[CORRECT])
+(;B[fh]C[Incorrect - This was the actual move played in the game!]))

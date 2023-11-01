@@ -14,7 +14,7 @@
       // alert is stopped after we either click a correct or incorrect move
       function onProblemCorrect() {
         if (!problemSolved) {
-          alert("Correct!");
+          // alert("Correct!");
           problemSolved = true; // Set the flag to true
           // update user ranking within this if block, so that it only triggers once
           updateUserRanking(true)
@@ -23,7 +23,7 @@
 
       function onProblemIncorrect() {
         if (!problemSolved) {
-          alert("Incorrect!");
+          // alert("Incorrect!");
           problemSolved = true; // Set the flag to true
           // update user ranking within this if block, so that it only triggers once
           updateUserRanking(false)
@@ -42,6 +42,10 @@
 
       gliftWidget = glift.create({
         divId: "gliftContainer",
+        display: {
+          drawBoardCoords: true,
+          disableZoomForMobile: true,
+        },
 
         sgf: {
           // url: 'puzzle_outputs_for_glift1/puzzle4_branch_test_9_24_23_inject_comment_code_output.sgf',
@@ -49,15 +53,17 @@
           // url: 'comment_output_test_50_visits_short_game/5.sgf',
           // url: 'comment_output_test_5_visits_long_game/16.sgf',
           // url: 'comment_output_test_postman_output/1.sgf',
-          url: 'puzzle_outputs_for_glift1/13by13boardtest.sgf',
+          // url: 'puzzle_outputs_for_glift1/13by13boardtest.sgf',
+          url: '9by9test_10_31_23.sgf',
           // 50 visits took 240 seconds, but then postman took an additional 240 seconds to output it
           // we can use the initialPosition property to render the SGF at the specific move, looks like we just pass in an integer
-          initialPosition: 30,
+          initialPosition: 0,
           problemConditions: {
             // Need to modify the SGF and add comment(s) to a move with text "CORRECT"
             C: ['CORRECT'],
 
           },
+
 
           widgetType: 'STANDARD_PROBLEM'
           // widgetType: 'CORRECT_VARIATIONS_PROBLEM'
