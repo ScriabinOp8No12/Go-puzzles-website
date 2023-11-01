@@ -1,6 +1,3 @@
-// use built in smartgame library to add custom model validation to ensure uploaded file is an sgf!
-const smartgame = require("smartgame");
-
 ("use strict");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
