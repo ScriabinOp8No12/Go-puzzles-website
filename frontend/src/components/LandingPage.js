@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import OpenModalMenuItem from "../components/Navigation/OpenModalMenuItem";
 import LoginFormModal from "./LoginFormModal";
 import SignupFormModal from "./SignupFormModal";
@@ -7,6 +8,11 @@ import "./styles/LandingPage.css";
 
 const LandingPage = () => {
   const user = useSelector((state) => state.session.user);
+  const history = useHistory()
+
+  const goToBasicRules = () => {
+    history.push("/learn-and-practice/basic-rules/1");
+  };
 
   return (
     <div className="go-container">
@@ -14,7 +20,7 @@ const LandingPage = () => {
       <div className="landing-page-left-column">
         <div className="landing-page-1st-container">
           <div className="landing-page-header-section">
-            <h1 className="landing-page-h1">Welcome to go-puzzles.com!</h1>
+            <h1 className="landing-page-h1"><span className="important-text">Welcome to go-puzzles.com!</span></h1>
           </div>
           <h2 className="landing-page-slogan">
             The best place on the web to level up your Go skills with full board
@@ -47,8 +53,7 @@ const LandingPage = () => {
             {/* Left column */}
             <div className="landing-page-columns">
               <h2>New to the game?</h2>
-              <button>Basic rules</button>
-              <button>Scoring</button>
+              <button onClick={goToBasicRules}>Basic rules</button>
               <button>More rules & strategy</button>
               <button>Reading</button>
               <button>Puzzles</button>
