@@ -17,6 +17,10 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/basic-rules/7");
   };
 
+  const navigateToBasicRules8 = () => {
+    history.push("/learn-and-practice/basic-rules/8");
+  };
+
   // Determines if the current URL contains any of the specified path segments.
   // Accepts either a single string or an array of strings.
   // Returns true if a match is found, otherwise returns false.
@@ -54,7 +58,12 @@ const LeftNavBar = () => {
           >
             Capturing Puzzles
           </li>
-          <li>Basic Rules Quiz</li>
+          <li
+            onClick={navigateToBasicRules8}
+            className={isActive("/8") ? "active" : ""}
+          >
+            Basic Rules Quiz
+          </li>
           <li>Terminology</li>
         </ul>
       </div>

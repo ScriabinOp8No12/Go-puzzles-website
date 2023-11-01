@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       // oh yikers, the below foreignKey was referencing user_Id with a capital I
       User.hasMany(models.Sgf, { foreignKey: "user_id" });
       User.hasMany(models.PotentialPuzzle, {foreignKey: "user_id"})
+      User.hasMany(models.UserQuizResult, {foreignKey: "user_id"})
+
     }
   }
   User.init(
