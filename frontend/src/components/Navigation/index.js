@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
   // Get information about the current URL, can determine which path the user is on
   const location = useLocation();
   // Checks if current path is /sgfs
-  const isActive = location.pathname.startsWith("/sgfs");
+  const isSgfsActive = location.pathname.startsWith("/sgfs");
   const isPotentialPuzzlesActive = location.pathname.startsWith("/potential-puzzles");
   const isPublicPuzzlesActive = location.pathname.startsWith("/public-puzzles");
   const isUserPuzzlesActive = location.pathname.startsWith("/your-puzzles");
@@ -34,16 +34,17 @@ function Navigation({ isLoaded }) {
         <div className="navigation-container">
           {/* Learn & Practice -> Change class name?? */}
           {sessionUser && (
-            <div className="potential-puzzles-button-wrapper">
+            <div className="navbar-button-wrapper">
               <div
-                className={`potential-puzzles-button ${
+                className={`navbar-button ${
                   isLearnAndPracticeActive ? "active" : ""
                 }`}
               >
                 {sessionUser && (
                   <NavLink
                     to="/learn-and-practice/basic-rules/1"
-                    className={`potential-puzzles-button-menu ${showMenu}`}
+                    className={`navbar-button-text ${showMenu}`}
+                    isActive={() => isLearnAndPracticeActive}
                   >
                     Learn & Practice
                   </NavLink>
@@ -53,16 +54,17 @@ function Navigation({ isLoaded }) {
           )}
           {/* Your puzzles -> Change class name?? */}
           {sessionUser && (
-            <div className="potential-puzzles-button-wrapper">
+            <div className="navbar-button-wrapper">
               <div
-                className={`potential-puzzles-button ${
+                className={`navbar-button ${
                   isUserPuzzlesActive ? "active" : ""
                 }`}
               >
                 {sessionUser && (
                   <NavLink
                     to="/your-puzzles"
-                    className={`potential-puzzles-button-menu ${showMenu}`}
+                    className={`navbar-button-text ${showMenu}`}
+                    isActive={() => isUserPuzzlesActive}
                   >
                     Your Puzzles
                   </NavLink>
@@ -72,16 +74,17 @@ function Navigation({ isLoaded }) {
           )}
           {/* Public Puzzles button -> Change class name????? */}
           {sessionUser && (
-            <div className="potential-puzzles-button-wrapper">
+            <div className="navbar-button-wrapper">
               <div
-                className={`potential-puzzles-button ${
+                className={`navbar-button ${
                   isPublicPuzzlesActive ? "active" : ""
                 }`}
               >
                 {sessionUser && (
                   <NavLink
                     to="/public-puzzles"
-                    className={`potential-puzzles-button-menu ${showMenu}`}
+                    className={`navbar-button-text ${showMenu}`}
+                    isActive={() => isPublicPuzzlesActive}
                   >
                     Public Puzzles
                   </NavLink>
@@ -91,16 +94,17 @@ function Navigation({ isLoaded }) {
           )}
           {/* Potential Puzzles button */}
           {sessionUser && (
-            <div className="potential-puzzles-button-wrapper">
+            <div className="navbar-button-wrapper">
               <div
-                className={`potential-puzzles-button ${
+                className={`navbar-button ${
                   isPotentialPuzzlesActive ? "active" : ""
                 }`}
               >
                 {sessionUser && (
                   <NavLink
                     to="/potential-puzzles"
-                    className={`potential-puzzles-button-menu ${showMenu}`}
+                    className={`navbar-button-text ${showMenu}`}
+                    isActive={() => isPotentialPuzzlesActive}
                   >
                     Potential Puzzles
                   </NavLink>
@@ -111,14 +115,14 @@ function Navigation({ isLoaded }) {
           {/* Upload / View Game Records button */}
           {sessionUser && (
             <div className="game-records-button-wrapper">
-              {/* Checks if isActive is true, then it sets the className to "active" for styling, otherwise gets the default "game-records-button" className */}
               <div
-                className={`game-records-button ${isActive ? "active" : ""}`}
+                className={`navbar-button ${isSgfsActive ? "active" : ""}`}
               >
                 {sessionUser && (
                   <NavLink
                     to="/sgfs"
-                    className={`game-records-button-menu ${showMenu}`}
+                    className={`navbar-button-text ${showMenu}`}
+                    isActive={() => isSgfsActive}
                   >
                     Upload & View Game Records
                   </NavLink>
