@@ -1,4 +1,3 @@
-// backend/routes/api/index.js
 const router = require("express").Router();
 const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
@@ -6,6 +5,7 @@ const sgfsRouter = require("./sgfs.js");
 const puzzlesRouter = require("./puzzles.js");
 const potentialPuzzlesRouter = require("./potential_puzzles.js")
 const userPuzzlesRouter = require("./user_puzzles.js")
+const quizzesRouter = require("./quizzes.js")
 
 const { restoreUser } = require("../../utils/auth.js");
 
@@ -20,5 +20,6 @@ router.use("/sgfs", sgfsRouter);
 router.use("/public_puzzles", puzzlesRouter);
 router.use("/potential_puzzles", potentialPuzzlesRouter)
 router.use("/user_puzzles", userPuzzlesRouter)
+router.use("/quizzes", quizzesRouter)
 
 module.exports = router;
