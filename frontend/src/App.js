@@ -71,9 +71,14 @@ function App() {
       {/* Render the Navigation component, passing in the isLoaded state, which Navigation component now takes in as a prop */}
       <Navigation isLoaded={isLoaded} />
       {/* If modalComponent is not null, render a div with class "modal-overlay" (this is the background behind the modal that's more grey colored) */}
-      {modalComponent && <div className="modal-overlay"></div>}
-      {/* render the modalComponent if it's not null */}
-      {modalComponent}
+      {modalComponent && (
+        <div className="modal-overlay">
+          {/* render the modalComponent if it's not null */}
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            {modalComponent}
+          </div>
+        </div>
+      )}
       {/* If isLoaded is true, render the Switch component from react-router-dom, which is used to render different components based on the current URL */}
       {isLoaded && (
         <Switch>

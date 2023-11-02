@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { uploadQuizThunk } from "../../store/quizzes";
 import "./styles/QuizForm.css";
+import QuizImage from "./QuizImage";
 /*
 Question 1: True or False -> Stones are placed in the squares and NOT on the intersections
 
@@ -156,7 +157,7 @@ const BasicRulesQuiz = () => {
       <section className="question">
         <p>
           4. True or False: A liberty is any straight line (diagonals are <span className="important-text">not</span>
-          {""} required) coming off a stone or group of stones
+          {""} required) coming off of a stone or group of stones
         </p>
         <div className="option">
           <input
@@ -182,8 +183,9 @@ const BasicRulesQuiz = () => {
         </div>
       </section>
 
-      {/* Multiple Choice Question 5: Who won the game? */}
-      <section className="question">
+      {/* Question 5: Who won the game? */}
+      <section className="question quiz-flex-container">
+      <div className="quiz-content">
         <p>
           5. Who won the game?
         </p>
@@ -222,16 +224,16 @@ const BasicRulesQuiz = () => {
           <label htmlFor="question5-tie">Tie</label>
 
         </div>
+        </div>
+        <div className="quiz-image-container">
+        <QuizImage
+      src="/learn-and-practice-images/basic-rules-9-quiz-image-1.png"
+      alt="Who won the game quiz image"
+      className="quiz-image"
+    />
+  </div>
       </section>
-      {/* <div>
-        <label>Question 3:</label>
-        <input
-          type="text"
-          name="question4"
-          value={answers.question4}
-          onChange={handleInputChange}
-        />
-      </div> */}
+
       <button type="submit" className="submitButton">
         Submit Quiz
       </button>

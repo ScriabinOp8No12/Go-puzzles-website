@@ -1,3 +1,5 @@
+/************ Styling for form and questions / multiple choice buttons lining up left right ***********/
+
 .quiz-form {
   max-width: 600px;
   margin: 40px auto;
@@ -31,18 +33,45 @@
   cursor: pointer;
 }
 
-/* Style for the image thumbnail and the "click to enlarge" text */
-.question img.quiz-image {
-  display: block;
-  width: 100px; /* Thumbnail size */
-  margin: 10px 0;
-  cursor: pointer;
+/************ End of Styling for form and questions / multiple choice buttons lining up left right ***********/
+
+/************* Styling images within quiz form *************/
+
+.quiz-flex-container {
+  display: flex;
+  justify-content: space-between; /* This ensures there is space between your content and image containers */
 }
 
-.question .enlarge-text {
-  display: block;
-  font-size: 0.8rem;
-  color: #aaa;
-  margin-bottom: 10px;
+.quiz-content {
+  flex: 1; /* This gives an equal amount of space to the content container */
+  /* Do not center align items here as we want the default alignment to be left for text and options */
+}
+
+.quiz-image-container {
+  flex: 1; /* This gives an equal amount of space to the image container */
+  display: flex; /* Makes the image container a flex container */
+  flex-direction: column; /* Stacks children (image and enlarge text) vertically */
+  align-items: center; /* Centers them horizontally within the container */
+  justify-content: center; /* Centers them vertically within the container */
+}
+
+/* Ensure the image is not oversized */
+.quiz-image-container img {
+  max-width: 100%;
+  max-height: 200px;
   cursor: pointer;
+  border: 3px solid black;
+  object-fit: contain;
+}
+
+.quiz-image-container img:hover {
+  border: 3px solid aliceblue;
+}
+
+.enlarge-text {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
 }

@@ -17,7 +17,7 @@ const BasicRulesPage3 = () => {
       {/* <div className="image-text-wrap"> */}
       <img
         src="/learn-and-practice-images/basic-rules-5.png"
-        alt="basic-rules-5"
+        alt="Who won the game image 1"
       />
       {/* </div> */}
     </div>
