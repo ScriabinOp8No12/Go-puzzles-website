@@ -28,7 +28,7 @@ const BasicRulesPage2 = () => {
           <div className="image-text-wrap">
           <img
             src="/learn-and-practice-images/basic-rules-4.png"
-            alt="basic-rules-4"
+            alt="Surrounding territory 4"
           />
           <p className="long-diagram-explanation">
             Diagram 1: Each black group above is surrounding 4 points of

@@ -45,7 +45,7 @@ const BasicRulesPage1 = () => {
           <div className="content-image-section">
             <img
               src="/learn-and-practice-images/basic-rules-1.png"
-              alt="basic-rules-1"
+              alt="Surrounding territory 1"
             />
             <p>Diagram 1: Black has surrounded 4 points of territory</p>
           </div>
@@ -56,14 +56,14 @@ const BasicRulesPage1 = () => {
           <div className="image-text-wrap">
             <img
               src="/learn-and-practice-images/basic-rules-2.png"
-              alt="basic-rules-2"
+              alt="Surrounding territory 2"
             />
             <p>Diagram 2: Highlighting the 4 points of territory</p>
           </div>
           <div className="image-text-wrap">
             <img
               src="/learn-and-practice-images/basic-rules-3.png"
-              alt="basic-rules-3"
+              alt="Surrounding territory 3"
             />
             <p>
               Diagram 3: How many points are each of the above black groups
