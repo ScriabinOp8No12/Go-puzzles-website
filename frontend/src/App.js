@@ -106,6 +106,10 @@ function App() {
             path="/learn-and-practice/basic-rules/:pageNumber"
             component={LearnAndPracticeBasicRules}
           />
+          <AuthorizedRoute
+            path="/learn-and-practice/basic-rules/quiz"
+            component={LearnAndPracticeBasicRules}
+          />
           {/* <AuthorizedRoute
             path="/learn-and-practice/basic-rules"
             component={LearnAndPracticeLandingPage}
