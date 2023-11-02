@@ -66,7 +66,6 @@ const LeftNavBar = () => {
           >
             Basic Rules Quiz
           </li>
-          <li>Terminology</li>
         </ul>
         </section>
       </div>
@@ -124,6 +123,7 @@ const LeftNavBar = () => {
         <ul className="small-spaced-list">
           <li>Sensei's Library</li>
           <li>Go servers</li>
+          <li>Terminology</li>
         </ul>
         </section>
       </div>

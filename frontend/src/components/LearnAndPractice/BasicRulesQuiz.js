@@ -72,7 +72,8 @@ const BasicRulesQuiz = () => {
       {/* Question 1 */}
       <section className="question">
         <p>
-          1. Stones are placed in the squares, and <span className="important-text">not</span> on the intersections.
+          1. True or False: Stones are placed in the squares, and{" "}
+          <span className="important-text">not</span> on the intersections.
         </p>
         <div className="option">
           <input
@@ -99,120 +100,129 @@ const BasicRulesQuiz = () => {
       </section>
       {/* Question 2 */}
       <section className="question">
-  <p>2. White typically plays first, then black plays next.</p>
-  <div className="option">
-    <input
-      type="radio"
-      id="question2-true"
-      name="question2"
-      value="true"
-      onChange={handleInputChange}
-      checked={answers.question2 === "true"}
-    />
-    <label htmlFor="question2-true">True</label>
-  </div>
-  <div className="option">
-    <input
-      type="radio"
-      id="question2-false"
-      name="question2"
-      value="false"
-      onChange={handleInputChange}
-      checked={answers.question2 === "false"}
-    />
-    <label htmlFor="question2-false">False</label>
-  </div>
-</section>
-
-
-      {/* Question 3 */}
-      <section className="question">
-        <p>
-          3. Territory is the number of intersections surrounded.
-        </p>
+        <p>2. True or False: White typically plays first, then black plays next.</p>
         <div className="option">
           <input
             type="radio"
-            id="question1-true" // has to match the label's htmlFor
-            name="question1"
+            id="question2-true"
+            name="question2"
             value="true"
             onChange={handleInputChange}
-            checked={answers.question1 === "true"}
+            checked={answers.question2 === "true"}
           />
-          <label htmlFor="question1-true">True</label>
+          <label htmlFor="question2-true">True</label>
         </div>
         <div className="option">
           <input
             type="radio"
-            id="question1-false"
-            name="question1"
+            id="question2-false"
+            name="question2"
             value="false"
             onChange={handleInputChange}
-            checked={answers.question1 === "false"}
+            checked={answers.question2 === "false"}
           />
-          <label htmlFor="question1-false">False</label>
+          <label htmlFor="question2-false">False</label>
+        </div>
+      </section>
+
+      {/* Question 3 */}
+      <section className="question">
+        <p>3. True or False: Territory is the number of intersections surrounded.</p>
+        <div className="option">
+          <input
+            type="radio"
+            id="question3-true" // has to match the label's htmlFor
+            name="question3"
+            value="true"
+            onChange={handleInputChange}
+            checked={answers.question3 === "true"}
+          />
+          <label htmlFor="question3-true">True</label>
+        </div>
+        <div className="option">
+          <input
+            type="radio"
+            id="question3-false"
+            name="question3"
+            value="false"
+            onChange={handleInputChange}
+            checked={answers.question3 === "false"}
+          />
+          <label htmlFor="question3-false">False</label>
         </div>
       </section>
 
       {/* Question 4 */}
-      <div>
-        <label>
-          4. True or False: A liberty is any straight line (diagonals are NOT
-          required) coming off a stone or group of stones
-        </label>
-        <input
-          type="radio"
-          name="question4"
-          value="true"
-          onChange={handleInputChange}
-          checked={answers.question4 === "true"}
-        />{" "}
-        True
-        <input
-          type="radio"
-          name="question4"
-          value="false"
-          onChange={handleInputChange}
-          checked={answers.question4 === "false"}
-        />{" "}
-        False
-      </div>
+      <section className="question">
+        <p>
+          4. True or False: A liberty is any straight line (diagonals are <span className="important-text">not</span>
+          {""} required) coming off a stone or group of stones
+        </p>
+        <div className="option">
+          <input
+            type="radio"
+            id="question4-true" // has to match the label's htmlFor
+            name="question4"
+            value="true"
+            onChange={handleInputChange}
+            checked={answers.question4 === "true"}
+          />
+          <label htmlFor="question4-true">True</label>
+        </div>
+        <div className="option">
+          <input
+            type="radio"
+            id="question4-false"
+            name="question4"
+            value="false"
+            onChange={handleInputChange}
+            checked={answers.question4 === "false"}
+          />
+          <label htmlFor="question4-false">False</label>
+        </div>
+      </section>
 
       {/* Multiple Choice Question 5: Who won the game? */}
-      <div>
-        <p>5. Who won the game?</p>
-        <label>
+      <section className="question">
+        <p>
+          5. Who won the game?
+        </p>
+        <div className="option">
           <input
             type="radio"
+            id="question5-black" // has to match the label's htmlFor
             name="question5"
-            value="Black"
+            value="black"
             onChange={handleInputChange}
-            checked={answers.question5 === "Black"}
+            checked={answers.question5 === "black"}
           />
-          Black
-        </label>
-        <label>
+          <label htmlFor="question5-black">Black</label>
+        </div>
+        <div className="option">
           <input
             type="radio"
+            id="question5-white"
             name="question5"
-            value="White"
+            value="white"
             onChange={handleInputChange}
-            checked={answers.question5 === "White"}
+            checked={answers.question5 === "white"}
           />
-          White
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="question5"
-            value="Tie"
-            onChange={handleInputChange}
-            checked={answers.question5 === "Tie"}
-          />
-          Tie
-        </label>
-      </div>
+          <label htmlFor="question5-white">White</label>
 
+        </div>
+        <div className="option">
+          <input
+            type="radio"
+            id="question5-tie"
+            name="question5"
+            value="tie"
+            onChange={handleInputChange}
+            checked={answers.question5 === "tie"}
+          />
+          <label htmlFor="question5-tie">Tie</label>
+
+        </div>
+      </section>
       {/* <div>
         <label>Question 3:</label>
         <input
