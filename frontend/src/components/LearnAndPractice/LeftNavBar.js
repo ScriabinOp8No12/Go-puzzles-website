@@ -17,7 +17,7 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/basic-rules/7");
   };
 
-  const navigateToBasicRules8 = () => {
+  const navigateToBasicRulesQuiz = () => {
     history.push("/learn-and-practice/basic-rules/quiz");
   };
 
@@ -38,6 +38,8 @@ const LeftNavBar = () => {
     <div className="left-nav-bar">
       <h1 className="interactive-tutorial-text">Interactive Tutorials</h1>
       <div className="nav-section">
+        {/* Basic Rules Section */}
+        <section className="left-nav-bar-section">
         <h2>Basic Rules</h2>
         <ul className="small-spaced-list">
           <li
@@ -59,15 +61,18 @@ const LeftNavBar = () => {
             Capturing Puzzles
           </li>
           <li
-            onClick={navigateToBasicRules8}
-            className={isActive("/basic-rules-quiz") ? "active" : ""}
+            onClick={navigateToBasicRulesQuiz}
+            className={isActive("/basic-rules/quiz") ? "active" : ""}
           >
             Basic Rules Quiz
           </li>
           <li>Terminology</li>
         </ul>
+        </section>
       </div>
       <div className="nav-section">
+        {/* More Rules and Strategy Section */}
+        <section className="left-nav-bar-section">
         <h2>More Rules and Strategy</h2>
         <ul className="small-spaced-list">
           <li>Illegal moves</li>
@@ -77,15 +82,20 @@ const LeftNavBar = () => {
           <li>Game ending condition</li>
           <li>Strategy</li>
         </ul>
+        </section>
       </div>
       <div className="nav-section">
+      <section className="left-nav-bar-section">
         <h2>Rules & Strategy Puzzles</h2>
         <ul className="small-spaced-list">
           <li>Rules & Strategy Puzzles 1</li>
           <li>Rules & Strategy Puzzles 2</li>
         </ul>
+</section>
       </div>
+
       <div className="nav-section">
+      <section className="left-nav-bar-section">
         <h2>Fundamentals</h2>
         <ul className="small-spaced-list">
           <li>Reading</li>
@@ -97,20 +107,25 @@ const LeftNavBar = () => {
           <li>Life & Death</li>
           <li>Sente & Gote</li>
         </ul>
+        </section>
       </div>
       <div className="nav-section">
+      <section className="left-nav-bar-section">
         <h2>Fundamentals Puzzles</h2>
         <ul className="small-spaced-list">
           <li>Fundamentals Puzzles 1</li>
           <li>Fundamentals Puzzles 2</li>
         </ul>
+        </section>
       </div>
       <div className="nav-section">
+      <section className="left-nav-bar-section">
         <h2>Resources</h2>
         <ul className="small-spaced-list">
           <li>Sensei's Library</li>
           <li>Go servers</li>
         </ul>
+        </section>
       </div>
     </div>
   );
