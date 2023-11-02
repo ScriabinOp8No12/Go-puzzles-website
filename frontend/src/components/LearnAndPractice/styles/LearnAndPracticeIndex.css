@@ -12,6 +12,11 @@
   color: aliceblue;
 }
 
+/* Make the forms have black text for the input fields */
+.learn-and-practice-container form input{
+  color: black; /* Override the 'learn and practice container' color of aliceblue */
+}
+
 /********** End of Container holding everything on the learn and practice pages **********/
 
 /********** Styling for left nav-bar **********/

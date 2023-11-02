@@ -12,7 +12,6 @@ button {
   border-radius: 15px;
   color: aliceblue;
   cursor: pointer;
-
 }
 
 .updateButton {
@@ -37,6 +36,14 @@ button {
   .5px -.5px 0 #000,
   -.5px .5px 0 #000,
   .5px .5px 0 #000;
+}
+
+.submitButton {
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
 }
 
 /* Exclude the profile button to have a black background color and text color of white */
