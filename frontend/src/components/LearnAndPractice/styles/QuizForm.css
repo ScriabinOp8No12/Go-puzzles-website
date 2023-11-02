@@ -1,0 +1,48 @@
+.quiz-form {
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.question {
+  background-color: #393E46;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.question p {
+  margin-bottom: 10px;
+}
+
+.question label {
+  display: inline; /* Makes the label text inline with the radio button */
+  vertical-align: middle; /* Aligns text vertically */
+  cursor: pointer;
+}
+
+.question .option {
+  margin-bottom: 10px; /* Spacing between the options */
+}
+
+.question input[type='radio'] {
+  margin-right: 5px;
+  vertical-align: middle; /* Aligns radio buttons vertically */
+  cursor: pointer;
+}
+
+/* Style for the image thumbnail and the "click to enlarge" text */
+.question img.quiz-image {
+  display: block;
+  width: 100px; /* Thumbnail size */
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.question .enlarge-text {
+  display: block;
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
