@@ -206,7 +206,7 @@ const BasicRulesQuiz = () => {
       {/* MC Question 6: Definition of Atari */}
       <section className="question quiz-flex-container">
         <div className="quiz-content">
-          <p>6. What does the Japanese Go term 'Atari' mean?</p>
+          <p>6. What does the Japanese Go term <span className="important-text">Atari</span> mean?</p>
           <div className="option">
             <input
               type="radio"

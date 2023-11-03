@@ -25,7 +25,7 @@ const BasicRulesPage6 = () => {
           <li>
             To <span className="important-text">capture</span> a stone, you must
             take away <span className="important-text">all</span> of the
-            liberties
+            stone's liberties
           </li>
           <li>
             Captured stones, also known as{" "}
@@ -39,7 +39,7 @@ const BasicRulesPage6 = () => {
           </li>
           <li>
           Terminology: <span className="important-text">Atari </span> (uh-tar-e) means the stone or stones are one move (liberty) away from being captured.
-            If you play in person, you'll often hear teachers say "Atari" to help new players learn, but this not mandatory to say.
+            If you play in person, you'll often hear teachers say "Atari" to help new players learn, but this <span className="important-text">not</span> mandatory to say.
             Outside of the learning phase, it's probably not the best strategy to help your opponent out! 🤣
           </li>
           </ul>
