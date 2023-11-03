@@ -65,7 +65,7 @@ const BasicRulesPage6 = () => {
         <div className="diagram-container">
           <div className="image-text-wrap">
           <img
-            src="/learn-and-practice-images/basic-rules-8.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977664/Tutorial-images/basic-rules-8_ucd2ha.png"
             alt="Liberties"
           />
         </div>

@@ -16,7 +16,7 @@ const BasicRulesPage3 = () => {
       </p>
       {/* <div className="image-text-wrap"> */}
       <img
-        src="/learn-and-practice-images/basic-rules-5.png"
+        src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977662/Tutorial-images/basic-rules-5_c3fxoj.png"
         alt="Who won the game 1"
       />
       {/* </div> */}
