@@ -21,7 +21,7 @@ const BasicRulesPage5 = () => {
 
       <img
         src="/learn-and-practice-images/basic-rules-7.png"
-        alt="Who won the game image 3"
+        alt="Who won the game 3"
       />
 
     </div>
