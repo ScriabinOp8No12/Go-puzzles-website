@@ -1,11 +1,44 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { uploadQuizThunk } from "../../store/quizzes";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  uploadQuizThunk,
+  fetchQuizCompletionStatusThunk,
+} from "../../store/quizzes";
 import "./styles/QuizForm.css";
 import QuizImage from "./QuizImage";
 
 const BasicRulesQuiz = () => {
   const dispatch = useDispatch();
+  const hasAttempted = useSelector((state) => state.quiz.hasAttempted);
+  // State for show answer clickable buttons for displaying correct answers to user after they've submitted the quiz at least once
+  const [showAnswers, setShowAnswers] = useState({});
+  const quizId = "1"; // basic rules quiz id is 1, the id will always be 1 for this component
+
+  useEffect(() => {
+    dispatch(fetchQuizCompletionStatusThunk(quizId));
+    // Initialize the showAnswers state for all 10 questions
+    setShowAnswers({
+      question1: false,
+      question2: false,
+      question3: false,
+      question4: false,
+      question5: false,
+      question6: false,
+      question7: false,
+      question8: false,
+      question9: false,
+      question10: false,
+    });
+  }, [dispatch]);
+
+  // Function to toggle the answer visibility
+  const toggleAnswer = (index) => {
+    setShowAnswers({
+      ...showAnswers,
+      [index]: !showAnswers[index],
+    });
+  };
+
   // Local state to store the user's answers
   const [answers, setAnswers] = useState({
     question1: "",
@@ -31,7 +64,6 @@ const BasicRulesQuiz = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const quizId = "1"; // basic rules quiz id is 1
     await dispatch(uploadQuizThunk({ answers }, quizId));
     // Optionally, handle what happens after submission (like a redirect)
   };
@@ -66,6 +98,18 @@ const BasicRulesQuiz = () => {
           />
           <label htmlFor="question1-false">False</label>
         </div>
+        {hasAttempted && (
+          <button type="button" onClick={() => toggleAnswer("question1")}>
+            {showAnswers["question1"] ? "Hide Answer" : "Show Answer"}
+          </button>
+        )}
+
+        {showAnswers["question1"] && (
+          <div className="answer">
+            {/* The correct answer content goes here */}
+            <p>This is False! Stones are placed on the intersections, not the squares</p>
+          </div>
+        )}
       </section>
       {/* T/F Question 2: Who plays first? */}
       <section className="question">
@@ -206,7 +250,10 @@ const BasicRulesQuiz = () => {
       {/* MC Question 6: Definition of Atari */}
       <section className="question quiz-flex-container">
         <div className="quiz-content">
-          <p>6. What does the Japanese Go term <span className="important-text">Atari</span> mean?</p>
+          <p>
+            6. What does the Japanese Go term{" "}
+            <span className="important-text">Atari</span> mean?
+          </p>
           <div className="option">
             <input
               type="radio"
@@ -258,14 +305,14 @@ const BasicRulesQuiz = () => {
               checked={answers.question6 === "question6-atari4"}
             />
             <label htmlFor="question6-atari4">
-              The extra half point white gets (breaking ties) to
-              offset black's first move.
+              The extra half point white gets (breaking ties) to offset black's
+              first move.
             </label>
           </div>
         </div>
       </section>
-         {/* MC Question 7: Counting Liberties */}
-         <section className="question quiz-flex-container">
+      {/* MC Question 7: Counting Liberties */}
+      <section className="question quiz-flex-container">
         <div className="quiz-content">
           <p>7. How many liberties does the stone in the diagram have?</p>
           <div className="option">
@@ -393,7 +440,10 @@ const BasicRulesQuiz = () => {
       {/* MC Question 9: Counting Points */}
       <section className="question quiz-flex-container">
         <div className="quiz-content">
-          <p>9. How many points of territory has <span className ="important-text">white</span> surrounded?</p>
+          <p>
+            9. How many points of territory has{" "}
+            <span className="important-text">white</span> surrounded?
+          </p>
           <div className="option">
             <input
               type="radio"
@@ -451,7 +501,13 @@ const BasicRulesQuiz = () => {
       {/* MC Question 10: Imagining Liberties */}
       <section className="question quiz-flex-container">
         <div className="quiz-content">
-          <p>10. You are asked to place a stone on an empty board.  What's the <span className="important-text">minimum number of liberties</span> your single stone could have? You've now found the <span className="important-text">worst</span> possible move on the board! 😂</p>
+          <p>
+            10. You are asked to place a stone on an empty board. What's the{" "}
+            <span className="important-text">minimum number of liberties</span>{" "}
+            your single stone could have? You've now found the{" "}
+            <span className="important-text">worst</span> possible move on the
+            board! 😂
+          </p>
           <div className="option">
             <input
               type="radio"

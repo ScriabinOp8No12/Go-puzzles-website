@@ -2,8 +2,8 @@ import { csrfFetch } from "./csrf";
 
 // *********** Action types *********** //
 
-export const UPLOAD_QUIZ = "/sgfs/UPLOAD_QUIZ";
-
+export const UPLOAD_QUIZ = "/quizzes/UPLOAD_QUIZ";
+export const GET_QUIZ_COMPLETION_STATUS = "/quizzes/GET_QUIZ_COMPLETION_STATUS";
 // ********** Action Creators ********* //
 
 export const uploadQuiz = (data) => ({
@@ -11,9 +11,13 @@ export const uploadQuiz = (data) => ({
   payload: data,
 });
 
+export const getQuizCompletionStatus = (data) => ({
+  type: GET_QUIZ_COMPLETION_STATUS,
+  payload: data,
+});
+
 // ********** Thunks ************ //
 
-// Post request to /api/sgfs for adding an SGF to user's database
 export const uploadQuizThunk = (quiz_data, quiz_id) => async (dispatch) => {
   const response = await csrfFetch(`/api/quizzes/${quiz_id}/submit`, {
     method: "POST",
@@ -29,11 +33,20 @@ export const uploadQuizThunk = (quiz_data, quiz_id) => async (dispatch) => {
   }
 };
 
+export const fetchQuizCompletionStatusThunk = (quizId) => async (dispatch) => {
+  const response = await fetch(`/api/quizzes/${quizId}/hasAttempted`);
+  const data = await response.json();
+  if (response.ok) {
+    dispatch(getQuizCompletionStatus(data.hasAttempted)); // only pass in hasAttempted for now, maybe later we will need other stuff from the data, in which case we would pass in "data" instead of "data.hasAttempted"
+  }
+};
+
 // ************ Reducer **************** //
 
 // An object that defines the initial values for Redux state properties
 const initialState = {
-  quiz: null
+  quiz: null,
+  hasAttempted: false,
 };
 
 // we handle actions in the reducer, and update the state based on the action type
@@ -43,6 +56,11 @@ const quizReducer = (state = initialState, action) => {
       return {
         ...state,
         quiz: action.payload,
+      };
+    case GET_QUIZ_COMPLETION_STATUS: // Handle the new action type
+      return {
+        ...state,
+        hasAttempted: action.payload,
       };
     default:
       return state;
