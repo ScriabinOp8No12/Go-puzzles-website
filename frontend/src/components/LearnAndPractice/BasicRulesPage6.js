@@ -66,7 +66,7 @@ const BasicRulesPage6 = () => {
           <div className="image-text-wrap">
           <img
             src="/learn-and-practice-images/basic-rules-8.png"
-            alt="Liberty image"
+            alt="Liberties"
           />
         </div>
         </div>

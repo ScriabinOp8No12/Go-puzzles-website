@@ -14,7 +14,7 @@ const BasicRulesPage4 = () => {
       <p>Can you think of a faster or more efficient way to figure out who won instead of counting each individual point? Hint: Use math we learned from school 👍</p>
       <img
         src="/learn-and-practice-images/basic-rules-6.png"
-        alt="Who won the game image 2"
+        alt="Who won the game 2"
       />
 
     </div>
