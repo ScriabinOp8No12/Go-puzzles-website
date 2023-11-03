@@ -62,7 +62,7 @@ const LearnAndPracticeBasicRules = () => {
       ) : pageNumber === "quiz" ? (
         <BasicRulesQuiz />
       ) : (
-        <div>Page not found</div>
+        <div className="page-not-found-text">Page not found</div>
       )}
       <button onClick={navigateToNextPage} className="next-page-button">
         Next Page

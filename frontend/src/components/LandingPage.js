@@ -52,7 +52,7 @@ const LandingPage = () => {
           <div className="inner-flexbox">
             {/* Left column */}
             <div className="landing-page-columns">
-              <h2>New to the game?</h2>
+              <h2><span className="important-text">New to the game?</span></h2>
               <button onClick={goToBasicRules}>Basic rules</button>
               <button>More rules & strategy</button>
               <button>Reading</button>
@@ -62,7 +62,7 @@ const LandingPage = () => {
 
             {/* Right column */}
             <div className="landing-page-columns">
-              <h2>Improve your fundamentals</h2>
+              <h2><span className="important-text">Improve your fundamentals</span></h2>
               <button>Ladders & Nets</button>
               <button>Cuts & weaknesses</button>
               <button>Direction of Play</button>
@@ -78,35 +78,35 @@ const LandingPage = () => {
       <div className="landing-page-right-column">
         <div className="image-text-container">
           <img
-            src="landing-page-images/landing-page-public-puzzle-image.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977720/Tutorial-images/landing-page-public-puzzle-image_dyxtpr.png"
             alt="Public puzzle"
             className="landing-image"
           />
           <p className="landing-text">
-            Attempt puzzles from the Public Puzzles page. Filter puzzles by
+            Attempt puzzles from the <span className="important-text">Public Puzzles</span> page. Filter puzzles by
             category, rank, and game state.
           </p>
         </div>
         <div className="image-text-container">
           <img
-            src="landing-page-images/landing-page-upload-sgf-image.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977721/Tutorial-images/landing-page-upload-sgf-image_clkttk.png"
             alt="Upload SGF"
             className="landing-image"
           />
           <div className="landing-text-group">
     <p className="landing-text">Generate your own puzzles!</p>
-    <p className="landing-text">Step 1: Click Upload SGF from the Upload & View Game Records page.</p>
+    <p className="landing-text">Step 1: Click Upload SGF from the <span className="important-text">Upload & View Game Records</span> page.</p>
     <p className="landing-text spaced-text">Step 2: Click Generate Puzzles</p>
   </div>
         </div>
         <div className="image-text-container">
           <img
-            src="landing-page-images/landing-page-potential-puzzle-image.png"
-            alt="Public puzzle"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977722/Tutorial-images/landing-page-potential-puzzle-image_fwsyn7.png"
+            alt="Potential puzzle"
             className="landing-image"
           />
           <p className="landing-text">
-          Step 3: Navigate to Potential Puzzles to try the generated puzzles
+          Step 3: Navigate to <span className="important-text">Potential Puzzles</span> to try the generated puzzles
           </p>
         </div>
       </div>

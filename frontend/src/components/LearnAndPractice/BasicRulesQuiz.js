@@ -196,7 +196,7 @@ const BasicRulesQuiz = () => {
         </div>
         <div className="quiz-image-container">
           <QuizImage
-            src="/learn-and-practice-images/basic-rules-9-quiz-image-1.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977665/Tutorial-images/basic-rules-9-quiz-image-1_a5ohf5.png"
             alt="Who won the game quiz image"
             className="quiz-image"
           />
@@ -326,7 +326,7 @@ const BasicRulesQuiz = () => {
         </div>
         <div className="quiz-image-container">
           <QuizImage
-            src="/learn-and-practice-images/basic-rules-9-quiz-image-2.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977666/Tutorial-images/basic-rules-9-quiz-image-2_n67i5k.png"
             alt="Who won the game quiz image"
             className="quiz-image"
           />
@@ -383,7 +383,7 @@ const BasicRulesQuiz = () => {
         </div>
         <div className="quiz-image-container">
           <QuizImage
-            src="/learn-and-practice-images/basic-rules-9-quiz-image-3.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977666/Tutorial-images/basic-rules-9-quiz-image-3_zp102v.png"
             alt="Who won the game quiz image"
             className="quiz-image"
           />
@@ -441,7 +441,7 @@ const BasicRulesQuiz = () => {
         </div>
         <div className="quiz-image-container">
           <QuizImage
-            src="/learn-and-practice-images/basic-rules-9-quiz-image-6.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977668/Tutorial-images/basic-rules-9-quiz-image-6_qfl5a3.png"
             alt="Points surrounded"
             className="quiz-image"
           />
@@ -499,7 +499,7 @@ const BasicRulesQuiz = () => {
         </div>
         <div className="quiz-image-container">
           <QuizImage
-            src="/learn-and-practice-images/basic-rules-9-quiz-image-5.png"
+            src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977668/Tutorial-images/basic-rules-9-quiz-image-5_p9rxf4.png"
             alt="Who won the game quiz image"
             className="quiz-image"
           />
