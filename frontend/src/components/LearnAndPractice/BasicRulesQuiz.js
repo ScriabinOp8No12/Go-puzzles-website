@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   uploadQuizThunk,
   fetchQuizCompletionStatusThunk,
+  fetchQuizScoreThunk,
 } from "../../store/quizzes";
 import "./styles/QuizForm.css";
 import QuizImage from "./QuizImage";
@@ -10,11 +11,13 @@ import QuizImage from "./QuizImage";
 const BasicRulesQuiz = () => {
   const dispatch = useDispatch();
   const hasAttempted = useSelector((state) => state.quiz.hasAttempted);
-  const score = useSelector((state) => state.quiz.quiz.score)
+  const score = useSelector((state) => state.quiz.score?.score);
   // Initialize the showAnswers state with the function
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   // Function to toggle the answer visibility for all questions
-  const toggleAllAnswers = () => {
+  const toggleAllAnswers = (e) => {
+    e.stopPropagation(); // this solved the issue of clicking the "show all answers" button causing the score to reset back to 0% for some reason
+    // maybe it resubmitted an empty form, that actually makes sense
     setShowAllAnswers((prev) => !prev);
   };
 
@@ -23,6 +26,18 @@ const BasicRulesQuiz = () => {
   useEffect(() => {
     dispatch(fetchQuizCompletionStatusThunk(quizId));
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   // Always dispatch the thunk to fetch the score when the component mounts
+  //   dispatch(fetchQuizScoreThunk(quizId));
+  // }, [dispatch, quizId]);
+
+  useEffect(() => {
+    if (!hasAttempted) {
+      // Dispatch the thunk to fetch the score when the component mounts
+      dispatch(fetchQuizScoreThunk(quizId));
+    }
+  }, [dispatch, quizId, hasAttempted]);
 
   // Local state to store the user's answers
   const [answers, setAnswers] = useState({
@@ -50,20 +65,29 @@ const BasicRulesQuiz = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(uploadQuizThunk({ answers }, quizId));
+    await dispatch(fetchQuizScoreThunk(quizId));
   };
 
   return (
     <form onSubmit={handleSubmit} className="quiz-form">
       <section className="question">
-        Your score was: <span className="important-text">{score}%</span>
-        {/* Display the user's score, and then the "Show All Answers" button if the user has submitted the quiz at least once */}
-        {hasAttempted && (
-          <button
-            className="show-all-answers-button"
-            onClick={toggleAllAnswers}
-          >
-            {showAllAnswers ? "Hide All Answers" : "Show All Answers"}
-          </button>
+        {/* Conditionally render the welcome text or the score and "Show All Answers" button */}
+        {hasAttempted ? (
+          <>
+            Your score was: <span className="important-text">{score}%</span>
+            <button
+              // need this here to prevent it from bubbling up (our toggle button function is defined outside of here) and submitting the form when we click the button, lol...
+              type="button"
+              className="show-all-answers-button"
+              onClick={toggleAllAnswers}
+            >
+              {showAllAnswers ? "Hide All Answers" : "Show All Answers"}
+            </button>
+          </>
+        ) : (
+          <p className="basic-rules-quiz-title">
+            Welcome to the basic rules quiz!
+          </p>
         )}
       </section>
       {/* T/F Question 1: Placing stones */}
@@ -350,7 +374,9 @@ const BasicRulesQuiz = () => {
             <div className="answer">
               {showAllAnswers && (
                 <p>
-                  <span className="important-text">Atari:</span> is simply a nice gesture to let a beginner know that one or some of their stones are about to be captured.
+                  <span className="important-text">Atari:</span> is simply a
+                  nice gesture to let a beginner know that one or some of their
+                  stones are about to be captured.
                 </p>
               )}
             </div>
@@ -418,14 +444,15 @@ const BasicRulesQuiz = () => {
             <label htmlFor="question7-answer4">4</label>
           </div>
           {hasAttempted && (
-          <div className="answer">
-            {showAllAnswers && (
-              <p>
-                <span className="important-text">3: </span>The stone has 3 liberties (straight lines coming off of it). J4, H3, and J2.
-              </p>
-            )}
-          </div>
-        )}
+            <div className="answer">
+              {showAllAnswers && (
+                <p>
+                  <span className="important-text">3: </span>The stone has 3
+                  liberties (straight lines coming off of it). J4, H3, and J2.
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -484,14 +511,15 @@ const BasicRulesQuiz = () => {
             <label htmlFor="question8-answer4">12</label>
           </div>
           {hasAttempted && (
-          <div className="answer">
-            {showAllAnswers && (
-              <p>
-                <span className="important-text">8: </span>The stone has 8 liberties. C6, D5, E5, F5, G6, F7, E7, and D7.
-              </p>
-            )}
-          </div>
-        )}
+            <div className="answer">
+              {showAllAnswers && (
+                <p>
+                  <span className="important-text">8: </span>The stone has 8
+                  liberties. C6, D5, E5, F5, G6, F7, E7, and D7.
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -554,14 +582,17 @@ const BasicRulesQuiz = () => {
             <label htmlFor="question9-answer4">40</label>
           </div>
           {hasAttempted && (
-          <div className="answer">
-            {showAllAnswers && (
-              <p>
-                <span className="important-text">40: </span>One way to count this is to visualize 2 rectangles.  Rectangle with corners at: A9 A6 E6 E9, is 4 times 5 = 20 points.  Rectangle with corners at: A5 A1 C1 C5, is 5 times 3 for 15 points. 25 + 15 = 40.
-              </p>
-            )}
-          </div>
-        )}
+            <div className="answer">
+              {showAllAnswers && (
+                <p>
+                  <span className="important-text">40: </span>One way to count
+                  this is to visualize 2 rectangles. Rectangle with corners at:
+                  A9 A6 E6 E9, is 4 times 5 = 20 points. Rectangle with corners
+                  at: A5 A1 C1 C5, is 5 times 3 for 15 points. 25 + 15 = 40.
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -627,14 +658,16 @@ const BasicRulesQuiz = () => {
             <label htmlFor="question10-answer4">1</label>
           </div>
           {hasAttempted && (
-          <div className="answer">
-            {showAllAnswers && (
-              <p>
-                <span className="important-text">2: </span> If you place a stone in any of the 4 corners (A9, J9, A1, or J1) your stone only has 2 liberties.
-              </p>
-            )}
-          </div>
-        )}
+            <div className="answer">
+              {showAllAnswers && (
+                <p>
+                  <span className="important-text">2: </span> If you place a
+                  stone in any of the 4 corners (A9, J9, A1, or J1) your stone
+                  only has 2 liberties.
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -651,11 +684,5 @@ const BasicRulesQuiz = () => {
     </form>
   );
 };
-
-/*
-
-Question 7: Input field only takes in an integer -> How many points has black surrounded? <diagram of finished game>
-
-*/
 
 export default BasicRulesQuiz;

@@ -3,7 +3,8 @@ import { csrfFetch } from "./csrf";
 // *********** Action types *********** //
 
 export const UPLOAD_QUIZ = "/quizzes/UPLOAD_QUIZ";
-export const GET_QUIZ_COMPLETION_STATUS = "/quizzes/GET_QUIZ_COMPLETION_STATUS";
+export const FETCH_QUIZ_COMPLETION_STATUS = "/quizzes/GET_QUIZ_COMPLETION_STATUS";
+export const FETCH_QUIZ_SCORE = "quizzes/FETCH_"
 // ********** Action Creators ********* //
 
 export const uploadQuiz = (data) => ({
@@ -11,10 +12,15 @@ export const uploadQuiz = (data) => ({
   payload: data,
 });
 
-export const getQuizCompletionStatus = (data) => ({
-  type: GET_QUIZ_COMPLETION_STATUS,
+export const fetchQuizCompletionStatus = (data) => ({
+  type: FETCH_QUIZ_COMPLETION_STATUS,
   payload: data,
 });
+
+export const fetchQuizScore = (data) => ({
+  type: FETCH_QUIZ_SCORE,
+  payload: data,
+})
 
 // ********** Thunks ************ //
 
@@ -30,6 +36,7 @@ export const uploadQuizThunk = (quiz_data, quiz_id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(uploadQuiz(data));
+    return { ok: true, data }; // Return this response data for chaining on a thunk for the quiz form to fetch answers
   }
 };
 
@@ -37,16 +44,24 @@ export const fetchQuizCompletionStatusThunk = (quizId) => async (dispatch) => {
   const response = await fetch(`/api/quizzes/${quizId}/hasAttempted`);
   const data = await response.json();
   if (response.ok) {
-    dispatch(getQuizCompletionStatus(data.hasAttempted)); // only pass in hasAttempted for now, maybe later we will need other stuff from the data, in which case we would pass in "data" instead of "data.hasAttempted"
+    dispatch(fetchQuizCompletionStatus(data.hasAttempted)); // only pass in hasAttempted for now, maybe later we will need other stuff from the data, in which case we would pass in "data" instead of "data.hasAttempted"
   }
 };
 
+export const fetchQuizScoreThunk = (quizId) => async (dispatch) => {
+  const response = await fetch(`/api/quizzes/${quizId}/score`)
+  const data = await response.json();
+  if(response.ok) {
+    dispatch(fetchQuizScore(data))
+  }
+}
+
 // ************ Reducer **************** //
 
-// An object that defines the initial values for Redux state properties
 const initialState = {
   quiz: null,
   hasAttempted: false,
+  score: null,
 };
 
 // we handle actions in the reducer, and update the state based on the action type
@@ -57,11 +72,16 @@ const quizReducer = (state = initialState, action) => {
         ...state,
         quiz: action.payload,
       };
-    case GET_QUIZ_COMPLETION_STATUS: // Handle the new action type
+    case FETCH_QUIZ_COMPLETION_STATUS: // Handle the new action type
       return {
         ...state,
         hasAttempted: action.payload,
       };
+    case FETCH_QUIZ_SCORE:
+    return {
+      ...state,
+      score: action.payload
+    }
     default:
       return state;
   }
