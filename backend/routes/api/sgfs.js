@@ -435,6 +435,8 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
     if (sgfRecord.user_id !== req.user.id) {
       return res.status(403).json({ error: "Not authorized!" });
     }
+
+    sgf_id = req.params.sgf_id
     // Check if potential puzzles already exist for the given sgf id
     const existingPuzzles = await PotentialPuzzle.findAll({
       where: { sgf_id },

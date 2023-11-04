@@ -36,7 +36,7 @@ export const uploadQuizThunk = (quiz_data, quiz_id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(uploadQuiz(data));
-    return { ok: true, data }; // Return this response data for chaining on a thunk for the quiz form to fetch answers
+    // return { ok: true, data }; // Return this response data for chaining on a thunk for the quiz form to fetch answers
   }
 };
 
@@ -71,6 +71,8 @@ const quizReducer = (state = initialState, action) => {
       return {
         ...state,
         quiz: action.payload,
+        hasAttempted: true,
+        score: action.payload.score,
       };
     case FETCH_QUIZ_COMPLETION_STATUS: // Handle the new action type
       return {
