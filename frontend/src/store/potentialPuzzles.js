@@ -85,7 +85,7 @@ export const generatePotentialPuzzlesThunk =
     dispatch(generatePotentialPuzzles(data));
 
     // ******* Automatically use GCP VM in production, otherwise it will use our computer's GPU instead locally ******* //
-    const useExternalVM = process.env.NODE_ENV === 'production';
+    const useExternalVM = process.env.REACT_APP_USE_EXTERNAL_VM === 'true';
     const VM_ENDPOINT = useExternalVM
       ? "https://vm.go-puzzles.com/potential_puzzles/generate"
       : "/api/potential_puzzles/generate";
