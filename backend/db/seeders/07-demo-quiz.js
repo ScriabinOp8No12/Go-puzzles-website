@@ -14,12 +14,12 @@ module.exports = {
         {
           id: 1,
           quiz_name: "Basic Rules",
-          questions_count: 15,
+          questions_count: 10,
         },
         {
           id: 2,
-          quiz_name: "Rules & Strategy",
-          questions_count: 12,
+          quiz_name: "Advanced Rules",
+          questions_count: 10,
         },
       ],
       {}
