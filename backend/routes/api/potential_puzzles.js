@@ -18,6 +18,7 @@ cloudinary.config({
 
 // Trigger KataGo analysis (/potential_puzzles/generate)
 router.post("/generate", requireAuth, async (req, res) => {
+  console.log("***********************hit this endpoint!*********************************")
   try {
     const { sgf_id, sgf_data, one_line_json_string } = req.body;
     // Check if potential puzzles already exist for the given sgf id
