@@ -49,6 +49,13 @@
   margin-bottom: 10px;
 }
 
+.generate-puzzles-feature-text {
+  margin-top: 10px;
+  color: aliceblue;
+  font-weight: bold;
+  /* width: 400px; */
+}
+
 /* SGF DETAILS */
 
 .sgf-details {

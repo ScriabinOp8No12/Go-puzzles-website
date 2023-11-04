@@ -27,11 +27,6 @@ const BasicRulesQuiz = () => {
     dispatch(fetchQuizCompletionStatusThunk(quizId));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   // Always dispatch the thunk to fetch the score when the component mounts
-  //   dispatch(fetchQuizScoreThunk(quizId));
-  // }, [dispatch, quizId]);
-
   useEffect(() => {
     if (!hasAttempted) {
       // Dispatch the thunk to fetch the score when the component mounts
@@ -64,8 +59,15 @@ const BasicRulesQuiz = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(uploadQuizThunk({ answers }, quizId));
-    await dispatch(fetchQuizScoreThunk(quizId));
+    const submitResponse = await dispatch(uploadQuizThunk({ answers }, quizId));
+    window.scrollTo(0,0) // scroll to the top of the page on a submission of the quiz
+    if (submitResponse?.ok) {
+      await dispatch(fetchQuizScoreThunk(quizId));
+    }
+    else {
+      alert('There was an error submitting your quiz. Please try again.')
+    }
+
   };
 
   return (
@@ -74,7 +76,7 @@ const BasicRulesQuiz = () => {
         {/* Conditionally render the welcome text or the score and "Show All Answers" button */}
         {hasAttempted ? (
           <>
-            Your score was: <span className="important-text">{score}%</span>
+            Quiz submitted, your score was: <span className="important-text">{score}%</span>
             <button
               // need this here to prevent it from bubbling up (our toggle button function is defined outside of here) and submitting the form when we click the button, lol...
               type="button"

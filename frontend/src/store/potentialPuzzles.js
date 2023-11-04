@@ -84,8 +84,8 @@ export const generatePotentialPuzzlesThunk =
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
 
-    // ******* Manually change below boolean to true to use production external VM, or test locally with computer's CPU ******* //
-    const useExternalVM = false;
+    // ******* Automatically use GCP VM in production, otherwise it will use our computer's GPU instead locally ******* //
+    const useExternalVM = process.env.NODE_ENV === 'production';
     const VM_ENDPOINT = useExternalVM
       ? "https://vm.go-puzzles.com/potential_puzzles/generate"
       : "/api/potential_puzzles/generate";
