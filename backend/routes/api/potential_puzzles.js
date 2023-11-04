@@ -16,9 +16,8 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// Trigger KataGo analysis (/potential_puzzles/generate)
+// Trigger KataGo analysis LOCALLY only, GCP VM is at the endpoint found in the VM itself!!!!
 router.post("/generate", requireAuth, async (req, res) => {
-  console.log("***********************hit this endpoint!*********************************")
   try {
     const { sgf_id, sgf_data, one_line_json_string } = req.body;
     // Check if potential puzzles already exist for the given sgf id
@@ -26,7 +25,6 @@ router.post("/generate", requireAuth, async (req, res) => {
       where: { sgf_id },
     });
 
-    console.log("**************existingPuzzles************", existingPuzzles)
     // Don't analyze the game for mistakes if potential puzzles already exist for the given sgf
     if (existingPuzzles.length > 0) {
       return res
