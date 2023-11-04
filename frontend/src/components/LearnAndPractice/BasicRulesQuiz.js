@@ -15,7 +15,9 @@ const BasicRulesQuiz = () => {
   // Initialize the showAnswers state with the function
   const [showAllAnswers, setShowAllAnswers] = useState(false);
   // Function to toggle the answer visibility for all questions
-  const toggleAllAnswers = () => {
+  const toggleAllAnswers = (e) => {
+    e.stopPropagation(); // this solved the issue of clicking the "show all answers" button causing the score to reset back to 0% for some reason
+    // maybe it resubmitted an empty form, that actually makes sense
     setShowAllAnswers((prev) => !prev);
   };
 
@@ -24,6 +26,11 @@ const BasicRulesQuiz = () => {
   useEffect(() => {
     dispatch(fetchQuizCompletionStatusThunk(quizId));
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   // Always dispatch the thunk to fetch the score when the component mounts
+  //   dispatch(fetchQuizScoreThunk(quizId));
+  // }, [dispatch, quizId]);
 
   useEffect(() => {
     if (!hasAttempted) {
@@ -57,14 +64,8 @@ const BasicRulesQuiz = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const submitResponse = await dispatch(uploadQuizThunk({ answers }, quizId));
-    console.log(submitResponse);
-    if (submitResponse?.ok) {
-      // The upload was successful, now fetch the new score
-      await dispatch(fetchQuizScoreThunk(quizId));
-    } else {
-      alert("There was an error submitting your quiz.");
-    }
+    await dispatch(uploadQuizThunk({ answers }, quizId));
+    await dispatch(fetchQuizScoreThunk(quizId));
   };
 
   return (
@@ -75,6 +76,8 @@ const BasicRulesQuiz = () => {
           <>
             Your score was: <span className="important-text">{score}%</span>
             <button
+              // need this here to prevent it from bubbling up (our toggle button function is defined outside of here) and submitting the form when we click the button, lol...
+              type="button"
               className="show-all-answers-button"
               onClick={toggleAllAnswers}
             >
