@@ -76,13 +76,17 @@ router.post("/:quiz_id/submit", requireAuth, async (req, res) => {
       },
     });
 
+    // This variable will hold the entry, whether it's new or existing
+    let entry;
+
     if (existingEntry) {
       // Update the existing entry if it exists
       existingEntry.score = score;
       await existingEntry.save();
+      entry = existingEntry;
     } else {
       // Otherwise create a new entry
-      await UserQuizResult.create({
+      entry = await UserQuizResult.create({
         user_id: userId,
         quiz_id: quizId,
         score: score,
@@ -90,11 +94,11 @@ router.post("/:quiz_id/submit", requireAuth, async (req, res) => {
     }
 
     // Refresh to get all fields, including timestamps
-    await existingEntry.reload();
+    await entry.reload();
 
     // Format timestamps with Moment.js
     const formattedEntry = {
-      ...existingEntry.toJSON(),
+      ...entry.toJSON(),
       createdAt: moment(existingEntry.createdAt).format("YYYY-MM-DD HH:mm:ss"),
       updatedAt: moment(existingEntry.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     };
@@ -130,6 +134,33 @@ router.get("/:quiz_id/hasAttempted", requireAuth, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Get the user's quiz score
+router.get("/:quiz_id/score", requireAuth, async (req, res) => {
+  const userId = req.user.id;
+  const { quiz_id } = req.params;
+
+  try {
+    // Find the quiz result for the logged-in user and specified quiz
+    const quizResult = await UserQuizResult.findOne({
+      where: {
+        user_id: userId,
+        quiz_id: quiz_id,
+      },
+      attributes: ['score'], // Select only the score field
+    });
+
+    if (!quizResult) {
+      return res.status(404).json({ message: 'Quiz result not found.' });
+    }
+
+    return res.json({ score: quizResult.score });
+
+  } catch (error) {
+    console.error('Error fetching quiz score:', error);
+    return res.status(500).json({ message: 'Internal server error.' });
   }
 });
 
