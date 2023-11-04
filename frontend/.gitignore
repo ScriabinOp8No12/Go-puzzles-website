@@ -20,8 +20,8 @@
 .eslintcache
 
 # frontend .env files
-.env.development
-.env.production
+# .env.development
+# .env.production
 
 npm-debug.log*
 yarn-debug.log*
