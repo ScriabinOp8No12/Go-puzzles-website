@@ -76,3 +76,20 @@
   text-align: center;
   width: 100%;
 }
+
+/***** Answers css *****/
+
+.answer {
+  margin-top: 20px;
+}
+
+.show-all-answers-button {
+  text-shadow:
+  -.5px -.5px 0 #000,
+  .5px -.5px 0 #000,
+  -.5px .5px 0 #000,
+  .5px .5px 0 #000;
+  font-weight: bold;
+}
+
+/***** End of Answers css *****/
