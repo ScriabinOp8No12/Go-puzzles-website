@@ -24,6 +24,8 @@ router.post("/generate", requireAuth, async (req, res) => {
     const existingPuzzles = await PotentialPuzzle.findAll({
       where: { sgf_id },
     });
+
+    console.log("**************existingPuzzles************", existingPuzzles)
     // Don't analyze the game for mistakes if potential puzzles already exist for the given sgf
     if (existingPuzzles.length > 0) {
       return res
