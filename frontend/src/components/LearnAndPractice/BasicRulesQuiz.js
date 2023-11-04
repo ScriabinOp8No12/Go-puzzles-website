@@ -10,34 +10,19 @@ import QuizImage from "./QuizImage";
 const BasicRulesQuiz = () => {
   const dispatch = useDispatch();
   const hasAttempted = useSelector((state) => state.quiz.hasAttempted);
-  // State for show answer clickable buttons for displaying correct answers to user after they've submitted the quiz at least once
-  const [showAnswers, setShowAnswers] = useState({});
+  const score = useSelector((state) => state.quiz.quiz.score)
+  // Initialize the showAnswers state with the function
+  const [showAllAnswers, setShowAllAnswers] = useState(false);
+  // Function to toggle the answer visibility for all questions
+  const toggleAllAnswers = () => {
+    setShowAllAnswers((prev) => !prev);
+  };
+
   const quizId = "1"; // basic rules quiz id is 1, the id will always be 1 for this component
 
   useEffect(() => {
     dispatch(fetchQuizCompletionStatusThunk(quizId));
-    // Initialize the showAnswers state for all 10 questions
-    setShowAnswers({
-      question1: false,
-      question2: false,
-      question3: false,
-      question4: false,
-      question5: false,
-      question6: false,
-      question7: false,
-      question8: false,
-      question9: false,
-      question10: false,
-    });
   }, [dispatch]);
-
-  // Function to toggle the answer visibility
-  const toggleAnswer = (index) => {
-    setShowAnswers({
-      ...showAnswers,
-      [index]: !showAnswers[index],
-    });
-  };
 
   // Local state to store the user's answers
   const [answers, setAnswers] = useState({
@@ -65,11 +50,22 @@ const BasicRulesQuiz = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(uploadQuizThunk({ answers }, quizId));
-    // Optionally, handle what happens after submission (like a redirect)
   };
 
   return (
     <form onSubmit={handleSubmit} className="quiz-form">
+      <section className="question">
+        Your score was: <span className="important-text">{score}%</span>
+        {/* Display the user's score, and then the "Show All Answers" button if the user has submitted the quiz at least once */}
+        {hasAttempted && (
+          <button
+            className="show-all-answers-button"
+            onClick={toggleAllAnswers}
+          >
+            {showAllAnswers ? "Hide All Answers" : "Show All Answers"}
+          </button>
+        )}
+      </section>
       {/* T/F Question 1: Placing stones */}
       <section className="question">
         <p>
@@ -99,15 +95,14 @@ const BasicRulesQuiz = () => {
           <label htmlFor="question1-false">False</label>
         </div>
         {hasAttempted && (
-          <button type="button" onClick={() => toggleAnswer("question1")}>
-            {showAnswers["question1"] ? "Hide Answer" : "Show Answer"}
-          </button>
-        )}
-
-        {showAnswers["question1"] && (
           <div className="answer">
-            {/* The correct answer content goes here */}
-            <p>This is False! Stones are placed on the intersections, not the squares</p>
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">False: </span>Black typically
+                plays first, the exception is if black is taking a handicap,
+                then white goes first.
+              </p>
+            )}
           </div>
         )}
       </section>
@@ -138,6 +133,16 @@ const BasicRulesQuiz = () => {
           />
           <label htmlFor="question2-false">False</label>
         </div>
+        {hasAttempted && (
+          <div className="answer">
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">False: </span>Stones are placed
+                on the intersections, not the squares.
+              </p>
+            )}
+          </div>
+        )}
       </section>
 
       {/* T/F Question 3: Definition of territory */}
@@ -167,6 +172,17 @@ const BasicRulesQuiz = () => {
           />
           <label htmlFor="question3-false">False</label>
         </div>
+        {hasAttempted && (
+          <div className="answer">
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">True: </span>Another way to put
+                this is: if you can place a stone on that location (even if it's
+                an illegal move), it's a point of territory.
+              </p>
+            )}
+          </div>
+        )}
       </section>
 
       {/* T/F Question 4 Definition of liberty */}
@@ -198,6 +214,17 @@ const BasicRulesQuiz = () => {
           />
           <label htmlFor="question4-false">False</label>
         </div>
+        {hasAttempted && (
+          <div className="answer">
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">True: </span>This is very
+                important because you don't want to "over-surround" a group,
+                causing you to be inefficient.
+              </p>
+            )}
+          </div>
+        )}
       </section>
 
       {/* MC Question 5: Who won the game? */}
@@ -237,6 +264,16 @@ const BasicRulesQuiz = () => {
             />
             <label htmlFor="question5-tie">Tie</label>
           </div>
+          {hasAttempted && (
+            <div className="answer">
+              {showAllAnswers && (
+                <p>
+                  <span className="important-text">Black: </span>Black has 25
+                  points, and White has 22 points.
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -309,8 +346,18 @@ const BasicRulesQuiz = () => {
               first move.
             </label>
           </div>
+          {hasAttempted && (
+            <div className="answer">
+              {showAllAnswers && (
+                <p>
+                  <span className="important-text">Atari:</span> is simply a nice gesture to let a beginner know that one or some of their stones are about to be captured.
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </section>
+
       {/* MC Question 7: Counting Liberties */}
       <section className="question quiz-flex-container">
         <div className="quiz-content">
@@ -370,6 +417,15 @@ const BasicRulesQuiz = () => {
             />
             <label htmlFor="question7-answer4">4</label>
           </div>
+          {hasAttempted && (
+          <div className="answer">
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">3: </span>The stone has 3 liberties (straight lines coming off of it). J4, H3, and J2.
+              </p>
+            )}
+          </div>
+        )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -427,6 +483,15 @@ const BasicRulesQuiz = () => {
             />
             <label htmlFor="question8-answer4">12</label>
           </div>
+          {hasAttempted && (
+          <div className="answer">
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">8: </span>The stone has 8 liberties. C6, D5, E5, F5, G6, F7, E7, and D7.
+              </p>
+            )}
+          </div>
+        )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -488,6 +553,15 @@ const BasicRulesQuiz = () => {
             />
             <label htmlFor="question9-answer4">40</label>
           </div>
+          {hasAttempted && (
+          <div className="answer">
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">40: </span>One way to count this is to visualize 2 rectangles.  Rectangle with corners at: A9 A6 E6 E9, is 4 times 5 = 20 points.  Rectangle with corners at: A5 A1 C1 C5, is 5 times 3 for 15 points. 25 + 15 = 40.
+              </p>
+            )}
+          </div>
+        )}
         </div>
         <div className="quiz-image-container">
           <QuizImage
@@ -503,7 +577,7 @@ const BasicRulesQuiz = () => {
         <div className="quiz-content">
           <p>
             10. You are asked to place a stone on an empty board. What's the{" "}
-            <span className="important-text">minimum number of liberties</span>{" "}
+            <span className="important-text">least amount of liberties</span>{" "}
             your single stone could have? You've now found the{" "}
             <span className="important-text">worst</span> possible move on the
             board! 😂
@@ -552,6 +626,15 @@ const BasicRulesQuiz = () => {
             />
             <label htmlFor="question10-answer4">1</label>
           </div>
+          {hasAttempted && (
+          <div className="answer">
+            {showAllAnswers && (
+              <p>
+                <span className="important-text">2: </span> If you place a stone in any of the 4 corners (A9, J9, A1, or J1) your stone only has 2 liberties.
+              </p>
+            )}
+          </div>
+        )}
         </div>
         <div className="quiz-image-container">
           <QuizImage

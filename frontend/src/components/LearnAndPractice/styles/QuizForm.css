@@ -76,3 +76,22 @@
   text-align: center;
   width: 100%;
 }
+
+/***** Answers css *****/
+
+.answer {
+  /* 20 pixel margin above, but then make the bottom negative margin so the question section isn't stretched 20 extra pixels for no reason */
+  margin-top: 20px;
+  margin-bottom: -20px;
+}
+
+.show-all-answers-button {
+  text-shadow:
+  -.5px -.5px 0 #000,
+  .5px -.5px 0 #000,
+  -.5px .5px 0 #000,
+  .5px .5px 0 #000;
+  font-weight: bold;
+}
+
+/***** End of Answers css *****/
