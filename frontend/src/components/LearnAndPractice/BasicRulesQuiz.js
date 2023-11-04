@@ -28,7 +28,7 @@ const BasicRulesQuiz = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!hasAttempted) {
+    if (hasAttempted) {
       // Dispatch the thunk to fetch the score when the component mounts
       dispatch(fetchQuizScoreThunk(quizId));
     }
@@ -59,16 +59,11 @@ const BasicRulesQuiz = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const submitResponse = await dispatch(uploadQuizThunk({ answers }, quizId));
-    window.scrollTo(0,0) // scroll to the top of the page on a submission of the quiz
-    if (submitResponse?.ok) {
-      await dispatch(fetchQuizScoreThunk(quizId));
-    }
-    else {
-      alert('There was an error submitting your quiz. Please try again.')
-    }
-
+    await dispatch(uploadQuizThunk({ answers }, quizId));
+    await dispatch(fetchQuizScoreThunk(quizId));
+    window.scrollTo(0,0); // Scroll to the top of the page on a submission of the quiz
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="quiz-form">

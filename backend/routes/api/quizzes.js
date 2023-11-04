@@ -99,8 +99,8 @@ router.post("/:quiz_id/submit", requireAuth, async (req, res) => {
     // Format timestamps with Moment.js
     const formattedEntry = {
       ...entry.toJSON(),
-      createdAt: moment(existingEntry.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-      updatedAt: moment(existingEntry.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+      createdAt: moment(entry.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: moment(entry.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     };
 
     res.json(formattedEntry);
