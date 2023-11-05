@@ -21,16 +21,16 @@ router.post("/generate", requireAuth, async (req, res) => {
   try {
     const { sgf_id, sgf_data, one_line_json_string } = req.body;
     // Check if potential puzzles already exist for the given sgf id
-    const existingPuzzles = await PotentialPuzzle.findAll({
-      where: { sgf_id },
-    });
+    // const existingPuzzles = await PotentialPuzzle.findAll({
+    //   where: { sgf_id },
+    // });
 
-    // Don't analyze the game for mistakes if potential puzzles already exist for the given sgf
-    if (existingPuzzles.length > 0) {
-      return res
-        .status(400)
-        .json({ error: "Potential puzzles already exist for the given sgf!" });
-    }
+    // // Don't analyze the game for mistakes if potential puzzles already exist for the given sgf
+    // if (existingPuzzles.length > 0) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: "Potential puzzles already exist for the given sgf!" });
+    // }
 
     const jsonEncodedString = JSON.stringify(one_line_json_string);
 
