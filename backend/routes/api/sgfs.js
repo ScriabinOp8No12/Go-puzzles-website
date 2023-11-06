@@ -1,21 +1,10 @@
 const moment = require("moment");
 const express = require("express");
-const smartgame = require("smartgame");
 const { python } = require("pythonia");
 const path = require("path");
 const jssgf = require("jssgf");
 const { requireAuth } = require("../../utils/auth");
 const { User, Sgf, Puzzle, PotentialPuzzle } = require("../../db/models");
-
-// Bull for queueing / asynchronous katago analysis engine endpoint
-// const Bull = require("bull")
-// const cmd = require('node-cmd')
-// const fs = require('fs')
-// Initializes new Bull queue named "katago"
-// const katagoQueue = new Bull('katago');
-
-// doesn't work for somereason, javascript can't find cloudinary.js
-// const cloudinary = require("../../../cloudinary.js");
 
 const cloudinary = require("cloudinary").v2;
 
@@ -411,67 +400,11 @@ router.delete("/:sgf_id", requireAuth, async (req, res) => {
     sgf.suspended = true;
     await sgf.save();
 
-    // await Puzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
-    // await PotentialPuzzle.update({ sgf_id: null }, { where: { sgf_id: req.params.sgf_id } });
-    // // Delete the SGF record
-    // await sgf.destroy();
-
     // Return a success response
     return res.status(200).json({ message: "Successfully suspended SGF" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error!" });
-  }
-});
-
-// Create one line json to feed into KataGo AI analysis engine (from SGF specified by SGF id)
-router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
-  try {
-    // Check authorization and find the record
-    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
-    if (!sgfRecord) {
-      return res.status(404).json({ error: "SGF not found!" });
-    }
-    if (sgfRecord.user_id !== req.user.id) {
-      return res.status(403).json({ error: "Not authorized!" });
-    }
-
-    sgf_id = req.params.sgf_id
-    // Check if potential puzzles already exist for the given sgf id
-    const existingPuzzles = await PotentialPuzzle.findAll({
-      where: { sgf_id },
-    });
-    // Don't execute the code to create the one line katago json input if potential puzzles already exist for the given sgf
-    if (existingPuzzles.length > 0) {
-      return res
-        .status(400)
-        .json({ error: "Potential puzzles already exist for the given sgf!" });
-    }
-
-    const { sgf_data } = req.body;
-
-    // Pass sgf_data into the sgf2OneLineJson_all_moves.py script
-    const one_line_json = await python(
-      path.join(
-        __dirname,
-        "..",
-        "..",
-        "..",
-        "katago",
-        "sgf_to_oneLineJson_all_moves.py"
-      )
-    );
-
-    const one_line_json_string = await one_line_json.sgf_to_one_line_json(
-      sgf_data
-    );
-
-    return res.status(200).json(JSON.parse(one_line_json_string));
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      error: "Could not convert SGF into one line JSON",
-    });
   }
 });
 

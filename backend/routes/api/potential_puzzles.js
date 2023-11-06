@@ -16,21 +16,61 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
+// Create one line json to feed into KataGo AI analysis engine (from SGF specified by SGF id)
+router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
+  try {
+    // Check authorization and find the record
+    const sgfRecord = await Sgf.findOne({ where: { id: req.params.sgf_id } });
+    if (!sgfRecord) {
+      return res.status(404).json({ error: "SGF not found!" });
+    }
+    if (sgfRecord.user_id !== req.user.id) {
+      return res.status(403).json({ error: "Not authorized!" });
+    }
+
+    sgf_id = req.params.sgf_id
+    // Check if potential puzzles already exist for the given sgf id
+    const existingPuzzles = await PotentialPuzzle.findAll({
+      where: { sgf_id },
+    });
+    // Don't execute the code to create the one line katago json input if potential puzzles already exist for the given sgf
+    if (existingPuzzles.length > 0) {
+      return res
+        .status(400)
+        .json({ error: "Potential puzzles already exist for the given sgf!" });
+    }
+
+    const { sgf_data } = req.body;
+
+    // Pass sgf_data into the sgf2OneLineJson_all_moves.py script
+    const one_line_json = await python(
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "..",
+        "katago",
+        "sgf_to_oneLineJson_all_moves.py"
+      )
+    );
+
+    const one_line_json_string = await one_line_json.sgf_to_one_line_json(
+      sgf_data
+    );
+
+    return res.status(200).json(JSON.parse(one_line_json_string));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Could not convert SGF into one line JSON",
+    });
+  }
+});
+
 // Trigger KataGo analysis LOCALLY only, GCP VM is at the endpoint found in the VM itself!!!!
 router.post("/generate", requireAuth, async (req, res) => {
   try {
     const { sgf_id, sgf_data, one_line_json_string } = req.body;
-    // Check if potential puzzles already exist for the given sgf id
-    // const existingPuzzles = await PotentialPuzzle.findAll({
-    //   where: { sgf_id },
-    // });
-
-    // // Don't analyze the game for mistakes if potential puzzles already exist for the given sgf
-    // if (existingPuzzles.length > 0) {
-    //   return res
-    //     .status(400)
-    //     .json({ error: "Potential puzzles already exist for the given sgf!" });
-    // }
 
     const jsonEncodedString = JSON.stringify(one_line_json_string);
 
