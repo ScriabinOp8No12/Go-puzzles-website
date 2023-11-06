@@ -33,8 +33,6 @@ function App() {
     dispatch(closeModal());
   }, [dispatch]);
 
-  // useEffect() performs side effects in function components, dependency array is used to determine when the effect should run!
-  // if any value inside the dependency array changes between renders, the effect will run again
   // Close modal when user clicks outside of it
   useEffect(() => {
     const handleOutsideClick = (e) => {

@@ -1,5 +1,3 @@
-
-
 .signupText {
   text-align: center;
   color: black;
@@ -42,4 +40,16 @@
   width: 100%;
   padding: 10px 20px;
   border: none;
+}
+
+/* Close modal button */
+.close-button {
+  color: red;
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 4em;
+  cursor: pointer;
 }

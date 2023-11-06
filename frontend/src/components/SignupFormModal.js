@@ -12,6 +12,16 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+   // Add this function to close the modal
+   const handleClose = () => {
+    dispatch(closeModal());
+  };
+
+   // Stop the modal from closing when clicking outside of it
+   const handleBackdropClick = (e) => {
+    e.stopPropagation();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -41,9 +51,12 @@ function SignupFormModal() {
   };
 
   return (
-    <div className="modal">
+    // <div className="modal-overlay" onClick={handleClose}>
+    <div className="modal" onClick={handleBackdropClick}>
       <form className="signup-form" onSubmit={handleSubmit}>
         <h1 className="signupText">Sign Up</h1>
+        {/* Add a close button */}
+        <button type="button" className="close-button" onClick={handleClose}>&times;</button>
 
         <div className="errorMessage">
           {Object.keys(errors).map((key, index) => (
@@ -115,6 +128,7 @@ function SignupFormModal() {
         </button>
       </form>
     </div>
+    // </div>
   );
 }
 
