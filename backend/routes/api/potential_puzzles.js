@@ -159,8 +159,8 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
 
     // console.log("final sgf strings", final_sgf_strings)
 
-    console.log("**********existingRecords LENGTH**************", existingRecords.length)
-    console.log("***********final sgf strings LENGTH*****************", await final_sgf_strings.length)
+    // console.log("**********existingRecords LENGTH**************", existingRecords.length)
+    // console.log("***********final sgf strings LENGTH*****************", await final_sgf_strings.length)
 
     if (existingRecords.length !== (await final_sgf_strings.length)) {
       return res
