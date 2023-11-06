@@ -65,7 +65,7 @@ export const generatePotentialPuzzlesThunk =
     // First api call to get the one line json for KataGo
     let response;
     try {
-    response = await csrfFetch(`/api/sgfs/${sgf_id}/katago_json_input`, {
+    response = await csrfFetch(`/api/potential_puzzles/${sgf_id}/katago_json_input`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
