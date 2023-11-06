@@ -36,20 +36,9 @@
   /* background-color: #2ea44f; */
   background-color: #00ADB5;
   /* color: white; */
+  border: 3px solid black !important;
   color: black;
   width: 100%;
   padding: 10px 20px;
   border: none;
-}
-
-/* Close modal button */
-.close-button {
-  color: red;
-  position: absolute;
-  top: -10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 4em;
-  cursor: pointer;
 }

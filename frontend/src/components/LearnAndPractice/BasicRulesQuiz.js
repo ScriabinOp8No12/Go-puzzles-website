@@ -119,10 +119,9 @@ const BasicRulesQuiz = () => {
           <div className="answer">
             {showAllAnswers && (
               <p>
-                <span className="important-text">False: </span>Black typically
-                plays first, the exception is if black is taking a handicap,
-                then white goes first.
-              </p>
+              <span className="important-text">False: </span>Stones are placed
+              on the intersections, not the squares.
+            </p>
             )}
           </div>
         )}
@@ -157,10 +156,12 @@ const BasicRulesQuiz = () => {
         {hasAttempted && (
           <div className="answer">
             {showAllAnswers && (
+
               <p>
-                <span className="important-text">False: </span>Stones are placed
-                on the intersections, not the squares.
-              </p>
+              <span className="important-text">False: </span>Black typically
+              plays first, the exception is if black is taking a handicap,
+              then white goes first.
+            </p>
             )}
           </div>
         )}

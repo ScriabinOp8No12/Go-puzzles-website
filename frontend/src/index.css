@@ -109,3 +109,36 @@ body {
   padding-top: 200px !important;
   padding-left: 10px !important;
 }
+
+/* Close modal button */
+.close-button {
+  color: red;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.image-modal-wrapper .close-button {
+  color: red;
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.edit-modal-form .close-button {
+  color: red;
+  position: absolute;
+  top: 0px;
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
