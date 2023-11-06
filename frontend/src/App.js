@@ -34,21 +34,21 @@ function App() {
   }, [dispatch]);
 
   // Close modal when user clicks outside of it
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      // check if the click event (e.target) occurred inside an element with the class modal
-      // the .closest method traverses the Element and its parents (heads towards root of document)
-      // until it finds a node that matches the provided selector string, it returns null if no element exists,
-      // however, if the click did not occur inside the modal, the handleCloseModal function gets called
-      if (modalComponent && !e.target.closest(".modal")) {
-        handleCloseModal();
-      }
-    };
+  // useEffect(() => {
+  //   const handleOutsideClick = (e) => {
+  //     // check if the click event (e.target) occurred inside an element with the class modal
+  //     // the .closest method traverses the Element and its parents (heads towards root of document)
+  //     // until it finds a node that matches the provided selector string, it returns null if no element exists,
+  //     // however, if the click did not occur inside the modal, the handleCloseModal function gets called
+  //     if (modalComponent && !e.target.closest(".modal")) {
+  //       handleCloseModal();
+  //     }
+  //   };
 
-    document.addEventListener("click", handleOutsideClick);
+  //   document.addEventListener("click", handleOutsideClick);
 
-    return () => document.removeEventListener("click", handleOutsideClick);
-  }, [modalComponent, handleCloseModal]);
+  //   return () => document.removeEventListener("click", handleOutsideClick);
+  // }, [modalComponent, handleCloseModal]);
 
   // Close modal when user navigates to a different page
   useEffect(() => {

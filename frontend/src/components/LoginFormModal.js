@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { closeModal } from "../store/modal";
 import * as sessionActions from "../store/session";
+import CloseButton from "./CloseModalButton";
 import "./styles/LoginForm.css";
 
 function LoginFormModal() {
@@ -41,16 +42,17 @@ function LoginFormModal() {
       })
       .catch(async (res) => {
         const data = await res.json();
-        // console.log(data);
         if (data && data.errors) setErrors(data.errors);
       });
   };
 
   return (
-    // add modal className to this LoginFormModal as well as the SignupFormModal
     <div className="modal">
       <form className="login-form-modal" onSubmit={handleSubmit}>
         <h1 className="loginText">Log In</h1>
+        {/* Close button */}
+        <CloseButton onClick={() => dispatch(closeModal())} />
+
         {errors.credential && (
           <div className="errorMessage">
             <p>{errors.credential}</p>

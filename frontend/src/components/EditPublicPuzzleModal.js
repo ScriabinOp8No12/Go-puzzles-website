@@ -5,6 +5,7 @@ import {
   fetchPublicPuzzlesThunk,
 } from "../store/publicPuzzles";
 import { closeModal } from "../store/modal";
+import CloseButton from "./CloseModalButton";
 import "./styles/EditPublicPuzzleModal.css";
 
 // Verify this is getting right props
@@ -67,7 +68,6 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
     setPuzzleDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
-
   const handleOverlayClick = () => {
     dispatch(closeModal()); // Reset the form and close the modal
   };
@@ -83,6 +83,8 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
         className="edit-modal-form"
         onClick={handleFormClick}
       >
+        <CloseButton onClick={() => dispatch(closeModal())} />
+
         <label>
           Category:
           <select

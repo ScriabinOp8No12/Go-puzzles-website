@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../store/modal";
 import * as sessionActions from "../store/session";
+import CloseButton from "./CloseModalButton";
 import "./styles/SignupForm.css";
+
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -11,16 +13,6 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-   // Add this function to close the modal
-   const handleClose = () => {
-    dispatch(closeModal());
-  };
-
-   // Stop the modal from closing when clicking outside of it
-   const handleBackdropClick = (e) => {
-    e.stopPropagation();
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,11 +44,11 @@ function SignupFormModal() {
 
   return (
     // <div className="modal-overlay" onClick={handleClose}>
-    <div className="modal" onClick={handleBackdropClick}>
+    <div className="modal">
       <form className="signup-form" onSubmit={handleSubmit}>
         <h1 className="signupText">Sign Up</h1>
-        {/* Add a close button */}
-        <button type="button" className="close-button" onClick={handleClose}>&times;</button>
+        {/* Add close button component*/}
+        <CloseButton onClick={() => dispatch(closeModal())} />
 
         <div className="errorMessage">
           {Object.keys(errors).map((key, index) => (

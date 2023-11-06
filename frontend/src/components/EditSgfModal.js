@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editSgfByIdThunk, fetchAllSgfsThunk } from "../store/sgfs";
 import { closeModal } from "../store/modal";
+import CloseButton from "./CloseModalButton";
 import "./styles/EditSgfModal.css";
 
 const EditSgfModal = ({ sgfId }) => {
@@ -111,6 +112,7 @@ const EditSgfModal = ({ sgfId }) => {
         className="edit-modal-form"
         onClick={handleFormClick}
       >
+        <CloseButton onClick={() => dispatch(closeModal())} />
         <label>
           SGF Name:
           <input
@@ -118,6 +120,7 @@ const EditSgfModal = ({ sgfId }) => {
             value={sgfDetails.sgf_name || ""}
             onChange={handleChange}
           />
+
           {formErrors.sgf_name && (
             <div className="edit-sgf-errors">{formErrors.sgf_name[0]}</div>
           )}

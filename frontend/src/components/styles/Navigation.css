@@ -94,6 +94,8 @@
   margin-bottom: 10px;
   margin-right: 50px;
   width: 100%;
+  font-weight: bold;
+  border: 3px solid transparent; /* Add a transparent border */
 }
 
 .profile-dropdown.logged-in li {
@@ -102,12 +104,13 @@
   margin-bottom: 10px;
   margin-right: 29px;
   width: 100%;
+  border: 3px solid transparent; /* Add a transparent border */
 }
 
 /* only have the grey background hover effect when the user isn't logged in */
 .profile-dropdown.not-logged-in li:hover {
   background-color: #00ADB5;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 15px;
   width: 80px;
   margin-left: 10px;
