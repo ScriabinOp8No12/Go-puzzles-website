@@ -49,6 +49,10 @@ button {
   margin-bottom: 20px;
 }
 
+.submitButton:hover {
+  border: 3px solid aliceblue;
+}
+
 /* Exclude the profile button to have a black background color and text color of white */
 .profile-button {
   background-color: inherit;
