@@ -71,7 +71,7 @@ const BasicRulesQuiz = () => {
         {/* Conditionally render the welcome text or the score and "Show All Answers" button */}
         {hasAttempted ? (
           <>
-            Quiz submitted, your score was: <span className="important-text">{score}%</span>
+            <span className="important-text">Quiz submitted</span>, your score was: <span className="important-text">{score}%</span>
             <button
               // need this here to prevent it from bubbling up (our toggle button function is defined outside of here) and submitting the form when we click the button, lol...
               type="button"
@@ -677,7 +677,7 @@ const BasicRulesQuiz = () => {
       </section>
 
       <button type="submit" className="submitButton">
-        Submit Quiz
+        Submit Quiz!
       </button>
     </form>
   );

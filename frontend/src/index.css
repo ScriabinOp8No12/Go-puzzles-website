@@ -44,6 +44,9 @@ button {
   .75px -.75px 0 #000,
   -.75px .75px 0 #000,
   .75px .75px 0 #000;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 /* Exclude the profile button to have a black background color and text color of white */
