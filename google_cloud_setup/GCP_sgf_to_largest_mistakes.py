@@ -30,8 +30,8 @@ def process_range(stdout_data, n, start, end):
         for move, pv in moves:
             formatted_correct_moves[move] = pv
         results.append({
-            "move": turn - 1, # Mistake occurs on this move, so we have to go back one move for the puzzle position
-            "points_lost_on_next_move": round(points, 1),
+            "move": turn, # Not turn - 1 anymore apparently
+            "points_lost": round(points, 1), # Not points_lost_on_next_move anymore, it's points lost on the played move
             "correct_moves": formatted_correct_moves
         })
 
