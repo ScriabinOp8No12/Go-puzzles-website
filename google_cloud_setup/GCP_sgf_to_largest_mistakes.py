@@ -16,35 +16,42 @@ def process_range(stdout_data, n, start, end):
     mistakes, correct_moves = find_mistakes_and_correct_moves(stdout_data, n, start, end)
     results = []
 
-    # Determine the number of puzzles to generate based on the available mistakes
-    num_puzzles = min(n, len(mistakes))
-    # if mistakes:
-        # mistakes.sort(key=lambda x: x[1], reverse=True) # If we want to sort the mistakes in reverse order by the 2nd column (mistake amount)
+    # Create a list of "significant" mistakes (mistake over 1 point loss)
+    significant_mistakes = [(turn, points) for turn, points in mistakes if points >= 1]
+
+    # Reduce the number of puzzles to generate if there aren't enough significant mistakes
+    num_puzzles = min(n, len(significant_mistakes))
+
     correct_moves_dict = {turn: moves for turn, moves in correct_moves}
-    # for turn, points in mistakes[:n]:
-    for turn, points in mistakes[:num_puzzles]:
+
+    for turn, points in significant_mistakes[:num_puzzles]:
         moves = correct_moves_dict.get(turn-1, [])
         formatted_correct_moves = {}
         for move, pv in moves:
             formatted_correct_moves[move] = pv
         results.append({
-            "move": turn,
+            "move": turn - 1, # Mistake occurs on this move, so we have to go back one move for the puzzle position
             "points_lost_on_next_move": round(points, 1),
             "correct_moves": formatted_correct_moves
-          })
+        })
+
     return results
 
 def define_ranges(stdout_data, startMove):
-    # 3 mistakes in moves 1-50, 3 mistakes in moves 51-100, 3 mistakes in moves 101-150, and 3 mistakes in moves 151 to the end of the game
-    ranges = [(startMove, 50, 3, 'Opening'), (51, 100, 3, 'Early middlegame'), (101, 150, 3, 'Mid middlegame'), (151, float('inf'), 3, 'Late middlegame and endgame')]
+    ranges = [
+        (startMove, 50, 3, 'Opening'),
+        (51, 100, 3, 'Early middlegame'),
+        (101, 150, 3, 'Mid middlegame'),
+        (151, float('inf'), 3, 'Late middlegame and endgame')
+    ]
     results = []
     for start, end, n, _ in ranges:
         data = process_range(stdout_data.decode('utf-8'), n, start, end)
-        if not data:
-            continue
-        data.sort(key=lambda x: x['move'])  # Sort the data by move number
-        results.extend(data)  # Directly extend the results list with the processed data
+        # Now we won't necessarily extend the results by the number of mistakes we wanted if there aren't enough significant ones
+        results.extend(data)
+
     return results
+
 
 def run_katago_analysis(json_string):
     startTime = time.time()
