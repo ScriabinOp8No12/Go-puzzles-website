@@ -28,17 +28,17 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
-    sgf_id = req.params.sgf_id
-    // Check if potential puzzles already exist for the given sgf id
-    const existingPuzzles = await PotentialPuzzle.findAll({
-      where: { sgf_id },
-    });
-    // Don't execute the code to create the one line katago json input if potential puzzles already exist for the given sgf
-    if (existingPuzzles.length > 0) {
-      return res
-        .status(400)
-        .json({ error: "Potential puzzles already exist for the given sgf!" });
-    }
+    // sgf_id = req.params.sgf_id
+    // // Check if potential puzzles already exist for the given sgf id
+    // const existingPuzzles = await PotentialPuzzle.findAll({
+    //   where: { sgf_id },
+    // });
+    // // Don't execute the code to create the one line katago json input if potential puzzles already exist for the given sgf
+    // if (existingPuzzles.length > 0) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: "Potential puzzles already exist for the given sgf!" });
+    // }
 
     const { sgf_data } = req.body;
 
