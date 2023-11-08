@@ -1,4 +1,4 @@
-const tutorialStructure = [
+const LearnAndPracticeStructure = [
   {
     section: "basic-rules",
     pages: 7,
@@ -7,7 +7,7 @@ const tutorialStructure = [
   },
   {
     section: "more-rules-and-strategy",
-    pages: 5, // Assuming there are 5 pages in this section
+    pages: 5,
     quiz: true,
     // nextSection: null // No next section means it's the last one
   }
@@ -15,4 +15,4 @@ const tutorialStructure = [
 ];
 
 
-export default tutorialStructure;
+export default LearnAndPracticeStructure;
