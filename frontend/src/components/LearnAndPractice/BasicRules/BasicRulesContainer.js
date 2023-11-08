@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import NavigationButton from './NavigationButton';
-import useNavigation from './useNavigation';
+import NavigationButton from '../NavigationButton';
+import useNavigation from '../useNavigation';
 import { useHistory, useParams } from "react-router-dom";
-import LeftNavBar from "./LeftNavBar";
+import LeftNavBar from "../LeftNavBar";
 import BasicRulesPage1 from "./BasicRulesPage1";
 import BasicRulesPage2 from "./BasicRulesPage2";
 import BasicRulesPage3 from "./BasicRulesPage3";
@@ -11,27 +11,13 @@ import BasicRulesPage5 from "./BasicRulesPage5";
 import BasicRulesPage6 from "./BasicRulesPage6";
 import BasicRulesPage7 from "./BasicRulesPage7";
 import BasicRulesQuiz from "./BasicRulesQuiz";
-import "./styles/LearnAndPracticeIndex.css";
+import "../styles/LearnAndPracticeIndex.css";
 
 const BasicRulesContainer = () => {
   const history = useHistory();
   const { pageNumber } = useParams();
 
   const navigateToNextPage = useNavigation();
-
-  // const navigateToNextPage = () => {
-  //   // If we are on page 7, we want to navigate to the quiz afterwards
-  //   if (pageNumber === "7") {
-  //     history.push(`/learn-and-practice/basic-rules/quiz`);
-  //   }
-  //   else if (pageNumber ==="quiz") {
-  //     history.push(`/learn-and-practice/more-rules-and-strategy/1`)
-  //   }
-  //   else {
-  //     const nextPage = parseInt(pageNumber, 10) + 1;
-  //     history.push(`/learn-and-practice/basic-rules/${nextPage}`);
-  //   }
-  // };
 
   useEffect(() => {
     // When location changes, scroll to the top of the page

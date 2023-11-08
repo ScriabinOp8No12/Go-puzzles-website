@@ -4,9 +4,9 @@ import {
   uploadQuizThunk,
   fetchQuizCompletionStatusThunk,
   fetchQuizScoreThunk,
-} from "../../store/quizzes";
-import "./styles/QuizForm.css";
-import QuizImage from "./QuizImage";
+} from "../../../store/quizzes";
+import "../styles/QuizForm.css";
+import QuizImage from "../QuizImage";
 
 const BasicRulesQuiz = () => {
   const dispatch = useDispatch();
