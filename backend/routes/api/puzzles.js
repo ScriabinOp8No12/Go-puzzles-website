@@ -25,53 +25,96 @@ cloudinary.config({
 
 const router = express.Router();
 
-const conditionalAuth = (req, res, next) => {
-  if (req.query.source === "own") {
-    return requireAuth(req, res, next);
-  }
-  return next();
-};
-
 // Get all puzzles for public puzzles page (20 by default)
-// router.get("/", conditionalAuth, async (req, res, next) => {
 router.get("/", requireAuth, async (req, res, next) => {
   try {
-    // Destructure query parameters from request
+    // Destructure url parameters
     let {
-      // min_rank,
-      // max_rank,
-      // difficulty,
-      move_number,
+      min_rank,
+      max_rank,
+      min_move_number,
+      max_move_number,
       category,
       board_size,
-      min_votes, // "vote_count": for admin to suspend/delete public puzzle if too many downvotes
-      max_votes,
       limit,
       offset,
+      // min_votes, // "vote_count": for admin to suspend/delete public puzzle if too many downvotes
+      // max_votes,
     } = req.query;
 
-    // Default to 20 puzzles (per page) if not specified
-    limit = parseInt(limit) || 20;
+    // Initialize where clause for Sequelize query
+    const where = { suspended: false };
 
-    // Only fetch puzzles if their suspended value is false
-    const where = {
-      suspended: false,
+    // Validation Function
+    const isValidNumber = (num) => {
+      const parsed = parseInt(num);
+      return !isNaN(parsed) && Number.isInteger(parsed);
     };
 
-    // Setting filtering conditions based on query parameters
-    // if (min_rank) where.difficulty_rank = { [Op.gte]: min_rank };
-    // if (max_rank)
-    //   where.difficulty_rank = { ...where.difficulty_rank, [Op.lte]: max_rank };
-    // if (difficulty) where.difficulty = difficulty;
-    if (move_number) where.move_number = move_number;
+    // Validate min_rank
+    if (min_rank !== undefined) {
+      if (!isValidNumber(min_rank) || min_rank < 0 || min_rank > 5000) {
+        return res.status(400).json({ error: "Invalid min_rank value" });
+      }
+      where.difficulty = { [Op.gte]: parseInt(min_rank) };
+    }
+
+    // Validate max_rank
+    if (max_rank !== undefined) {
+      if (!isValidNumber(max_rank) || max_rank < 0 || max_rank > 5000) {
+        return res.status(400).json({ error: "Invalid max_rank value" });
+      }
+      where.difficulty = { ...where.difficulty, [Op.lte]: parseInt(max_rank) };
+    }
+
+    // Validate min_move_number
+    if (min_move_number !== undefined) {
+      if (!isValidNumber(min_move_number) || min_move_number < 0) {
+        return res.status(400).json({ error: "Invalid min_move_number value" });
+      }
+      where.move_number = { [Op.gte]: parseInt(min_move_number) };
+    }
+
+    // Validate max_move_number
+    if (max_move_number !== undefined) {
+      if (!isValidNumber(max_move_number) || max_move_number < 0) {
+        return res.status(400).json({ error: "Invalid max_move_number value" });
+      }
+      where.move_number = {
+        ...where.move_number,
+        [Op.lte]: parseInt(max_move_number),
+      };
+    }
+
+    // Validate category
+    const validCategories = [
+      "Reading",
+      "Judgment",
+      "Direction",
+      "Life and Death",
+      "Capturing Race",
+      "Ladder/Net",
+      "Other",
+    ];
+    if (category && !validCategories.includes(category)) {
+      return res.status(400).json({ error: "Invalid category" });
+    }
     if (category) where.category = category;
-    if (board_size) where.board_size = board_size;
-    if (min_votes) where.vote_count = { [Op.gte]: min_votes };
-    if (max_votes)
-      where.vote_count = { ...where.vote_count, [Op.lte]: max_votes };
+
+    // Validate board_size
+    const validBoardSizes = [9, 13, 19];
+    if (board_size !== undefined) {
+      const parsedBoardSize = parseInt(board_size);
+      if (!validBoardSizes.includes(parsedBoardSize)) {
+        return res.status(400).json({ error: "Invalid board_size" });
+      }
+      where.board_size = parsedBoardSize;
+    }
+
+    // Set default limit if not provided
+    limit = parseInt(limit) || 20;
 
     /***************** Filter the public puzzles to not show puzzles that the user created *******************/
-
     // Fetch SGF IDs created by the user
     let excludeSgfIds = [];
     if (req.user) {
