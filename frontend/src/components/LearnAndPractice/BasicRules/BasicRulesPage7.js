@@ -1,7 +1,7 @@
 import React, { useEffect, useRef} from "react";
-import { capturingPuzzles } from './GliftPuzzles/CapturingPuzzles/CapturingPuzzles';
+import { capturingPuzzles } from '../GliftPuzzles/CapturingPuzzles/CapturingPuzzles';
 
-import "../../lib/glift";
+import "../../../lib/glift";
 
 /* global glift */ // For informing ESLint that glift is a global object, otherwise it gets mad, real mad, even though everything still works once we close the giant red screen
 

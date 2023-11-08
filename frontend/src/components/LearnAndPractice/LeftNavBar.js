@@ -21,6 +21,10 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/basic-rules/quiz");
   };
 
+  const navigateToMoreRules1 = () => {
+    history.push("/learn-and-practice/more-rules-and-strategy/1");
+  };
+
   // Determines if the current URL contains any of the specified path segments.
   // Accepts either a single string or an array of strings.
   // Returns true if a match is found, otherwise returns false.
@@ -40,91 +44,99 @@ const LeftNavBar = () => {
       <div className="nav-section">
         {/* Basic Rules Section */}
         <section className="left-nav-bar-section">
-        <h2>Basic Rules</h2>
-        <ul className="small-spaced-list">
-          <li
-            onClick={navigateToBasicRules1}
-            className={isActive(["/1", "/2", "/3", "/4", "/5"]) ? "active" : ""}
-          >
-            Placing stones & surrounding territory
-          </li>
-          <li
-            onClick={navigateToBasicRules6}
-            className={isActive("/6") ? "active" : ""}
-          >
-            Counting liberties and capturing stones
-          </li>
-          <li
-            onClick={navigateToBasicRules7}
-            className={isActive("/7") ? "active" : ""}
-          >
-            Capturing Puzzles
-          </li>
-          <li
-            onClick={navigateToBasicRulesQuiz}
-            className={isActive("/basic-rules/quiz") ? "active" : ""}
-          >
-            Basic Rules Quiz
-          </li>
-        </ul>
+          <h2>Basic Rules</h2>
+          <ul className="small-spaced-list">
+            <li
+              onClick={navigateToBasicRules1}
+              className={
+                isActive(["/basic-rules/1", "/basic-rules/2", "/basic-rules/3", "/basic-rules/4", "/basic-rules/5"]) ? "active" : ""
+              }
+            >
+              Placing stones & surrounding territory
+            </li>
+            <li
+              onClick={navigateToBasicRules6}
+              className={isActive("/basic-rules/6") ? "active" : ""}
+            >
+              Counting liberties and capturing stones
+            </li>
+            <li
+              onClick={navigateToBasicRules7}
+              className={isActive("/basic-rules/7") ? "active" : ""}
+            >
+              Capturing Puzzles
+            </li>
+            <li
+              onClick={navigateToBasicRulesQuiz}
+              className={isActive("/basic-rules/quiz") ? "active" : ""}
+            >
+              Basic Rules Quiz
+            </li>
+          </ul>
         </section>
       </div>
       <div className="nav-section">
         {/* More Rules and Strategy Section */}
         <section className="left-nav-bar-section">
-        <h2>More Rules and Strategy</h2>
-        <ul className="small-spaced-list">
-          <li>Illegal moves</li>
-          <li>Eyes</li>
-          <li>Seki</li>
-          <li>Ko</li>
-          <li>Game ending condition</li>
-          <li>Strategy</li>
-        </ul>
+          <h2>More Rules and Strategy</h2>
+          <ul className="small-spaced-list">
+            <li
+              onClick={navigateToMoreRules1}
+              className={isActive("/more-rules-and-strategy/1") ? "active" : ""}
+            >
+              Illegal moves
+            </li>
+
+            <li>Eyes</li>
+            <li>Seki</li>
+            <li>Ko</li>
+            <li>Game ending condition</li>
+            <li>Strategy</li>
+          </ul>
         </section>
       </div>
       <div className="nav-section">
-      <section className="left-nav-bar-section">
-        <h2>Rules & Strategy Puzzles</h2>
-        <ul className="small-spaced-list">
-          <li>Rules & Strategy Puzzles 1</li>
-          <li>Rules & Strategy Puzzles 2</li>
-        </ul>
-</section>
+        <section className="left-nav-bar-section">
+          <h2>Rules & Strategy Puzzles</h2>
+          <ul className="small-spaced-list">
+            <li>Rules & Strategy Puzzles 1</li>
+            <li>Rules & Strategy Puzzles 2</li>
+          </ul>
+        </section>
       </div>
 
       <div className="nav-section">
-      <section className="left-nav-bar-section">
-        <h2>Fundamentals</h2>
-        <ul className="small-spaced-list">
-          <li>Reading</li>
-          <li>Ladders & Nets</li>
-          <li>Cuts</li>
-          <li>Counting</li>
-          <li>Direction of Play</li>
-          <li>Judgment</li>
-          <li>Life & Death</li>
-          <li>Sente & Gote</li>
-        </ul>
+        <section className="left-nav-bar-section">
+          <h2>Fundamentals</h2>
+          <ul className="small-spaced-list">
+            <li>Reading</li>
+            <li>Ladders & Nets</li>
+            <li>Cuts</li>
+            <li>Counting</li>
+            <li>Direction of Play</li>
+            <li>Judgment</li>
+            <li>Life & Death</li>
+            <li>Sente & Gote</li>
+          </ul>
         </section>
       </div>
       <div className="nav-section">
-      <section className="left-nav-bar-section">
-        <h2>Fundamentals Puzzles</h2>
-        <ul className="small-spaced-list">
-          <li>Fundamentals Puzzles 1</li>
-          <li>Fundamentals Puzzles 2</li>
-        </ul>
+        <section className="left-nav-bar-section">
+          <h2>Fundamentals Puzzles</h2>
+          <ul className="small-spaced-list">
+            <li>Fundamentals Puzzles 1</li>
+            <li>Fundamentals Puzzles 2</li>
+          </ul>
         </section>
       </div>
       <div className="nav-section">
-      <section className="left-nav-bar-section">
-        <h2>Resources</h2>
-        <ul className="small-spaced-list">
-          <li>Sensei's Library</li>
-          <li>Go servers</li>
-          <li>Terminology</li>
-        </ul>
+        <section className="left-nav-bar-section">
+          <h2>Resources</h2>
+          <ul className="small-spaced-list">
+            <li>Sensei's Library</li>
+            <li>Go servers</li>
+            <li>Terminology</li>
+          </ul>
         </section>
       </div>
     </div>
