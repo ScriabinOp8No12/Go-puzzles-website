@@ -3,51 +3,32 @@ import React from 'react'
 const MoreRulesPage1 = () => {
   return (
     <div className="main-content">
-        <h2>More Rules: Illegal Moves</h2>
+        <h2>More Rules and Strategy: Illegal Moves</h2>
         <div className="content-section">
           {/* Text section on the left half, images / diagrams on the right half */}
           <div className="content-text-section">
             <p>
-              Welcome to the interactive tutorials for the game of Go! Go is the
-              best game in the world (I’m definitely not biased). 😊
+             A move is illegal if the move puts your stone or stones at <span className="important-text">0 liberties</span>, and is <span className="important-text">not</span> capturing anything.
+            </p>
+            <p>
+             In <span className="important-text">diagram 1</span>, black is <span className="important-text">not</span> allowed to play at the triangle or square.
+            </p>
+            <p>
+             In <span className="important-text">diagram 2</span>, black is allowed to play in the spot with 0 liberties because they are capturing white!
+            </p>
+            <p>In <span className="important-text">diagram 3</span>, even if your opponent already captured your stones does not affect whether or not you are allowed to play in that spot.
+             For example, let's say white captured the 3 black stones with move A as seen in diagram 3, black is still allowed to place stones where they were just captured because
+             black would have more than 0 liberties.
             </p>
 
-            <p>
-              As you start learning the rules and progressing through the ranks,
-              you’ll start to admire the beauty and depth of the game. You’ll
-              also realize how much smarter you are than your friends who play
-              chess or checkers. 😉{" "}
-            </p>
-            <p className="how-to-play-go-text">How to play Go:</p>
-            <ul className="spaced-list">
-              <li>
-                Go is almost always a 2 player game, where each player takes
-                turns placing stones on the board.
-              </li>
-              <li>
-                The player with the black stones typically plays first, and the
-                player with the white stones plays next.
-              </li>
-              <li>
-                Stones are placed on the intersections (where 2 lines meet) and
-                not in the squares.
-              </li>
-              <li>
-                The goal of the game is to surround territory, which is the
-                number of intersections that you have surrounded.
-              </li>
-              <li>
-                The player with the most territory at the end of the game wins!
-              </li>
-            </ul>
           </div>
           {/* Image(s) on the right half */}
           <div className="content-image-section">
             <img
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-1_dtrowf.png"
-              alt="Surrounding territory 1"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466950/Tutorial-images/more-rules-1_qpbyyd.png"
+              alt="Illegal moves 1"
             />
-            <p>Diagram 1: Black has surrounded 4 points of territory</p>
+            <p>Diagram 1: Black is <span className="important-text">not</span> allowed to play at either of the marked spots.  The marked square is likely an eye, which we will discuss in the next section.</p>
           </div>
         </div>
         {/* Under the "content-section" where we render 2 more diagrams */}
@@ -55,19 +36,18 @@ const MoreRulesPage1 = () => {
           {/* For making the text stack vertically with the image above it */}
           <div className="image-text-wrap">
             <img
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-2_bhdwck.png"
-              alt="Surrounding territory 2"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466263/Tutorial-images/more-rules-2_wvsgky.png"
+              alt="Illegal moves 2"
             />
-            <p>Diagram 2: Highlighting the 4 points of territory</p>
+            <p>Diagram 2: Black is <span className="important-text">allowed </span>to play at the marked spot because although black has 0 liberties, they would be capturing white's group (white also has 0 liberties).</p>
           </div>
           <div className="image-text-wrap">
             <img
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977661/Tutorial-images/basic-rules-3_ayyhdl.png"
-              alt="Surrounding territory 3"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466263/Tutorial-images/more-rules-3_jgmmx9.png"
+              alt="Illegal moves 3"
             />
             <p>
-              Diagram 3: How many points are each of the above black groups
-              surrounding? Go to the next page to check your answer! 😄{" "}
+              Diagram 3: Even if white just played at A and captured 3 black stones, black can still play at any of the marked triangles because the black stone would have more than 0 liberties.
             </p>
 
           </div>
