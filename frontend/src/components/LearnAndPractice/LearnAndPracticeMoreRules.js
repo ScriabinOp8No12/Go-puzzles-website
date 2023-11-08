@@ -16,7 +16,7 @@ const LearnAndPracticeMoreRules = () => {
   const { section, pageNumber } = useParams();
 
   const navigateToNextPage = () => {
-    // Assuming 'pageNumber' is a string representing a number, have to convert it to a number
+    // Convert string of pageNumber to number
     const nextPageNumber = parseInt(pageNumber, 10) + 1;
 
     // URL pattern is '/learn-and-practice/:section/:pageNumber'
