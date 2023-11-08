@@ -4,14 +4,8 @@ import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "./LeftNavBar";
 import MoreRulesPage1 from "./MoreRulesPage1";
 import BasicRulesPage2 from "./BasicRulesPage2";
-import BasicRulesPage3 from "./BasicRulesPage3";
-import BasicRulesPage4 from "./BasicRulesPage4";
-import BasicRulesPage5 from "./BasicRulesPage5";
-import BasicRulesPage6 from "./BasicRulesPage6";
-import BasicRulesPage7 from "./BasicRulesPage7";
-import BasicRulesQuiz from "./BasicRulesQuiz";
 
-const LearnAndPracticeMoreRules = () => {
+const MoreRulesContainer = () => {
   const history = useHistory();
   const { section, pageNumber } = useParams();
 
@@ -48,18 +42,6 @@ const LearnAndPracticeMoreRules = () => {
       )
       : pageNumber === "2" ? (
         <BasicRulesPage2 />
-      ) : pageNumber === "3" ? (
-        <BasicRulesPage3 />
-      ) : pageNumber === "4" ? (
-        <BasicRulesPage4 />
-      ) : pageNumber === "5" ? (
-        <BasicRulesPage5 />
-      ) : pageNumber === "6" ? (
-        <BasicRulesPage6 />
-      ) : pageNumber === "7" ? (
-        <BasicRulesPage7 />
-      ) : pageNumber === "quiz" ? (
-        <BasicRulesQuiz />
       )
       : (
         <div className="page-not-found-text">Page not found</div>
@@ -71,4 +53,4 @@ const LearnAndPracticeMoreRules = () => {
   );
 };
 
-export default LearnAndPracticeMoreRules;
+export default MoreRulesContainer;

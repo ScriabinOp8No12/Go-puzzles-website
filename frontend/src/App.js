@@ -17,7 +17,7 @@ import BasicRulesContainer from "./components/LearnAndPractice/BasicRulesContain
 import AuthorizedRoute from "./components/AuthorizedRoute";
 // ***************** TESTING BELOW COMPONENT MANUALLY ******************* //
 import AutoMovesDisplay from "./components/TestAutoMove";
-import LearnAndPracticeMoreRules from "./components/LearnAndPractice/LearnAndPracticeMoreRules";
+import MoreRulesContainer from "./components/LearnAndPractice/MoreRulesContainer";
 // ***************** TESTING ABOVE COMPONENT MANUALLY ******************* //
 
 function App() {
@@ -112,7 +112,7 @@ function App() {
           />
           <AuthorizedRoute
             path="/learn-and-practice/:section/:pageNumber"
-            component={LearnAndPracticeMoreRules}
+            component={MoreRulesContainer}
           />
         </Switch>
       )}
