@@ -13,10 +13,11 @@ import PotentialPuzzlesDisplay from "./components/PotentialPuzzlesDisplay";
 import UserPuzzles from "./components/UserPuzzles";
 import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
-import LearnAndPracticeBasicRules from "./components/LearnAndPractice/LearnAndPracticeBasicRules";
+import BasicRulesContainer from "./components/LearnAndPractice/BasicRulesContainer";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 // ***************** TESTING BELOW COMPONENT MANUALLY ******************* //
 import AutoMovesDisplay from "./components/TestAutoMove";
+import LearnAndPracticeMoreRules from "./components/LearnAndPractice/LearnAndPracticeMoreRules";
 // ***************** TESTING ABOVE COMPONENT MANUALLY ******************* //
 
 function App() {
@@ -106,13 +107,13 @@ function App() {
             component={AutoMovesDisplay}
           />
           <AuthorizedRoute
-            path="/learn-and-practice/basic-rules/:pageNumber"
-            component={LearnAndPracticeBasicRules}
+            path="/learn-and-practice/:section/:pageNumber"
+            component={BasicRulesContainer}
           />
-          {/* <AuthorizedRoute
-            path="/learn-and-practice/basic-rules"
-            component={LearnAndPracticeLandingPage}
-          /> */}
+          <AuthorizedRoute
+            path="/learn-and-practice/:section/:pageNumber"
+            component={LearnAndPracticeMoreRules}
+          />
         </Switch>
       )}
     </>
