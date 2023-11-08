@@ -2,7 +2,7 @@ import { React, useEffect } from "react";
 import "./styles/LearnAndPracticeIndex.css";
 import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "./LeftNavBar";
-import BasicRulesPage1 from "./BasicRulesPage1";
+import MoreRulesPage1 from "./MoreRulesPage1";
 import BasicRulesPage2 from "./BasicRulesPage2";
 import BasicRulesPage3 from "./BasicRulesPage3";
 import BasicRulesPage4 from "./BasicRulesPage4";
@@ -11,18 +11,16 @@ import BasicRulesPage6 from "./BasicRulesPage6";
 import BasicRulesPage7 from "./BasicRulesPage7";
 import BasicRulesQuiz from "./BasicRulesQuiz";
 
-const LearnAndPracticeBasicRules = () => {
+const LearnAndPracticeMoreRules = () => {
   const history = useHistory();
-  const { pageNumber } = useParams();
+  const { section, pageNumber } = useParams();
 
   const navigateToNextPage = () => {
-    // If we are on page 7, we want to navigate to the quiz afterwards
-    if (pageNumber === "7") {
-      history.push(`/learn-and-practice/basic-rules/quiz`);
-    } else {
-      const nextPage = parseInt(pageNumber, 10) + 1;
-      history.push(`/learn-and-practice/basic-rules/${nextPage}`);
-    }
+    // Assuming 'pageNumber' is a string representing a number, have to convert it to a number
+    const nextPageNumber = parseInt(pageNumber, 10) + 1;
+
+    // URL pattern is '/learn-and-practice/:section/:pageNumber'
+    history.push(`/learn-and-practice/${section}/${nextPageNumber}`);
   };
 
   useEffect(() => {
@@ -42,12 +40,13 @@ const LearnAndPracticeBasicRules = () => {
 
   return (
     <div className="learn-and-practice-container">
-      <LeftNavBar></LeftNavBar>
+      <LeftNavBar/>
 
       {/* Main Content */}
       {pageNumber === "1" ? (
-        <BasicRulesPage1 />
-      ) : pageNumber === "2" ? (
+        <MoreRulesPage1 />
+      )
+      : pageNumber === "2" ? (
         <BasicRulesPage2 />
       ) : pageNumber === "3" ? (
         <BasicRulesPage3 />
@@ -61,7 +60,8 @@ const LearnAndPracticeBasicRules = () => {
         <BasicRulesPage7 />
       ) : pageNumber === "quiz" ? (
         <BasicRulesQuiz />
-      ) : (
+      )
+      : (
         <div className="page-not-found-text">Page not found</div>
       )}
       <button onClick={navigateToNextPage} className="next-page-button">
@@ -71,4 +71,4 @@ const LearnAndPracticeBasicRules = () => {
   );
 };
 
-export default LearnAndPracticeBasicRules;
+export default LearnAndPracticeMoreRules;
