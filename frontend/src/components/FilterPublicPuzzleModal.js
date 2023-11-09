@@ -4,6 +4,8 @@ import { closeModal } from "../store/modal";
 import CloseButton from "./CloseModalButton";
 // import './styles/FilterPublicPuzzleModal.css';
 
+// Pass in handleFilterChange function (onApplyFilter) from PublicPuzzles.js component (parent)
+// So that this component (filter modal) can communicate back with the parent by utilizing this function
 const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
   const dispatch = useDispatch();
 
@@ -33,7 +35,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
     setFilterState({ ...filterState, [name]: value });
   };
 
-  // Handle applying filters
+  // Handle applying filters, and performs action affecting the parent component (sending info back to parent)
   const handleApplyFilters = () => {
     onApplyFilter(filterState);
     dispatch(closeModal());
