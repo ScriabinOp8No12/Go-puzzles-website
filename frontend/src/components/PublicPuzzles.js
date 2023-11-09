@@ -22,6 +22,20 @@ const PublicPuzzles = () => {
   };
 
   // **** Filter block below **** //
+
+  // This is the new useEffect hook for initializing filters from URL, good for when we use the back button and want to render the same filters!
+  useEffect(() => {
+    // Extract query parameters from URL
+    const queryParams = new URLSearchParams(history.location.search);
+    const filtersFromURL = {};
+    queryParams.forEach((value, key) => {
+      filtersFromURL[key] = value;
+    });
+
+    // Set the filters from URL as initial state
+    setSelectedFilters(filtersFromURL);
+  }, [history]);
+
   const toggleFilter = () => {
     dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
   };
