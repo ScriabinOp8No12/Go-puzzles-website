@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import { Link, useHistory } from "react-router-dom";
 import { openModal } from "../store/modal";
-import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
+import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk, fetchFilteredPuzzlesThunk } from "../store/publicPuzzles";
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
 import FilterPublicPuzzleModal from "./FilterPublicPuzzleModal";
@@ -22,17 +22,41 @@ const PublicPuzzles = () => {
   };
 
   // **** Filter block below **** //
+
+  // This is the new useEffect hook for initializing filters from URL, good for when we use the back button and want to render the same filters!
+  useEffect(() => {
+    // Extract query parameters from URL
+    const queryParams = new URLSearchParams(history.location.search);
+    const filtersFromURL = {};
+    queryParams.forEach((value, key) => {
+      filtersFromURL[key] = value;
+    });
+
+    // Set the filters from URL as initial state
+    setSelectedFilters(filtersFromURL);
+  }, [history]);
+
   const toggleFilter = () => {
     dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
   };
 
   const handleFilterChange = (newFilters) => {
     setSelectedFilters(newFilters);
+    // Construct a query string from newFilters
+  const queryString = new URLSearchParams(newFilters).toString();
+  history.push(`?${queryString}`);
   };
 
   // Grabbing the public puzzles and selected filters
   useEffect(() => {
-    dispatch(fetchPublicPuzzlesThunk(selectedFilters));
+    // Check if filters are applied
+    if (Object.keys(selectedFilters).length) {
+      // If filters are applied, fetch filtered puzzles
+      dispatch(fetchFilteredPuzzlesThunk(selectedFilters));
+    } else {
+      // If no filters are applied, fetch all public puzzles
+      dispatch(fetchPublicPuzzlesThunk());
+    }
   }, [dispatch, selectedFilters]);
 
   // **** Filter block above **** //
