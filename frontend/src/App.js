@@ -14,8 +14,8 @@ import UserPuzzles from "./components/UserPuzzles";
 import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
 import LearnAndPracticeContainer from "./components/LearnAndPractice/LearnAndPracticeContainer";
-import BasicRulesContainer from "./components/LearnAndPractice/BasicRules/BasicRulesContainer";
-import MoreRulesContainer from "./components/LearnAndPractice/MoreRules/MoreRulesContainer";
+// import BasicRulesContainer from "./components/LearnAndPractice/BasicRules/BasicRulesContainer";
+// import MoreRulesContainer from "./components/LearnAndPractice/MoreRules/MoreRulesContainer";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 // ***************** TESTING BELOW COMPONENT MANUALLY ******************* //
 import AutoMovesDisplay from "./components/TestAutoMove";

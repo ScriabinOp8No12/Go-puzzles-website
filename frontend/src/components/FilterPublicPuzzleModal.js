@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { closeModal } from '../store/modal';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../store/modal";
 import CloseButton from "./CloseModalButton";
 // import './styles/FilterPublicPuzzleModal.css';
 
@@ -9,11 +9,23 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
 
   // Initialize filter states
   const [filterState, setFilterState] = useState({
-    category: '',
-    minRank: '',
-    maxRank: '',
-    // other filter states
+    min_rank: "",
+    max_rank: "",
+    min_move_number: "",
+    max_move_number: "",
+    category: "",
+    board_size: "",
   });
+
+  const categories = [
+    "Reading",
+    "Judgment",
+    "Direction",
+    "Life and Death",
+    "Capturing Race",
+    "Ladder/Net",
+    "Other",
+  ];
 
   // Handle changes in filter inputs
   const handleChange = (e) => {
@@ -27,7 +39,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
     dispatch(closeModal());
   };
 
-  // Handle closing the modal
+  // Reset the form and close the modal
   const handleOverlayClick = () => {
     dispatch(closeModal());
   };
@@ -40,7 +52,43 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
     <div className="modal" onClick={handleOverlayClick}>
       {/* Use same styling from edit modal form */}
       <div className="edit-modal-form" onClick={handleFormClick}>
-      <CloseButton onClick={() => dispatch(closeModal())} />
+        <CloseButton onClick={() => dispatch(closeModal())} />
+        <label>
+          Minimum Rank:
+          <input
+            type="number"
+            name="min_rank"
+            value={filterState.min_rank}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Maximum Rank:
+          <input
+            type="number"
+            name="max_rank"
+            value={filterState.max_rank}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Minimum Move Number:
+          <input
+            type="number"
+            name="min_move_number"
+            value={filterState.min_move_number}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Maximum Move Number:
+          <input
+            type="number"
+            name="max_move_number"
+            value={filterState.max_move_number}
+            onChange={handleChange}
+          />
+        </label>
         <label>
           Category:
           <select
@@ -49,34 +97,23 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
             onChange={handleChange}
           >
             <option value="">Select a category</option>
-            {/* List of categories */}
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
         </label>
-
         <label>
-          Min Rank:
+          Board Size:
           <input
             type="number"
-            name="minRank"
-            value={filterState.minRank}
+            name="board_size"
+            value={filterState.board_size}
             onChange={handleChange}
           />
         </label>
-
-        <label>
-          Max Rank:
-          <input
-            type="number"
-            name="maxRank"
-            value={filterState.maxRank}
-            onChange={handleChange}
-          />
-        </label>
-
-        {/* Other filters here */}
-
         <button onClick={handleApplyFilters}>Apply Filters</button>
-        {/* <button onClick={() => dispatch(closeModal())}>Close</button> */}
       </div>
     </div>
   );
