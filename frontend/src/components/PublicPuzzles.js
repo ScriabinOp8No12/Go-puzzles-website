@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-// import { Link, useHistory } from "react-router-dom";
 import { openModal } from "../store/modal";
 import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk, fetchFilteredPuzzlesThunk } from "../store/publicPuzzles";
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
@@ -23,7 +22,7 @@ const PublicPuzzles = () => {
 
   // **** Filter block below **** //
 
-  // This is the new useEffect hook for initializing filters from URL, good for when we use the back button and want to render the same filters!
+  // Initializing filters from URL, good for when we use the back button and want to render the same filters!
   useEffect(() => {
     // Extract query parameters from URL
     const queryParams = new URLSearchParams(history.location.search);
@@ -36,10 +35,6 @@ const PublicPuzzles = () => {
     setSelectedFilters(filtersFromURL);
   }, [history]);
 
-  const toggleFilter = () => {
-    dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
-  };
-
   const handleFilterChange = (newFilters) => {
     setSelectedFilters(newFilters);
     // Construct a query string from newFilters
@@ -47,14 +42,18 @@ const PublicPuzzles = () => {
   history.push(`?${queryString}`);
   };
 
-  // Grabbing the public puzzles and selected filters
+  const toggleFilter = () => {
+    // Open filter modal and pass in callback handleFilterChange
+    // Our filter public puzzle modal now has access to the url values from teh handleFilterChange function
+    dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
+  };
+
   useEffect(() => {
-    // Check if filters are applied
+    // Check if filters are applied, if they are, then fetch the filtered puzzles
     if (Object.keys(selectedFilters).length) {
-      // If filters are applied, fetch filtered puzzles
       dispatch(fetchFilteredPuzzlesThunk(selectedFilters));
     } else {
-      // If no filters are applied, fetch all public puzzles
+      // Otherwise simply fetch all the public puzzles
       dispatch(fetchPublicPuzzlesThunk());
     }
   }, [dispatch, selectedFilters]);
@@ -75,7 +74,6 @@ const PublicPuzzles = () => {
               <img
                 src={puzzle.thumbnail}
                 alt={`Puzzle ${index}`}
-                // Changed get /puzzles endpoint to id: puzzle.id instead of puzzle_id as the column name
                 onClick={() => history.push(`/public-puzzles/${puzzle.id}`)}
                 style={{ cursor: "pointer" }}
               />
