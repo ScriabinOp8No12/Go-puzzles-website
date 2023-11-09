@@ -28,6 +28,12 @@ const router = express.Router();
 // Get all puzzles for public puzzles page (20 by default)
 router.get("/", requireAuth, async (req, res, next) => {
   try {
+    // Define default values at the top of the endpoint function
+    const DEFAULT_MIN_RANK = 0;
+    const DEFAULT_MAX_RANK = 5000;
+    const DEFAULT_MIN_MOVE_NUMBER = 0;
+    const DEFAULT_MAX_MOVE_NUMBER = 1000;
+
     // Destructure url parameters
     let {
       min_rank,
@@ -57,6 +63,8 @@ router.get("/", requireAuth, async (req, res, next) => {
         return res.status(400).json({ error: "Invalid min_rank value" });
       }
       where.difficulty = { [Op.gte]: parseInt(min_rank) };
+    } else {
+      where.difficulty = { [Op.gte]: DEFAULT_MIN_RANK };
     }
 
     // Validate max_rank
@@ -65,6 +73,8 @@ router.get("/", requireAuth, async (req, res, next) => {
         return res.status(400).json({ error: "Invalid max_rank value" });
       }
       where.difficulty = { ...where.difficulty, [Op.lte]: parseInt(max_rank) };
+    } else {
+      where.difficulty = { [Op.lte]: DEFAULT_MAX_RANK };
     }
 
     // Validate min_move_number
@@ -73,6 +83,8 @@ router.get("/", requireAuth, async (req, res, next) => {
         return res.status(400).json({ error: "Invalid min_move_number value" });
       }
       where.move_number = { [Op.gte]: parseInt(min_move_number) };
+    } else {
+      where.move_number = { [Op.gte]: DEFAULT_MIN_MOVE_NUMBER };
     }
 
     // Validate max_move_number
@@ -84,6 +96,8 @@ router.get("/", requireAuth, async (req, res, next) => {
         ...where.move_number,
         [Op.lte]: parseInt(max_move_number),
       };
+    } else {
+      where.move_number = { [Op.lte]: DEFAULT_MAX_MOVE_NUMBER };
     }
 
     // Validate category

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../store/modal";
 import CloseButton from "./CloseModalButton";
-// import './styles/FilterPublicPuzzleModal.css';
+import './styles/FilterPublicPuzzleModal.css';
 
 // Pass in handleFilterChange function (onApplyFilter) from PublicPuzzles.js component (parent)
 // So that this component (filter modal) can communicate back with the parent by utilizing this function
@@ -18,6 +18,25 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
     category: "",
     board_size: "",
   });
+
+  // State for filter validation errors
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const validateInputs = () => {
+    let errors = {};
+    if (filterState.min_rank < 0 || filterState.min_rank > 5000) {
+      errors.min_rank = "Min rank must be between 0 and 5000";
+    }
+    if (filterState.max_rank < 0 || filterState.max_rank > 5000) {
+      errors.max_rank = "Max rank must be between 0 and 5000";
+    }
+    if (filterState.min_rank === filterState.max_rank) {
+      errors.rank = "Min rank cannot equal max rank";
+    }
+    // Other validations
+
+    return errors;
+  };
 
   const categories = [
     "Reading",
@@ -37,8 +56,13 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
 
   // Handle applying filters, and performs action affecting the parent component (sending info back to parent)
   const handleApplyFilters = () => {
-    onApplyFilter(filterState);
-    dispatch(closeModal());
+    const errors = validateInputs();
+    if (Object.keys(errors).length === 0) {
+      onApplyFilter(filterState);
+      dispatch(closeModal());
+    } else {
+      setValidationErrors(errors);
+    }
   };
 
   // Reset the form and close the modal
@@ -55,17 +79,22 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
       {/* Use same styling from edit modal form */}
       <div className="edit-modal-form" onClick={handleFormClick}>
         <CloseButton onClick={() => dispatch(closeModal())} />
+        {validationErrors.rank && <div className="filter-errors">{validationErrors.rank}</div>}
+        {validationErrors.min_rank && <div className="filter-errors">{validationErrors.min_rank}</div>}
         <label>
-          Minimum Rank:
+          Min Rank:
           <input
             type="number"
             name="min_rank"
             value={filterState.min_rank}
             onChange={handleChange}
+            min="0"
+            max="5000"
           />
         </label>
+        {validationErrors.max_rank && <div className="filter-errors">{validationErrors.max_rank}</div>}
         <label>
-          Maximum Rank:
+          Max Rank:
           <input
             type="number"
             name="max_rank"
@@ -74,7 +103,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
           />
         </label>
         <label>
-          Minimum Move Number:
+          Min Move Number:
           <input
             type="number"
             name="min_move_number"
@@ -83,7 +112,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
           />
         </label>
         <label>
-          Maximum Move Number:
+          Max Move Number:
           <input
             type="number"
             name="max_move_number"
