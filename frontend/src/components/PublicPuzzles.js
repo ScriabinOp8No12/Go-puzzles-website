@@ -6,15 +6,14 @@ import { openModal } from "../store/modal";
 import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
+import FilterPublicPuzzleModal from "./FilterPublicPuzzleModal";
 import "./styles/PublicPuzzles.css";
 
 const PublicPuzzles = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // state.slicename.property (state.reducer.publicPuzzles array)
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
-  const [showFilter, setShowFilter] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState({}); // Key-value pairs for filters
+  const [selectedFilters, setSelectedFilters] = useState({});
 
   // Edit sgf modal
   const openEditModal = async (puzzleId) => {
@@ -22,27 +21,19 @@ const PublicPuzzles = () => {
     dispatch(openModal(<EditPublicPuzzleModal puzzleId={puzzleId} />));
   };
 
-  // Grabbing the public puzzles
-  useEffect(() => {
-    dispatch(fetchPublicPuzzlesThunk());
-  }, [dispatch]);
-
   // **** Filter block below **** //
   const toggleFilter = () => {
-    setShowFilter(!showFilter);
+    dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
   };
 
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setSelectedFilters({
-      ...selectedFilters,
-      [name]: checked,
-    });
+  const handleFilterChange = (newFilters) => {
+    setSelectedFilters(newFilters);
   };
 
-  // To implement the filter, modify the useEffect to re-fetch puzzles based on the currently selected filters in selectedFilters state.
-  // Add a dependency array to useEffect to re-fetch puzzles whenever selectedFilters changes.
-  // Debounce this re-fetching operation to avoid unnecessary API calls.
+  // Grabbing the public puzzles and selected filters
+  useEffect(() => {
+    dispatch(fetchPublicPuzzlesThunk(selectedFilters));
+  }, [dispatch, selectedFilters]);
 
   // **** Filter block above **** //
 
@@ -52,33 +43,7 @@ const PublicPuzzles = () => {
         <div className="filter-public-puzzles" onClick={toggleFilter}>
           <label>Filter Puzzles</label>
         </div>
-        {showFilter && (
-          <div className="filter-dropdown">
-            <label>
-              {/* Placeholders for now, have one button at end to actually filter,
-            NO NEED to have it change after each box getting checked*/}
-              <input
-                type="checkbox"
-                name="filter1"
-                checked={selectedFilters["filter1"] || false}
-                onChange={handleCheckboxChange}
-              />
-              Filter 1
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="filter2"
-                checked={selectedFilters["filter2"] || false}
-                onChange={handleCheckboxChange}
-              />
-              Filter 2
-            </label>
-            {/* Add more filters here */}
-          </div>
-        )}
       </div>
-
       <div className="public-puzzle-table">
         {publicPuzzles &&
           publicPuzzles.map((puzzle, index) => (
