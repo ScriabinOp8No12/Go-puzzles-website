@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import { Link, useHistory } from "react-router-dom";
 import { openModal } from "../store/modal";
-import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk } from "../store/publicPuzzles";
+import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk, fetchFilteredPuzzlesThunk } from "../store/publicPuzzles";
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
 import FilterPublicPuzzleModal from "./FilterPublicPuzzleModal";
@@ -28,11 +28,21 @@ const PublicPuzzles = () => {
 
   const handleFilterChange = (newFilters) => {
     setSelectedFilters(newFilters);
+    // Construct a query string from newFilters
+  const queryString = new URLSearchParams(newFilters).toString();
+  history.push(`?${queryString}`);
   };
 
   // Grabbing the public puzzles and selected filters
   useEffect(() => {
-    dispatch(fetchPublicPuzzlesThunk(selectedFilters));
+    // Check if filters are applied
+    if (Object.keys(selectedFilters).length) {
+      // If filters are applied, fetch filtered puzzles
+      dispatch(fetchFilteredPuzzlesThunk(selectedFilters));
+    } else {
+      // If no filters are applied, fetch all public puzzles
+      dispatch(fetchPublicPuzzlesThunk());
+    }
   }, [dispatch, selectedFilters]);
 
   // **** Filter block above **** //
