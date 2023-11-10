@@ -13,8 +13,8 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
   const [filterState, setFilterState] = useState({
     min_rank: "",
     max_rank: "",
-    min_move_number: "",
-    max_move_number: "",
+    min_move_number: 0,
+    max_move_number: 250,
     category: "",
     board_size: "",
   });
@@ -51,7 +51,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
   // Handle changes in filter inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFilterState({ ...filterState, [name]: value });
+    setFilterState({ ...filterState, [name]: Number(value) });
   };
 
   // Handle applying filters, and performs action affecting the parent component (sending info back to parent)
@@ -102,20 +102,29 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
             onChange={handleChange}
           />
         </label>
+        <div className="slider-description">
+          <p>Select a Move Number Range for Puzzles</p>
+        </div>
         <label>
-          Min Move Number:
+        Minimum Move Number: {filterState.min_move_number}
           <input
-            type="number"
+            type="range"
             name="min_move_number"
+            min="0"
+            max="250"
+            step="25"
             value={filterState.min_move_number}
             onChange={handleChange}
           />
         </label>
         <label>
-          Max Move Number:
+        Maximum Move Number: {filterState.max_move_number}
           <input
-            type="number"
+            type="range"
             name="max_move_number"
+            min="0"
+            max="250"
+            step="25"
             value={filterState.max_move_number}
             onChange={handleChange}
           />
