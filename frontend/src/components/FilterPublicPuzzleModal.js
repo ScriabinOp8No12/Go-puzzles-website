@@ -129,6 +129,17 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
             onChange={handleChange}
           />
         </label>
+
+        <label>
+        Custom move number range PLACEHOLDER
+          <input
+            type="number"
+            name="custom_move_number_range"
+            value={filterState.custom_move_number_range}
+            onChange={handleChange}
+          />
+        </label>
+
         <label>
           Category:
           <select
@@ -146,12 +157,16 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
         </label>
         <label>
           Board Size:
-          <input
-            type="number"
-            name="board_size"
-            value={filterState.board_size}
-            onChange={handleChange}
-          />
+          <select
+          name="board_size"
+          value={filterState.board_size}
+          onChange={handleChange}
+        >
+          <option value="">Select Board Size</option> {/* Optional: Placeholder option */}
+          <option value="9">9</option>
+          <option value="13">13</option>
+          <option value="19">19</option>
+        </select>
         </label>
         <button onClick={handleApplyFilters}>Apply Filters</button>
       </div>
