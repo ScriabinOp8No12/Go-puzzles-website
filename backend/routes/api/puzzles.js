@@ -33,7 +33,7 @@ router.get("/", requireAuth, async (req, res, next) => {
     const DEFAULT_MAX_RANK = 5000;
     const DEFAULT_MIN_MOVE_NUMBER = 0;
     const DEFAULT_MAX_MOVE_NUMBER = 1000;
-    const DEFAULT_CATEGORY = "other";
+    const DEFAULT_CATEGORY = "Judgment"; // CURRENTLY DEFAULTING TO JUDGMENT, but SHOULD BE OTHER later!
     const DEFAULT_BOARD_SIZE = 19;
 
     // Destructure url parameters
@@ -80,14 +80,18 @@ router.get("/", requireAuth, async (req, res, next) => {
     }
 
     // Additional check to ensure min_rank is not higher than max_rank
-if (min_rank !== undefined && max_rank !== undefined) {
-  const parsedMinRank = parseInt(min_rank);
-  const parsedMaxRank = parseInt(max_rank);
+    if (min_rank !== undefined && max_rank !== undefined) {
+      const parsedMinRank = parseInt(min_rank);
+      const parsedMaxRank = parseInt(max_rank);
 
-  if (parsedMinRank >= parsedMaxRank) {
-    return res.status(400).json({ error: "min_rank cannot be greater than or equal to max_rank" });
-  }
-}
+      if (parsedMinRank >= parsedMaxRank) {
+        return res
+          .status(400)
+          .json({
+            error: "min_rank cannot be greater than or equal to max_rank",
+          });
+      }
+    }
 
     // Validate min_move_number
     if (min_move_number !== undefined) {
@@ -123,27 +127,27 @@ if (min_rank !== undefined && max_rank !== undefined) {
       "Other",
     ];
 
-    if (!category) {
-      where.category = DEFAULT_CATEGORY;
-    }
-    else if (!validCategories.includes(category)) {
-      return res.status(400).json({ error: "Invalid category" });
-    }
-    else {
-      where.category = category;
-    }
+    // Validate category
+if (category === undefined || category === '') {
+  where.category = DEFAULT_CATEGORY;
+} else if (!validCategories.includes(category)) {
+  return res.status(400).json({ error: "Invalid category" });
+} else {
+  where.category = category;
+}
 
     // Validate board_size
-    const validBoardSizes = [9, 13, 19];
-    if (!board_size) {
-      where.board_size = DEFAULT_BOARD_SIZE
+    if (board_size === undefined || board_size === "") {
+      where.board_size = DEFAULT_BOARD_SIZE;
     } else {
       const parsedBoardSize = parseInt(board_size);
-      if (isNaN(parsedBoardSize) || !validBoardSizes.includes(parsedBoardSize)) {
+      if (
+        isNaN(parsedBoardSize) ||
+        !validBoardSizes.includes(parsedBoardSize)
+      ) {
         return res.status(400).json({ error: "Invalid board_size" });
-      } else {
-        where.board_size = parsedBoardSize; // Set parsed board_size
       }
+      where.board_size = parsedBoardSize;
     }
 
     // Set default limit if not provided
