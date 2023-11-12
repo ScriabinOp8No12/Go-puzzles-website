@@ -30,8 +30,8 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
     if (filterState.max_rank < 0 || filterState.max_rank > 5000) {
       errors.max_rank = "Max rank must be between 0 and 5000";
     }
-    if (filterState.min_rank === filterState.max_rank) {
-      errors.rank = "Min rank cannot equal max rank";
+    if (filterState.min_rank >= filterState.max_rank) {
+      errors.rank = "Min rank cannot be greater than or equal to max rank";
     }
     // Other validations
 
