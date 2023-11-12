@@ -51,8 +51,18 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
   // Handle changes in filter inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Ensure only numbers are set for custom range fields
+    if (name === 'custom_range_lower' || name === 'custom_range_upper') {
+      const parsedValue = parseInt(value, 10);
+      if (!isNaN(parsedValue)) {
+        setFilterState({ ...filterState, [name]: parsedValue });
+      } else if (value === '') {
+        setFilterState({ ...filterState, [name]: '' });
+      }
+    } else {
     setFilterState({ ...filterState, [name]: Number(value) });
-  };
+  }
+};
 
   // Handle applying filters, and performs action affecting the parent component (sending info back to parent)
   const handleApplyFilters = () => {
@@ -77,7 +87,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
   return (
     <div className="modal" onClick={handleOverlayClick}>
       {/* Use same styling from edit modal form */}
-      <div className="edit-modal-form" onClick={handleFormClick}>
+      <div className="filter-form" onClick={handleFormClick}>
         <CloseButton onClick={() => dispatch(closeModal())} />
         {validationErrors.rank && <div className="filter-errors">{validationErrors.rank}</div>}
         {validationErrors.min_rank && <div className="filter-errors">{validationErrors.min_rank}</div>}
@@ -130,12 +140,22 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
           />
         </label>
 
+{/* We will want these 2 side by side?  Or have a clickable thing to open it */}
         <label>
-        Custom move number range PLACEHOLDER
+          Custom minimum move number:
           <input
             type="number"
-            name="custom_move_number_range"
-            value={filterState.custom_move_number_range}
+            name="custom_range_lower"
+            value={filterState.custom_range_lower}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+        Custom maximum move number:
+          <input
+            type="number"
+            name="custom_range_upper"
+            value={filterState.custom_range_upper}
             onChange={handleChange}
           />
         </label>

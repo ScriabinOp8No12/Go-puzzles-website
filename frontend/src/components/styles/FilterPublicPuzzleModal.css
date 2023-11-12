@@ -5,3 +5,47 @@
 .slider-description {
   color: rgb(255, 204, 102);
 }
+
+.filter-form {
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: #222831;
+  border: 3px solid black;
+  border-radius: 15px;
+  margin-bottom: 0px;
+  width: 350px;
+  height: auto;
+  margin-top: 100px;
+  overflow-y: auto;
+}
+
+.filter-form .updateButton {
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: -5px;
+  border: 3px solid black;
+  height: 30px;
+  background-color: #00ADB5;
+  color: aliceblue;
+  font-weight: bold;
+  font-family: "Manrope", sans-serif;
+}
+
+.filter-form .updateButton:hover {
+  border: 3px solid aliceblue;
+}
+
+.filter-form label {
+  color: aliceblue;
+  margin-top: 10px;
+}
+
+.filter-form input,
+.filter-form select {
+  width: 100%;
+  font-family: "Manrope", sans-serif;
+  margin-top: 5px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
