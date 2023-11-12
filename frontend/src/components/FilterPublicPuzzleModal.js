@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../store/modal";
 import CloseButton from "./CloseModalButton";
-import './styles/FilterPublicPuzzleModal.css';
+import "./styles/FilterPublicPuzzleModal.css";
 
 // Pass in handleFilterChange function (onApplyFilter) from PublicPuzzles.js component (parent)
 // So that this component (filter modal) can communicate back with the parent by utilizing this function
@@ -52,17 +52,17 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     // Ensure only numbers are set for custom range fields
-    if (name === 'custom_range_lower' || name === 'custom_range_upper') {
+    if (name === "custom_range_lower" || name === "custom_range_upper") {
       const parsedValue = parseInt(value, 10);
       if (!isNaN(parsedValue)) {
         setFilterState({ ...filterState, [name]: parsedValue });
-      } else if (value === '') {
-        setFilterState({ ...filterState, [name]: '' });
+      } else if (value === "") {
+        setFilterState({ ...filterState, [name]: "" });
       }
     } else {
-    setFilterState({ ...filterState, [name]: Number(value) });
-  }
-};
+      setFilterState({ ...filterState, [name]: Number(value) });
+    }
+  };
 
   // Handle applying filters, and performs action affecting the parent component (sending info back to parent)
   const handleApplyFilters = () => {
@@ -89,59 +89,85 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
       {/* Use same styling from edit modal form */}
       <div className="filter-form" onClick={handleFormClick}>
         <CloseButton onClick={() => dispatch(closeModal())} />
-        {validationErrors.rank && <div className="filter-errors">{validationErrors.rank}</div>}
-        {validationErrors.min_rank && <div className="filter-errors">{validationErrors.min_rank}</div>}
-        <label>
-          Min Rank:
-          <input
-            type="number"
-            name="min_rank"
-            value={filterState.min_rank}
-            onChange={handleChange}
-            min="0"
-            max="5000"
-          />
-        </label>
-        {validationErrors.max_rank && <div className="filter-errors">{validationErrors.max_rank}</div>}
-        <label>
-          Max Rank:
-          <input
-            type="number"
-            name="max_rank"
-            value={filterState.max_rank}
-            onChange={handleChange}
-          />
-        </label>
+        {validationErrors.rank && (
+          <div className="filter-errors">{validationErrors.rank}</div>
+        )}
+        {validationErrors.min_rank && (
+          <div className="filter-errors">{validationErrors.min_rank}</div>
+        )}
+        {/* Container for Min and Max Rank */}
         <div className="slider-description">
-          <p>Select a Move Number Range for Puzzles</p>
+          <p>Select Rank (difficulty) Range</p>
         </div>
-        <label>
-        Minimum Move Number: {filterState.min_move_number}
-          <input
-            type="range"
-            name="min_move_number"
-            min="0"
-            max="250"
-            step="25"
-            value={filterState.min_move_number}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-        Maximum Move Number: {filterState.max_move_number}
-          <input
-            type="range"
-            name="max_move_number"
-            min="0"
-            max="250"
-            step="25"
-            value={filterState.max_move_number}
-            onChange={handleChange}
-          />
-        </label>
+        <div className="rank-move-fields">
+          <div className="rank-move-field">
+            <label>
+              Min Rank: {filterState.min_rank}
+              <input
+                type="range"
+                name="min_rank"
+                min="100"
+                max="4900"
+                step="100"
+                value={filterState.min_rank}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="rank-move-field">
+            {validationErrors.max_rank && (
+              <div className="filter-errors">{validationErrors.max_rank}</div>
+            )}
+            <label>
+              Max Rank: {filterState.max_rank}
+              <input
+                type="range"
+                name="max_rank"
+                min="100"
+                max="5000"
+                step="100"
+                value={filterState.max_rank}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+        </div>
+        <div className="slider-description">
+          <p>Select Move Number Range</p>
+        </div>
+        <div className="rank-move-fields">
+          <div className="rank-move-field">
+            <label>
+              Min Move: {filterState.min_move_number}
+              <input
+                type="range"
+                name="min_move_number"
+                min="0"
+                max="250"
+                step="25"
+                value={filterState.min_move_number}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div className="rank-move-field">
+            <label>
+              Max Move: {filterState.max_move_number}
+              <input
+                type="range"
+                name="max_move_number"
+                min="0"
+                max="250"
+                step="25"
+                value={filterState.max_move_number}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+        </div>
 
-{/* We will want these 2 side by side?  Or have a clickable thing to open it */}
-        <label>
+        {/* We will want these 2 side by side?  Or have a clickable thing to open it */}
+        {/* <label>
           Custom minimum move number:
           <input
             type="number"
@@ -158,7 +184,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
             value={filterState.custom_range_upper}
             onChange={handleChange}
           />
-        </label>
+        </label> */}
 
         <label>
           Category:
@@ -178,17 +204,18 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
         <label>
           Board Size:
           <select
-          name="board_size"
-          value={filterState.board_size}
-          onChange={handleChange}
-        >
-          <option value="">Select Board Size</option> {/* Optional: Placeholder option */}
-          <option value="9">9</option>
-          <option value="13">13</option>
-          <option value="19">19</option>
-        </select>
+            name="board_size"
+            value={filterState.board_size}
+            onChange={handleChange}
+          >
+            <option value="">Select Board Size</option>{" "}
+            {/* Optional: Placeholder option */}
+            <option value="9">9</option>
+            <option value="13">13</option>
+            <option value="19">19</option>
+          </select>
         </label>
-        <button onClick={handleApplyFilters}>Apply Filters</button>
+        <button className="apply-filters" onClick={handleApplyFilters}>Apply Filters</button>
       </div>
     </div>
   );

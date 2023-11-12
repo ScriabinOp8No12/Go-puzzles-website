@@ -15,8 +15,12 @@
   margin-bottom: 0px;
   width: 350px;
   height: auto;
-  margin-top: 100px;
-  overflow-y: auto;
+  /* margin-top: 100px; */
+  /* overflow-y: auto; */
+}
+
+.filter-form .close-button {
+  top: 0px;
 }
 
 .filter-form .updateButton {
@@ -48,4 +52,34 @@
   padding: 5px;
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.rank-move-fields {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.rank-move-field {
+  flex: 1;
+  margin-right: 10px;
+}
+
+/* Center apply filters button */
+.apply-filters {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: -10px;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.apply-filters:hover {
+  border: 3px solid aliceblue;
 }
