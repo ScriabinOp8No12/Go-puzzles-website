@@ -23,22 +23,6 @@
   top: 0px;
 }
 
-.filter-form .updateButton {
-  width: 100%;
-  margin-top: 15px;
-  margin-bottom: -5px;
-  border: 3px solid black;
-  height: 30px;
-  background-color: #00ADB5;
-  color: aliceblue;
-  font-weight: bold;
-  font-family: "Manrope", sans-serif;
-}
-
-.filter-form .updateButton:hover {
-  border: 3px solid aliceblue;
-}
-
 .filter-form label {
   color: aliceblue;
   margin-top: 10px;
@@ -57,7 +41,7 @@
 .rank-move-fields {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .rank-move-field {
