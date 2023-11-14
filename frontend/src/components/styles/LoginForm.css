@@ -26,5 +26,9 @@
   color: black;
   width: 100%;
   padding: 10px 20px;
-  border: none;
+  border: 3px solid black;
+}
+
+.loginButton:hover {
+  border: 3px solid rgb(255, 204, 102);
 }

@@ -137,7 +137,7 @@ const EditPublicPuzzleModal = ({ puzzleId }) => {
           )}
         </label>
 
-        <button className="updateButton" type="submit">
+        <button className="updateButton button-hover" type="submit">
           Update
         </button>
       </form>

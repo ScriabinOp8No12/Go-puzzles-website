@@ -27,7 +27,7 @@ function Navigation({ isLoaded }) {
       <div>
         {/* NavLink component is always rendered, it takes us to the home page when we click the image */}
         <NavLink exact to="/">
-          <img src="/turtle-logo.jpg" alt="turtle-logo" className="logo" />
+          <img src="/turtle-logo.jpg" alt="turtle-logo" className="logo button-hover" />
         </NavLink>
       </div>
       {isLoaded && (
@@ -36,7 +36,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button ${
+                className={`navbar-button button-hover${
                   isLearnAndPracticeActive ? "active" : ""
                 }`}
               >
@@ -56,7 +56,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button ${
+                className={`navbar-button button-hover ${
                   isUserPuzzlesActive ? "active" : ""
                 }`}
               >
@@ -76,7 +76,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button ${
+                className={`navbar-button button-hover${
                   isPublicPuzzlesActive ? "active" : ""
                 }`}
               >
@@ -96,7 +96,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button ${
+                className={`navbar-button button-hover${
                   isPotentialPuzzlesActive ? "active" : ""
                 }`}
               >
@@ -116,7 +116,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="game-records-button-wrapper">
               <div
-                className={`navbar-button ${isSgfsActive ? "active" : ""}`}
+                className={`navbar-button button-hover${isSgfsActive ? "active" : ""}`}
               >
                 {sessionUser && (
                   <NavLink

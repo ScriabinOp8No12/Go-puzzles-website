@@ -109,7 +109,7 @@ const UserSGFs = () => {
   return (
     <div className="outer-wrapper">
       <div className="upload-sgf-button">
-        <label>
+        <label className="button-hover">
           Upload SGF
           <input type="file" accept=".sgf" onChange={handleFileChange} />
         </label>
@@ -143,6 +143,7 @@ const UserSGFs = () => {
                 )}
               </div>
               <img
+              className="button-hover"
                 src={sgf.thumbnail}
                 alt="SGF Thumbnail"
                 title={sgf.sgf_name}
@@ -157,14 +158,14 @@ const UserSGFs = () => {
                       {formatDate(sgf.updatedAt)}
                     </div>
                     <button
-                      className="create-puzzles-button"
+                      className="create-puzzles-button button-hover"
                       onClick={() => handleGeneratePuzzles(sgf)}
                       disabled={isLoading === "GENERATING_PUZZLES"}
                     >
                       Generate Puzzles!
                     </button>
                     <button
-                      className="pencil-icon"
+                      className="pencil-icon button-hover"
                       title="Edit SGF"
                       onClick={() => openEditModal(sgf.id)}
                     >

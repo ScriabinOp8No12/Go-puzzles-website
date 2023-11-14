@@ -53,7 +53,7 @@ const LandingPage = () => {
                   modalComponent={<LoginFormModal />}
                 />
                 to use this website. Or
-                <button onClick={handleDemoLoginClick} className="demo-login-button-home-page">
+                <button onClick={handleDemoLoginClick} className="demo-login-button-home-page button-hover">
         Demo Log In
       </button>
               </h2>
@@ -66,22 +66,22 @@ const LandingPage = () => {
             {/* Left column */}
             <div className="landing-page-columns">
               <h2><span className="important-text">New to the game?</span></h2>
-              <button onClick={goToBasicRules}>Basic rules</button>
-              <button>More rules & strategy</button>
-              <button>Reading</button>
-              <button>Puzzles</button>
-              <button>External Resources</button>
+              <button className="button-hover" onClick={goToBasicRules}>Basic rules</button>
+              <button className="button-hover">More rules & strategy</button>
+              <button className="button-hover">Reading</button>
+              <button className="button-hover">Puzzles</button>
+              <button className="button-hover">External Resources</button>
             </div>
 
             {/* Right column */}
             <div className="landing-page-columns">
               <h2><span className="important-text">Improve your fundamentals</span></h2>
-              <button>Ladders & Nets</button>
-              <button>Cuts & weaknesses</button>
-              <button>Direction of Play</button>
-              <button>Judgment</button>
-              <button>Life & Death</button>
-              <button>Puzzles</button>
+              <button className="button-hover">Ladders & Nets</button>
+              <button className="button-hover">Cuts & weaknesses</button>
+              <button className="button-hover">Direction of Play</button>
+              <button className="button-hover">Judgment</button>
+              <button className="button-hover">Life & Death</button>
+              <button className="button-hover">Puzzles</button>
             </div>
           </div>
           {/* End of Two-Column Layout for Buttons */}
@@ -93,7 +93,7 @@ const LandingPage = () => {
           <img
             src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977720/Tutorial-images/landing-page-public-puzzle-image_dyxtpr.png"
             alt="Public puzzle"
-            className="landing-image"
+            className="landing-image button-hover"
           />
           <p className="landing-text">
             Attempt puzzles from the <span className="important-text">Public Puzzles</span> page. Filter puzzles by
@@ -104,7 +104,7 @@ const LandingPage = () => {
           <img
             src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977721/Tutorial-images/landing-page-upload-sgf-image_clkttk.png"
             alt="Upload SGF"
-            className="landing-image"
+            className="landing-image button-hover"
           />
           <div className="landing-text-group">
     <p className="landing-text">Generate your own puzzles!</p>
@@ -116,7 +116,7 @@ const LandingPage = () => {
           <img
             src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977722/Tutorial-images/landing-page-potential-puzzle-image_fwsyn7.png"
             alt="Potential puzzle"
-            className="landing-image"
+            className="landing-image button-hover"
           />
           <p className="landing-text">
           Step 3: Navigate to <span className="important-text">Potential Puzzles</span> to try the generated puzzles

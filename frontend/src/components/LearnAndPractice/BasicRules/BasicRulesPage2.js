@@ -27,6 +27,7 @@ const BasicRulesPage2 = () => {
         <div className="diagram-container">
           <div className="image-text-wrap">
           <img
+          className="button-hover"
             src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698978159/Tutorial-images/basic-rules-4_ceflum.png"
             alt="Surrounding territory 4"
           />

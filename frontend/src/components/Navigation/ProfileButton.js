@@ -48,12 +48,7 @@ function ProfileButton({ user, showMenu, setShowMenu }) {
     (showMenu ? "" : " hidden") +
     (user ? " logged-in" : " not-logged-in");
 
-  // Redirecting user to current spots function
-  // const redirectToCurrentSpots = () => {
-  //   history.push("/spots/current");
-  // };
-
-  const profileButtonClass = `profile-button${
+  const profileButtonClass = `profile-button button-hover${
     showMenu ? " dropdown-active" : ""
   }`;
 
@@ -71,7 +66,7 @@ function ProfileButton({ user, showMenu, setShowMenu }) {
             <li>Hello {user.username}!</li>
             <li>{user.email}</li>
             <li>
-              <button className="logout-button" onClick={logout}>
+              <button className="logout-button button-hover" onClick={logout}>
                 Log Out
               </button>
             </li>

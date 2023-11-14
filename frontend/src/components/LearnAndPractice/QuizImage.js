@@ -12,6 +12,7 @@ const QuizImage = ({ src, alt }) => {
       <div className="image-modal-wrapper">
       <CloseButton onClick={handleClose} />
       <img
+      className="button-hover"
         src={src}
         alt={alt}
         // Move the modal down 47.5 pixels from the top to adjust for the navbar taking up 95 pixels of space, making the modal appear off center
@@ -31,7 +32,7 @@ const QuizImage = ({ src, alt }) => {
       <img
         src={src}
         alt={alt}
-        className="quiz-image"
+        className="quiz-image button-hover"
         onClick={handleImageClick}
       />
       <span className="enlarge-text">Click image to enlarge</span>

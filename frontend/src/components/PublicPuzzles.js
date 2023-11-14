@@ -64,7 +64,7 @@ const PublicPuzzles = () => {
     <div className="outer-wrapper">
       <div className="filter-wrapper">
         <div className="filter-public-puzzles" onClick={toggleFilter}>
-          <label>Filter Puzzles</label>
+          <label className="button-hover">Filter Puzzles</label>
         </div>
       </div>
       <div className="public-puzzle-table">
@@ -72,6 +72,7 @@ const PublicPuzzles = () => {
           publicPuzzles.map((puzzle, index) => (
             <div className="public-puzzle-thumbnail" key={index}>
               <img
+              className="button-hover"
                 src={puzzle.thumbnail}
                 alt={`Puzzle ${index}`}
                 onClick={() => history.push(`/public-puzzles/${puzzle.id}`)}
@@ -80,7 +81,7 @@ const PublicPuzzles = () => {
               <div className="puzzle-details">
                   <div className = "puzzle-category">Category: {puzzle.category}</div>
                   <div className = "puzzle-rank">Rank: {puzzle.difficulty}</div>
-                  <button className="public-puzzles-pencil-icon" onClick={() => openEditModal(puzzle.id)} title="Edit public puzzle">✏️</button>
+                  <button className="public-puzzles-pencil-icon button-hover" onClick={() => openEditModal(puzzle.id)} title="Edit public puzzle">✏️</button>
                   <SuspendPublicPuzzleModal puzzleId={puzzle.id} />
               </div>
             </div>
