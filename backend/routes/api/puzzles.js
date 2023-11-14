@@ -33,7 +33,7 @@ router.get("/", requireAuth, async (req, res, next) => {
     const DEFAULT_MAX_RANK = 5000;
     const DEFAULT_MIN_MOVE_NUMBER = 0;
     const DEFAULT_MAX_MOVE_NUMBER = 1000;
-    const DEFAULT_CATEGORY = "Judgment"; // CURRENTLY DEFAULTING TO JUDGMENT, but SHOULD BE OTHER later!
+    // const DEFAULT_CATEGORY = "Judgment"; // CURRENTLY DEFAULTING TO JUDGMENT, but SHOULD BE OTHER later!
     const DEFAULT_BOARD_SIZE = 19;
 
     // Destructure url parameters
@@ -127,14 +127,16 @@ router.get("/", requireAuth, async (req, res, next) => {
       "Other",
     ];
 
-    // Validate category
-if (category === undefined || category === '') {
-  where.category = DEFAULT_CATEGORY;
-} else if (!validCategories.includes(category)) {
-  return res.status(400).json({ error: "Invalid category" });
-} else {
+
+// Validate category (NO DEFAULT value!)
+if (category !== undefined && category !== '') {
+  if (!validCategories.includes(category)) {
+    return res.status(400).json({ error: "Invalid category" });
+  }
   where.category = category;
 }
+
+const validBoardSizes = [9, 13, 19]
 
     // Validate board_size
     if (board_size === undefined || board_size === "") {
