@@ -24,15 +24,18 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
 
   const validateInputs = () => {
     let errors = {};
-    if (filterState.min_rank < 0 || filterState.min_rank > 5000) {
-      errors.min_rank = "Min rank must be between 0 and 5000";
-    }
-    if (filterState.max_rank < 0 || filterState.max_rank > 5000) {
-      errors.max_rank = "Max rank must be between 0 and 5000";
-    }
-    if (filterState.min_rank >= filterState.max_rank) {
-      errors.rank = "Min rank cannot be greater than or equal to max rank";
-    }
+    const minRank = parseInt(filterState.min_rank, 10);
+  const maxRank = parseInt(filterState.max_rank, 10);
+
+  if (isNaN(minRank) || minRank < 0 || minRank > 5000) {
+    errors.min_rank = "Min rank must be between 0 and 5000";
+  }
+  if (isNaN(maxRank) || maxRank < 0 || maxRank > 5000) {
+    errors.max_rank = "Max rank must be between 0 and 5000";
+  }
+  if (!isNaN(minRank) && !isNaN(maxRank) && minRank >= maxRank) {
+    errors.rank = "Min rank cannot be greater than or equal to max rank";
+  }
     // Other validations
 
     return errors;
@@ -60,7 +63,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
         setFilterState({ ...filterState, [name]: "" });
       }
     } else {
-      setFilterState({ ...filterState, [name]: Number(value) });
+      setFilterState({ ...filterState, [name]: value });
     }
   };
 
