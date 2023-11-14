@@ -11,8 +11,8 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
 
   // Initialize filter states
   const [filterState, setFilterState] = useState({
-    min_rank: "",
-    max_rank: "",
+    min_rank: 1000,
+    max_rank: 2000,
     min_move_number: 0,
     max_move_number: 250,
     category: "",
@@ -98,6 +98,9 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
         {validationErrors.min_rank && (
           <div className="filter-errors">{validationErrors.min_rank}</div>
         )}
+        {validationErrors.max_rank && (
+              <div className="filter-errors">{validationErrors.max_rank}</div>
+            )}
         {/* Container for Min and Max Rank */}
         <div className="slider-description">
           <p>Select Rank (difficulty) Range</p>
@@ -118,9 +121,6 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
             </label>
           </div>
           <div className="rank-move-field">
-            {validationErrors.max_rank && (
-              <div className="filter-errors">{validationErrors.max_rank}</div>
-            )}
             <label>
               Max Rank: {filterState.max_rank}
               <input
