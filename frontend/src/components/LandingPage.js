@@ -1,15 +1,25 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import OpenModalMenuItem from "../components/Navigation/OpenModalMenuItem";
 import LoginFormModal from "./LoginFormModal";
 import SignupFormModal from "./SignupFormModal";
+import * as sessionActions from "../store/session";
 import "./styles/LandingPage.css";
 
 const LandingPage = () => {
   const user = useSelector((state) => state.session.user);
   const history = useHistory()
+  const dispatch = useDispatch()
+  const handleDemoLoginClick = () => {
+    const demoCredential = "test2@gmail.com";
+    const demoPassword = "password";
 
+    dispatch(sessionActions.login({
+      credential: demoCredential,
+      password: demoPassword
+    }));
+  };
   const goToBasicRules = () => {
     history.push("/learn-and-practice/basic-rules/1");
   };
@@ -42,7 +52,10 @@ const LandingPage = () => {
                   itemText="login"
                   modalComponent={<LoginFormModal />}
                 />
-                to use this website
+                to use this website. Or
+                <button onClick={handleDemoLoginClick} className="demo-login-button-home-page">
+        Demo Log In
+      </button>
               </h2>
             </>
           )}
