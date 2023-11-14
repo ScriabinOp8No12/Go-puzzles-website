@@ -13,6 +13,7 @@ const BasicRulesPage4 = () => {
       Most of the time you will see that white gets 6.5 or 7.5 komi to offset black's first move. </p>
       <p>Can you think of a faster or more efficient way to figure out who won instead of counting each individual point? Hint: Use math we learned from school 👍</p>
       <img
+      className="button-hover"
         src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977662/Tutorial-images/basic-rules-5a_giapfe.png"
         alt="Who won the game 2"
       />

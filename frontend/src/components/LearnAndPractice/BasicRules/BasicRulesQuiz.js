@@ -75,7 +75,7 @@ const BasicRulesQuiz = () => {
             <button
               // need this here to prevent it from bubbling up (our toggle button function is defined outside of here) and submitting the form when we click the button, lol...
               type="button"
-              className="show-all-answers-button"
+              className="show-all-answers-button button-hover"
               onClick={toggleAllAnswers}
             >
               {showAllAnswers ? "Hide All Answers" : "Show All Answers"}
@@ -676,7 +676,7 @@ const BasicRulesQuiz = () => {
         </div>
       </section>
 
-      <button type="submit" className="submitButton">
+      <button type="submit" className="submitButton button-hover">
         Submit Quiz!
       </button>
     </form>

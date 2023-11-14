@@ -23,7 +23,7 @@ const UserPuzzles = () => {
         {userPuzzles &&
           [...userPuzzles].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map((userPuzzle, index) => (
             <div className="public-puzzle-thumbnail" key={index}>
-              <img
+              <img className="button-hover"
                 src={userPuzzle.Puzzle.thumbnail}
                 alt={`Puzzle ${userPuzzle.Puzzle.id}`}
                 // Changed get /puzzles endpoint to id: puzzle.id instead of puzzle_id as the column name

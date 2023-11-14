@@ -95,7 +95,8 @@
   margin-right: 50px;
   width: 100%;
   font-weight: bold;
-  border: 3px solid transparent; /* Add a transparent border */
+  border: 3px solid transparent;
+  /* transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border 150ms ease-in-out; */
 }
 
 .profile-dropdown.logged-in li {
@@ -150,16 +151,25 @@
   padding: 0;
 }
 
+.demoLoginButton:hover {
+  color: rgb(255, 204, 102);
+}
+
 .loginButton:disabled {
   cursor: default;
   color: black;
   font-size: 18px;
+  border: 3px solid black
 }
 
 .loginButton:not(:disabled) {
   cursor: pointer;
   color: white;
   font-size: 18px;
+}
+
+.loginButton:not(:disabled):hover {
+  border: 3px solid rgb(255, 204, 102); /* Hover effect only for enabled buttons */
 }
 
 .loginButton {

@@ -80,14 +80,14 @@ function LoginFormModal() {
         </label>
         <button
           type="submit"
-          className={`loginButton ${
+          className={`loginButton button-hover ${
             credential.length < 4 || password.length < 6 ? "disabledButton" : ""
           }`}
           disabled={credential.length < 4 || password.length < 6}
         >
           Log In
         </button>
-        <button type = "submit" onClick={handleDemoLogin} className="demoLoginButton">
+        <button type = "submit" onClick={handleDemoLogin} className="demoLoginButton button-hover">
           Demo User
         </button>
       </form>

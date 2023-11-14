@@ -25,6 +25,7 @@ const MoreRulesPage1 = () => {
           {/* Image(s) on the right half */}
           <div className="content-image-section">
             <img
+            className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466950/Tutorial-images/more-rules-1_qpbyyd.png"
               alt="Illegal moves 1"
             />
@@ -36,6 +37,7 @@ const MoreRulesPage1 = () => {
           {/* For making the text stack vertically with the image above it */}
           <div className="image-text-wrap">
             <img
+            className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466263/Tutorial-images/more-rules-2_wvsgky.png"
               alt="Illegal moves 2"
             />
@@ -43,6 +45,7 @@ const MoreRulesPage1 = () => {
           </div>
           <div className="image-text-wrap">
             <img
+            className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466263/Tutorial-images/more-rules-3_jgmmx9.png"
               alt="Illegal moves 3"
             />

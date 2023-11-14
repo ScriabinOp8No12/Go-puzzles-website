@@ -218,7 +218,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
             <option value="19">19</option>
           </select>
         </label>
-        <button className="apply-filters" onClick={handleApplyFilters}>Apply Filters</button>
+        <button className="apply-filters button-hover" onClick={handleApplyFilters}>Apply Filters</button>
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ const BasicRulesPage5 = () => {
       Please be careful not to shift the boundaries otherwise the amount of territory will also be changed, and you could be accused of cheating.</p>
 
       <img
+      className="button-hover"
         src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977664/Tutorial-images/basic-rules-7_sr8fqj.png"
         alt="Who won the game 3"
       />

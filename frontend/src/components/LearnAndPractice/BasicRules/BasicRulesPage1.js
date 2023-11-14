@@ -44,6 +44,7 @@ const BasicRulesPage1 = () => {
           {/* Image(s) on the right half */}
           <div className="content-image-section">
             <img
+            className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-1_dtrowf.png"
               alt="Surrounding territory 1"
             />
@@ -55,6 +56,7 @@ const BasicRulesPage1 = () => {
           {/* For making the text stack vertically with the image above it */}
           <div className="image-text-wrap">
             <img
+            className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-2_bhdwck.png"
               alt="Surrounding territory 2"
             />
@@ -62,6 +64,7 @@ const BasicRulesPage1 = () => {
           </div>
           <div className="image-text-wrap">
             <img
+            className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977661/Tutorial-images/basic-rules-3_ayyhdl.png"
               alt="Surrounding territory 3"
             />

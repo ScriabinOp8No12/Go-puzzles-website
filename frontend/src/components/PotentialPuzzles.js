@@ -31,7 +31,7 @@ const PotentialPuzzles = () => {
           userPotentialPuzzles.map((potentialPuzzle, index) => (
             <div className="uploaded-sgf-thumbnail" key={index}>
               {/* Have unique classname here? */}
-              <img
+              <img className="button-hover"
                 src={potentialPuzzle["Sgf.thumbnail"]} // since the property is Sgf DOT thumbnail, we have to use square brackets
                 alt={`SGF Thumbnail ${index + 1}`}
                 title={`Potential Puzzles ${index + 1}`}

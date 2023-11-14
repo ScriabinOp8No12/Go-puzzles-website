@@ -61,6 +61,7 @@
   background-color: #00ADB5;
   cursor: pointer;
   border-radius: 15px;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border 150ms ease-in-out;
 }
 
 .landing-page-signup-login-button li:hover {

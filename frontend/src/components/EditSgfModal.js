@@ -222,7 +222,7 @@ const EditSgfModal = ({ sgfId }) => {
           )}
         </label>
 
-        <button className="updateButton" type="submit">
+        <button className="updateButton button-hover" type="submit">
           Update
         </button>
       </form>

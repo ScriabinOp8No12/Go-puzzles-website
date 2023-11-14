@@ -14,6 +14,10 @@ button {
   cursor: pointer;
 }
 
+.button-hover {
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border 150ms ease-in-out;
+}
+
 .updateButton {
   text-shadow:
   -.75px -.75px 0 #000,
