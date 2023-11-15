@@ -46,8 +46,9 @@ export const suspendPublicPuzzleById = (puzzleId) => ({
 
 // ************* Thunks ***************** //
 
-export const fetchPublicPuzzlesThunk = () => async (dispatch) => {
-  const response = await csrfFetch("/api/public_puzzles");
+export const fetchPublicPuzzlesThunk = (filterParams = {}) => async (dispatch) => {
+  const queryString = new URLSearchParams(filterParams).toString();
+  const response = await csrfFetch(`/api/public_puzzles?${queryString}`);
 
   if (response.ok) {
     const data = await response.json();

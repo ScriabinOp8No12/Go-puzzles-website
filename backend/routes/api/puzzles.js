@@ -153,7 +153,7 @@ const validBoardSizes = [9, 13, 19]
     }
 
     // Set default limit if not provided
-    limit = parseInt(limit) || 20;
+    limit = parseInt(limit) || 3; // 20 is normal, testing with 2 right now
 
     /***************** Filter the public puzzles to not show puzzles that the user created *******************/
     // Fetch SGF IDs created by the user
