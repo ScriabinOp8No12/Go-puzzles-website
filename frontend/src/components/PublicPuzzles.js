@@ -6,7 +6,7 @@ import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk, fetchFilteredPuzzl
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
 import FilterPublicPuzzleModal from "./FilterPublicPuzzleModal";
-import NavigationButton from "./LearnAndPractice/NavigationButton";
+import NextPageButton from "./Navigation/NextPageButton";
 import "./styles/PublicPuzzles.css";
 
 const PublicPuzzles = () => {
@@ -25,7 +25,7 @@ const PublicPuzzles = () => {
 
   // **** Filter block below (limit/offset + filter by puzzle type) **** //
 
-  // Initializing filters from URL, good for when we use the back button and want to render the same filters!
+  // Initializing filters from URL, this is also good for when we use the back button and want to render the same filters!
   // Note: Since limit and offset are not set in this useEffect, applying new filters *SHOULD* reset the view to the first page of results, regardless of the current page number (which is intended)
   useEffect(() => {
     // Extract query parameters from URL
@@ -60,8 +60,8 @@ const PublicPuzzles = () => {
     dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
   };
 
+  // This rerenders the page when any of the filters, offset change or when the component mounts
   useEffect(() => {
-    // console.log("Fetching puzzles with offset:", offset);
     const filtersWithPagination = { ...selectedFilters, limit: LIMIT, offset}
     // Check if filters are applied, if they are, then fetch the filtered puzzles
     if (Object.keys(selectedFilters).length) {
@@ -119,7 +119,7 @@ const showNextPageButton = publicPuzzles.length === LIMIT;
             </div>
           ))}
       </div>
-      {showNextPageButton && <NavigationButton onClick={handleNextPageClick} />}
+      {showNextPageButton && <NextPageButton onClick={handleNextPageClick} />}
     </div>
   );
 };

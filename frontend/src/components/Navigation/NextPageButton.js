@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NavigationButton = ( {onClick}) => {
+const NextPageButton = ( {onClick}) => {
   return (
     <button onClick={onClick} className="next-page-button button-hover">
       Next Page
@@ -8,4 +8,4 @@ const NavigationButton = ( {onClick}) => {
   );
 };
 
-export default NavigationButton;
+export default NextPageButton;

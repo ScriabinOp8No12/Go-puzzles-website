@@ -1,5 +1,5 @@
 import { React, useEffect } from "react";
-import NavigationButton from '../NavigationButton';
+import NextPageButton from "../../Navigation/NextPageButton";
 import useNavigation from '../useNavigation';
 import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "../LeftNavBar";
@@ -40,7 +40,7 @@ const MoreRulesContainer = () => {
       <LeftNavBar/>
 
       {renderPage()}
-      <NavigationButton onClick={navigateToNextPage}/>
+      <NextPageButton onClick={navigateToNextPage}/>
     </div>
   );
 };
