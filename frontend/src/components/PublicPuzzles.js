@@ -23,19 +23,23 @@ const PublicPuzzles = () => {
     dispatch(openModal(<EditPublicPuzzleModal puzzleId={puzzleId} />));
   };
 
-  // **** Filter block below **** //
+  // **** Filter block below (limit/offset + filter by puzzle type) **** //
 
   // Initializing filters from URL, good for when we use the back button and want to render the same filters!
+  // Note: Since limit and offset are not set in this useEffect, applying new filters *SHOULD* reset the view to the first page of results, regardless of the current page number (which is intended)
   useEffect(() => {
     // Extract query parameters from URL
     const queryParams = new URLSearchParams(history.location.search);
     const page = parseInt(queryParams.get('page')); // get the page for pagination
     const filtersFromURL = {};
+    // Typically forEach when used on arrays is in the order (key, value), but now we are
+    // using URLSearchParams (query string stuff) which is in (value, key) order
     queryParams.forEach((value, key) => {
       if (key !== 'page') {
-        filtersFromURL[key] = value;
+        filtersFromURL[key] = value; // Add each query parameter to filtersFromURL, except for 'page' which is for pagination
       }
     });
+    // If a page number is present in the URL, calculate the offset for pagination
     if (page) {
       setOffset((page - 1) * LIMIT);
   }
@@ -52,7 +56,7 @@ const PublicPuzzles = () => {
 
   const toggleFilter = () => {
     // Open filter modal and pass in callback handleFilterChange
-    // Our filter public puzzle modal now has access to the url values from teh handleFilterChange function
+    // Our filter public puzzle modal now has access to the url values from the handleFilterChange function
     dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
   };
 

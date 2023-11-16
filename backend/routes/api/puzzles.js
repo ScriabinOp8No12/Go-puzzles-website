@@ -33,10 +33,10 @@ router.get("/", requireAuth, async (req, res, next) => {
     const DEFAULT_MAX_RANK = 5000;
     const DEFAULT_MIN_MOVE_NUMBER = 0;
     const DEFAULT_MAX_MOVE_NUMBER = 1000;
-    // const DEFAULT_CATEGORY = "Judgment"; // CURRENTLY DEFAULTING TO JUDGMENT, but SHOULD BE OTHER later!
+    // const DEFAULT_CATEGORY = "Judgment";
     const DEFAULT_BOARD_SIZE = 19;
 
-    // Destructure url parameters
+    // Destructure url "query" parameters
     let {
       min_rank,
       max_rank,
@@ -64,8 +64,10 @@ router.get("/", requireAuth, async (req, res, next) => {
       if (!isValidNumber(min_rank) || min_rank < 0 || min_rank > 5000) {
         return res.status(400).json({ error: "Invalid min_rank value" });
       }
+      // Find puzzles with difficulty that are greater than or equal to the min_rank
       where.difficulty = { [Op.gte]: parseInt(min_rank) };
     } else {
+      // If min rank is undefined or empty, we simply set it to the default min_rank, which is currently 0
       where.difficulty = { [Op.gte]: DEFAULT_MIN_RANK };
     }
 
