@@ -171,7 +171,7 @@
 .previous-page-button {
   position: fixed;
   bottom: 10px;
-  left: 17.75vw;
+  left: 10px;
   background-color: #00ADB5;
   border: 3px solid black;
   color: aliceblue;
@@ -187,7 +187,12 @@
   .75px .75px 0 #000;
 }
 
-.previous-page-button:hover {
+/* Specific styling for tutorial context */
+.tutorial-button {
+  left: 17.75vw;
+}
+
+.previous-page-button:hover, .tutorial-button:hover {
   border: 3px solid aliceblue;
 }
 

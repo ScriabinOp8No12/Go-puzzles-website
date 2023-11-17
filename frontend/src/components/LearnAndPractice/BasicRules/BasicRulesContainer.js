@@ -58,7 +58,7 @@ const BasicRulesContainer = () => {
       {/* Render the appropriate page component based on the current route */}
       {renderPage()}
       <NextPageButton onClick={navigateToNextPage}/>
-      <PreviousPageButton onClick={navigateToPreviousPage}/>
+      <PreviousPageButton onClick={navigateToPreviousPage} isTutorial={true}/>
     </div>
   );
 };
