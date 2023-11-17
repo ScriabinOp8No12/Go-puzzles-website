@@ -6,9 +6,13 @@
   color: rgb(255, 204, 102);
 }
 
+.select-move-range {
+  margin-top: 0px;
+}
+
 .filter-form {
   box-sizing: border-box;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   background-color: #222831;
   border: 3px solid black;
   border-radius: 15px;
@@ -33,6 +37,7 @@
   width: 100%;
   font-family: "Manrope", sans-serif;
   margin-top: 5px;
+  margin-bottom: 10px;
   padding: 5px;
   border: 1px solid black;
   border-radius: 5px;
