@@ -136,7 +136,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
           </div>
         </div>
         <div className="slider-description">
-          <p>Select Move Number Range</p>
+          <p className="select-move-range">Select Move Number Range</p>
         </div>
         <div className="rank-move-fields">
           <div className="rank-move-field">
