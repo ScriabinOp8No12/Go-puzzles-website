@@ -168,6 +168,29 @@
   border: 3px solid aliceblue;
 }
 
+.previous-page-button {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background-color: #00ADB5;
+  border: 3px solid black;
+  color: aliceblue;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  text-shadow:
+  -.75px -.75px 0 #000,
+  .75px -.75px 0 #000,
+  -.75px .75px 0 #000,
+  .75px .75px 0 #000;
+}
+
+.previous-page-button:hover {
+  border: 3px solid aliceblue;
+}
+
 /********** End of Styling diagrams, text for diagrams, and next page button **********/
 
 .important-text {

@@ -7,6 +7,7 @@ import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
 import FilterPublicPuzzleModal from "./FilterPublicPuzzleModal";
 import NextPageButton from "./Navigation/NextPageButton";
+import PreviousPageButton from "./Navigation/PreviousPageButton";
 import "./styles/PublicPuzzles.css";
 
 const PublicPuzzles = () => {
@@ -83,13 +84,23 @@ const PublicPuzzles = () => {
     setOffset(prevOffset => {
       const newOffset = prevOffset + LIMIT;
         history.push(`/public-puzzles?page=${newOffset / LIMIT + 1}`);
-        // console.log("Current offset:", prevOffset, "New offset:", prevOffset + LIMIT);
         return newOffset;
     });
 };
 
-// Determine if the 'Next Page' button should be shown
+const handlePreviousPageClick = () => {
+  setOffset(prevOffset => {
+    // Ensure that the offset does not go below 0
+    const newOffset = Math.max(0, prevOffset - LIMIT);
+    history.push(`/public-puzzles?page=${newOffset / LIMIT + 1}`);
+    return newOffset;
+  });
+};
+
+// Only show the 'Next Page' button if the amount of puzzles being shown is not equal to the limit (meaning there will be more pages of puzzles)
 const showNextPageButton = publicPuzzles.length === LIMIT;
+// Only show the 'Previous Page' button if we are not on the first page
+const showPreviousPageButton = offset > 0;
   // **** Filter block above **** //
 
   return (
@@ -120,6 +131,7 @@ const showNextPageButton = publicPuzzles.length === LIMIT;
           ))}
       </div>
       {showNextPageButton && <NextPageButton onClick={handleNextPageClick} />}
+      {showPreviousPageButton && <PreviousPageButton onClick={handlePreviousPageClick} />}
     </div>
   );
 };
