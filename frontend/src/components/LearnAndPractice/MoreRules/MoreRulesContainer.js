@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
-import NavigationButton from '../NavigationButton';
-import useNavigation from '../useNavigation';
+import NextPageButton from "../../Navigation/NextPageButton";
+import useNextPageNavigation from "../useNextPageNavigation";
 import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "../LeftNavBar";
 import MoreRulesPage1 from "./MoreRulesPage1";
@@ -10,7 +10,7 @@ const MoreRulesContainer = () => {
   const history = useHistory();
   const { pageNumber } = useParams();
 
-  const navigateToNextPage = useNavigation();
+  const navigateToNextPage = useNextPageNavigation();
 
   useEffect(() => {
     // When location changes, scroll to the top of the page
@@ -40,7 +40,7 @@ const MoreRulesContainer = () => {
       <LeftNavBar/>
 
       {renderPage()}
-      <NavigationButton onClick={navigateToNextPage}/>
+      <NextPageButton onClick={navigateToNextPage}/>
     </div>
   );
 };

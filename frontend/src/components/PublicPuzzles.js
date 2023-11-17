@@ -6,6 +6,8 @@ import { fetchPublicPuzzleByIdThunk, fetchPublicPuzzlesThunk, fetchFilteredPuzzl
 import EditPublicPuzzleModal from "./EditPublicPuzzleModal";
 import SuspendPublicPuzzleModal from "./SuspendPublicPuzzleModal";
 import FilterPublicPuzzleModal from "./FilterPublicPuzzleModal";
+import NextPageButton from "./Navigation/NextPageButton";
+import PreviousPageButton from "./Navigation/PreviousPageButton";
 import "./styles/PublicPuzzles.css";
 
 const PublicPuzzles = () => {
@@ -13,6 +15,8 @@ const PublicPuzzles = () => {
   const history = useHistory();
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
   const [selectedFilters, setSelectedFilters] = useState({});
+  const [offset, setOffset] = useState(0);
+  const LIMIT = 3; // Number of puzzles per page
 
   // Edit sgf modal
   const openEditModal = async (puzzleId) => {
@@ -20,17 +24,26 @@ const PublicPuzzles = () => {
     dispatch(openModal(<EditPublicPuzzleModal puzzleId={puzzleId} />));
   };
 
-  // **** Filter block below **** //
+  // **** Filter block below (limit/offset + filter by puzzle type) **** //
 
-  // Initializing filters from URL, good for when we use the back button and want to render the same filters!
+  // Initializing filters from URL, this is also good for when we use the back button and want to render the same filters!
+  // Note: Since limit and offset are not set in this useEffect, applying new filters *SHOULD* reset the view to the first page of results, regardless of the current page number (which is intended)
   useEffect(() => {
     // Extract query parameters from URL
     const queryParams = new URLSearchParams(history.location.search);
+    const page = parseInt(queryParams.get('page')); // get the page for pagination
     const filtersFromURL = {};
+    // Typically forEach when used on arrays is in the order (key, value), but now we are
+    // using URLSearchParams (query string stuff) which is in (value, key) order
     queryParams.forEach((value, key) => {
-      filtersFromURL[key] = value;
+      if (key !== 'page') {
+        filtersFromURL[key] = value; // Add each query parameter to filtersFromURL, except for 'page' which is for pagination
+      }
     });
-
+    // If a page number is present in the URL, calculate the offset for pagination
+    if (page) {
+      setOffset((page - 1) * LIMIT);
+  }
     // Set the filters from URL as initial state
     setSelectedFilters(filtersFromURL);
   }, [history]);
@@ -44,20 +57,50 @@ const PublicPuzzles = () => {
 
   const toggleFilter = () => {
     // Open filter modal and pass in callback handleFilterChange
-    // Our filter public puzzle modal now has access to the url values from teh handleFilterChange function
+    // Our filter public puzzle modal now has access to the url values from the handleFilterChange function
     dispatch(openModal(<FilterPublicPuzzleModal onApplyFilter={handleFilterChange} />));
   };
 
+  // This rerenders the page when any of the filters, offset change or when the component mounts
   useEffect(() => {
+    const filtersWithPagination = { ...selectedFilters, limit: LIMIT, offset}
     // Check if filters are applied, if they are, then fetch the filtered puzzles
     if (Object.keys(selectedFilters).length) {
-      dispatch(fetchFilteredPuzzlesThunk(selectedFilters));
+      dispatch(fetchFilteredPuzzlesThunk(filtersWithPagination));
     } else {
       // Otherwise simply fetch all the public puzzles
-      dispatch(fetchPublicPuzzlesThunk());
+      dispatch(fetchPublicPuzzlesThunk(filtersWithPagination));
     }
-  }, [dispatch, selectedFilters]);
+  }, [dispatch, selectedFilters, offset]);
 
+  // Handle when user clicks the back button or navigates to a different page number, we need to rerender the page
+  useEffect(() => {
+    const queryParams = new URLSearchParams(history.location.search);
+    const page = parseInt(queryParams.get('page')) || 1; // Default to page 1 if not specified
+    setOffset((page - 1) * LIMIT);
+  }, [history.location.search]); // Depend on the URL search string
+
+  const handleNextPageClick = () => {
+    setOffset(prevOffset => {
+      const newOffset = prevOffset + LIMIT;
+        history.push(`/public-puzzles?page=${newOffset / LIMIT + 1}`);
+        return newOffset;
+    });
+};
+
+const handlePreviousPageClick = () => {
+  setOffset(prevOffset => {
+    // Ensure that the offset does not go below 0
+    const newOffset = Math.max(0, prevOffset - LIMIT);
+    history.push(`/public-puzzles?page=${newOffset / LIMIT + 1}`);
+    return newOffset;
+  });
+};
+
+// Only show the 'Next Page' button if the amount of puzzles being shown is not equal to the limit (meaning there will be more pages of puzzles)
+const showNextPageButton = publicPuzzles.length === LIMIT;
+// Only show the 'Previous Page' button if we are not on the first page
+const showPreviousPageButton = offset > 0;
   // **** Filter block above **** //
 
   return (
@@ -87,6 +130,8 @@ const PublicPuzzles = () => {
             </div>
           ))}
       </div>
+      {showNextPageButton && <NextPageButton onClick={handleNextPageClick} />}
+      {showPreviousPageButton && <PreviousPageButton onClick={handlePreviousPageClick} />}
     </div>
   );
 };
