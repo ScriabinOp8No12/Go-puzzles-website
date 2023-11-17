@@ -1,7 +1,7 @@
 import { useHistory, useParams } from "react-router-dom";
 import LearnAndPracticeStructure from "./LearnAndPracticeStructure";
 
-const useNavigation = () => {
+const useNextPageNavigation = () => {
   const history = useHistory();
   // Extract section and pageNumber parameters from the url route
   const { section, pageNumber } = useParams();
@@ -15,6 +15,7 @@ const useNavigation = () => {
     const currentSection = LearnAndPracticeStructure[currentSectionIndex];
     const currentPageNumber = parseInt(pageNumber, 10);
     const isLastPage = currentPageNumber === currentSection.pages;
+    const isFirstPage = currentPageNumber === 1;
 
     // If the page url is 'quiz' and a next section exists, navigate to the first page of the next section
     if (pageNumber === "quiz" && currentSection.nextSection) {
@@ -47,4 +48,4 @@ const useNavigation = () => {
   return navigateToNextPage;
 };
 
-export default useNavigation;
+export default useNextPageNavigation;
