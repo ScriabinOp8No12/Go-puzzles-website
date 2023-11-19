@@ -495,6 +495,22 @@ module.exports = {
           suspended: false,
           result: "B+R",
         },
+        // Arbyter73 game puzzles (includes one or two ladder/net problems) -> sgf_id 24 I think
+        {
+          user_id: 3,
+          sgf_data:
+          "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[0.00]TM[300] PW[Game 5]PB[arbyter73]DT[2023-10-19]RE[W+3.00]RL[0]RN[1]TC[3]TT[30] ;B[pd] ;W[dp] ;B[pq] ;W[dc] ;B[fq] ;W[jp] ;B[cq] ;W[dq] ;B[cp] ;W[do] ;B[dr] ;W[er] ;B[cr] ;W[eq] ;B[cn] ;W[fp] ;B[de] ;W[ce] ;B[cf] ;W[cd] ;B[dg] ;W[fc] ;B[cj] ;W[cl] ;B[dm] ;W[dj] ;B[ck] ;W[dl] ;B[em] ;W[dk] ;B[ci] ;W[di] ;B[dh] ;W[gj] ;B[pn] ;W[nq] ;B[lq] ;W[lp] ;B[kp] ;W[pp] ;B[qp] ;W[op] (;B[mp] ;W[lo] ;B[mq] ;W[qq] (;B[pr] ;W[qr] (;B[or] ;W[nr] ;B[np] ;W[oq] ;B[ko] ;W[jq] ;B[kq] ;W[qo] ;B[oo] ;W[rp] ;B[jd] ;W[qf] ;B[qh] ;W[qc] ;B[qd] ;W[pc] ;B[od] ;W[rd] ;B[re] ;W[rc] ;B[rf] ;W[nc] ;B[me] ;W[lc] ;B[hl] ;W[gl] ;B[gm] ;W[fl] ;B[el] ;W[hk] ;B[il] ;W[fm] ;B[ik] ;W[ij] ;B[jj] ;W[gn] ;B[ii] ;W[hj] ;B[ih] ;W[ql] ;B[qm] ;W[rm] ;B[pl] ;W[qk] ;B[pk] ;W[qj] ;B[pj] ;W[qi] ;B[pi] ;W[rh] ;B[qg] ;W[jo] ;B[jn] ;W[in] ;B[jm] ;W[le] ;B[oc] ;W[ob] ;B[md] ;W[ld] ;B[lf] ;W[ke] ;B[kf] ;W[je] ;B[nb] ;W[mb] ;B[hd] ;W[ie] ;B[ge] ;W[ef] ;B[df] ;W[hf] ;B[ee] ;W[jg] ;B[kh] ;W[bo] ;B[co] ;W[bn] ;B[bm] ;W[cm] ;B[bl] ;W[dn] ;B[ek]C[E11 F11 ] (;W[ff] ;B[fe] (;W[fj] (;B[be] ;W[gf] ;B[id] ;W[bd] ;B[bf] ;W[rg] ;B[pf] ;W[hb] ;B[fh] ;W[fi] ;B[jr] ;W[ir] ;B[kr] ;W[hq] ;B[hn] ;W[hm] ;B[im] ;W[ho] ;B[qn] ;W[rn] ;B[po] ;W[jb] ;B[mc] ;W[na] ;B[nd] ;W[nb] ;B[kc] ;W[kb] ;B[ig] ;W[jf] ;B[he] ;W[if] ;B[sg] ;W[ri] ;B[sh] ;W[si] ;B[sf] ;W[mr] ;B[gc] ;W[gb] ;B[fd] ;W[ec] ;B[ad] ;W[ac] ;B[ae] ;W[bc] ;B[es] ;W[fs] ;B[ds] ;W[fr] ;B[ei] ;W[ej] ;B[eh] ;W[hc] ;B[gd] ;W[jc] ;B[kd] ;W[gh] ;B[jh] ;W[kg] ;B[lg] ;W[hi] ;B[gg] ;W[hg] ;B[fg] ;W[hh] ;B[dd] ;W[sd] ;B[is] ;W[hs] ;B[js] ;W[ls] ;B[lr] ;W[ms] ;B[ks] ;W[ic] ;B[qe]) (;B[ej] ;W[ei] ;B[fi] ;W[eh] ;B[fh] ;W[eg] ;B[gf])) (;W[ei] ;B[fi] ;W[eh] ;B[fh] ;W[eg] ;B[gf])) (;W[ei] ;B[fi] ;W[eh] ;B[fh] ;W[eg] ;B[ff])) (;B[nr] ;W[or] ;B[os] ;W[oq] ;B[ps] ;W[qs] ;B[ns] ;W[mr])) (;B[rq] ;W[qr] ;B[qo])) (;B[ko] ;W[qq] (;B[qo] ;W[rq]) (;B[rq] ;W[qr] ;B[qo] ;W[rr] (;B[mp]) (;B[jq]))) (;B[qr]) (;B[qq] ;W[ko] ;B[kq] ;W[mp] ;B[jq] ;W[ip] ;B[hq]))",
+          sgf_name: "Arbyter73 game 5 game with at least one ladder / net problem",
+          black_player: "arbyter73",
+          white_player: "fox opponent",
+          black_rank: "7k",
+          white_rank: "7k",
+          komi: 7.5,
+          game_date: "2023-11-18 15:00:00.000",
+          thumbnail: "https://res.cloudinary.com/dn8rdavoi/image/upload/v1700363947/ipv131utyu36lp8xo0ll.png",
+          suspended: false,
+          result: "W+6.5"
+        }
       ],
       {}
     );
