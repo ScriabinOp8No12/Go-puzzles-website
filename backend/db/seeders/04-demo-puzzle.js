@@ -96,6 +96,23 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          sgf_id: 24,
+          sgf_data: "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Chinese]SZ[19]KM[0.00]TM[300]PW[Game 5]PB[arbyter73]DT[2023-10-19]RE[W+3.00];B[pd];W[dp];B[pq];W[dc];B[fq];W[jp];B[cq];W[dq];B[cp];W[do];B[dr];W[er];B[cr];W[eq];B[cn];W[fp];B[de];W[ce];B[cf];W[cd];B[dg];W[fc];B[cj];W[cl];B[dm];W[dj];B[ck];W[dl];B[em];W[dk];B[ci];W[di];B[dh];W[gj];B[pn];W[nq];B[lq];W[lp];B[kp];W[pp];B[qp];W[op];B[mp];W[lo];B[mq];W[qq];B[pr];W[qr];B[or] (;W[nr]C[Incorrect - This was the actual move played in the game!]) (;W[qo]C[CORRECT] ;B[ko]C[CORRECT] ;W[nr]C[CORRECT] ;B[hp]C[CORRECT] ;W[hq]C[CORRECT]))",
+          category: "Direction",
+          move_number: 50,
+          difficulty: 1550,
+          description:
+            "Other",
+          vote_count: 1,
+          board_size: 19,
+          solution_coordinates: "{\"R5\":[\"R5\",\"L5\",\"O2\",\"H4\",\"H3\"]}",
+          thumbnail:
+          "https://res.cloudinary.com/dn8rdavoi/image/upload/v1700364001/ozlrq1eoy4zwltdpwzsn.png",
+          suspended: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
