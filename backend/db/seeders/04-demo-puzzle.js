@@ -113,6 +113,40 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        // Placeholder for more puzzles from Dave game (sgf_id of 24)
+        // {
+        //   sgf_id: 24,
+        //   sgf_data: "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Chinese]SZ[19]KM[0.00]TM[300]PW[Game 5]PB[arbyter73]DT[2023-10-19]RE[W+3.00];B[pd];W[dp];B[pq];W[dc];B[fq];W[jp];B[cq];W[dq];B[cp];W[do];B[dr];W[er];B[cr];W[eq];B[cn];W[fp];B[de];W[ce];B[cf];W[cd];B[dg];W[fc];B[cj];W[cl];B[dm];W[dj];B[ck];W[dl];B[em];W[dk];B[ci];W[di];B[dh];W[gj];B[pn];W[nq];B[lq];W[lp];B[kp];W[pp];B[qp];W[op];B[mp];W[lo];B[mq];W[qq];B[pr];W[qr];B[or] (;W[nr]C[Incorrect - This was the actual move played in the game!]) (;W[qo]C[CORRECT] ;B[ko]C[CORRECT] ;W[nr]C[CORRECT] ;B[hp]C[CORRECT] ;W[hq]C[CORRECT]))",
+        //   category: "Direction",
+        //   move_number: 50,
+        //   difficulty: 1550,
+        //   description:
+        //     "Other",
+        //   vote_count: 1,
+        //   board_size: 19,
+        //   solution_coordinates: "{\"R5\":[\"R5\",\"L5\",\"O2\",\"H4\",\"H3\"]}",
+        //   thumbnail:
+        //   "https://res.cloudinary.com/dn8rdavoi/image/upload/v1700364001/ozlrq1eoy4zwltdpwzsn.png",
+        //   suspended: false,
+        //   createdAt: new Date(),
+        //   updatedAt: new Date(),
+        // },
+        {
+          sgf_data: "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[19]KM[6.50] ;B[pd] ;W[dp] ;B[dd] ;W[pp] ;B[qq] ;W[pq] ;B[qp] ;W[po] ;B[qo] ;W[pn] ;B[qn] ;W[pl] ;B[mp] ;W[fc] ;B[df] ;W[dc] ;B[cc] ;W[cb] ;B[db] ;W[ec] ;B[bb] (;W[cn]C[Incorrect - This was the actual move played in the game!]) (;W[cd]C[CORRECT] ;B[bc]C[CORRECT] ;W[de]C[CORRECT] ;B[ed]C[CORRECT] ;W[ee]C[CORRECT]))",
+          category: "Ladder/Net",
+          move_number: 22,
+          difficulty: 1250,
+          description:
+            "Ladder problem",
+          vote_count: 150,
+          board_size: 19,
+          solution_coordinates: "{\"C16\":[\"C16\",\"B17\",\"D15\",\"E16\",\"E15\"]}",
+          thumbnail:
+          "https://res.cloudinary.com/dn8rdavoi/image/upload/v1700435503/xiiysfegzhau9rbm9qdd.png",
+          suspended: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
