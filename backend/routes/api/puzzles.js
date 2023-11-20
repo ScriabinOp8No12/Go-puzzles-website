@@ -30,7 +30,7 @@ router.get("/", requireAuth, async (req, res, next) => {
   try {
     // Define default values at the top of the endpoint function
     const DEFAULT_MIN_RANK = 0;
-    const DEFAULT_MAX_RANK = 5000;
+    const DEFAULT_MAX_RANK = 3000;
     const DEFAULT_MIN_MOVE_NUMBER = 0;
     const DEFAULT_MAX_MOVE_NUMBER = 1000;
     // const DEFAULT_CATEGORY = "Judgment";
@@ -155,7 +155,7 @@ const validBoardSizes = [9, 13, 19]
     }
 
     // Set default limit if not provided
-    limit = parseInt(limit) || 3; // 20 is normal, testing with 2 right now
+    limit = parseInt(limit) || 20; // 20 is normal, testing with smaller number right now
 
     /***************** Filter the public puzzles to not show puzzles that the user created *******************/
     // Fetch SGF IDs created by the user
@@ -165,7 +165,9 @@ const validBoardSizes = [9, 13, 19]
         attributes: ["id"],
         where: { user_id: req.user.id },
       });
+      console.log("ownSgfs: ", ownSgfs)
       excludeSgfIds = ownSgfs.map((sgf) => sgf.id);
+      console.log("excludeSgfIds: ", excludeSgfIds)
     }
 
     // Exclude puzzles created from these SGFs
@@ -188,7 +190,7 @@ const validBoardSizes = [9, 13, 19]
 
     // Fetch puzzles from database using Sequelize
     const puzzles = await Puzzle.findAll(options);
-
+    // console.log("puzzles: ", puzzles)
     /***************** Above block: Filter the public puzzles to not show puzzles that the user created *******************/
 
     const formattedPuzzles = puzzles.map((puzzle) => {

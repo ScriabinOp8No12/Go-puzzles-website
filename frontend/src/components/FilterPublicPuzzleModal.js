@@ -113,7 +113,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
                 type="range"
                 name="min_rank"
                 min="100"
-                max="4900"
+                max="2900"
                 step="100"
                 value={filterState.min_rank}
                 onChange={handleChange}
@@ -127,7 +127,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
                 type="range"
                 name="max_rank"
                 min="100"
-                max="5000"
+                max="3000"
                 step="100"
                 value={filterState.max_rank}
                 onChange={handleChange}
