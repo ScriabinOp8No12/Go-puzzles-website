@@ -15,7 +15,7 @@ const useNextPageNavigation = () => {
     const currentSection = LearnAndPracticeStructure[currentSectionIndex];
     const currentPageNumber = parseInt(pageNumber, 10);
     const isLastPage = currentPageNumber === currentSection.pages;
-    const isFirstPage = currentPageNumber === 1;
+    // const isFirstPage = currentPageNumber === 1;
 
     // If the page url is 'quiz' and a next section exists, navigate to the first page of the next section
     if (pageNumber === "quiz" && currentSection.nextSection) {
