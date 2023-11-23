@@ -92,9 +92,21 @@ def convert_sgf_data_to_AB_AW(sgf_data):
     slice_index_end = min(last_part_index_b if last_part_index_b != -1 else float('inf'),
                       last_part_index_w if last_part_index_w != -1 else float('inf'))
 
+    # Determine which substring is found first and add the appropriate "PL" property
     if slice_index_end != float('inf'):
-        third_part = original_sgf_data[slice_index_end:]
+        if slice_index_end == last_part_index_b:
+            player_move = "PL[B]"
+        else:  # This will be last_part_index_w
+            player_move = "PL[W]"
     else:
-        third_part = original_sgf_data
+        # Default behavior when neither is found
+        player_move = "PL[B]"
 
-    return first_part + second_part + third_part
+    # Assign third_part
+    third_part = original_sgf_data[slice_index_end:]
+
+    return first_part + player_move + second_part + third_part
+
+# need to specify player's turn, it always defaults to black, but sometimes it needs to be white!
+# simply look at the value of ;B or ;W right before the comments, denoted by ( correct ... etc),
+# then add that to the start of the sgf where we can specify the player's turn / color
