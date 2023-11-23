@@ -107,6 +107,27 @@ def convert_sgf_data_to_AB_AW(sgf_data):
 
     return first_part + player_move + second_part + third_part
 
-# need to specify player's turn, it always defaults to black, but sometimes it needs to be white!
-# simply look at the value of ;B or ;W right before the comments, denoted by ( correct ... etc),
-# then add that to the start of the sgf where we can specify the player's turn / color
+def process_sgf_data(input_data):
+    """
+    Process either a single sgf_data string or a list of sgf_data strings.
+
+    Args:
+    input_data (str or list): A single sgf_data string or a list of sgf_data strings.
+
+    Returns:
+    str or list: The converted sgf_data string or a list of converted sgf_data strings.
+    """
+    if isinstance(input_data, str):
+        # Single sgf_data string
+        return convert_sgf_data_to_AB_AW(input_data)
+    elif isinstance(input_data, list):
+        # List of sgf_data strings
+        return [convert_sgf_data_to_AB_AW(sgf_data) for sgf_data in input_data]
+    else:
+        raise TypeError("Input must be a string or a list of strings.")
+
+# # For a single sgf_data string
+# converted_data = process_sgf_data(single_sgf_data_string)
+
+# # For a list of sgf_data strings
+# converted_data_list = process_sgf_data(list_of_sgf_data_strings)
