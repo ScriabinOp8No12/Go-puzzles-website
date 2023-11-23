@@ -28,7 +28,7 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
       return res.status(403).json({ error: "Not authorized!" });
     }
 
-    sgf_id = req.params.sgf_id
+    sgf_id = req.params.sgf_id;
     // Check if potential puzzles already exist for the given sgf id
     const existingPuzzles = await PotentialPuzzle.findAll({
       where: { sgf_id },
@@ -197,11 +197,6 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
       processedOutput
     );
 
-    // console.log("final sgf strings", final_sgf_strings)
-
-    // console.log("**********existingRecords LENGTH**************", existingRecords.length)
-    // console.log("***********final sgf strings LENGTH*****************", await final_sgf_strings.length)
-
     if (existingRecords.length !== (await final_sgf_strings.length)) {
       return res
         .status(400)
@@ -272,18 +267,19 @@ router.get("/", requireAuth, async (req, res) => {
       potentialPuzzleThumbnails.find((p) => p.sgf_id === sgf_id)
     );
 
-    const formattedResults = uniqueResults.map(puzzle => {
+    const formattedResults = uniqueResults.map((puzzle) => {
       return {
         sgf_id: puzzle.sgf_id,
         "Sgf.thumbnail": puzzle["Sgf.thumbnail"],
         createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-        updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+        updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
       };
     });
 
-    return res
-      .status(200)
-      .json({ PotentialPuzzles: formattedResults, CountsBySgfId: countsBySgfId }); // Include the counts in the response
+    return res.status(200).json({
+      PotentialPuzzles: formattedResults,
+      CountsBySgfId: countsBySgfId,
+    }); // Include the counts in the response
   } catch (error) {
     console.error(
       "Failed to retrieve sgf thumbnail for potential puzzles",
@@ -296,7 +292,7 @@ router.get("/", requireAuth, async (req, res) => {
 // Get all potential_puzzles based on sgf_id
 router.get("/:sgf_id", requireAuth, async (req, res) => {
   const sgfId = req.params.sgf_id;
-  const userId = req.user.id // grab the logged in user's id
+  const userId = req.user.id; // grab the logged in user's id
   // Find all records where the sgf_id matches the one in the url
   const potentialPuzzles = await PotentialPuzzle.findAll({
     where: { sgf_id: sgfId, user_id: userId },
@@ -314,9 +310,10 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
   });
 
   if (potentialPuzzles.length === 0) {
-    return res
-      .status(404)
-      .json({ error: "Sgf with potential puzzles not found or you don't have permission to access this resource" });
+    return res.status(404).json({
+      error:
+        "Sgf with potential puzzles not found or you don't have permission to access this resource",
+    });
   }
 
   // Format the SGF data for the response
@@ -372,6 +369,51 @@ router.post("/store_vm_results", async (req, res) => {
     return res
       .status(500)
       .json({ error: "An error occurred while processing the request." });
+  }
+});
+
+// Convert potential puzzle to use AB and AW instead
+app.put("/:sgf_id/convert_to_AB_AW", requireAuth, async (req, res) => {
+  try {
+    const sgfId = req.params.sgf_id;
+
+    // Fetch the SGF data from the database using sgfId
+    const potentialPuzzleRecords = await PotentialPuzzle.findAll({
+      where: { sgf_id: sgfId },
+    });
+
+    // Check if the record exists
+    if (potentialPuzzleRecords.length === 0) {
+      return res.status(404).json({ message: "Potential puzzle not found" });
+    }
+
+    let mutatedPuzzles = [];
+
+    // Process each puzzle record
+    for (const puzzleRecord of potentialPuzzleRecords) {
+      const originalSgfData = puzzleRecord.sgf_data;
+
+      // Pass sgf_data into the convert_to_AB_AW.py script
+      const AB_AW = await python(
+        path.join(__dirname, "..", "..", "..", "katago", "convert_to_AB_AW.py")
+      );
+
+      const processed_AB_AW_SGF = await AB_AW.convert_sgf_data_to_AB_AW(
+        originalSgfData
+      );
+      // Update the database record with the mutated SGF data
+      await puzzleRecord.update({
+        sgf_data: processed_AB_AW_SGF,
+      });
+      // Add the mutated SGF data to the array
+      mutatedPuzzles.push(processed_AB_AW_SGF);
+    }
+
+    // Send a response indicating success
+    res.status(200).json({ mutatedPuzzles });
+  } catch (error) {
+    console.error("Error in mutating SGF data:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
