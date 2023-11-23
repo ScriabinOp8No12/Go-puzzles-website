@@ -1,4 +1,4 @@
-from katago.convert_puzzle_to_AB_AW import to_go_coordinates, convert_to_sgf, convert_sgf_data_to_AB_AW
+from katago.convert_puzzle_to_AB_AW import convert_sgf_data_to_AB_AW
 
 def test_puzzle_to_AB_AW():
   ''' This function tests to make sure a puzzle for glift that has a move order,
