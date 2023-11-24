@@ -373,14 +373,19 @@ router.post("/store_vm_results", async (req, res) => {
 });
 
 // Convert potential puzzle to use AB and AW instead
-app.put("/:sgf_id/convert_to_AB_AW", requireAuth, async (req, res) => {
+router.put("/:sgf_id/convert_to_AB_AW", requireAuth, async (req, res) => {
   try {
     const sgfId = req.params.sgf_id;
+    const sgfData = req.body.sgf_data; // Get sgf_data directly from request body
 
     // Fetch the SGF data from the database using sgfId
     const potentialPuzzleRecords = await PotentialPuzzle.findAll({
       where: { sgf_id: sgfId },
     });
+
+    if (!sgfData) {
+      return res.status(400).json({ message: "No SGF data provided" });
+    }
 
     // Check if the record exists
     if (potentialPuzzleRecords.length === 0) {
@@ -391,7 +396,7 @@ app.put("/:sgf_id/convert_to_AB_AW", requireAuth, async (req, res) => {
 
     // Process each puzzle record
     for (const puzzleRecord of potentialPuzzleRecords) {
-      const originalSgfData = puzzleRecord.sgf_data;
+      // const originalSgfData = puzzleRecord.sgf_data;
 
       // Pass sgf_data into the convert_to_AB_AW.py script
       const AB_AW = await python(
@@ -399,11 +404,12 @@ app.put("/:sgf_id/convert_to_AB_AW", requireAuth, async (req, res) => {
       );
 
       const processed_AB_AW_SGF = await AB_AW.convert_sgf_data_to_AB_AW(
-        originalSgfData
+        sgfData
       );
       // Update the database record with the mutated SGF data
       await puzzleRecord.update({
         sgf_data: processed_AB_AW_SGF,
+        // move_number: 0,
       });
       // Add the mutated SGF data to the array
       mutatedPuzzles.push(processed_AB_AW_SGF);
