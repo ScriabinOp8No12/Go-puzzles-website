@@ -283,6 +283,12 @@ const potentialPuzzlesReducer = (state = initialState, action) => {
         ...state,
         injectedCommentsAndMutatedSgf: action.payload,
       };
+      // Could have the INJECT_COMMENTS... and CONVERT_TO_AB_AW using the same key?
+    case CONVERT_TO_AB_AW:
+      return {
+        ...state,
+        convertedData: action.payload,
+      }
     case FETCH_ALL_POTENTIAL_PUZZLES:
       return {
         ...state,
