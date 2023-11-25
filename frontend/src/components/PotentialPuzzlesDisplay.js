@@ -42,8 +42,8 @@ const PotentialPuzzlesDisplay = () => {
     if (potentialPuzzlesData) {
       const sgfCollection = potentialPuzzlesData.map((puzzle) => ({
         sgfString: puzzle.sgf_data,
-        initialPosition: puzzle.move_number - 1,
-        // initialPosition: 0,
+        // initialPosition: puzzle.move_number - 1,
+        initialPosition: 0,
         problemConditions: { C: ["CORRECT"] },
         widgetType: "STANDARD_PROBLEM",
       }));
