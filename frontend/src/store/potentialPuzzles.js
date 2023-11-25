@@ -11,6 +11,8 @@ export const RECEIVE_KATAGO_ANALYSIS =
 export const INJECT_COMMENTS_AND_MUTATE_SGF_STRING =
   "/potentialPuzzles/INJECT_COMMENTS_AND_MUTATE_SGF_STRING";
 
+export const CONVERT_TO_AB_AW = "/potentialPuzzles/CONVERT_TO_AB_AW";
+
 export const FETCH_ALL_POTENTIAL_PUZZLES =
   "/potential_puzzles/FETCH_ALL_POTENTIAL_PUZZLES";
 
@@ -35,6 +37,11 @@ export const receiveKataGoAnalysis = (data) => ({
 
 export const injectCommentsAndMutateSgfStrings = (data) => ({
   type: INJECT_COMMENTS_AND_MUTATE_SGF_STRING,
+  payload: data,
+});
+
+export const convertToABAW = (data) => ({
+  type: CONVERT_TO_AB_AW,
   payload: data,
 });
 
@@ -65,27 +72,32 @@ export const generatePotentialPuzzlesThunk =
     // First api call to get the one line json for KataGo
     let response;
     try {
-    response = await csrfFetch(`/api/potential_puzzles/${sgf_id}/katago_json_input`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ sgf_data: sgf_data }),
-    });
-  } catch (error) {
-    console.error("Error in 1st endpoint with generating one line json for KataGo")
-    dispatch(setError("Failed to generate puzzles")) // Dispatch the error to Redux state
-    setTimeout(() => {
-      dispatch(setError(null)); // Clear the error after 3 seconds (frontend would immediately remove the error message otherwise)
-    }, 3000);
-  }
+      response = await csrfFetch(
+        `/api/potential_puzzles/${sgf_id}/katago_json_input`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sgf_data: sgf_data }),
+        }
+      );
+    } catch (error) {
+      console.error(
+        "Error in 1st endpoint with generating one line json for KataGo"
+      );
+      dispatch(setError("Failed to generate puzzles")); // Dispatch the error to Redux state
+      setTimeout(() => {
+        dispatch(setError(null)); // Clear the error after 3 seconds (frontend would immediately remove the error message otherwise)
+      }, 3000);
+    }
 
     // If we reach this point, it means the 1st response to convert sgf to 1 line json was successful
     const data = await response.json();
     dispatch(generatePotentialPuzzles(data));
 
     // ******* Automatically use GCP VM in production, otherwise it will use our computer's GPU instead locally ******* //
-    const useExternalVM = process.env.REACT_APP_USE_EXTERNAL_VM === 'true';
+    const useExternalVM = process.env.REACT_APP_USE_EXTERNAL_VM === "true";
     const VM_ENDPOINT = useExternalVM
       ? "https://vm.go-puzzles.com/potential_puzzles/generate"
       : "/api/potential_puzzles/generate";
@@ -106,7 +118,7 @@ export const generatePotentialPuzzlesThunk =
     } catch (error) {
       // let error1 = await secondResponse.json()
       // console.log(error1)
-      console.error("Error in 2nd endpoint with Google Cloud Virtual Machine")
+      console.error("Error in 2nd endpoint with Google Cloud Virtual Machine");
       dispatch(setError("Failed to generate puzzles"));
       setTimeout(() => {
         dispatch(setError(null));
@@ -119,25 +131,27 @@ export const generatePotentialPuzzlesThunk =
 
     // Store the Google Cloud VM response output into our database, don't do this when testing locally because our route to /api/potential_puzzles/generate already stores to our database
     if (useExternalVM) {
-      let databaseResponse
+      let databaseResponse;
       try {
-      databaseResponse = await csrfFetch(
-        "/api/potential_puzzles/store_vm_results",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(kataGoData),
-        }
-      );
+        databaseResponse = await csrfFetch(
+          "/api/potential_puzzles/store_vm_results",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(kataGoData),
+          }
+        );
       } catch (error) {
-        console.error("Error in adding Google Cloud Virtual Machine data into database")
-        dispatch(setError("Failed to generate puzzles"))
+        console.error(
+          "Error in adding Google Cloud Virtual Machine data into database"
+        );
+        dispatch(setError("Failed to generate puzzles"));
       }
 
       if (!databaseResponse.ok) {
-        console.error("Failed to store VM results into database")
+        console.error("Failed to store VM results into database");
         return;
       }
     }
@@ -154,25 +168,58 @@ export const generatePotentialPuzzlesThunk =
       katago_json_output: JSON.stringify(kataGoData),
     };
 
-    let thirdResponse
+    let thirdResponse;
     try {
-    thirdResponse = await csrfFetch(
-      `/api/potential_puzzles/${sgf_id}/clean_sgf_add_comments`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(thirdEndpointData),
-      }
-    );
-    } catch(error) {
-      console.error("Failed to clean SGF and add comments")
+      thirdResponse = await csrfFetch(
+        `/api/potential_puzzles/${sgf_id}/clean_sgf_add_comments`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(thirdEndpointData),
+        }
+      );
+    } catch (error) {
+      console.error("Failed to clean SGF and add comments");
     }
 
     // If we reach this point, it means the 3rd response was successful
     const thirdEndpointResult = await thirdResponse.json();
+    // console.log("***********************************", thirdEndpointResult);
     dispatch(injectCommentsAndMutateSgfStrings(thirdEndpointResult));
+
+    // Prepare data for the fourth API call, using the modified SGF data (sgfStrings) from the third response
+    const fourthEndpointData = {
+      sgf_data: thirdEndpointResult.sgfStrings,
+    };
+
+    let fourthResponse;
+    try {
+      fourthResponse = await csrfFetch(
+        `/api/potential_puzzles/${sgf_id}/convert_to_AB_AW`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(fourthEndpointData),
+        }
+      );
+    } catch (error) {
+      console.error("Failed to convert SGF data to AB and AW format");
+      dispatch(setError("Failed to convert SGF data"));
+      return;
+    }
+
+    if (!fourthResponse.ok) {
+      console.error("Failed to process SGF data in AB and AW format");
+      return;
+    }
+
+    // Process the response from the fourth API call
+    const fourthEndpointResult = await fourthResponse.json();
+    dispatch(convertToABAW(fourthEndpointResult));
   };
 
 export const fetchAllPotentialPuzzlesThunk = () => async (dispatch) => {
