@@ -394,23 +394,23 @@ router.put("/:sgf_id/convert_to_AB_AW", requireAuth, async (req, res) => {
 
     let mutatedPuzzles = [];
 
-    // Process each puzzle record
-    for (const puzzleRecord of potentialPuzzleRecords) {
-      // const originalSgfData = puzzleRecord.sgf_data;
+    // Pass sgf_data into the convert_to_AB_AW.py script
+    const sgf_script = await python(
+      path.join(__dirname, "..", "..", "..", "katago", "convert_to_AB_AW.py")
+    );
 
-      // Pass sgf_data into the convert_to_AB_AW.py script
-      const AB_AW = await python(
-        path.join(__dirname, "..", "..", "..", "katago", "convert_to_AB_AW.py")
-      );
+    // Loop through the potential puzzle records and loop
+    for (let i = 0; i < potentialPuzzleRecords.length; i++) {
+      const potentialPuzzleRecord = potentialPuzzleRecords[i];
+      const sgfString = sgfData[i];
 
-      const processed_AB_AW_SGF = await AB_AW.convert_sgf_data_to_AB_AW(
-        sgfData
-      );
+      const processed_AB_AW_SGF = await sgf_script.process_sgf_data(sgfString);
+
       // Update the database record with the mutated SGF data
-      await puzzleRecord.update({
+      await potentialPuzzleRecord.update({
         sgf_data: processed_AB_AW_SGF,
-        // move_number: 0,
       });
+
       // Add the mutated SGF data to the array
       mutatedPuzzles.push(processed_AB_AW_SGF);
     }

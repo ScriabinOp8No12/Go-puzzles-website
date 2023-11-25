@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [0, 65],
           setToDefaultIfEmpty(value) {
             if (value.trim().length === 0) {
-              this.setDataValue('sgf_name', '?'); // '?' is your default value
+              this.setDataValue('sgf_name', '?');
             }
           },
         },
