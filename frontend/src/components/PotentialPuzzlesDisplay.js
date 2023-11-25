@@ -42,8 +42,8 @@ const PotentialPuzzlesDisplay = () => {
     if (potentialPuzzlesData) {
       const sgfCollection = potentialPuzzlesData.map((puzzle) => ({
         sgfString: puzzle.sgf_data,
-        // initialPosition: '106.0.0.0', ******* THIS AUTO PLAYS THE NEXT MOVE IN THE SGF if we play the sgf move?!?!?!?
-        initialPosition: puzzle.move_number - 1,
+        // initialPosition: puzzle.move_number - 1,
+        initialPosition: 0,
         problemConditions: { C: ["CORRECT"] },
         widgetType: "STANDARD_PROBLEM",
       }));
