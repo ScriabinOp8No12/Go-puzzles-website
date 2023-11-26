@@ -27,7 +27,7 @@ def convert_sgf_data_to_AB_AW(sgf_data):
 
     original_sgf_data = sgf_data
     # Only pass in a specific slice of the string to sgf mill
-    sgf_data = sgf_data[:split_index-1] + ")"
+    sgf_data = sgf_data[:split_index] + ")"
 
     game = sgf.Sgf_game.from_string(sgf_data)
     board_size = game.get_size()
