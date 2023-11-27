@@ -5,12 +5,30 @@ import psycopg2
 import json
 from dotenv import load_dotenv
 import os
+import datetime
+
+# Converts datetime objects using isoformat()
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+        # Let the base class default method raise the TypeError
+        return json.JSONEncoder.default(self, obj)
+
+# Get the current date and time
+current_datetime = datetime.datetime.now()
+timestamp = current_datetime.strftime("%Y%m%d_%H%M%S")
+
+# Use the timestamp in the filenames
+sgfs_filename = f'sgfs_seeder_{timestamp}.json'
+puzzles_filename = f'puzzles_seeder_{timestamp}.json'
+potential_puzzles_filename = f'potential_puzzles_seeder_{timestamp}.json'
 
 # Load environment variables from .env
 load_dotenv('../.env')
 
 # Database URL from environment variable (go to Render database, then scroll down to "external database url", copy that into our .env)
-database_url = os.getenv("DATABASE_URL")
+database_url = os.getenv("RENDER_EXTERNAL_DATABASE_URL")
 
 # Connect to the database using the URL
 conn = psycopg2.connect(database_url)
@@ -19,13 +37,14 @@ conn = psycopg2.connect(database_url)
 cur = conn.cursor()
 
 # SQL to extract data from Sgfs, Puzzles, and PotentialPuzzles tables
-cur.execute("SELECT * FROM Sgfs")
+cur.execute('SELECT * FROM go_website_schema85."Sgfs"')
 sgfs_data = cur.fetchall()
 
-cur.execute("SELECT * FROM Puzzles")
+# print(sgfs_data)
+cur.execute('SELECT * FROM go_website_schema85."Puzzles"')
 puzzles_data = cur.fetchall()
 
-cur.execute("SELECT * FROM PotentialPuzzles")
+cur.execute('SELECT * FROM go_website_schema85."PotentialPuzzles"')
 potential_puzzles_data = cur.fetchall()
 
 # Formatting the data to match structure and order of fields in seeder data
@@ -42,7 +61,10 @@ sgfs_formatted = [
         "game_date": row[8],
         "thumbnail": row[9],
         "suspended": row[10],
-        "result": row[11]
+        "result": row[11],
+        "createdAt": row[12],
+        "updatedAt": row[13],
+
     } for row in sgfs_data
 ]
 
@@ -59,8 +81,8 @@ puzzles_formatted = [
         "solution_coordinates": row[8],
         "thumbnail": row[9],
         "suspended": row[10],
-        "createdAt": "new Date()",
-        "updatedAt": "new Date()"
+        "createdAt": row[11],
+        "updatedAt": row[12],
     } for row in puzzles_data
 ]
 
@@ -74,19 +96,19 @@ potential_puzzles_formatted = [
         "solution_coordinates": row[5],
         "difficulty": row[6],
         "thumbnail": row[7],
-        "createdAt": "new Date()",
-        "updatedAt": "new Date()"
+        "createdAt": row[8],
+        "updatedAt": row[9],
     } for row in potential_puzzles_data
 ]
 
-with open('sgfs_seeder.json', 'w') as sgfs_file:
-    json.dump(sgfs_formatted, sgfs_file)
+with open(sgfs_filename, 'w') as sgfs_file:
+    json.dump(sgfs_formatted, sgfs_file, cls=DateTimeEncoder)
 
-with open('puzzles_seeder.json', 'w') as puzzles_file:
-    json.dump(puzzles_formatted, puzzles_file)
+with open(puzzles_filename, 'w') as puzzles_file:
+    json.dump(puzzles_formatted, puzzles_file, cls=DateTimeEncoder)
 
-with open('potential_puzzles_seeder.json', 'w') as potential_puzzles_file:
-    json.dump(potential_puzzles_formatted, potential_puzzles_file)
+with open(potential_puzzles_filename, 'w') as potential_puzzles_file:
+    json.dump(potential_puzzles_formatted, potential_puzzles_file, cls=DateTimeEncoder)
 
 # Close the cursor and connection
 cur.close()

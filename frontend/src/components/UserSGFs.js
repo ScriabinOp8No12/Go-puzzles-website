@@ -76,6 +76,10 @@ const UserSGFs = () => {
 
       try {
         await dispatch(uploadSgfThunk(sgf_data));
+        setSuccessNotification('Success!');
+      setTimeout(() => {
+        setSuccessNotification(null); // Clear the success notification after 3 seconds
+      }, 3000);
       } catch (error) {
         setUploadError("Invalid SGF!");
         // Clear the error after 3 seconds
@@ -109,19 +113,24 @@ const UserSGFs = () => {
   return (
     <div className="outer-wrapper">
       <div className="upload-sgf-button">
-        <label className="button-hover">
-          Upload SGF
-          <input type="file" accept=".sgf" onChange={handleFileChange} />
-        </label>
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
 
         {/* Display uploading text */}
         {isLoading === "UPLOADING" && (
           <div className="uploading-sgf">Uploading...</div>
-        )}
-        {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
-        <div className="generate-puzzles-feature-text"> The <span className="important-text">generate puzzles</span> feature should be mostly available between <span className="important-text">11am and 9pm Mountain Time</span> daily. Only 19 by 19 boards are supported.</div>
+        ) }
+         {/* Display success message */}
+      {successNotification && (
+        <div className="upload-success">Successfully uploaded SGF!</div>
+      )}
+
+        <label className="button-hover">
+          Upload SGF
+          <input type="file" accept=".sgf" onChange={handleFileChange} />
+        </label>
+{/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
+<div className="generate-puzzles-feature-text"> The <span className="important-text">generate puzzles</span> feature should be mostly available between <span className="important-text">11am and 9pm Mountain Time</span> daily. Supported board sizes: 9, 13, and 19.</div>
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
