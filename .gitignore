@@ -8,3 +8,5 @@ __pycache__
 analysis_logs
 text_Outputs
 test_venv
+# Seeder data files
+*_seeder_*.json
