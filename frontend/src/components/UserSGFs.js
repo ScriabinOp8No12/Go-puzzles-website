@@ -113,10 +113,6 @@ const UserSGFs = () => {
   return (
     <div className="outer-wrapper">
       <div className="upload-sgf-button">
-        <label className="button-hover">
-          Upload SGF
-          <input type="file" accept=".sgf" onChange={handleFileChange} />
-        </label>
         {/* Display upload error */}
         {uploadError && <div className="upload-error">{uploadError}</div>}
 
@@ -128,8 +124,13 @@ const UserSGFs = () => {
       {successNotification && (
         <div className="upload-success">Successfully uploaded SGF!</div>
       )}
-        {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
-        <div className="generate-puzzles-feature-text"> The <span className="important-text">generate puzzles</span> feature should be mostly available between <span className="important-text">11am and 9pm Mountain Time</span> daily. Only 19 by 19 boards are supported.</div>
+
+        <label className="button-hover">
+          Upload SGF
+          <input type="file" accept=".sgf" onChange={handleFileChange} />
+        </label>
+{/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
+<div className="generate-puzzles-feature-text"> The <span className="important-text">generate puzzles</span> feature should be mostly available between <span className="important-text">11am and 9pm Mountain Time</span> daily. Only 19 by 19 boards are supported.</div>
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
