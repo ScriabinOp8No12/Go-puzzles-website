@@ -10,7 +10,7 @@ import os
 load_dotenv('../.env')
 
 # Database URL from environment variable (go to Render database, then scroll down to "external database url", copy that into our .env)
-database_url = os.getenv("DATABASE_URL")
+database_url = os.getenv("RENDER_EXTERNAL_DATABASE_URL")
 
 # Connect to the database using the URL
 conn = psycopg2.connect(database_url)
