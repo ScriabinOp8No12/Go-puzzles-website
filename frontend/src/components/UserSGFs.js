@@ -130,7 +130,7 @@ const UserSGFs = () => {
           <input type="file" accept=".sgf" onChange={handleFileChange} />
         </label>
 {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
-<div className="generate-puzzles-feature-text"> The <span className="important-text">generate puzzles</span> feature should be mostly available between <span className="important-text">11am and 9pm Mountain Time</span> daily. Supported board sizes: 9, 13, and 19.</div>
+<div className="generate-puzzles-feature-text"> The <span className="important-text">generate puzzles</span> feature should be mostly available between <span className="important-text">11am and 9pm Mountain Time</span> daily. </div>
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&

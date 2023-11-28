@@ -15,6 +15,12 @@ class DateTimeEncoder(json.JSONEncoder):
         # Let the base class default method raise the TypeError
         return json.JSONEncoder.default(self, obj)
 
+def custom_format(d):
+    # Convert each item to 'key: value' format, ensuring values are properly JSON encoded
+    formatted_items = [f'{key}: {json.dumps(value, cls=DateTimeEncoder)}' for key, value in d.items()]
+    # Join items with commas and enclose in curly braces
+    return '{' + ', '.join(formatted_items) + '}'
+
 # Get the current date and time
 current_datetime = datetime.datetime.now()
 timestamp = current_datetime.strftime("%Y%m%d_%H%M%S")
@@ -50,65 +56,62 @@ potential_puzzles_data = cur.fetchall()
 # Formatting the data to match structure and order of fields in seeder data
 sgfs_formatted = [
     {
-        "user_id": row[0],
-        "sgf_data": row[1],
-        "sgf_name": row[2],
-        "black_player": row[3],
-        "white_player": row[4],
-        "black_rank": row[5],
-        "white_rank": row[6],
-        "komi": row[7],
-        "game_date": row[8],
-        "thumbnail": row[9],
-        "suspended": row[10],
+        # row 0 is the primary key id, we don't need that in our seeder data
+        "user_id": row[1],
+        "sgf_data": row[2],
+        "game_date": row[3],
+        "sgf_name": row[4],
+        # "board_size": row[5],
+        "black_player": row[6],
+        "white_player": row[7],
+        "black_rank": row[8],
+        "white_rank": row[9],
+        "komi": row[10],
         "result": row[11],
-        "createdAt": row[12],
-        "updatedAt": row[13],
-
+        "thumbnail": row[12],
+        "suspended": row[13],
     } for row in sgfs_data
 ]
 
-puzzles_formatted = [
-    {
-        "sgf_id": row[0],
-        "sgf_data": row[1],
-        "category": row[2],
-        "move_number": row[3],
-        "difficulty": row[4],
-        "description": row[5],
-        "vote_count": row[6],
-        "board_size": row[7],
-        "solution_coordinates": row[8],
-        "thumbnail": row[9],
-        "suspended": row[10],
-        "createdAt": row[11],
-        "updatedAt": row[12],
-    } for row in puzzles_data
-]
+# puzzles_formatted = [
+#     {
+#         "sgf_id": row[0],
+#         "sgf_data": row[1],
+#         "category": row[2],
+#         "move_number": row[3],
+#         "difficulty": row[4],
+#         "description": row[5],
+#         "vote_count": row[6],
+#         "board_size": row[7],
+#         "solution_coordinates": row[8],
+#         "thumbnail": row[9],
+#         "suspended": row[10],
+#     } for row in puzzles_data
+# ]
 
-potential_puzzles_formatted = [
-    {
-        "user_id": row[0],
-        "sgf_id": row[1],
-        "sgf_data": row[2],
-        "category": row[3],
-        "move_number": row[4],
-        "solution_coordinates": row[5],
-        "difficulty": row[6],
-        "thumbnail": row[7],
-        "createdAt": row[8],
-        "updatedAt": row[9],
-    } for row in potential_puzzles_data
-]
+# potential_puzzles_formatted = [
+#     {
+#         "user_id": row[0],
+#         "sgf_id": row[1],
+#         "sgf_data": row[2],
+#         "category": row[3],
+#         "move_number": row[4],
+#         "solution_coordinates": row[5],
+#         "difficulty": row[6],
+#         "thumbnail": row[7],
+#     } for row in potential_puzzles_data
+# ]
 
+# Formatting and writing the SGF data to the file
 with open(sgfs_filename, 'w') as sgfs_file:
-    json.dump(sgfs_formatted, sgfs_file, cls=DateTimeEncoder)
+    formatted_data = ',\n'.join([custom_format(item) for item in sgfs_formatted])
+    sgfs_file.write(f'[{formatted_data}]')
 
-with open(puzzles_filename, 'w') as puzzles_file:
-    json.dump(puzzles_formatted, puzzles_file, cls=DateTimeEncoder)
+# with open(puzzles_filename, 'w') as puzzles_file:
+#     json.dump(puzzles_formatted, puzzles_file, cls=DateTimeEncoder)
 
-with open(potential_puzzles_filename, 'w') as potential_puzzles_file:
-    json.dump(potential_puzzles_formatted, potential_puzzles_file, cls=DateTimeEncoder)
+# with open(potential_puzzles_filename, 'w') as potential_puzzles_file:
+#     json.dump(potential_puzzles_formatted, potential_puzzles_file, cls=DateTimeEncoder)
 
 # Close the cursor and connection
 cur.close()
