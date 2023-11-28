@@ -22,6 +22,7 @@ const UserSGFs = () => {
   const [isLoading, setIsLoading] = useState("");
   const [currentSgfId, setCurrentSgfId] = useState(null);
   const [successNotification, setSuccessNotification] = useState(null);
+  const [puzzleGenerationSuccess, setPuzzleGenerationSuccess] = useState(null);
 
   // Refetch the all sgfs thunk (rerender) when the user logs in after they weren't logged in before
   // Combines the logic with the original fetchAllSgfs when component mounts, this fixes the original issue
@@ -42,15 +43,15 @@ const UserSGFs = () => {
     setCurrentSgfId(sgf.id);
     try {
       await dispatch(generatePotentialPuzzlesThunk(sgf.id, sgf.sgf_data));
-      setSuccessNotification(sgf.id);
-      setTimeout(() => setSuccessNotification(null), 2900);
+      setPuzzleGenerationSuccess(sgf.id);
+      setTimeout(() => setPuzzleGenerationSuccess(null), 1900);
       setIsLoading(""); // Reset immediately only on success
       setCurrentSgfId(null); // Reset immediately only on success
     } catch (error) {
       setTimeout(() => {
         setIsLoading("");
         setCurrentSgfId(null); // Reset after 2.9 seconds to ensure we don't see "generating..." for a fraction of a second after the error disappears
-      }, 2900);
+      }, 1900);
     }
   };
 
@@ -79,13 +80,13 @@ const UserSGFs = () => {
         setSuccessNotification('Success!');
       setTimeout(() => {
         setSuccessNotification(null); // Clear the success notification after 3 seconds
-      }, 3000);
+      }, 2000);
       } catch (error) {
         setUploadError("Invalid SGF!");
         // Clear the error after 3 seconds
         setTimeout(() => {
           setUploadError("");
-        }, 3000);
+        }, 2000);
       }
       setIsLoading(""); // Reset isLoading when upload is complete or error occurs
     };
@@ -142,7 +143,7 @@ const UserSGFs = () => {
                   currentSgfId === sgf.id && (
                     <div className="generating-text">Generating...</div>
                   )}
-                {!error && successNotification === sgf.id && (
+                {!error && puzzleGenerationSuccess === sgf.id && (
                   <div className="success-notification">
                     Success! Go to Potential Puzzles
                   </div>
