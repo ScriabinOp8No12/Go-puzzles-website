@@ -44,7 +44,7 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         times_solved: {
-          allowNull: false,
+          // allowNull: false, THIS BUGS OUT, thinks not providing a column of times_solved is undefined or something, never sets it to the default value
           type: Sequelize.BIGINT,
           defaultValue: 0,
         },
