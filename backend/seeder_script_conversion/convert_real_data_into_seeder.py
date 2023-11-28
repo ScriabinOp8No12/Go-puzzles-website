@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 import os
 import datetime
 
+# ************* MAKE SURE WE SEED ALL THE SGFS, otherwise we will get a foreign key error when a puzzle is trying to reference an sgf_id that doesn't exist! ***********
+
 # Converts datetime objects using isoformat()
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -15,8 +17,9 @@ class DateTimeEncoder(json.JSONEncoder):
         # Let the base class default method raise the TypeError
         return json.JSONEncoder.default(self, obj)
 
+# Use DateTimeEncoder function above when we format
 def custom_format(d):
-    # Convert each item to 'key: value' format, ensuring values are properly JSON encoded
+    # Convert each item to 'key: value' format, so that the key does NOT have double quotes around it, ensure values are properly JSON encoded
     formatted_items = [f'{key}: {json.dumps(value, cls=DateTimeEncoder)}' for key, value in d.items()]
     # Join items with commas and enclose in curly braces
     return '{' + ', '.join(formatted_items) + '}'
@@ -73,45 +76,52 @@ sgfs_formatted = [
     } for row in sgfs_data
 ]
 
-# puzzles_formatted = [
-#     {
-#         "sgf_id": row[0],
-#         "sgf_data": row[1],
-#         "category": row[2],
-#         "move_number": row[3],
-#         "difficulty": row[4],
-#         "description": row[5],
-#         "vote_count": row[6],
-#         "board_size": row[7],
-#         "solution_coordinates": row[8],
-#         "thumbnail": row[9],
-#         "suspended": row[10],
-#     } for row in puzzles_data
-# ]
+puzzles_formatted = [
+    {
+        "sgf_id": row[1],
+        "sgf_data": row[2],
+        "category": row[3],
+        "move_number": row[4],
+        "difficulty": row[5],
+        "times_solved": row[6],
+        "description": row[7],
+        "vote_count": row[8],
+        "board_size": row[9],
+        "solution_coordinates": row[10],
+        "thumbnail": row[11],
+        "suspended": row[12],
+        "createdAt": row[13],
+        "updatedAt": row[14],
+    } for row in puzzles_data
+]
 
-# potential_puzzles_formatted = [
-#     {
-#         "user_id": row[0],
-#         "sgf_id": row[1],
-#         "sgf_data": row[2],
-#         "category": row[3],
-#         "move_number": row[4],
-#         "solution_coordinates": row[5],
-#         "difficulty": row[6],
-#         "thumbnail": row[7],
-#     } for row in potential_puzzles_data
-# ]
+potential_puzzles_formatted = [
+    {
+        "user_id": row[1],
+        "sgf_id": row[2],
+        "sgf_data": row[3],
+        "category": row[4],
+        "move_number": row[5],
+        "solution_coordinates": row[6],
+        "difficulty": row[7],
+        "thumbnail": row[8],
+        "createdAt": row[9],
+        "updatedAt": row[10],
+    } for row in potential_puzzles_data
+]
 
 # Formatting and writing the SGF data to the file
 with open(sgfs_filename, 'w') as sgfs_file:
     formatted_data = ',\n'.join([custom_format(item) for item in sgfs_formatted])
     sgfs_file.write(f'[{formatted_data}]')
 
-# with open(puzzles_filename, 'w') as puzzles_file:
-#     json.dump(puzzles_formatted, puzzles_file, cls=DateTimeEncoder)
+with open(puzzles_filename, 'w') as puzzles_file:
+    formatted_data = ',\n'.join([custom_format(item) for item in puzzles_formatted])
+    puzzles_file.write(f'[{formatted_data}]')
 
-# with open(potential_puzzles_filename, 'w') as potential_puzzles_file:
-#     json.dump(potential_puzzles_formatted, potential_puzzles_file, cls=DateTimeEncoder)
+with open(potential_puzzles_filename, 'w') as potential_puzzles_file:
+    formatted_data = ',\n'.join([custom_format(item) for item in potential_puzzles_formatted])
+    potential_puzzles_file.write(f'[{formatted_data}]')
 
 # Close the cursor and connection
 cur.close()
