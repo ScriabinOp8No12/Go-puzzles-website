@@ -26,7 +26,8 @@ const UserPuzzleDisplay = () => {
       const puzzle = userPuzzle.Puzzle; // userPuzzle.Puzzle contains the relevant puzzle data
       const userPuzzleSgf = {
         sgfString: puzzle.sgf_data,
-        initialPosition: puzzle.move_number - 1,
+        // initialPosition: puzzle.move_number - 1,
+        initialPosition: 0,
         problemConditions: { C: ["CORRECT"] },
         widgetType: "STANDARD_PROBLEM",
       };
