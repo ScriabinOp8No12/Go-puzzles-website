@@ -62,12 +62,12 @@ module.exports = (sequelize, DataTypes) => {
       rank: {
         allowNull: false,
         type: DataTypes.INTEGER,
-        defaultValue: 1900,
+        defaultValue: 1500,
         // using elo system for ranking user, must not be negative
         validate: {
           // user elo ranking constraints same as puzzles (treat puzzles as users effectively)
           min: 100,
-          max: 5000,
+          // max: 5000, // remove max user rank
         },
       },
       solved_puzzles: {
