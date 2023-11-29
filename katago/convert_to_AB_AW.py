@@ -109,7 +109,7 @@ def convert_sgf_data_to_AB_AW(sgf_data):
 
 def process_sgf_data(input_data):
     """
-    Process either a single sgf_data string or a list of sgf_data strings.
+    Process either a single sgf_data string or a list of sgf_data strings (and now None type as well - we will skip it)
 
     Args:
     input_data (str or list): A single sgf_data string or a list of sgf_data strings.
@@ -117,6 +117,10 @@ def process_sgf_data(input_data):
     Returns:
     str or list: The converted sgf_data string or a list of converted sgf_data strings.
     """
+
+    # ********* Make sure we pass in the same number of sgf strings that the database's sgf_id has, otherwise it will throw an error of
+    # "Input must be a string or list of strings." because it is passing in null for sgf_data on the remaining missing sgf strings since there's a mismatch in number of sgf strings
+
     if isinstance(input_data, str):
         # Single sgf_data string
         return convert_sgf_data_to_AB_AW(input_data)
