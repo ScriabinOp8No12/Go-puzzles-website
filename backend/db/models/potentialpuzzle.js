@@ -41,7 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       difficulty: {
         allowNull: true,
         type: DataTypes.INTEGER,
-
         defaultValue: 1500,
       },
       thumbnail: {

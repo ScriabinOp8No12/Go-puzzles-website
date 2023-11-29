@@ -54,14 +54,12 @@ module.exports = (sequelize, DataTypes) => {
           max: 1000,
         },
       },
-      // this is elo difficulty rank of the PUZZLE, NOT the strength of the user
+      // this is elo difficulty rank of the PUZZLE, we ensure it's at least 100 elo, but there's no upper bound
       difficulty: {
         allowNull: false,
         type: DataTypes.INTEGER,
         validate: {
           min: 100,
-          // capping elo at 5,000
-          max: 5000,
         },
       },
       times_solved: {
