@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { openModal } from "../store/modal";
 import {
   fetchPublicPuzzleByIdThunk,
@@ -17,6 +17,7 @@ import "./styles/PublicPuzzles.css";
 const PublicPuzzles = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
   const [selectedFilters, setSelectedFilters] = useState({});
   const [offset, setOffset] = useState(0);
@@ -34,7 +35,7 @@ const PublicPuzzles = () => {
   // Note: Since limit and offset are not set in this useEffect, applying new filters *SHOULD* reset the view to the first page of results, regardless of the current page number (which is intended)
   useEffect(() => {
     // Extract query parameters from URL
-    const queryParams = new URLSearchParams(history.location.search);
+    const queryParams = new URLSearchParams(location.search);
     const page = parseInt(queryParams.get("page")); // get the page for pagination
     const filtersFromURL = {};
     // Typically forEach when used on arrays is in the order (key, value), but now we are
@@ -50,7 +51,7 @@ const PublicPuzzles = () => {
     }
     // Set the filters from URL as initial state
     setSelectedFilters(filtersFromURL);
-  }, [history]);
+  }, [location.search]);
 
   const handleFilterChange = (newFilters) => {
     setSelectedFilters(newFilters);
@@ -81,10 +82,12 @@ const PublicPuzzles = () => {
 
   // Handle when user clicks the back button or navigates to a different page number, we need to rerender the page
   useEffect(() => {
-    const queryParams = new URLSearchParams(history.location.search);
+    // const queryParams = new URLSearchParams(history.location.search);
+    const queryParams = new URLSearchParams(location.search);
     const page = parseInt(queryParams.get("page")) || 1; // Default to page 1 if not specified
     setOffset((page - 1) * LIMIT);
-  }, [history.location.search]); // Depend on the URL search string
+  }, [location]); // Depend on the URL search string
+// }, [history.location.search]); // Depend on the URL search string
 
   const handleNextPageClick = () => {
     setOffset((prevOffset) => {
@@ -110,7 +113,7 @@ const PublicPuzzles = () => {
   // **** Filter block above **** //
 
   return (
-    <div className="outer-wrapper">
+    <div className="outer-wrapper" >
       <div className="filter-wrapper">
         <div className="filter-public-puzzles" onClick={toggleFilter}>
           <label className="button-hover">Filter Puzzles</label>
