@@ -9,12 +9,12 @@ def convert_rank_to_elo(rank):
 
     if 'p' in rank_lower:
         elo = 3000  # Professional ranks
-    elif 'd' in rank_lower or '段' in rank:
-        elo = 2000 + numeric_rank * 100  # Dan ranks
-    elif 'k' in rank_lower or '级' in rank:
-        elo = max(100, (21 - numeric_rank) * 100)  # Kyu ranks
+    elif 'd' in rank_lower or '段' in rank or '단' in rank: # Chinese/Japanese and Korean character for dan ranks
+        elo = 2000 + numeric_rank * 100
+    elif 'k' in rank_lower or '级' in rank or '급' in rank: # Chinese/Japanese and Korean character for kyu ranks
+        elo = max(100, (21 - numeric_rank) * 100)
     else:
-        return 1500  # Default for unrecognized format
+        return 1500  # Default for unrecognized format, likely different language
 
     return min(3000, max(100, elo))  # Ensure ELO is between 100 and 3000
 
