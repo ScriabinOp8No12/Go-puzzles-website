@@ -90,13 +90,14 @@ router.post("/generate", requireAuth, async (req, res) => {
       await sgf_to_largest_mistakes.run_katago_analysis(jsonEncodedString)
     );
 
+    // Import setting initial potential puzzle ranking script and then use it
     const sgf_mill_set_initial_potential_puzzle_ranking = await python(
       path.join(
         __dirname,
         "..",
         "..",
         "utils",
-        "sgf_mill_set_initial_potential_puzzle_ranking.py" // the jssgf js file does not parse properly, so we will use the sgfmill script
+        "sgf_mill_set_initial_potential_puzzle_ranking.py"
       )
     )
 
