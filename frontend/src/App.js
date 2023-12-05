@@ -14,8 +14,7 @@ import UserPuzzles from "./components/UserPuzzles";
 import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
 import LearnAndPracticeContainer from "./components/LearnAndPractice/LearnAndPracticeContainer";
-// import BasicRulesContainer from "./components/LearnAndPractice/BasicRules/BasicRulesContainer";
-// import MoreRulesContainer from "./components/LearnAndPractice/MoreRules/MoreRulesContainer";
+import AboutMe from "./components/AboutMe";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 // ***************** TESTING BELOW COMPONENT MANUALLY ******************* //
 import AutoMovesDisplay from "./components/TestAutoMove";
@@ -83,6 +82,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <AuthorizedRoute path = "/about-me" component={AboutMe} />
           <AuthorizedRoute path="/sgfs/:sgf_id" component={SgfDisplay} />
           <AuthorizedRoute path="/sgfs" component={UserSGFs} />
           <AuthorizedRoute
