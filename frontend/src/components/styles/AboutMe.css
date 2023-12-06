@@ -1,7 +1,31 @@
 .about-me-h1 {
-  color: aliceblue;
+  margin-top: 120px;
+  color: rgb(255, 204, 102);
+  text-align: center;
 }
 
 .about-me-paragraph-text {
   color: aliceblue;
+  width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.about-me-image {
+  width: 30%;
+  height: auto;
+   display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-me-caption {
+  text-align: center;
+  color: aliceblue;
+  margin-top: 10px;
+}
+
+.about-me-outer-container a {
+  color: rgb(255, 204, 102);
+  text-decoration: none;
 }
