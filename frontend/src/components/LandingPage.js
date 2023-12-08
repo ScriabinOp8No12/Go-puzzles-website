@@ -45,11 +45,13 @@ const LandingPage = () => {
                 Please
                 <OpenModalMenuItem
                   itemText="signup"
+                  className="landing-page-signup-button"
                   modalComponent={<SignupFormModal />}
                 />
                 or
                 <OpenModalMenuItem
                   itemText="login"
+                  className="landing-page-login-button"
                   modalComponent={<LoginFormModal />}
                 />
                 to use this website. Or
