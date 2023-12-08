@@ -8,7 +8,11 @@ The Go website is found here: [go-puzzles](https:go-puzzles.com)
 
 This website is designed to help Go players of all ranks improve their skills through the mistakes they made in their own games.  Users upload a SGF (game record) and can ask a superhuman AI to analyze their game for the largest mistakes, and display these as puzzles.  If the user likes/saves the generated potential puzzle(s), these puzzles will also be added to the public puzzles page, where any user on the website can attempt the puzzle.  Puzzles are ranked on an elo system that constantly updates based on users getting the puzzle right or wrong. Public puzzles can also be filtered based on the stage of the game, category, and rank. For newer players, there is also an interactive tutorial that explains the rules and fundamentals of the game.
 
-Technologies used: Express.js, Node.js, Sequelize, sqlite3, SQL, PostgreSQL, nginx, pytest, Python, Javascript, HTML, CSS, React, Redux, Cloudinary, Google Cloud, Google Cloud Compute Engine, Google Cloud Instance schedules, Google Cloud VM instances, VPC networks, static internal/external ip addresses, KataGo Analysis Engine (AI), glift.js library, wgo.js library, Pillow, sgfmill, Selenium, pgAdmin, https, certbot, DNS, Render.com for deployment, Figma
+Technologies used:
+
+Javascript, Python, Google Cloud, Express.js, PostgresQL, Sequelize, Sqlite3, HTML, CSS, pytest, nginx, React, Redux, Cloudinary, AWS,
+
+ KataGo Analysis Engine (AI), glift.js library, wgo.js library, Pillow, sgfmill, Selenium, pgAdmin, https, certbot, DNS, Render.com for deployment, Figma
 
 [Greatest Challenges](wiki_folder/challenges.md)
 
