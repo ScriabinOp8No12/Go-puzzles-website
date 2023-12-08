@@ -33,6 +33,13 @@ module.exports = {
           solved_puzzles: 10,
           hashedPassword: bcrypt.hashSync("password"),
         },
+        {
+          username: "seeder",
+          email: "seeder@gmail.com",
+          rank: 1500,
+          solved_puzzles: 0,
+          hashedPassword: bcrypt.hashSync("password"),
+        }
       ],
       {}
     );
