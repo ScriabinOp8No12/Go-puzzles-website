@@ -58,12 +58,9 @@ const AboutMe = () => {
 
       <p className="about-me-paragraph-text">
         Outside of programming and Go, I love playing Piano (I started at age 5), tennis,
-        League of Legends, and watching anime. I am extremely competitive,
-        probably because of my twin brother, and am always looking for ways to
-        improve myself. I have unwavering confidence in myself to achieve any
-        short term and long term goals I set for myself, since I've achieved a
-        near professional level in Piano and Go. That along with my wonderful
-        family and friends keeps me motivated. Thank you for reading.
+        League of Legends, and watching anime. I am extremely competitive because of my twin brother, and am always looking for ways to
+        improve myself. I am thankful for my wonderful family and friends because they encourage me to become the best version of myself.
+        Thank you for reading.
       </p>
           <figure>
           <img className="about-me-image" src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1701826538/About%20me%20page%20photos/20231008B010_jdxqd2.jpg" alt="Descriptive Alt Text"/>
