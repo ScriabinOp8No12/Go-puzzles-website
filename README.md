@@ -1,3 +1,5 @@
+<br>
+
 ## Special Thanks and Purpose of Project
 
 I am thankful for my wonderful teachers at App Academy for helping me on my endless bugs and coding problems during bootcamp office hours. Thank you for being there to support me nearly every day.  I am also very grateful to my Mom, Dad, and twin brother for listening to my endless rants regarding ridiculous bugs, and for brainstorming the best approach to solving problems (the rubber ducky sitting on my computer just couldn't stand it anymore 🤣)
@@ -64,11 +66,20 @@ go-puzzles is designed to help Go players of all ranks improve their skills thro
 
 <br>
 
-<br>
+## Libraries related to game of Go
 
-<p>
-Technologies related to the game of Go: KataGo AI engine, glift.js and wgo.js (frontend libraries), sgfmill, Pillow
-</p>
+# Artificial Intelligence
+
+- [KataGo](https://github.com/lightvector/KataGo)
+
+# Frontend JavaScript Libraries
+
+- [glift](https://github.com/artasparks/glift)
+- [wgo.js](https://github.com/waltheri/wgo.js/)
+
+# Python Libraries
+- [sgfmill](https://github.com/mattheww/sgfmill)
+- [Pillow](https://pypi.org/project/Pillow/)
 
 <br>
 
