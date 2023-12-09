@@ -10,7 +10,7 @@ I've been wanting to build this Go website for more than 2 years now, and throug
 
 ## Link to Live Site
 
-[go-puzzles live site](https:go-puzzles.com)
+[go-puzzles live site](https://go-puzzles.com/)
 
 <br>
 
@@ -87,7 +87,6 @@ This website is designed to help Go players of all ranks improve their skills th
 
 - Full Cruds (2): SGFs and Public Puzzles
 - Partial Cruds (4): Public Puzzle Ranking System, Filter Public Puzzles, Generate Potential Puzzles, and Interactive Tutorial Quizzes
-
 - Users can view all of their uploaded SGFs, as well as upload them, edit and delete them
 - Users can view all of the public puzzles, generate puzzles (by clicking the save button from a potential puzzle), edit, and delete a public puzzle
 - Users can see their own ranking update after attempting a public puzzle, as well as see the public puzzle's ranking update
@@ -104,11 +103,11 @@ This website is designed to help Go players of all ranks improve their skills th
 <br>
 
 ## What I'm working on
-[Kanban](https://github.com/users/ScriabinOp8No12/projects/2)
+[Kanban Board](https://github.com/users/ScriabinOp8No12/projects/2)
 
 <br>
 
-Summary of major tasks I'm working on:
+Major tasks I'm working on:
 
 - Add 500-1000 seeder puzzles that I hand select from AI's potential puzzle output. Currently writing script utilizing Selenium to auto click the generate puzzles button and wait.
 - Create an onboarding puzzle set for users setting their initial rank, hand select / hard code these
