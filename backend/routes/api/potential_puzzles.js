@@ -99,9 +99,12 @@ router.post("/generate", requireAuth, async (req, res) => {
         "utils",
         "sgf_mill_set_initial_potential_puzzle_ranking.py"
       )
-    )
+    );
 
-    const set_potential_puzzle_rank = await(sgf_mill_set_initial_potential_puzzle_ranking.set_potential_puzzle_difficulty(sgf_data))
+    const set_potential_puzzle_rank =
+      await sgf_mill_set_initial_potential_puzzle_ranking.set_potential_puzzle_difficulty(
+        sgf_data
+      );
 
     const difficulty = set_potential_puzzle_rank; // Setting difficulty column in potential puzzle table to the difficulty found using our python script above (determines ranking based on player's ranks)
     const category = "other";
@@ -209,12 +212,12 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
       cleanedSgfStrings,
       processedOutput
     );
-    // Temporarily remove this validation to see if we can generate some potential puzzles after removing pass as valid move or follow up moves!
-    // if (existingRecords.length !== (await final_sgf_strings.length)) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "Mismatch in record and output lengths" });
-    // }
+    // Temporarily removing this below validation properly generates potential puzzles (after we removing pass as valid move or follow up moves!)
+    if (existingRecords.length !== (await final_sgf_strings.length)) {
+      return res
+        .status(400)
+        .json({ message: "Mismatch in record and output lengths" });
+    }
 
     // ******************* Updating sgf_data and thumbnail columns ************************ //
 
@@ -358,6 +361,18 @@ router.post("/store_vm_results", async (req, res) => {
 
     for (const puzzle of potential_puzzles) {
       const { sgf_id, sgf_data, move_number } = puzzle;
+
+      // Check if 'pass' is in the keys or values of solution_coordinates, these are invalid puzzles
+      const hasPass =
+        Object.keys(solution_coordinates).includes("pass") ||
+        Object.values(solution_coordinates).some((value) =>
+          value.includes("pass")
+        );
+
+      if (hasPass) {
+        continue;
+      }
+
       // Convert solution_coordinates object to string for storing in database
       const solution_coordinates_string = JSON.stringify(
         puzzle.solution_coordinates
@@ -365,7 +380,7 @@ router.post("/store_vm_results", async (req, res) => {
 
       const createdPuzzle = await PotentialPuzzle.create({
         sgf_id,
-        user_id: req.user.id, // need to add user_id here now too because changed our database to include this column
+        user_id: req.user.id, // need to add user_id here now too because we changed our database to include this column
         sgf_data,
         category,
         move_number,
