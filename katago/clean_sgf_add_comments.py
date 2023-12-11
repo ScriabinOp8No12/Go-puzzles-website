@@ -57,7 +57,7 @@ def process_katago_output(json_output):
         move_number = puzzle["move_number"]
         correct_moves = puzzle["solution_coordinates"]
         correct_moves_dictionary[move_number] = correct_moves
-        puzzles_data.append(correct_moves_dictionary) # need to add an if condition that only adds it if the answer isn't "Pass"
+        puzzles_data.append(correct_moves_dictionary)
     return puzzles_data
 
 def add_comments_to_sgfs(cleaned_sgf_strings, correct_moves_dictionaries_list):
