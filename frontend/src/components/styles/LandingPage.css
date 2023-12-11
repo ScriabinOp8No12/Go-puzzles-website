@@ -38,10 +38,15 @@
 }
 
 .landing-page-slogan {
-  margin-top: -10px;
-  font-size: 16px;
+  margin-top: 0px;
+  font-size: 20px;
   /* margin-bottom: 25px; */
   font-style: italic;
+}
+
+.about-me-here-text {
+  color: rgb(255, 204, 102);
+  text-decoration: none;
 }
 
 .landing-page-header-section {
