@@ -32,7 +32,7 @@ const AboutMe = () => {
         I quickly started to love programming because it was saving me
         a lot of time, and I enjoyed discussing and solving problems. My Dad is an Aerospace Engineer, and attends the SPIE
         conference every year for work. He would manually record everything,
-        which took him about 10 hours. I learned how to web scrape and automated the entire process. My scraper
+        which takes him 16 hours. I learned how to web scrape and automated the entire process. My scraper
         grabs thousands of data points and links from the SPIE website, and
         outputs them to a csv file. Code here: {" "}
         <a href="https://github.com/ScriabinOp8No12/SPIE-Beautiful-Soup-Project" target="_blank" rel="noopener noreferrer">
