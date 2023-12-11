@@ -48,10 +48,11 @@ def process_katago_output(json_output):
     katago_data = json.loads(json_output)
     puzzles_data = []
     for puzzle in katago_data["createdPuzzles"]:
-        # If the solution coordinates's key value is "Pass" then skip that as it is not a valid puzzle.  Basically this happens when a user tries to do something
-        # towards the end of the game, when they are behind, by throwing a stone in the opponent's territory when it's gote, they thus lose ~1 point, and KataGo deems this as a mistake
-        # However, we do not want to implement "Pass" as a solution on the frontend, as this would be challenging, and this does not make a good puzzle (to "Pass") as this means the game is almost always already lost
-        if "pass" in puzzle["solution_coordinates"]:
+        # If the solution coordinates's key value is "pass" then skip that as it is not a valid puzzle. Also, if any of the moves in the sequence contain "pass", also skip it.
+        # Basically this happens when a user protects their own territory at the end of the game unnecessarily, or tries to do something when they are behind, by throwing a stone in the opponent's territory when it's gote,
+        # they thus lose ~1 point, and KataGo deems this as a mistake
+        # However, we do not want to implement "pass" as a solution on the frontend, as this would be challenging, and this does not make a good puzzle (to "pass") as this means the game is almost always already over and one player has won
+        if "pass" in puzzle["solution_coordinates"] or any("pass" in value for value in puzzle["solution_coordinates"].values()): # any() is using a generator expression -> more memory efficient as it doesn't create the list in memory
           continue
         correct_moves_dictionary = {}
         move_number = puzzle["move_number"]
