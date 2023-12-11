@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import OpenModalMenuItem from "../components/Navigation/OpenModalMenuItem";
 import LoginFormModal from "./LoginFormModal";
 import SignupFormModal from "./SignupFormModal";
@@ -33,11 +33,14 @@ const LandingPage = () => {
             <h1 className="landing-page-h1"><span className="important-text">Welcome to go-puzzles.com!</span></h1>
           </div>
           <h2 className="landing-page-slogan">
-            The best place on the web to level up your Go skills with full board
+            The best place to level up your Go skills with full board
             puzzles
           </h2>
           <h2 className="landing-page-purpose-statement">
             Solve and generate puzzles, and learn from interactive tutorials!
+          </h2>
+          <h2 className="landing-page-about-me">
+            Learn about the developer <Link className="about-me-here-text" to="/about-me">here</Link>
           </h2>
           {!user && (
             <>
@@ -99,7 +102,7 @@ const LandingPage = () => {
           />
           <p className="landing-text">
             Attempt puzzles from the <span className="important-text">Public Puzzles</span> page. Filter puzzles by
-            category, rank, and game state.
+            rank, game state, category, and board size
           </p>
         </div>
         <div className="image-text-container">
@@ -110,7 +113,7 @@ const LandingPage = () => {
           />
           <div className="landing-text-group">
     <p className="landing-text">Generate your own puzzles!</p>
-    <p className="landing-text">Step 1: Click Upload SGF from the <span className="important-text">Upload & View Game Records</span> page.</p>
+    <p className="landing-text">Step 1: Click Upload SGF from the <span className="important-text">Upload & View Game Records</span> page</p>
     <p className="landing-text spaced-text">Step 2: Click Generate Puzzles</p>
   </div>
         </div>
@@ -120,10 +123,11 @@ const LandingPage = () => {
             alt="Potential puzzle"
             className="landing-image button-hover"
           />
-          <p className="landing-text">
-          Step 3: Navigate to <span className="important-text">Potential Puzzles</span> to try the generated puzzles
-          </p>
+          <div className="landing-text-group">
+          <p className="landing-text">Step 3: Navigate to <span className="important-text">Potential Puzzles</span> to try the generated puzzles</p>
+          <p className="landing-text spaced-text"> Step 4: Click <span className="important-text">Save Puzzle</span> to save the puzzle to the <span className="important-text">Your Puzzles</span> page. This also adds it to the <span className="important-text">Public Puzzles</span> page where all other users can try the puzzle </p>
         </div>
+      </div>
       </div>
     </div>
   );

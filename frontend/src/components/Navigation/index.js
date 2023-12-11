@@ -45,26 +45,6 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button button-hover ${
-                  isUserPuzzlesActive ? "active" : ""
-                }`}
-              >
-                {/* About Me */}
-                {sessionUser && (
-                  <NavLink
-                    to="/about-me"
-                    className={`navbar-button-text ${showMenu}`}
-                    isActive={() => isAboutMeActive}
-                  >
-                    About Me
-                  </NavLink>
-                )}
-              </div>
-            </div>
-          )}
-          {sessionUser && (
-            <div className="navbar-button-wrapper">
-              <div
                 className={`navbar-button button-hover${
                   isLearnAndPracticeActive ? "active" : ""
                 }`}
