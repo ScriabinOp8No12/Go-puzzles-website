@@ -58,6 +58,7 @@ def process_katago_output(json_output):
         correct_moves = puzzle["solution_coordinates"]
         correct_moves_dictionary[move_number] = correct_moves
         puzzles_data.append(correct_moves_dictionary)
+    print("puzzles_data ", puzzles_data)
     return puzzles_data
 
 def add_comments_to_sgfs(cleaned_sgf_strings, correct_moves_dictionaries_list):
