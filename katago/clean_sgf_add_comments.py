@@ -48,11 +48,16 @@ def process_katago_output(json_output):
     katago_data = json.loads(json_output)
     puzzles_data = []
     for puzzle in katago_data["createdPuzzles"]:
+        # If the solution coordinates's key value is "Pass" then skip that as it is not a valid puzzle.  Basically this happens when a user tries to do something
+        # towards the end of the game, when they are behind, by throwing a stone in the opponent's territory when it's gote, they thus lose ~1 point, and KataGo deems this as a mistake
+        # However, we do not want to implement "Pass" as a solution on the frontend, as this would be challenging, and this does not make a good puzzle (to "Pass") as this means the game is almost always already lost
+        if "Pass" in puzzle["solution_coordinates"]:
+          continue
         correct_moves_dictionary = {}
         move_number = puzzle["move_number"]
         correct_moves = puzzle["solution_coordinates"]
         correct_moves_dictionary[move_number] = correct_moves
-        puzzles_data.append(correct_moves_dictionary)
+        puzzles_data.append(correct_moves_dictionary) # need to add an if condition that only adds it if the answer isn't "Pass"
     return puzzles_data
 
 def add_comments_to_sgfs(cleaned_sgf_strings, correct_moves_dictionaries_list):
