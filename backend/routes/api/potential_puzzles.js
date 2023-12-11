@@ -209,12 +209,12 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
       cleanedSgfStrings,
       processedOutput
     );
-
-    if (existingRecords.length !== (await final_sgf_strings.length)) {
-      return res
-        .status(400)
-        .json({ message: "Mismatch in record and output lengths" });
-    }
+    // Temporarily remove this validation to see if we can generate some potential puzzles after removing pass as valid move or follow up moves!
+    // if (existingRecords.length !== (await final_sgf_strings.length)) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Mismatch in record and output lengths" });
+    // }
 
     // ******************* Updating sgf_data and thumbnail columns ************************ //
 
