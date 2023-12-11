@@ -212,12 +212,12 @@ router.put("/:sgf_id/clean_sgf_add_comments", requireAuth, async (req, res) => {
       cleanedSgfStrings,
       processedOutput
     );
-    // Temporarily removing this below validation properly generates potential puzzles (after we removing pass as valid move or follow up moves!)
-    if (existingRecords.length !== (await final_sgf_strings.length)) {
-      return res
-        .status(400)
-        .json({ message: "Mismatch in record and output lengths" });
-    }
+    // Removing this below validation properly generates potential puzzles (after we remove pass as valid move or follow up moves!)
+    // if (existingRecords.length !== (await final_sgf_strings.length)) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Mismatch in record and output lengths" });
+    // }
 
     // ******************* Updating sgf_data and thumbnail columns ************************ //
 
@@ -363,15 +363,15 @@ router.post("/store_vm_results", async (req, res) => {
       const { sgf_id, sgf_data, move_number } = puzzle;
 
       // Check if 'pass' is in the keys or values of solution_coordinates, these are invalid puzzles
-      const hasPass =
-        Object.keys(solution_coordinates).includes("pass") ||
-        Object.values(solution_coordinates).some((value) =>
-          value.includes("pass")
-        );
+      // const hasPass =
+      //   Object.keys(solution_coordinates).includes("pass") ||
+      //   Object.values(solution_coordinates).some((value) =>
+      //     value.includes("pass")
+      //   );
 
-      if (hasPass) {
-        continue;
-      }
+      // if (hasPass) {
+      //   continue;
+      // }
 
       // Convert solution_coordinates object to string for storing in database
       const solution_coordinates_string = JSON.stringify(
