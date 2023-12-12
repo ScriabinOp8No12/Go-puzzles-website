@@ -28,13 +28,16 @@ def custom_format(d):
 current_datetime = datetime.datetime.now()
 timestamp = current_datetime.strftime("%Y%m%d_%H%M%S")
 
-# Use the timestamp in the filenames
-sgfs_filename = f'sgfs_seeder_{timestamp}.json'
-puzzles_filename = f'puzzles_seeder_{timestamp}.json'
-potential_puzzles_filename = f'potential_puzzles_seeder_{timestamp}.json'
+# Determine the location of our folder this script is in so we can write the output to this folder
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Load environment variables from .env
-load_dotenv('../.env')
+# Use the timestamp in the filenames
+sgfs_filename = os.path.join(script_dir, f'sgfs_seeder_{timestamp}.json')
+puzzles_filename = os.path.join(script_dir, f'puzzles_seeder_{timestamp}.json')
+potential_puzzles_filename = os.path.join(script_dir, f'potential_puzzles_seeder_{timestamp}.json')
+
+# Load environment variables from .env (since we moved our script into a separate folder, the path was wrong and needed to get updated!)
+load_dotenv('backend/.env')
 
 # Database URL from environment variable (go to Render database, then scroll down to "external database url", copy that into our .env)
 database_url = os.getenv("RENDER_EXTERNAL_DATABASE_URL")
@@ -46,14 +49,15 @@ conn = psycopg2.connect(database_url)
 cur = conn.cursor()
 
 # SQL to extract data from Sgfs, Puzzles, and PotentialPuzzles tables
-cur.execute('SELECT * FROM go_website_schema85."Sgfs"')
+cur.execute('SELECT * FROM go_website_schema_seeder."Sgfs"')
 sgfs_data = cur.fetchall()
 
-# print(sgfs_data)
-cur.execute('SELECT * FROM go_website_schema85."Puzzles"')
+print(sgfs_data)
+
+cur.execute('SELECT * FROM go_website_schema_seeder."Puzzles"')
 puzzles_data = cur.fetchall()
 
-cur.execute('SELECT * FROM go_website_schema85."PotentialPuzzles"')
+cur.execute('SELECT * FROM go_website_schema_seeder."PotentialPuzzles"')
 potential_puzzles_data = cur.fetchall()
 
 # Formatting the data to match structure and order of fields in seeder data
