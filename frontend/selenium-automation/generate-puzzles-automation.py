@@ -38,7 +38,7 @@ generate_buttons = driver.find_elements(By.CLASS_NAME, "create-puzzles-button")
 # print(len(generate_buttons)) # properly outputs 120 -> that's the number of generate puzzle buttons that are available because there are 120 sgfs
 
 # Maximum timeout duration before moving onto next button click
-timeout_duration = 30
+timeout_duration = 45
 
 total_buttons = len(driver.find_elements(By.CLASS_NAME, "create-puzzles-button"))
 for i in range(total_buttons):
@@ -48,14 +48,24 @@ for i in range(total_buttons):
     button.click()
 
     try:
-        # Wait for puzzle generation to complete, showing either success message, or error message, if neither show up, it means the process is hanging on Google Clou
-        WebDriverWait(driver, timeout_duration).until(
-            lambda d: EC.presence_of_element_located((By.CLASS_NAME, "success-notification"))(d) or
-            EC.presence_of_element_located((By.CLASS_NAME, "error-notification"))(d) # Selenium isn't finding this element for some reason!
+        # Wait for the "Generating..." text to disappear, indicating we got a success or error message
+        # Can't figure out how to have Selenium find the 2nd one in the if condition, so this is the temporary workaround
+        WebDriverWait(driver, timeout_duration).until_not(
+            EC.presence_of_element_located((By.XPATH, "//*[text()='Generating...']"))
         )
-        time.sleep(2) # Either this time.sleep(2) or the one below the line here: button = driver.find_elements(By.CLASS_NAME, "create-puzzles-button")[i] fixed the bug where selenium would skip like 50 sgfs at a time and only click 9 buttons before getting through all 120 sgfs
+        print("Moved past the 'Generating...' phase for button", i)
+        time.sleep(2)
     except TimeoutException:
-        print("Timed out waiting for puzzle generation. Moving to the next one.")
+        print("Timed out waiting for 'Generating...' to disappear for button", i)
+
+    #     # After "Generating..." disappears, check for notifications
+    #     if driver.find_elements(By.CLASS_NAME, "success-notification"):
+    #         print("Puzzle generation successful.")
+    #     elif driver.find_elements(By.CLASS_NAME, "error-notification"):
+    #         print("Error in puzzle generation.")
+    #     time.sleep(2)
+    # except TimeoutException:
+    #     print("Timed out waiting for puzzle generation. Moving to the next one.")
 
 # Close the driver
 driver.quit()

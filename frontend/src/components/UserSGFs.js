@@ -22,6 +22,7 @@ const UserSGFs = () => {
   const [isLoading, setIsLoading] = useState("");
   const [currentSgfId, setCurrentSgfId] = useState(null);
   const [successNotification, setSuccessNotification] = useState(null);
+  const [errorNotification, setErrorNotification] = useState(null);
   const [puzzleGenerationSuccess, setPuzzleGenerationSuccess] = useState(null);
 
   // Refetch the all sgfs thunk (rerender) when the user logs in after they weren't logged in before
@@ -48,9 +49,11 @@ const UserSGFs = () => {
       setIsLoading(""); // Reset immediately only on success
       setCurrentSgfId(null); // Reset immediately only on success
     } catch (error) {
+      setErrorNotification(sgf.id);
       setTimeout(() => {
+        setErrorNotification(sgf.id); // Set error notification immediately
         setIsLoading("");
-        setCurrentSgfId(null); // Reset after 2.9 seconds to ensure we don't see "generating..." for a fraction of a second after the error disappears
+        setCurrentSgfId(null); // Reset after 1.9 seconds to ensure we don't see "generating..." for a fraction of a second after the error disappears
       }, 1900);
     }
   };
@@ -79,11 +82,11 @@ const UserSGFs = () => {
         await dispatch(uploadSgfThunk(sgf_data));
         setSuccessNotification('Success!');
       setTimeout(() => {
-        setSuccessNotification(null); // Clear the success notification after 3 seconds
+        setSuccessNotification(null); // Clear the success notification after 2 seconds
       }, 2000);
       } catch (error) {
         setUploadError("Invalid SGF!");
-        // Clear the error after 3 seconds
+        // Clear the error after 2 seconds
         setTimeout(() => {
           setUploadError("");
         }, 2000);
@@ -148,8 +151,9 @@ const UserSGFs = () => {
                     Success! Go to Potential Puzzles
                   </div>
                 )}
-                {error && currentSgfId === sgf.id && (
-                  <div className="error-notification">{error}</div>
+                {errorNotification === sgf.id && (
+                  // <div className="error-notification">{error}</div>
+                  <div className="error-notification">Failed to Generate Potential Puzzles</div>
                 )}
               </div>
               <img
