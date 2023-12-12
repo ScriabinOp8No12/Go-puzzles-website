@@ -23,7 +23,6 @@ function Navigation({ isLoaded }) {
   const isLearnAndPracticeActive = location.pathname.startsWith(
     "/learn-and-practice"
   );
-  const isAboutMeActive = location.pathname.startsWith("/about-me");
 
   return (
     // Return "navbar navbar-expanded" className if showMenu state is true, and defaults to navbar otherwise, this controls CSS styling
