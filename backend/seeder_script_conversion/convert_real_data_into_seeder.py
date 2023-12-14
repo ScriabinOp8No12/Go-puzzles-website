@@ -52,8 +52,6 @@ cur = conn.cursor()
 cur.execute('SELECT * FROM go_website_schema_seeder."Sgfs"')
 sgfs_data = cur.fetchall()
 
-print(sgfs_data)
-
 cur.execute('SELECT * FROM go_website_schema_seeder."Puzzles"')
 puzzles_data = cur.fetchall()
 
