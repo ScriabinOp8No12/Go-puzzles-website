@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { fetchAllPotentialPuzzlesThunk } from "../store/potentialPuzzles";
 import "./styles/PotentialPuzzles.css";
-// import moment from "moment-timezone";
+import moment from "moment-timezone";
 
 const PotentialPuzzles = () => {
   const history = useHistory();
@@ -20,6 +20,21 @@ const PotentialPuzzles = () => {
     dispatch(fetchAllPotentialPuzzlesThunk());
   }, [dispatch]);
 
+  const sortedPotentialPuzzles = userPotentialPuzzles.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+
+  const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split(" ")[0].split("-");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
+
+  // Get the local timezone offset in minutes
+  const localTimezoneOffsetMinutes = new Date().getTimezoneOffset();
+
+  // Convert the offset to hours (it could be a decimal)
+  const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
+
+  console.log("userPotentialPuzzles: ", userPotentialPuzzles)
+
   return (
     <div className="outer-wrapper">
       {userPotentialPuzzles && userPotentialPuzzles.length > 0 && (
@@ -27,8 +42,8 @@ const PotentialPuzzles = () => {
     )}
       <div className="user-potential-puzzle-table">
         {/* Have unique classname here to style slightly differently compared to sgf page*/}
-        {userPotentialPuzzles &&
-          userPotentialPuzzles.map((potentialPuzzle, index) => (
+        {sortedPotentialPuzzles &&
+          sortedPotentialPuzzles.map((potentialPuzzle, index) => (
             <div className="uploaded-sgf-thumbnail" key={index}>
               {/* Have unique classname here? */}
               <img className="button-hover"

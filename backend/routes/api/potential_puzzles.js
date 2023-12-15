@@ -260,7 +260,7 @@ router.get("/", requireAuth, async (req, res) => {
       include: [
         {
           model: Sgf,
-          attributes: ["thumbnail"],
+          attributes: ["thumbnail", "sgf_name", "game_date"],
         },
       ],
       raw: true,
@@ -283,12 +283,14 @@ router.get("/", requireAuth, async (req, res) => {
       potentialPuzzleThumbnails.find((p) => p.sgf_id === sgf_id)
     );
 
-    const formattedResults = uniqueResults.map((puzzle) => {
+    const formattedResults = uniqueResults.map((potentialPuzzle) => {
       return {
-        sgf_id: puzzle.sgf_id,
-        "Sgf.thumbnail": puzzle["Sgf.thumbnail"],
-        createdAt: moment(puzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-        updatedAt: moment(puzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
+        sgf_id: potentialPuzzle.sgf_id,
+        "Sgf.thumbnail": potentialPuzzle["Sgf.thumbnail"],
+        "Sgf.sgf_name": potentialPuzzle["Sgf.sgf_name"],
+        "Sgf.game_date": potentialPuzzle["Sgf.game_date"],
+        createdAt: moment(potentialPuzzle.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt: moment(potentialPuzzle.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
       };
     });
 
