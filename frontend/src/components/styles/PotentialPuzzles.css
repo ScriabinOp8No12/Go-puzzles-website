@@ -15,8 +15,25 @@
 
 .count-value {
   color: aliceblue;
-  text-align: center;
+  /* text-align: center; */
 }
+
+.count-value .date-text {
+  margin-right: 15px;
+}
+
+/* Styling sgf name and game date to be white color text */
+.potential-puzzle-sgf-name {
+  color: aliceblue;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.potential-puzzle-game-date {
+  color: aliceblue;
+}
+
+/* Styling sgf name and game date to be white color text above */
 
 .header-title {
   margin-top: 130px;

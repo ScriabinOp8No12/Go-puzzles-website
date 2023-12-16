@@ -33,7 +33,7 @@ const PotentialPuzzles = () => {
   // Convert the offset to hours (it could be a decimal)
   const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
 
-  console.log("userPotentialPuzzles: ", userPotentialPuzzles)
+  // console.log("userPotentialPuzzles: ", userPotentialPuzzles)
 
   return (
     <div className="outer-wrapper">
@@ -57,8 +57,22 @@ const PotentialPuzzles = () => {
                 style={{ cursor: "pointer" }}
               />
               <div className="count-value">
-                {countsBySgfId[potentialPuzzle.sgf_id]} Puzzles Found
+                <span className="date-text">{formatDate(potentialPuzzle.createdAt)}</span>
+                <span className="important-text">{countsBySgfId[potentialPuzzle.sgf_id]} Puzzles</span>
               </div>
+              {/* sgf_name and game_date */}
+              <div className="potential-puzzle-sgf-name">
+                {potentialPuzzle["Sgf.sgf_name"]}
+              </div>
+              <div className="potential-puzzle-game-date">
+                      Game Date:
+                      {/* We are UTC - 6 in Mountain Time, so we need to subtract NEGATIVE 6 to add 6 hours to the UTC 18 hour time to get time 0 UTC which matches the backend */}
+                      {" " +
+                        moment
+                          .utc(potentialPuzzle["Sgf.game_date"])
+                          .subtract(localTimezoneOffsetHours, "hours")
+                          .format("YYYY-MM-DD")}
+                    </div>
             </div>
           ))}
       </div>
