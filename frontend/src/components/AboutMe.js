@@ -79,19 +79,19 @@ const AboutMe = () => {
       <div class="connect-section">
         <p>Connect with Me:</p>
         <div class="links">
-          <a href="https://github.com/ScriabinOp8No12" target="_blank">
+          <a href="https://github.com/ScriabinOp8No12" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
-          <a href="https://www.linkedin.com/in/nathan-harwit-56016220a/" target="_blank">
+          <a href="https://www.linkedin.com/in/nathan-harwit-56016220a/" target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
-           {/* <a href="https://portfolio link" target="_blank">
+           {/* <a href="https://portfolio link" target="_blank" rel="noopener noreferrer">
             Portfolio
           </a> */}
-          <a href="mailto:nharwit@gmail.com" target="_blank">
+          <a href="mailto:nharwit@gmail.com" target="_blank" rel="noopener noreferrer">
             Email
           </a>
-          {/* <a href="https://resume link" target="_blank">
+          {/* <a href="https://resume link" target="_blank" rel="noopener noreferrer">
             Resume
           </a> */}
         </div>
