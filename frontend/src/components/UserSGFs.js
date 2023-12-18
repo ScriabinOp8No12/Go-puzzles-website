@@ -24,9 +24,6 @@ const UserSGFs = () => {
   const [successNotification, setSuccessNotification] = useState(null);
   const [errorNotification, setErrorNotification] = useState(null);
   const [puzzleGenerationSuccess, setPuzzleGenerationSuccess] = useState(null);
-  // *** CURRENTLY NOT WORKING YET, styling for disabled button isn't working on this
-  // Determine if VM is off -> USE MORE COMPLEX LOGIC later based on time of day, but this is good for now
-  const isVirtualMachineOff = false;
 
   // Refetch the all sgfs thunk (rerender) when the user logs in after they weren't logged in before
   // Combines the logic with the original fetchAllSgfs when component mounts, this fixes the original issue
@@ -126,12 +123,33 @@ const UserSGFs = () => {
   // Determine the title for the "Generate Puzzles" button
   const getButtonTitle = (sgfId) => {
     if (hasPotentialPuzzle(sgfId)) {
-      return "Disabled because Potential Puzzles have already been generated for this SGF";
+      return "Unavailable because Potential Puzzles have already been generated for this SGF.";
     } else if (isVirtualMachineOff) {
-      return "Disabled because the virtual machine is off";
+      return "Unavailable because this service operates daily from 11am to 1pm Mountain Time due to high costs.";
     }
     return "Have KataGo AI generate potential puzzles!"; // Default title when button is working and NOT disabled
   };
+
+  // Check if current time is within 11am - 1pm Mountain Time for disabling our button
+  function isVMOperational() {
+    // Get current time in Mountain Time
+    const currentTimeInMT = moment().tz("America/Denver");
+
+    // Define start and end times (11am and 1pm in Mountain Time)
+    const startTime = currentTimeInMT
+      .clone()
+      .set({ hour: 11, minute: 0, second: 0 });
+    const endTime = currentTimeInMT
+      .clone()
+      .set({ hour: 13, minute: 0, second: 0 });
+
+    // Check if current time is within the range
+    return currentTimeInMT.isBetween(startTime, endTime);
+  }
+
+  // Set isVirtualMachineOff based on the time (boolean value)
+  const isVirtualMachineOff = !isVMOperational();
+  // console.log("Is the virtual machine off?", isVirtualMachineOff);
 
   return (
     <div className="outer-wrapper">
@@ -199,18 +217,21 @@ const UserSGFs = () => {
                     </div>
                     {/* Add a wrapper div with the title here specifying the specific message to show */}
                     <div title={getButtonTitle(sgf.id)}>
-                    <button
-                      className={`create-puzzles-button button-hover ${
-                        hasPotentialPuzzle(sgf.id) ? "disabled-button" : ""
-                      }`}
-                      onClick={() => handleGeneratePuzzles(sgf)}
-                      disabled={
-                        hasPotentialPuzzle(sgf.id) ||
-                        isLoading === "GENERATING_PUZZLES"
-                      }
-                    >
-                      Generate Puzzles!
-                    </button>
+                      <button
+                        className={`create-puzzles-button button-hover ${
+                          isVirtualMachineOff || hasPotentialPuzzle(sgf.id)
+                            ? "disabled-button"
+                            : ""
+                        }`}
+                        onClick={() => handleGeneratePuzzles(sgf)}
+                        disabled={
+                          isVirtualMachineOff ||
+                          hasPotentialPuzzle(sgf.id) ||
+                          isLoading === "GENERATING_PUZZLES"
+                        }
+                      >
+                        Generate Puzzles!
+                      </button>
                     </div>
                     <button
                       className="pencil-icon button-hover"
