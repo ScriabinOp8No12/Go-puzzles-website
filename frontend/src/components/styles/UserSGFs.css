@@ -49,6 +49,14 @@
   margin-bottom: 10px;
 }
 
+/* Ghosted out Generate puzzles button styling */
+
+.ghosted-button {
+  opacity: 0.5; /* Makes the button look faded */
+  pointer-events: none; /* Prevents clicking */
+  cursor: default; /* Changes cursor to indicate it's not clickable */
+}
+
 .generate-puzzles-feature-text {
   margin-top: 10px;
   color: aliceblue;

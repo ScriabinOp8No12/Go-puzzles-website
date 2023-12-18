@@ -114,6 +114,16 @@ const UserSGFs = () => {
 
   // console.log("*****************", localTimezoneOffsetHours)
 
+
+    // // Function to check if SGF ID exists in potential_puzzles
+    // const isSGFIDGenerated = (sgfId) => {
+    //   return potentialPuzzles.some(puzzle => puzzle.sgf_id === sgfId);
+    // };
+
+    // // Check if the current SGF ID is in the potential puzzles
+    // const sgfGenerated = isSGFIDGenerated(sgf.id);
+
+
   return (
     <div className="outer-wrapper">
       <div className="upload-sgf-button">
@@ -172,9 +182,11 @@ const UserSGFs = () => {
                       {formatDate(sgf.updatedAt)}
                     </div>
                     <button
-                      className="create-puzzles-button button-hover"
+                      className={`create-puzzles-button button-hover`}
+                      // className={`create-puzzles-button button-hover ${sgfGenerated ? 'ghosted-button' : ''}`}
                       onClick={() => handleGeneratePuzzles(sgf)}
-                      disabled={isLoading === "GENERATING_PUZZLES"}
+                      disabled={ isLoading === "GENERATING_PUZZLES"}
+                      // disabled={sgfGenerated || isLoading === "GENERATING_PUZZLES"}
                     >
                       Generate Puzzles!
                     </button>
