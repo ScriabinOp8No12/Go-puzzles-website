@@ -45,11 +45,19 @@ router.get("/", requireAuth, async (req, res) => {
     where: { user_id: req.user.id, suspended: false },
   });
 
+  // Fetch SGF IDs from potential puzzles so that we can conditionally disable the "Generate Puzzles" button based on whether the potential puzzles were already generated
+  const potentialPuzzleSGFIds = await PotentialPuzzle.findAll({
+    where: { /* your conditions, if any */ },
+    attributes: ['sgf_id'],
+    raw: true
+  }).then(puzzles => puzzles.map(puzzle => puzzle.sgf_id)); // return true or false boolean value based on if potential puzzles for that sgf_id already exist
+
   const formattedSGFs = {
     SGFs: sgfs.map((sgf) => ({
       ...sgf.get(),
       board_size: Number(sgf.board_size), // converting to Number type
       game_date: moment(sgf.game_date).format("YYYY-MM-DD HH:mm:ss"),
+      hasPotentialPuzzle: potentialPuzzleSGFIds.includes(sgf.id), // boolean indicating if that specific sgf has already generated potential puzzles, in which case we will render a disabled generate puzzles button instead
       createdAt: moment(sgf.createdAt).format("YYYY-MM-DD HH:mm:ss"),
       updatedAt: moment(sgf.updatedAt).format("YYYY-MM-DD HH:mm:ss"),
     })),
