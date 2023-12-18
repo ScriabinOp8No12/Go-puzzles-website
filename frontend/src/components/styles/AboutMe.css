@@ -12,9 +12,9 @@
 
 .about-me-paragraph-text {
   color: aliceblue;
-  width: 80%;
-    margin: 0 auto;
-    padding: 10px;
+  width: 82%;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .about-me-image {
@@ -33,5 +33,27 @@
 
 .about-me-outer-container a {
   color: rgb(255, 204, 102);
+  text-decoration: none;
+}
+
+/* Styling github, linkedin, portfolio, and resume links at the bottom of the page */
+
+.connect-section {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  color: aliceblue;
+  width: 82%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.connect-section .links {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.connect-section a {
   text-decoration: none;
 }
