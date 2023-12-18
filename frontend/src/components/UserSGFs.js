@@ -115,13 +115,11 @@ const UserSGFs = () => {
   // console.log("*****************", localTimezoneOffsetHours)
 
 
-    // // Function to check if SGF ID exists in potential_puzzles
-    // const isSGFIDGenerated = (sgfId) => {
-    //   return potentialPuzzles.some(puzzle => puzzle.sgf_id === sgfId);
-    // };
-
-    // // Check if the current SGF ID is in the potential puzzles
-    // const sgfGenerated = isSGFIDGenerated(sgf.id);
+    // Function that grabs true or false from redux store for hasPotentialPuzzle on an SGF
+    const hasPotentialPuzzle = (sgfId) => {
+      const sgf = userSGFs.find(sgf => sgf.id === sgfId); // find specific sgf by sgf_id
+      return sgf ? sgf.hasPotentialPuzzle : false; // return true or false, based on hasPotentialPuzzle value
+    }
 
 
   return (
@@ -182,10 +180,10 @@ const UserSGFs = () => {
                       {formatDate(sgf.updatedAt)}
                     </div>
                     <button
-                      className={`create-puzzles-button button-hover`}
-                      // className={`create-puzzles-button button-hover ${sgfGenerated ? 'ghosted-button' : ''}`}
+                      // className={`create-puzzles-button button-hover`}
+                      className={`create-puzzles-button button-hover ${hasPotentialPuzzle(sgf.id) ? 'disabled-button' : ''}`}
                       onClick={() => handleGeneratePuzzles(sgf)}
-                      disabled={ isLoading === "GENERATING_PUZZLES"}
+                      disabled={ hasPotentialPuzzle(sgf.id) || isLoading === "GENERATING_PUZZLES"}
                       // disabled={sgfGenerated || isLoading === "GENERATING_PUZZLES"}
                     >
                       Generate Puzzles!
