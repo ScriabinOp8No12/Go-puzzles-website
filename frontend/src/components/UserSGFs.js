@@ -24,6 +24,9 @@ const UserSGFs = () => {
   const [successNotification, setSuccessNotification] = useState(null);
   const [errorNotification, setErrorNotification] = useState(null);
   const [puzzleGenerationSuccess, setPuzzleGenerationSuccess] = useState(null);
+  // *** CURRENTLY NOT WORKING YET, styling for disabled button isn't working on this
+  // Determine if VM is off -> USE MORE COMPLEX LOGIC later based on time of day, but this is good for now
+  const isVirtualMachineOff = false;
 
   // Refetch the all sgfs thunk (rerender) when the user logs in after they weren't logged in before
   // Combines the logic with the original fetchAllSgfs when component mounts, this fixes the original issue
@@ -80,10 +83,10 @@ const UserSGFs = () => {
 
       try {
         await dispatch(uploadSgfThunk(sgf_data));
-        setSuccessNotification('Success!');
-      setTimeout(() => {
-        setSuccessNotification(null); // Clear the success notification after 2 seconds
-      }, 2000);
+        setSuccessNotification("Success!");
+        setTimeout(() => {
+          setSuccessNotification(null); // Clear the success notification after 2 seconds
+        }, 2000);
       } catch (error) {
         setUploadError("Invalid SGF!");
         // Clear the error after 2 seconds
@@ -114,15 +117,21 @@ const UserSGFs = () => {
 
   // console.log("*****************", localTimezoneOffsetHours)
 
+  // Function that grabs true or false from redux store for hasPotentialPuzzle on an SGF
+  const hasPotentialPuzzle = (sgfId) => {
+    const sgf = userSGFs.find((sgf) => sgf.id === sgfId); // find specific sgf by sgf_id
+    return sgf ? sgf.hasPotentialPuzzle : false; // return true or false, based on hasPotentialPuzzle value
+  };
 
-    // // Function to check if SGF ID exists in potential_puzzles
-    // const isSGFIDGenerated = (sgfId) => {
-    //   return potentialPuzzles.some(puzzle => puzzle.sgf_id === sgfId);
-    // };
-
-    // // Check if the current SGF ID is in the potential puzzles
-    // const sgfGenerated = isSGFIDGenerated(sgf.id);
-
+  // Determine the title for the "Generate Puzzles" button
+  const getButtonTitle = (sgfId) => {
+    if (hasPotentialPuzzle(sgfId)) {
+      return "Disabled because Potential Puzzles have already been generated for this SGF";
+    } else if (isVirtualMachineOff) {
+      return "Disabled because the virtual machine is off";
+    }
+    return "Have KataGo AI generate potential puzzles!"; // Default title when button is working and NOT disabled
+  };
 
   return (
     <div className="outer-wrapper">
@@ -133,18 +142,24 @@ const UserSGFs = () => {
         {/* Display uploading text */}
         {isLoading === "UPLOADING" && (
           <div className="uploading-sgf">Uploading...</div>
-        ) }
-         {/* Display success message */}
-      {successNotification && (
-        <div className="upload-success">Successfully uploaded SGF!</div>
-      )}
+        )}
+        {/* Display success message */}
+        {successNotification && (
+          <div className="upload-success">Successfully uploaded SGF!</div>
+        )}
 
         <label className="button-hover">
           Upload SGF
           <input type="file" accept=".sgf" onChange={handleFileChange} />
         </label>
-{/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
-<div className="generate-puzzles-feature-text"> The <span className="important-text">generate puzzles</span> feature is available between <span className="important-text">11am and 1pm Mountain Time</span> daily. </div>
+        {/* {isLoading && <div className="loading-spinner">Uploading...</div>} */}
+        <div className="generate-puzzles-feature-text">
+          {" "}
+          The <span className="important-text">generate puzzles</span> feature
+          is available between{" "}
+          <span className="important-text">11am and 1pm Mountain Time</span>{" "}
+          daily.{" "}
+        </div>
       </div>
       <div className="user-sgf-table">
         {sortedSGFs &&
@@ -162,12 +177,13 @@ const UserSGFs = () => {
                   </div>
                 )}
                 {errorNotification === sgf.id && (
-                  // <div className="error-notification">{error}</div>
-                  <div className="error-notification">Failed to Generate Potential Puzzles</div>
+                  <div className="error-notification">
+                    Failed to Generate Potential Puzzles
+                  </div>
                 )}
               </div>
               <img
-              className="button-hover"
+                className="button-hover"
                 src={sgf.thumbnail}
                 alt="SGF Thumbnail"
                 title={sgf.sgf_name}
@@ -181,15 +197,21 @@ const UserSGFs = () => {
                     <div className="sgf-updated-at">
                       {formatDate(sgf.updatedAt)}
                     </div>
+                    {/* Add a wrapper div with the title here specifying the specific message to show */}
+                    <div title={getButtonTitle(sgf.id)}>
                     <button
-                      className={`create-puzzles-button button-hover`}
-                      // className={`create-puzzles-button button-hover ${sgfGenerated ? 'ghosted-button' : ''}`}
+                      className={`create-puzzles-button button-hover ${
+                        hasPotentialPuzzle(sgf.id) ? "disabled-button" : ""
+                      }`}
                       onClick={() => handleGeneratePuzzles(sgf)}
-                      disabled={ isLoading === "GENERATING_PUZZLES"}
-                      // disabled={sgfGenerated || isLoading === "GENERATING_PUZZLES"}
+                      disabled={
+                        hasPotentialPuzzle(sgf.id) ||
+                        isLoading === "GENERATING_PUZZLES"
+                      }
                     >
                       Generate Puzzles!
                     </button>
+                    </div>
                     <button
                       className="pencil-icon button-hover"
                       title="Edit SGF"

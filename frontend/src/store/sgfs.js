@@ -59,7 +59,7 @@ export const fetchAllSgfsThunk = () => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(fetchAllSgfs(data.SGFs));
+    dispatch(fetchAllSgfs(data.SGFs)); // SGFs is the key for the object containing all the info on the SGFs we are querying
   }
 };
 
