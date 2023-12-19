@@ -135,3 +135,7 @@ def process_sgf_data(input_data):
 
 # # For a list of sgf_data strings
 # converted_data_list = process_sgf_data(list_of_sgf_data_strings)
+
+# ***** 12/19/2023 Start debug issue with OGS 1 stone handicap causing the AB AW to fail?
+# Looks like it properly creates the 1 line json, and cleans and adds comments to the sgf strings (should verify this), but
+# the convert_to_AB_AW fails, I'm guessing this has to do with the extra AB that is added at the start of the sgfString?
