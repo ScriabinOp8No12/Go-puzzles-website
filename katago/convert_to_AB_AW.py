@@ -138,4 +138,5 @@ def process_sgf_data(input_data):
 
 # ***** 12/19/2023 Start debug issue with OGS 1 stone handicap causing the AB AW to fail?
 # Looks like it properly creates the 1 line json, and cleans and adds comments to the sgf strings (should verify this), but
-# the convert_to_AB_AW fails, I'm guessing this has to do with the extra AB that is added at the start of the sgfString?
+# the convert_to_AB_AW fails, looks like one of the answers was "Pass" but since we removed that, there's now a mismatch and it wants to use null for sgf_data
+# on one of the sgf strings, so it throws an error for generating that puzzle, but the other puzzles show up
