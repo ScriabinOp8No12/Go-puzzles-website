@@ -125,8 +125,10 @@ def process_sgf_data(input_data):
         # Single sgf_data string
         return convert_sgf_data_to_AB_AW(input_data)
     elif isinstance(input_data, list):
-        # List of sgf_data strings
-        return [convert_sgf_data_to_AB_AW(sgf_data) for sgf_data in input_data]
+        # Filter out undefined or null values from the list first, since we may have removed 1 or more sgf strings when the mistake was not "pass" (edge case in lower level and smaller sized board games)
+        filtered_input = [sgf_data for sgf_data in input_data if sgf_data is not None]
+        # Process filtered list of sgf_data strings
+        return [convert_sgf_data_to_AB_AW(sgf_data) for sgf_data in filtered_input]
     else:
         raise TypeError("Input must be a string or a list of strings.")
 
@@ -135,8 +137,3 @@ def process_sgf_data(input_data):
 
 # # For a list of sgf_data strings
 # converted_data_list = process_sgf_data(list_of_sgf_data_strings)
-
-# ***** 12/19/2023 Start debug issue with OGS 1 stone handicap causing the AB AW to fail?
-# Looks like it properly creates the 1 line json, and cleans and adds comments to the sgf strings (should verify this), but
-# the convert_to_AB_AW fails, looks like one of the answers was "Pass" but since we removed that, there's now a mismatch and it wants to use null for sgf_data
-# on one of the sgf strings, so it throws an error for generating that puzzle, but the other puzzles show up
