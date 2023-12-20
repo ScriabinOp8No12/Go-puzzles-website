@@ -67,7 +67,7 @@ router.post("/:sgf_id/katago_json_input", requireAuth, async (req, res) => {
   }
 });
 
-// Trigger KataGo analysis LOCALLY only, GCP VM is at the endpoint found in the VM itself!!!!
+// Trigger KataGo analysis LOCALLY only, go to folder google_cloud_setup and then katago-server.js to change that endpoint
 router.post("/generate", requireAuth, async (req, res) => {
   try {
     const { sgf_id, sgf_data, one_line_json_string } = req.body;
@@ -355,7 +355,6 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
 router.post("/store_vm_results", async (req, res) => {
   try {
     const potential_puzzles = req.body.createdPuzzles;
-
     const category = "other";
     const difficulty = 1500;
 
@@ -363,17 +362,6 @@ router.post("/store_vm_results", async (req, res) => {
 
     for (const puzzle of potential_puzzles) {
       const { sgf_id, sgf_data, move_number } = puzzle;
-
-      // Check if 'pass' is in the keys or values of solution_coordinates, these are invalid puzzles
-      // const hasPass =
-      //   Object.keys(solution_coordinates).includes("pass") ||
-      //   Object.values(solution_coordinates).some((value) =>
-      //     value.includes("pass")
-      //   );
-
-      // if (hasPass) {
-      //   continue;
-      // }
 
       // Convert solution_coordinates object to string for storing in database
       const solution_coordinates_string = JSON.stringify(

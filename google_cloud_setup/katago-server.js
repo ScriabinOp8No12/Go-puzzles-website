@@ -34,6 +34,23 @@ app.post("/potential_puzzles/generate", async (req, res) => {
       await GCP_sgf_to_largest_mistakes.run_katago_analysis(jsonEncodedString)
     );
 
+    // // Import setting initial potential puzzle ranking script and then use it (Add the code to the VM and use a DIFFERENT PATH!)
+    // const sgf_mill_set_initial_potential_puzzle_ranking = await python(
+    //   path.join(
+    //     __dirname,
+    //     "..",
+    //     "..",
+    //     "utils",
+    //     "sgf_mill_set_initial_potential_puzzle_ranking.py"
+    //   )
+    // );
+
+    // const set_potential_puzzle_rank =
+    //   await sgf_mill_set_initial_potential_puzzle_ranking.set_potential_puzzle_difficulty(
+    //     sgf_data
+    //   );
+
+    // const difficulty = set_potential_puzzle_rank; // Setting difficulty column in potential puzzle table to the difficulty found using our python script above (determines ranking based on player's ranks)
     const category = "other";
     const difficulty = 1500;
 
