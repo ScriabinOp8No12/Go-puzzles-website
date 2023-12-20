@@ -51,7 +51,7 @@ app.post("/potential_puzzles/generate", async (req, res) => {
     //   );
 
     // const difficulty = set_potential_puzzle_rank; // Setting difficulty column in potential puzzle table to the difficulty found using our python script above (determines ranking based on player's ranks)
-    const category = "other";
+    const category = "Other";
     const difficulty = 1500;
 
     const formattedPuzzles = potential_puzzles.map((puzzle) => {

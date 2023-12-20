@@ -355,7 +355,7 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
 router.post("/store_vm_results", async (req, res) => {
   try {
     const potential_puzzles = req.body.createdPuzzles;
-    const category = "other";
+    const category = "Other";
     const difficulty = 1500;
 
     const createdPuzzles = [];
