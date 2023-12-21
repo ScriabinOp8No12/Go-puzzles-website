@@ -1,8 +1,8 @@
-const https = require('https');
-const fs = require('fs');
+const https = require("https");
+const fs = require("fs");
 const express = require("express");
 const helmet = require("helmet");
-const cors = require('cors');
+const cors = require("cors");
 const moment = require("moment");
 const { python } = require("pythonia");
 const path = require("path");
@@ -34,25 +34,19 @@ app.post("/potential_puzzles/generate", async (req, res) => {
       await GCP_sgf_to_largest_mistakes.run_katago_analysis(jsonEncodedString)
     );
 
-    // // Import setting initial potential puzzle ranking script and then use it (Add the code to the VM and use a DIFFERENT PATH!)
-    // const sgf_mill_set_initial_potential_puzzle_ranking = await python(
-    //   path.join(
-    //     __dirname,
-    //     "..",
-    //     "..",
-    //     "utils",
-    //     "sgf_mill_set_initial_potential_puzzle_ranking.py"
-    //   )
-    // );
+    // Import setting initial potential puzzle ranking script and then use it (Add the code to the VM and use a DIFFERENT PATH!)
+    const sgf_mill_set_initial_potential_puzzle_ranking = await python(
+      path.join(__dirname, "sgf_mill_set_initial_potential_puzzle_ranking.py")
+    );
 
-    // const set_potential_puzzle_rank =
-    //   await sgf_mill_set_initial_potential_puzzle_ranking.set_potential_puzzle_difficulty(
-    //     sgf_data
-    //   );
+    const set_potential_puzzle_rank =
+      await sgf_mill_set_initial_potential_puzzle_ranking.set_potential_puzzle_difficulty(
+        sgf_data
+      );
 
-    // const difficulty = set_potential_puzzle_rank; // Setting difficulty column in potential puzzle table to the difficulty found using our python script above (determines ranking based on player's ranks)
+    const difficulty = set_potential_puzzle_rank; // Setting difficulty column in potential puzzle table to the difficulty found using our python script above (determines ranking based on player's ranks)
     const category = "Other";
-    const difficulty = 1500;
+    // const difficulty = 1500;
 
     const formattedPuzzles = potential_puzzles.map((puzzle) => {
       return {
@@ -61,11 +55,15 @@ app.post("/potential_puzzles/generate", async (req, res) => {
         sgf_id: req.body.sgf_id,
         sgf_data: req.body.sgf_data,
         category,
-        move_number: puzzle.move,
+        move_number: puzzle.move, // this is where we dynamically generate the move_number, almost certainly where the move_number getting calculated incorrectly bug will be!
         solution_coordinates: puzzle.correct_moves,
         difficulty,
-        createdAt: moment(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"),
-        updatedAt: moment(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"),
+        createdAt: moment(new Date().toISOString()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        ),
+        updatedAt: moment(new Date().toISOString()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        ),
       };
     });
 
@@ -91,14 +89,23 @@ app.use((err, req, res, next) => {
   });
 });
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/vm.go-puzzles.com/chain.pem', 'utf8');
+const privateKey = fs.readFileSync(
+  "/etc/letsencrypt/live/vm.go-puzzles.com/privkey.pem",
+  "utf8"
+);
+const certificate = fs.readFileSync(
+  "/etc/letsencrypt/live/vm.go-puzzles.com/fullchain.pem",
+  "utf8"
+);
+const ca = fs.readFileSync(
+  "/etc/letsencrypt/live/vm.go-puzzles.com/chain.pem",
+  "utf8"
+);
 
 const credentials = {
   key: privateKey,
   cert: certificate,
-  ca: ca
+  ca: ca,
 };
 
 const IP_ADDRESS = "0.0.0.0";

@@ -355,13 +355,13 @@ router.get("/:sgf_id", requireAuth, async (req, res) => {
 router.post("/store_vm_results", async (req, res) => {
   try {
     const potential_puzzles = req.body.createdPuzzles;
-    const category = "Other";
-    const difficulty = 1500;
+    // const category = "Other";
+    // const difficulty = 1500;
 
     const createdPuzzles = [];
 
     for (const puzzle of potential_puzzles) {
-      const { sgf_id, sgf_data, move_number } = puzzle;
+      const { sgf_id, sgf_data, move_number, difficulty } = puzzle; // grab the dynamically calculated difficulty from the katago-server.js code as well
 
       // Convert solution_coordinates object to string for storing in database
       const solution_coordinates_string = JSON.stringify(
@@ -372,7 +372,7 @@ router.post("/store_vm_results", async (req, res) => {
         sgf_id,
         user_id: req.user.id, // need to add user_id here now too because we changed our database to include this column
         sgf_data,
-        category,
+        category: "Other", // move hard coded category down here instead
         move_number,
         solution_coordinates: solution_coordinates_string,
         difficulty,
