@@ -27,7 +27,7 @@
   padding: 1rem;
   color: aliceblue;
   font-size: 12px;
-  height: 80vh;
+  /* height: 80vh; */
 }
 
 .landing-page-h1 {
@@ -144,6 +144,10 @@
 .image-text-container {
   display: flex;
   align-items: center; /* Vertically center-aligns the image with the text */
+  border: 2px solid aliceblue;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .landing-image {
