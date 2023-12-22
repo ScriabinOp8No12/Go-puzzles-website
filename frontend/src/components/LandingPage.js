@@ -125,7 +125,7 @@ const LandingPage = () => {
           />
           <div className="landing-text-group">
           <p className="landing-text">Step 3: Navigate to <span className="important-text">Potential Puzzles</span> to try the generated puzzles</p>
-          <p className="landing-text spaced-text"> Step 4: Click <span className="important-text">Save Puzzle</span> to save the puzzle to the <span className="important-text">Your Puzzles</span> page. This also adds it to the <span className="important-text">Public Puzzles</span> page where all other users can try the puzzle </p>
+          <p className="landing-text spaced-text"> Step 4: Click Save Puzzle to save the puzzle to the <span className="important-text">Your Puzzles</span> page. This also adds it to the <span className="important-text">Public Puzzles</span> page </p>
         </div>
       </div>
       </div>
