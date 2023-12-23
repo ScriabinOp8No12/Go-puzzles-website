@@ -16,7 +16,7 @@ const MoreRulesPage1 = () => {
             <p>
              In <span className="important-text">diagram 2</span>, black is allowed to play in the spot with 0 liberties because they are capturing white!
             </p>
-            <p>In <span className="important-text">diagram 3</span>, even if your opponent already captured your stones does not affect whether or not you are allowed to play in that spot.
+            <p>In <span className="important-text">diagram 3</span>, even if your opponent already captured your stones, this does not affect whether or not you are allowed to play in that spot.
              For example, let's say white captured the 3 black stones with move A as seen in diagram 3, black is still allowed to place stones where they were just captured because
              black would have more than 0 liberties.
             </p>
