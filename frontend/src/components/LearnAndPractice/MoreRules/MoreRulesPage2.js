@@ -1,22 +1,23 @@
 import React from 'react'
 
-const MoreRulesPage1 = () => {
+const MoreRulesPage2 = () => {
   return (
     <div className="main-content">
-        <h2>More Rules and Strategy: Illegal Moves</h2>
+        <h2>More Rules and Strategy: Eyes</h2>
         <div className="content-section">
           {/* Text section on the left half, images / diagrams on the right half */}
           <div className="content-text-section">
             <p>
-             A move is illegal if the move your are placing has <span className="important-text">0 liberties</span>, and is <span className="important-text">not</span> capturing anything.
+             An <span className="important-text">eye</span> is any spot where the opponent is not allowed to play (an illegal move), since they would have 0 liberties when they play there.
             </p>
-            {/* <p>
-             In <span className="important-text">diagram 1</span>, black is <span className="important-text">not</span> allowed to play at the triangle or square.
-            </p>
+
             <p>
-             In <span className="important-text">diagram 2</span>, black is allowed to play in the spot with 0 liberties because they are capturing white!
-            </p> */}
-            <p>Even if your opponent already captured your stones, this does not affect whether or not you are allowed to play in that spot.</p>
+              For a group of stones to be alive and unkillable, it must have <span className="important-text">at least 2 eyes</span> (there is an exception, which we will discuss in the next section). Most living groups will have a lot more than 2 eyes.
+            </p>
+
+            <p>
+              A group with one eye is not alive, because the opponent could place a stone at that location as their last move to capture the group.
+            </p>
 
           </div>
           {/* Image(s) on the right half */}
@@ -56,4 +57,4 @@ const MoreRulesPage1 = () => {
   )
 }
 
-export default MoreRulesPage1
+export default MoreRulesPage2

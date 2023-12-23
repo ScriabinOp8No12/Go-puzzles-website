@@ -4,6 +4,7 @@ import useNextPageNavigation from "../useNextPageNavigation";
 import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "../LeftNavBar";
 import MoreRulesPage1 from "./MoreRulesPage1";
+import MoreRulesPage2 from "./MoreRulesPage2";
 import "../styles/LearnAndPracticeIndex.css";
 
 const MoreRulesContainer = () => {
@@ -31,6 +32,7 @@ const MoreRulesContainer = () => {
     const renderPage = () => {
       switch(pageNumber) {
         case "1": return <MoreRulesPage1 />;
+        case "2": return <MoreRulesPage2 />
         default: return <div className="page-not-found-text">Page not found</div>;
       }
     };
