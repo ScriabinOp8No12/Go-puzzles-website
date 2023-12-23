@@ -138,16 +138,18 @@
   max-height: 75vh;
   overflow-y: auto;
   height: 100vh;
+  margin-top: -9px;
   /* height: calc(100vh - 100px); */
 }
 
 .image-text-container {
   display: flex;
   align-items: center; /* Vertically center-aligns the image with the text */
-  border: 2px solid aliceblue;
+  /* border: 2px solid aliceblue; */
   border-radius: 15px;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #2E3A4B;
 }
 
 .landing-image {
