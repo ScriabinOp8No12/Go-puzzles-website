@@ -125,31 +125,31 @@ const UserSGFs = () => {
     if (hasPotentialPuzzle(sgfId)) {
       return "Unavailable because Potential Puzzles have already been generated for this SGF.";
     }
-    // else if (isVirtualMachineOff) {
-    //   return "Unavailable because this service operates daily from 11am to 1pm Mountain Time due to high costs.";
-    // }
+    else if (isVirtualMachineOff) {
+      return "Unavailable because this service operates daily from 11am to 1pm Mountain Time due to high costs.";
+    }
     return "Have KataGo AI generate potential puzzles!"; // Default title when button is working and NOT disabled
   };
 
   // Check if current time is within 11am - 1pm Mountain Time for disabling our button
-  // function isVMOperational() {
-  //   // Get current time in Mountain Time
-  //   const currentTimeInMT = moment().tz("America/Denver");
+  function isVMOperational() {
+    // Get current time in Mountain Time
+    const currentTimeInMT = moment().tz("America/Denver");
 
-  //   // Define start and end times (11am and 1pm in Mountain Time)
-  //   const startTime = currentTimeInMT
-  //     .clone()
-  //     .set({ hour: 11, minute: 0, second: 0 });
-  //   const endTime = currentTimeInMT
-  //     .clone()
-  //     .set({ hour: 13, minute: 0, second: 0 });
+    // Define start and end times (11am and 1pm in Mountain Time)
+    const startTime = currentTimeInMT
+      .clone()
+      .set({ hour: 11, minute: 0, second: 0 });
+    const endTime = currentTimeInMT
+      .clone()
+      .set({ hour: 13, minute: 0, second: 0 });
 
-  //   // Check if current time is within the range
-  //   return currentTimeInMT.isBetween(startTime, endTime);
-  // }
+    // Check if current time is within the range
+    return currentTimeInMT.isBetween(startTime, endTime);
+  }
 
-  // const isVirtualMachineOff = !isVMOperational();
-  // console.log("Is the virtual machine off?", isVirtualMachineOff);
+  const isVirtualMachineOff = !isVMOperational();
+  console.log("Is the virtual machine off?", isVirtualMachineOff);
 
   return (
     <div className="outer-wrapper">
@@ -219,14 +219,14 @@ const UserSGFs = () => {
                     <div title={getButtonTitle(sgf.id)}>
                       <button
                         className={`create-puzzles-button button-hover ${
-                          // isVirtualMachineOff ||
+                          isVirtualMachineOff ||
                           hasPotentialPuzzle(sgf.id)
                             ? "disabled-button"
                             : ""
                         }`}
                         onClick={() => handleGeneratePuzzles(sgf)}
                         disabled={
-                          // isVirtualMachineOff ||
+                          isVirtualMachineOff ||
                           hasPotentialPuzzle(sgf.id) ||
                           isLoading === "GENERATING_PUZZLES"
                         }
