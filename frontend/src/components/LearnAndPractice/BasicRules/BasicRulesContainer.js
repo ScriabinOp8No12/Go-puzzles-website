@@ -52,13 +52,24 @@ const BasicRulesContainer = () => {
     }
   };
 
+  // Determine the pageType based on the pageNumber (glift puzzle rendering in tutorials is on page 7)
+  const pageType = pageNumber === "7" ? 'specialType' : 'normalType';
+
+  // Logic for checking pageType to see if it's a glift container and we want the buttons up down instead of left right
+  const buttonContainerClass = pageType === 'specialType'
+  ? 'button-container glift-puzzle-layout'
+  : 'button-container';
+
   return (
     <div className="learn-and-practice-container">
       <LeftNavBar />
       {/* Render the appropriate page component based on the current route */}
       {renderPage()}
-      <NextPageButton onClick={navigateToNextPage}/>
+      <div className={buttonContainerClass}>
       <PreviousPageButton onClick={navigateToPreviousPage} isTutorial={true}/>
+      <NextPageButton onClick={navigateToNextPage}/>
+
+    </div>
     </div>
   );
 };

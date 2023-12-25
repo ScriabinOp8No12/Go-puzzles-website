@@ -4,8 +4,11 @@
   margin-left: 230px; /* To center it within the right side of the page, left navbar takes up 230 pixels width*/
   height: calc(100vh - 115px);
   display: flex;
+  justify-content: space-between; /* Adjust content and buttons */
+  align-items: flex-start; /* Align items to the top */
   position: relative; /* Sets the positioning context for child elements */
   /* height: calc(100vh - 140px); 100vh shows a scroll bar because of the top navbar, so we adjust it to take off 140 pixels */
+
 }
 
 /* Make all text aliceblue color on the learn and practice container (entire page) */
@@ -81,6 +84,7 @@
   width: 100%;
   height: calc(100vh - 115px);
   padding: 0px 50px 15px 50px; /* top right bottom left */
+  /* padding-bottom: 60px; */ /* FOR glift puzzle rendering pages - This allows the previous and next page button to not overlap the content at the bottom of the page */
 }
 
 .main-content h2 {
@@ -96,10 +100,11 @@
 .content-section {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 60px; /* This allows the previous and next page button to not overlap the content at the bottom of the page */
 }
 
 .content-text-section {
-  width: 50%;
+  width: 100%;
 }
 
 .spaced-list li {
@@ -145,8 +150,21 @@
   position: relative;
 }
 
+/* Container for both buttons */
+.button-container {
+  display: flex;
+  position: fixed; /* Position relative to the parent container */
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Special layout for glift puzzle pages, we want the buttons up down instead of left right so they don't overlap on the page */
+.button-container.glift-puzzle-layout {
+  flex-direction: column;
+}
+
 .next-page-button {
-  position: fixed;
+  margin-left: 20px; /* 20 pixels gap between the buttons */
   bottom: 10px;
   right: 10px;
   background-color: #00ADB5;
@@ -155,7 +173,7 @@
   font-weight: bold;
   padding: 10px;
   text-align: center;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
   text-shadow:
   -.75px -.75px 0 #000,
@@ -169,16 +187,16 @@
 }
 
 .previous-page-button {
-  position: fixed;
   bottom: 10px;
   left: 10px;
+  /* right: 20px; */
   background-color: #00ADB5;
   border: 3px solid black;
   color: aliceblue;
   font-weight: bold;
   padding: 10px;
   text-align: center;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
   text-shadow:
   -.75px -.75px 0 #000,

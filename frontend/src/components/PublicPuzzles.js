@@ -21,7 +21,7 @@ const PublicPuzzles = () => {
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
   const [selectedFilters, setSelectedFilters] = useState({});
   const [offset, setOffset] = useState(0);
-  const LIMIT = 20; // Number of puzzles per page
+  const LIMIT = 8; // Number of puzzles per page
 
   // Edit sgf modal
   const openEditModal = async (puzzleId) => {
@@ -150,10 +150,13 @@ const PublicPuzzles = () => {
           <div className="no-puzzles-message">No puzzles found!</div>
         )}
       </div>
-      {showNextPageButton && <NextPageButton onClick={handleNextPageClick} />}
+      <div className="button-container glift-puzzle-layout">
+
       {showPreviousPageButton && (
         <PreviousPageButton onClick={handlePreviousPageClick} />
       )}
+      {showNextPageButton && <NextPageButton onClick={handleNextPageClick} />}
+      </div>
     </div>
   );
 };
