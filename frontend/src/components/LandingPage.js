@@ -26,6 +26,9 @@ const LandingPage = () => {
   const goToMoreRulesAndStrategy = () => {
     history.push("/learn-and-practice/more-rules-and-strategy/1");
   };
+  const goToExternalResources  = () => {
+    history.push("/learn-and-practice/external-resources")
+  }
 
   return (
     <div className="go-container">
@@ -84,7 +87,7 @@ const LandingPage = () => {
             {/* Right column */}
             <div className="landing-page-columns">
               <h2><span className="important-text">Improve your fundamentals</span></h2>
-              <button className="button-hover">External Resources</button>
+              <button className="button-hover" onClick={goToExternalResources}>External Resources</button>
               {/* <button className="button-hover">Ladders & Nets</button>
               <button className="button-hover">Cuts & weaknesses</button>
               <button className="button-hover">Direction of Play</button>
