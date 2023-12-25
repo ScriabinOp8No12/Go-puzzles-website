@@ -150,7 +150,7 @@ const PublicPuzzles = () => {
           <div className="no-puzzles-message">No puzzles found!</div>
         )}
       </div>
-      <div className="button-container">
+      <div className="button-container glift-puzzle-layout">
 
       {showPreviousPageButton && (
         <PreviousPageButton onClick={handlePreviousPageClick} />
