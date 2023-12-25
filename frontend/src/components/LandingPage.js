@@ -23,6 +23,9 @@ const LandingPage = () => {
   const goToBasicRules = () => {
     history.push("/learn-and-practice/basic-rules/1");
   };
+  const goToMoreRulesAndStrategy = () => {
+    history.push("/learn-and-practice/more-rules-and-strategy/1");
+  };
 
   return (
     <div className="go-container">
@@ -72,21 +75,22 @@ const LandingPage = () => {
             <div className="landing-page-columns">
               <h2><span className="important-text">New to the game?</span></h2>
               <button className="button-hover" onClick={goToBasicRules}>Basic rules</button>
-              <button className="button-hover">More rules & strategy</button>
-              <button className="button-hover">Reading</button>
+              <button className="button-hover" onClick={goToMoreRulesAndStrategy}>More rules & strategy</button>
+              {/* <button className="button-hover">Reading</button>
               <button className="button-hover">Puzzles</button>
-              <button className="button-hover">External Resources</button>
+              <button className="button-hover">External Resources</button> */}
             </div>
 
             {/* Right column */}
             <div className="landing-page-columns">
               <h2><span className="important-text">Improve your fundamentals</span></h2>
-              <button className="button-hover">Ladders & Nets</button>
+              <button className="button-hover">External Resources</button>
+              {/* <button className="button-hover">Ladders & Nets</button>
               <button className="button-hover">Cuts & weaknesses</button>
               <button className="button-hover">Direction of Play</button>
               <button className="button-hover">Judgment</button>
               <button className="button-hover">Life & Death</button>
-              <button className="button-hover">Puzzles</button>
+              <button className="button-hover">Puzzles</button> */}
             </div>
           </div>
           {/* End of Two-Column Layout for Buttons */}
