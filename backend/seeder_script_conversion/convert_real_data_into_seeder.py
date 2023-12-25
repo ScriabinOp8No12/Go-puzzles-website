@@ -35,6 +35,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 sgfs_filename = os.path.join(script_dir, f'sgfs_seeder_{timestamp}.json')
 puzzles_filename = os.path.join(script_dir, f'puzzles_seeder_{timestamp}.json')
 potential_puzzles_filename = os.path.join(script_dir, f'potential_puzzles_seeder_{timestamp}.json')
+users_filename = os.path.join(script_dir, f'users_seeder_{timestamp}.json')
 
 # Load environment variables from .env (since we moved our script into a separate folder, the path was wrong and needed to get updated!)
 load_dotenv('backend/.env')
@@ -57,6 +58,9 @@ puzzles_data = cur.fetchall()
 
 cur.execute('SELECT * FROM go_website_schema_seeder."PotentialPuzzles"')
 potential_puzzles_data = cur.fetchall()
+
+cur.execute('SELECT * FROM go_website_schema_seeder."Users"')
+users_data = cur.fetchall()
 
 # Formatting the data to match structure and order of fields in seeder data
 sgfs_formatted = [
@@ -110,6 +114,12 @@ potential_puzzles_formatted = [
         "createdAt": row[9],
         "updatedAt": row[10],
     } for row in potential_puzzles_data
+]
+
+users_formatted = [
+    {
+
+    }
 ]
 
 # Formatting and writing the SGF data to the file
