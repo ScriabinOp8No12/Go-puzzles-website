@@ -14,6 +14,7 @@ import UserPuzzles from "./components/UserPuzzles";
 import UserPuzzleDisplay from "./components/UserPuzzleDisplay";
 import LandingPage from "./components/LandingPage";
 import LearnAndPracticeContainer from "./components/LearnAndPractice/LearnAndPracticeContainer";
+import ExternalResources from "./components/ExternalResources";
 import AboutMe from "./components/AboutMe";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 // ***************** TESTING BELOW COMPONENT MANUALLY ******************* //
@@ -110,6 +111,10 @@ function App() {
           <AuthorizedRoute
             path="/learn-and-practice/:section/:pageNumber"
             component={LearnAndPracticeContainer}
+          />
+          <AuthorizedRoute
+            path="/learn-and-practice/external-resources"
+            component={ExternalResources}
           />
         </Switch>
       )}

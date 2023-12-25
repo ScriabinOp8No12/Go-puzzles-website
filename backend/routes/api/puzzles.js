@@ -25,7 +25,7 @@ cloudinary.config({
 
 const router = express.Router();
 
-// Get all puzzles for public puzzles page (20 by default)
+// Get all puzzles for public puzzles page (8 by default)
 router.get("/", requireAuth, async (req, res, next) => {
   try {
     // Define default values at the top of the endpoint function
@@ -155,7 +155,7 @@ const validBoardSizes = [9, 13, 19]
     }
 
     // Set default limit if not provided
-    limit = parseInt(limit) || 20; // 20 is normal, testing with smaller number right now
+    limit = parseInt(limit) || 8;
 
     /***************** Filter the public puzzles to not show puzzles that the user created *******************/
 

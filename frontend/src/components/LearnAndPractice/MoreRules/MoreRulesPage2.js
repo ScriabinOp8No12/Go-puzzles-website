@@ -22,34 +22,34 @@ const MoreRulesPage2 = () => {
           </div>
           {/* Image(s) on the right half */}
           <div className="content-image-section">
-            <img
+            {/* <img
             className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466950/Tutorial-images/more-rules-1_qpbyyd.png"
               alt="Illegal moves 1"
             />
-            <p>Diagram 1: Black is <span className="important-text">not</span> allowed to play at either of the marked spots.  The marked square is likely an eye, which we will discuss in the next section.</p>
+            <p>Diagram 1: Black is <span className="important-text">not</span> allowed to play at either of the marked spots.  The marked square is likely an eye, which we will discuss in the next section.</p> */}
           </div>
         </div>
         {/* Under the "content-section" where we render 2 more diagrams */}
         <div className="diagram-container">
           {/* For making the text stack vertically with the image above it */}
           <div className="image-text-wrap">
-            <img
+            {/* <img
             className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466263/Tutorial-images/more-rules-2_wvsgky.png"
               alt="Illegal moves 2"
             />
-            <p>Diagram 2: Black is <span className="important-text">allowed </span>to play at the marked spot because although black has 0 liberties, they would be capturing white's group (white also has 0 liberties).</p>
+            <p>Diagram 2: Black is <span className="important-text">allowed </span>to play at the marked spot because although black has 0 liberties, they would be capturing white's group (white also has 0 liberties).</p> */}
           </div>
           <div className="image-text-wrap">
-            <img
+            {/* <img
             className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1699466263/Tutorial-images/more-rules-3_jgmmx9.png"
               alt="Illegal moves 3"
             />
             <p>
               Diagram 3: Even if white just played at A and captured 3 black stones, black can still play at any of the marked triangles because the black stone would have more than 0 liberties.
-            </p>
+            </p> */}
 
           </div>
         </div>
