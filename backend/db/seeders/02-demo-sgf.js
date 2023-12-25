@@ -12,494 +12,395 @@ module.exports = {
     return queryInterface.bulkInsert(
       options,
       [
-        // Game 1 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[46th Korean Myeongin, round 1]
-            DT[2023-08-30]
-            PB[Shin Jinseo]BR[9p]
-            PW[Han Sangcho]WR[5p]
-            KM[6.5]RE[B+R]
-            SO[Go4Go.net]
-            ;B[qd];W[dp];B[cd];W[qp];B[cq];W[cp];B[dq];W[fq];B[fr];W[pd];B[pc];W[qe];B[od];W[pe];B[qc];W[gr];B[er];W[gp];B[ep];W[eq];B[bp];W[bo];B[bq];W[cn];B[oq];W[lq];B[qi];W[ph];B[pi];W[oi];B[oj];W[qh];B[po];W[qo];B[pn];W[qm];B[pm];W[ql];B[pk];W[ni];B[nj];W[pq];B[mi];W[ng];B[mf];W[ec];B[oe];W[of];B[nf];W[og];B[mg];W[ri];B[hc];W[de];B[ce];W[df];B[bg];W[he];B[ie];W[hd];B[id];W[ic];B[jc];W[ib];B[jb];W[hb];B[gc];W[gb];B[hf];W[gd];B[pr];W[qr];B[eo];W[dn];B[jq];W[fn];B[hq];W[gq];B[pp];W[qq];B[jo];W[if];B[jf];W[ig];B[nr];W[ch];B[il];W[bh];B[cg];W[dg];B[db];W[in];B[eb];W[fb];B[jn];W[im];B[jm];W[hl];B[ik];W[hk];B[hj];W[ij];B[jj];W[ii];B[ih];W[ji];B[jg];W[kj];B[jl];W[hi];B[hg];W[ps];B[eh];W[fh];B[en];W[em];B[dm];W[dl];B[fm];W[cm];B[gn];W[fl];B[gh];W[gm];B[fi];W[gi];B[fg];W[mr];B[dh];W[mo];B[mm];W[ns];B[dd];W[ed];B[fj];W[gj];B[fe];W[ia];B[ck];W[qk];B[re];W[rf];B[rd];W[lk];B[mk];W[ja];B[lb];W[la];B[ma];W[ka];B[mc];W[bk];B[bj];W[bl];B[dj];W[sf];B[np];W[ln];B[lm];W[no];B[or];W[os];B[ho];W[li];B[fo];W[go];B[hn];W[hp];B[ip];W[hr];B[fm];W[hm];B[io];W[nm];B[nl];W[nn];B[lo];W[ko];B[pl];W[ll];B[ml];W[lp];B[kl];W[fn];B[kk];W[lj];B[lh])
-            `,
+          sgf_data:
+            "(;EV[46th Korean Myeongin, round 1]\n            DT[2023-08-30]\n            PB[Shin Jinseo]BR[9p]\n            PW[Han Sangcho]WR[5p]\n            KM[6.5]RE[B+R]\n            SO[Go4Go.net]\n            ;B[qd];W[dp];B[cd];W[qp];B[cq];W[cp];B[dq];W[fq];B[fr];W[pd];B[pc];W[qe];B[od];W[pe];B[qc];W[gr];B[er];W[gp];B[ep];W[eq];B[bp];W[bo];B[bq];W[cn];B[oq];W[lq];B[qi];W[ph];B[pi];W[oi];B[oj];W[qh];B[po];W[qo];B[pn];W[qm];B[pm];W[ql];B[pk];W[ni];B[nj];W[pq];B[mi];W[ng];B[mf];W[ec];B[oe];W[of];B[nf];W[og];B[mg];W[ri];B[hc];W[de];B[ce];W[df];B[bg];W[he];B[ie];W[hd];B[id];W[ic];B[jc];W[ib];B[jb];W[hb];B[gc];W[gb];B[hf];W[gd];B[pr];W[qr];B[eo];W[dn];B[jq];W[fn];B[hq];W[gq];B[pp];W[qq];B[jo];W[if];B[jf];W[ig];B[nr];W[ch];B[il];W[bh];B[cg];W[dg];B[db];W[in];B[eb];W[fb];B[jn];W[im];B[jm];W[hl];B[ik];W[hk];B[hj];W[ij];B[jj];W[ii];B[ih];W[ji];B[jg];W[kj];B[jl];W[hi];B[hg];W[ps];B[eh];W[fh];B[en];W[em];B[dm];W[dl];B[fm];W[cm];B[gn];W[fl];B[gh];W[gm];B[fi];W[gi];B[fg];W[mr];B[dh];W[mo];B[mm];W[ns];B[dd];W[ed];B[fj];W[gj];B[fe];W[ia];B[ck];W[qk];B[re];W[rf];B[rd];W[lk];B[mk];W[ja];B[lb];W[la];B[ma];W[ka];B[mc];W[bk];B[bj];W[bl];B[dj];W[sf];B[np];W[ln];B[lm];W[no];B[or];W[os];B[ho];W[li];B[fo];W[go];B[hn];W[hp];B[ip];W[hr];B[fm];W[hm];B[io];W[nm];B[nl];W[nn];B[lo];W[ko];B[pl];W[ll];B[ml];W[lp];B[kl];W[fn];B[kk];W[lj];B[lh])\n            ",
+          game_date: "2023-08-30T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Han Sangcho",
           black_player: "Shin Jinseo",
           white_player: "Han Sangcho",
           black_rank: "9p",
           white_rank: "5p",
           komi: 6.5,
-          game_date: "2023-08-30 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
           suspended: false,
-          result: "B+R",
         },
-        // Game 2 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[9th Ing Cup, final 2]
-            DT[2023-08-23]
-            PB[Xie Ke]BR[9p]
-            PW[Shin Jinseo]WR[9p]
-            KM[7.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[qd];W[dd];B[pq];W[dp];B[oc];W[qo];B[np];W[nd];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fe];B[bc];W[dg];B[bd];W[cg];B[ce];W[nc];B[od];W[ne];B[fg];W[di];B[if];W[jd];B[fi];W[dk];B[cq];W[cp];B[dq];W[ep];B[eq];W[fq];B[fr];W[gq];B[gr];W[hq];B[qk];W[gk];B[qp];W[ij];B[ih];W[ki];B[kg];W[mh];B[ld];W[le];B[ke];W[kd];B[mg];W[je];B[nh];W[kf];B[lh];W[rp];B[rq];W[ol];B[mj];W[pj];B[qm];W[qe];B[re];W[no];B[oo];W[mp];B[nn];W[mo];B[mn];W[lk];B[ln];W[pe];B[oe];W[of];B[nf];W[mf];B[ng];W[pd];B[pc];W[qc];B[pf];W[qf];B[rd];W[pg];B[qb];W[qj];B[qg];W[qh];B[rg];W[rk];B[ql];W[mk];B[kj];W[lj];B[li];W[ji];B[jf];W[nj];B[kp];W[op];B[po];W[lq];B[nq];W[kq];B[om];W[ph];B[hd];W[hc];B[ge];W[nb];B[rf];W[pf];B[bp];W[bo];B[bq];W[cn];B[ej];W[ek];B[bg];W[bh];B[bf];W[mi];B[gj];W[hk];B[jm];W[hi];B[hh];W[gi];B[gh];W[eh];B[ic];W[id];B[kh];W[hj];B[jj];W[ii];B[hf];W[fh];B[ff];W[gc];B[ib];W[jc];B[lf];W[lg];B[jb];W[kb];B[lf];W[rc];B[rb];W[lg];B[cj];W[dj];B[lf];W[me];B[ke];W[ja];B[kl];W[ni];B[jq];W[jr];B[iq];W[nr];B[oq];W[ir];B[hr];W[mr];B[ch];W[bi];B[bm];W[go];B[gn];W[cm];B[ho];W[io];B[hp];W[ip];B[fp];W[jp];B[iq];W[jq];B[gp];W[eb];B[fl];W[fk];B[jh];W[iq];B[eo];W[en];B[em];W[dn];B[in];W[fn];B[ob];W[oa];B[pb];W[kf];B[fo];W[hm];B[cl];W[dl];B[ao];W[hn];B[ci];W[ck];B[bj];W[bk];B[ah];W[lg];B[ai];W[lf];B[bn];W[dh];B[db];W[fa];B[il];W[hl])
-            `,
+          sgf_data:
+            "(;EV[9th Ing Cup, final 2]\n            DT[2023-08-23]\n            PB[Xie Ke]BR[9p]\n            PW[Shin Jinseo]WR[9p]\n            KM[7.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[qd];W[dd];B[pq];W[dp];B[oc];W[qo];B[np];W[nd];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fe];B[bc];W[dg];B[bd];W[cg];B[ce];W[nc];B[od];W[ne];B[fg];W[di];B[if];W[jd];B[fi];W[dk];B[cq];W[cp];B[dq];W[ep];B[eq];W[fq];B[fr];W[gq];B[gr];W[hq];B[qk];W[gk];B[qp];W[ij];B[ih];W[ki];B[kg];W[mh];B[ld];W[le];B[ke];W[kd];B[mg];W[je];B[nh];W[kf];B[lh];W[rp];B[rq];W[ol];B[mj];W[pj];B[qm];W[qe];B[re];W[no];B[oo];W[mp];B[nn];W[mo];B[mn];W[lk];B[ln];W[pe];B[oe];W[of];B[nf];W[mf];B[ng];W[pd];B[pc];W[qc];B[pf];W[qf];B[rd];W[pg];B[qb];W[qj];B[qg];W[qh];B[rg];W[rk];B[ql];W[mk];B[kj];W[lj];B[li];W[ji];B[jf];W[nj];B[kp];W[op];B[po];W[lq];B[nq];W[kq];B[om];W[ph];B[hd];W[hc];B[ge];W[nb];B[rf];W[pf];B[bp];W[bo];B[bq];W[cn];B[ej];W[ek];B[bg];W[bh];B[bf];W[mi];B[gj];W[hk];B[jm];W[hi];B[hh];W[gi];B[gh];W[eh];B[ic];W[id];B[kh];W[hj];B[jj];W[ii];B[hf];W[fh];B[ff];W[gc];B[ib];W[jc];B[lf];W[lg];B[jb];W[kb];B[lf];W[rc];B[rb];W[lg];B[cj];W[dj];B[lf];W[me];B[ke];W[ja];B[kl];W[ni];B[jq];W[jr];B[iq];W[nr];B[oq];W[ir];B[hr];W[mr];B[ch];W[bi];B[bm];W[go];B[gn];W[cm];B[ho];W[io];B[hp];W[ip];B[fp];W[jp];B[iq];W[jq];B[gp];W[eb];B[fl];W[fk];B[jh];W[iq];B[eo];W[en];B[em];W[dn];B[in];W[fn];B[ob];W[oa];B[pb];W[kf];B[fo];W[hm];B[cl];W[dl];B[ao];W[hn];B[ci];W[ck];B[bj];W[bk];B[ah];W[lg];B[ai];W[lf];B[bn];W[dh];B[db];W[fa];B[il];W[hl])\n            ",
+          game_date: "2023-08-23T15:00:00+00:00",
           sgf_name: "Xie Ke vs Shin Jinseo",
           black_player: "Xie Ke",
           white_player: "Shin Jinseo",
           black_rank: "9p",
           white_rank: "9p",
           komi: 7.5,
-          game_date: "2023-08-23 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886733/Seeder%20Data/Shin-Jinseo2_thumbnail_jebjvy.png",
           suspended: false,
-          result: "W+R",
         },
-        // Game 3 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[9th Ing Cup, final 1]
-            DT[2023-08-21]
-            PB[Shin Jinseo]BR[9p]
-            PW[Xie Ke]WR[9p]
-            KM[8]RE[B+R]
-            SO[Go4Go.net]
-            ;B[pd];W[dd];B[pp];W[dq];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fg];B[cg];W[bc];B[eb];W[eh];B[dg];W[ci];B[gc];W[fh];B[ce];W[bd];B[bf];W[gd];B[hc];W[hd];B[bh];W[ic];B[hb];W[ib];B[ga];W[je];B[dp];W[eq];B[cp];W[cq];B[bq];W[br];B[bo];W[aq];B[bi];W[qf];B[re];W[qn];B[nq];W[rf];B[oc];W[qp];B[qq];W[rq];B[rr];W[rp];B[pq];W[on];B[pm];W[pn];B[qm];W[qj];B[pk];W[sr];B[rs];W[mn];B[pj];W[qi];B[pi];W[rd];B[qe];W[se];B[pf];W[cb];B[ab];W[pg];B[og];W[of];B[pe];W[oh];B[ph];W[qg];B[ng];W[nh];B[mh];W[mg];B[nf];W[mi];B[lh];W[ni];B[rc];W[rl];B[rm];W[rk];B[ml];W[li];B[om];W[mp];B[lr];W[op];B[rn];W[qo];B[mq];W[nl];B[nm];W[mm];B[nk];W[ll];B[ol];W[mk];B[nj];W[nl];B[ql];W[mf];B[ne];W[me];B[fl];W[nd];B[oe];W[nc];B[qh];W[rh];B[sg];W[sf];B[qd];W[ri];B[hk];W[fj];B[ml];W[bb];B[ea];W[nl];B[im];W[mj];B[oi];W[ij];B[gq];W[hj];B[ap];W[bp];B[sd];W[rg];B[bq];W[ar];B[lp];W[ob];B[lo];W[ia];B[ha];W[nn];B[fo];W[gr];B[fr];W[fq];B[hr];W[gp];B[hq];W[eo];B[er];W[bp];B[id];W[jd];B[bq];W[fp];B[dr];W[bp];B[ff];W[fe];B[bq];W[ok];B[oj];W[bp];B[ie];W[if];B[bq];W[fn];B[cr];W[bp];B[he];W[gf];B[bq];W[ae];B[bp];W[ca];B[em];W[in];B[hn];W[cm];B[hm];W[ck];B[cn];W[jn];B[io];W[ik];B[km];W[gl];B[gm];W[fm];B[el];W[jm];B[jl];W[kn];B[ln];W[kl];B[lm];W[il];B[jo];W[dm];B[dn];W[en];B[do];W[jk];B[ep];W[pb];B[ml];W[go];B[gn];W[nl];B[dk];W[dj];B[ml];W[oq];B[or];W[nl];B[jc];W[hf];B[ml];W[pr];B[ps];W[nl];B[jb];W[ge];B[ml];W[rb];B[qb];W[nl];B[bj];W[cj];B[pa];W[oa];B[qa];W[pc];B[qc];W[po];B[qr];W[ml];B[od];W[nb];B[bm])
-            `,
+          sgf_data:
+            "(;EV[9th Ing Cup, final 1]\n            DT[2023-08-21]\n            PB[Shin Jinseo]BR[9p]\n            PW[Xie Ke]WR[9p]\n            KM[8]RE[B+R]\n            SO[Go4Go.net]\n            ;B[pd];W[dd];B[pp];W[dq];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fg];B[cg];W[bc];B[eb];W[eh];B[dg];W[ci];B[gc];W[fh];B[ce];W[bd];B[bf];W[gd];B[hc];W[hd];B[bh];W[ic];B[hb];W[ib];B[ga];W[je];B[dp];W[eq];B[cp];W[cq];B[bq];W[br];B[bo];W[aq];B[bi];W[qf];B[re];W[qn];B[nq];W[rf];B[oc];W[qp];B[qq];W[rq];B[rr];W[rp];B[pq];W[on];B[pm];W[pn];B[qm];W[qj];B[pk];W[sr];B[rs];W[mn];B[pj];W[qi];B[pi];W[rd];B[qe];W[se];B[pf];W[cb];B[ab];W[pg];B[og];W[of];B[pe];W[oh];B[ph];W[qg];B[ng];W[nh];B[mh];W[mg];B[nf];W[mi];B[lh];W[ni];B[rc];W[rl];B[rm];W[rk];B[ml];W[li];B[om];W[mp];B[lr];W[op];B[rn];W[qo];B[mq];W[nl];B[nm];W[mm];B[nk];W[ll];B[ol];W[mk];B[nj];W[nl];B[ql];W[mf];B[ne];W[me];B[fl];W[nd];B[oe];W[nc];B[qh];W[rh];B[sg];W[sf];B[qd];W[ri];B[hk];W[fj];B[ml];W[bb];B[ea];W[nl];B[im];W[mj];B[oi];W[ij];B[gq];W[hj];B[ap];W[bp];B[sd];W[rg];B[bq];W[ar];B[lp];W[ob];B[lo];W[ia];B[ha];W[nn];B[fo];W[gr];B[fr];W[fq];B[hr];W[gp];B[hq];W[eo];B[er];W[bp];B[id];W[jd];B[bq];W[fp];B[dr];W[bp];B[ff];W[fe];B[bq];W[ok];B[oj];W[bp];B[ie];W[if];B[bq];W[fn];B[cr];W[bp];B[he];W[gf];B[bq];W[ae];B[bp];W[ca];B[em];W[in];B[hn];W[cm];B[hm];W[ck];B[cn];W[jn];B[io];W[ik];B[km];W[gl];B[gm];W[fm];B[el];W[jm];B[jl];W[kn];B[ln];W[kl];B[lm];W[il];B[jo];W[dm];B[dn];W[en];B[do];W[jk];B[ep];W[pb];B[ml];W[go];B[gn];W[nl];B[dk];W[dj];B[ml];W[oq];B[or];W[nl];B[jc];W[hf];B[ml];W[pr];B[ps];W[nl];B[jb];W[ge];B[ml];W[rb];B[qb];W[nl];B[bj];W[cj];B[pa];W[oa];B[qa];W[pc];B[qc];W[po];B[qr];W[ml];B[od];W[nb];B[bm])\n            ",
+          game_date: "2023-08-21T15:00:00+00:00",
           sgf_name: "Xie Ke vs Shin Jinseo",
           black_player: "Shin Jinseo",
           white_player: "Xie Ke",
           black_rank: "9p",
           white_rank: "9p",
-          komi: 8,
-          game_date: "2023-08-21 15:00:00.000",
+          komi: 8.0,
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886995/Seeder%20Data/Shin-Jinseo3_thumbnail_sykatb.png",
           suspended: false,
-          result: "W+R",
         },
-        // Game 4 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[5th Mlily Cup, round 3]
-            DT[2023-08-06]
-            PB[Shin Jinseo]BR[9p]
-            PW[Li Xuanhao]WR[9p]
-            KM[7.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[qd];W[pp];B[cd];W[cp];B[fd];W[oc];B[pe];W[lc];B[qq];W[qp];B[pq];W[nq];B[nr];W[mq];B[mr];W[lq];B[qj];W[ep];B[cj];W[ch];B[di];W[dd];B[dc];W[cc];B[ec];W[bd];B[ce];W[be];B[cf];W[bf];B[cb];W[bc];B[cg];W[dh];B[bg];W[bh];B[ah];W[bj];B[bi];W[ci];B[ai];W[dj];B[ck];W[ei];B[eb];W[bk];B[cl];W[bl];B[cm];W[bm];B[cn];W[bn];B[fl];W[gk];B[gl];W[hk];B[hl];W[ik];B[eg];W[il];B[fo];W[fp];B[go];W[qh];B[nd];W[pi];B[nc];W[oq];B[or];W[pj];B[rq];W[nb];B[mb];W[pb];B[na];W[ob];B[mc];W[od];B[oe];W[qc];B[lf];W[mh];B[ng];W[jg];B[ql];W[pk];B[qn];W[on];B[ro];W[je];B[ld];W[eo];B[en];W[hq];B[im];W[jm];B[co];W[bo];B[do];W[dp];B[in];W[fg];B[ff];W[ef];B[gf];W[dg];B[ee];W[eh];B[df];W[lg];B[nh];W[ni];B[om];W[kf];B[nl];W[mf];B[nf];W[me];B[ne];W[jc];B[rc];W[rb];B[rd];W[pd];B[rg];W[lr];B[sb];W[ra];B[gg];W[qk];B[jp];W[iq];B[gp];W[gq];B[mi];W[nj];B[kl];W[jl];B[gi];W[hh];B[gh];W[fj];B[kk];W[mk];B[ml];W[km];B[lm];W[kj];B[jj];W[jk];B[lj];W[ki];B[mg];W[lh];B[lk];W[li];B[rl];W[rh];B[rf];W[mj];B[ll];W[dk];B[el];W[io];B[ho];W[fn];B[gn];W[rk];B[jo];W[hi];B[le];W[gc];B[ic];W[ib];B[hb];W[hc];B[id];W[jb];B[gb];W[hd];B[ig];W[ha];B[fb];W[if];B[ih];W[ii];B[hg];W[pl];B[pm];W[sl];B[jh];W[ji];B[sm];W[sk];B[rm];W[ip];B[ms];W[jn];B[lo];W[nn];B[gj];W[fk];B[mo];W[ls];B[kc];W[kd];B[he];W[ie];B[kb];W[pn];B[lp];W[no];B[op];W[ln];B[mn];W[kn];B[ol];W[np];B[po];W[oo];B[qo];W[oh];B[eg];W[aj];B[ag];W[ef];B[jq];W[jr];B[eg];W[dl];B[dm];W[ef];B[ek];W[ej];B[eg];W[fh])`,
+          sgf_data:
+            "(;EV[5th Mlily Cup, round 3]\n            DT[2023-08-06]\n            PB[Shin Jinseo]BR[9p]\n            PW[Li Xuanhao]WR[9p]\n            KM[7.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[qd];W[pp];B[cd];W[cp];B[fd];W[oc];B[pe];W[lc];B[qq];W[qp];B[pq];W[nq];B[nr];W[mq];B[mr];W[lq];B[qj];W[ep];B[cj];W[ch];B[di];W[dd];B[dc];W[cc];B[ec];W[bd];B[ce];W[be];B[cf];W[bf];B[cb];W[bc];B[cg];W[dh];B[bg];W[bh];B[ah];W[bj];B[bi];W[ci];B[ai];W[dj];B[ck];W[ei];B[eb];W[bk];B[cl];W[bl];B[cm];W[bm];B[cn];W[bn];B[fl];W[gk];B[gl];W[hk];B[hl];W[ik];B[eg];W[il];B[fo];W[fp];B[go];W[qh];B[nd];W[pi];B[nc];W[oq];B[or];W[pj];B[rq];W[nb];B[mb];W[pb];B[na];W[ob];B[mc];W[od];B[oe];W[qc];B[lf];W[mh];B[ng];W[jg];B[ql];W[pk];B[qn];W[on];B[ro];W[je];B[ld];W[eo];B[en];W[hq];B[im];W[jm];B[co];W[bo];B[do];W[dp];B[in];W[fg];B[ff];W[ef];B[gf];W[dg];B[ee];W[eh];B[df];W[lg];B[nh];W[ni];B[om];W[kf];B[nl];W[mf];B[nf];W[me];B[ne];W[jc];B[rc];W[rb];B[rd];W[pd];B[rg];W[lr];B[sb];W[ra];B[gg];W[qk];B[jp];W[iq];B[gp];W[gq];B[mi];W[nj];B[kl];W[jl];B[gi];W[hh];B[gh];W[fj];B[kk];W[mk];B[ml];W[km];B[lm];W[kj];B[jj];W[jk];B[lj];W[ki];B[mg];W[lh];B[lk];W[li];B[rl];W[rh];B[rf];W[mj];B[ll];W[dk];B[el];W[io];B[ho];W[fn];B[gn];W[rk];B[jo];W[hi];B[le];W[gc];B[ic];W[ib];B[hb];W[hc];B[id];W[jb];B[gb];W[hd];B[ig];W[ha];B[fb];W[if];B[ih];W[ii];B[hg];W[pl];B[pm];W[sl];B[jh];W[ji];B[sm];W[sk];B[rm];W[ip];B[ms];W[jn];B[lo];W[nn];B[gj];W[fk];B[mo];W[ls];B[kc];W[kd];B[he];W[ie];B[kb];W[pn];B[lp];W[no];B[op];W[ln];B[mn];W[kn];B[ol];W[np];B[po];W[oo];B[qo];W[oh];B[eg];W[aj];B[ag];W[ef];B[jq];W[jr];B[eg];W[dl];B[dm];W[ef];B[ek];W[ej];B[eg];W[fh])",
+          game_date: "2023-08-06T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Li Xuanhao",
           black_player: "Shin Jinseo",
           white_player: "Li Xuanhao",
           black_rank: "9p",
           white_rank: "9p",
           komi: 7.5,
-          game_date: "2023-08-06 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955474/Seeder%20Data/Shin-Jinseo4_thumbnail_xdtivw.png",
           suspended: false,
-          result: "W+R",
         },
-        // Game 5 Shin Jinseo
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2020-10-20]\nPC[OGS: https://online-go.com/game/27708384]\nGN[Friendly Match]\nPB[badkarma2020]\nPW[Dzhelilov]\nBR[4k]\nWR[6k]\nTM[0]OT[8 simple]\nRE[B+R]\nSZ[9]\nKM[5.5]\nRU[Japanese]\n;B[gg]\n(;W[dd]\n(;B[cc]\n(;W[dc]\n(;B[cd]\n(;W[ce]\n(;B[be]\n(;W[bf]\n(;B[cf]\n(;W[de]\n(;B[bg]\n(;W[bd]\n(;B[af]\n(;W[bc]\n(;B[gd]\n(;W[ge]\n(;B[he]\n(;W[gc]\n(;B[hc]\n(;W[fd]\n(;B[hd]\n(;W[gb]\n(;B[fe]\n(;W[ee]\n(;B[ff]\n(;W[eh]\n(;B[ef]\n(;W[df]\n(;B[dg]\n(;W[eg]\n(;B[dh]\n(;W[gh]\n(;B[hh]\n(;W[hb]\n(;B[gf]\n(;W[ic]\n(;B[id]\n(;W[ib]\n(;B[ad]\n(;W[ac]\n(;B[cb]\n(;W[ae]\n(;B[bf]\n(;W[bb]\n(;B[ba]\n(;W[db]\n(;B[ad]\n(;W[ca]\n(;B[ae]\n)))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2020-10-20T00:00:00+00:00",
+          sgf_name: "badkarma2020 vs Dzhelilov",
+          black_player: "badkarma2020",
+          white_player: "Dzhelilov",
+          black_rank: "4k",
+          white_rank: "6k",
+          komi: 5.5,
+          result: "B+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1701999640/xlb32b2vq8732agtwzcv.png",
+          suspended: false,
+        },
         {
           user_id: 1,
-          sgf_data: `(;EV[5th Mlily Cup, round 2]
-            DT[2023-08-04]
-            PB[Fan Tingyu]BR[9p]
-            PW[Shin Jinseo]WR[9p]
-            KM[7.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[pd];W[dp];B[pq];W[dd];B[cc];W[dc];B[cd];W[de];B[bf];W[qc];B[qd];W[pc];B[od];W[nb];B[qk];W[mc];B[po];W[jq];B[cq];W[dq];B[cp];W[do];B[bn];W[pi];B[qh];W[qi];B[ph];W[oi];B[ri];W[rj];B[rh];W[ol];B[hd];W[mq];B[qm];W[cf];B[bg];W[hc];B[id];W[ic];B[ip];W[iq];B[hp];W[hq];B[jd];W[cb];B[bb];W[ig];B[kg];W[ji];B[im];W[li];B[ld];W[ko];B[qj];W[md];B[le];W[gl];B[kj];W[jj];B[kl];W[kk];B[ll];W[jl];B[jm];W[km];B[kp];W[jp];B[kn];W[lo];B[ln];W[mn];B[mm];W[nn];B[lk];W[jk];B[jo];W[io];B[jn];W[op];B[pp];W[lj];B[ho];W[db];B[ce];W[jc];B[gd];W[gc];B[cr];W[pl];B[ql];W[hn];B[gn];W[hm];B[in];W[fp];B[il];W[hk];B[nk];W[nl];B[mk];W[mh];B[me];W[oh];B[ok];W[oo];B[pn];W[on];B[dm];W[dl];B[cm];W[em];B[en];W[go];B[oj];W[el];B[ik];W[ij];B[gg];W[gh];B[fh];W[hh];B[nr];W[or];B[oq];W[nq];B[kc];W[kb];B[lc];W[lb];B[kh];W[ki];B[ck];W[of];B[eg];W[dh];B[ei];W[df];B[ch];W[ff];B[fg];W[di];B[ej];W[dg];B[rc];W[rb];B[rd];W[gf];B[dk];W[ne];B[hf];W[hg];B[if];W[kf];B[ef];W[fe];B[mg];W[jf])
-            `,
+          sgf_data:
+            "(;EV[5th Mlily Cup, round 2]\n            DT[2023-08-04]\n            PB[Fan Tingyu]BR[9p]\n            PW[Shin Jinseo]WR[9p]\n            KM[7.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[pd];W[dp];B[pq];W[dd];B[cc];W[dc];B[cd];W[de];B[bf];W[qc];B[qd];W[pc];B[od];W[nb];B[qk];W[mc];B[po];W[jq];B[cq];W[dq];B[cp];W[do];B[bn];W[pi];B[qh];W[qi];B[ph];W[oi];B[ri];W[rj];B[rh];W[ol];B[hd];W[mq];B[qm];W[cf];B[bg];W[hc];B[id];W[ic];B[ip];W[iq];B[hp];W[hq];B[jd];W[cb];B[bb];W[ig];B[kg];W[ji];B[im];W[li];B[ld];W[ko];B[qj];W[md];B[le];W[gl];B[kj];W[jj];B[kl];W[kk];B[ll];W[jl];B[jm];W[km];B[kp];W[jp];B[kn];W[lo];B[ln];W[mn];B[mm];W[nn];B[lk];W[jk];B[jo];W[io];B[jn];W[op];B[pp];W[lj];B[ho];W[db];B[ce];W[jc];B[gd];W[gc];B[cr];W[pl];B[ql];W[hn];B[gn];W[hm];B[in];W[fp];B[il];W[hk];B[nk];W[nl];B[mk];W[mh];B[me];W[oh];B[ok];W[oo];B[pn];W[on];B[dm];W[dl];B[cm];W[em];B[en];W[go];B[oj];W[el];B[ik];W[ij];B[gg];W[gh];B[fh];W[hh];B[nr];W[or];B[oq];W[nq];B[kc];W[kb];B[lc];W[lb];B[kh];W[ki];B[ck];W[of];B[eg];W[dh];B[ei];W[df];B[ch];W[ff];B[fg];W[di];B[ej];W[dg];B[rc];W[rb];B[rd];W[gf];B[dk];W[ne];B[hf];W[hg];B[if];W[kf];B[ef];W[fe];B[mg];W[jf])\n            ",
+          game_date: "2023-08-04T15:00:00+00:00",
           sgf_name: "Fan Tingyu vs Shin Jinseo",
           black_player: "Fan Tingyu",
           white_player: "Shin Jinseo",
           black_rank: "9p",
           white_rank: "9p",
           komi: 7.5,
-          game_date: "2023-08-04 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955660/Seeder%20Data/Shin-Jinseo5_thumbnail_grp4np.png",
           suspended: false,
-          result: "W+R",
         },
-        // Game 6 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[5th Mlily Cup, round 1]
-            DT[2023-08-03]
-            PB[Shin Jinseo]BR[9p]
-            PW[Zhou Hongyu]WR[7p]
-            KM[7.5]RE[B+3.5]
-            SO[Go4Go.net]
-            ;B[qd];W[dp];B[pp];W[dd];B[cc];W[dc];B[cd];W[de];B[bf];W[od];B[oc];W[nc];B[pc];W[nd];B[qf];W[jd];B[nq];W[fq];B[cg];W[mp];B[gp];W[mq];B[np];W[mo];B[pn];W[im];B[gq];W[fp];B[hn];W[in];B[jp];W[om];B[pm];W[pq];B[qq];W[pr];B[or];W[fn];B[kq];W[mr];B[qr];W[ko];B[fr];W[er];B[gr];W[og];B[hd];W[dg];B[dh];W[eh];B[ei];W[fh];B[df];W[eg];B[ef];W[ce];B[be];W[cf];B[ff];W[cb];B[bb];W[eb];B[ch];W[ba];B[je];W[ke];B[jf];W[id];B[he];W[fi];B[kd];W[kc];B[ld];W[lc];B[bc];W[gb];B[ej];W[fj];B[hg];W[cj];B[ek];W[cl];B[dl];W[cm];B[hb];W[ib];B[hk];W[ii];B[hi];W[hj];B[ij];W[hh];B[gj];W[ih];B[gh];W[gi];B[gg];W[hj];B[gc];W[ha];B[hi];W[fk];B[fl];W[hj];B[ic];W[jc];B[hi];W[gk];B[hj];W[gl];B[hl];W[fm];B[hm];W[kh];B[ki];W[jj];B[lh];W[ji];B[kg];W[kj];B[li];W[ho];B[go];W[ip];B[fo];W[el];B[gn];W[iq];B[dq];W[cq];B[dr];W[ep];B[cp];W[co];B[bp];W[cr];B[es];W[bq];B[en];W[dm];B[do];W[bo];B[mk];W[ll];B[ph];W[ap];B[eq];W[pe];B[qe];W[pg];B[qh];W[hr];B[gs];W[ml];B[ol];W[nk];B[ok];W[cs];B[ds];W[le];B[ni];W[di];B[bi];W[ob];B[hc];W[fc];B[pb];W[nr];B[oq];W[qg];B[rg];W[mj];B[nh];W[nb];B[lj];W[lk];B[jk];W[kk];B[jl];W[jm];B[bk];W[bj];B[aj];W[pa];B[qa];W[oa];B[qb];W[nm];B[on];W[rh];B[ri];W[ie];B[if];W[ge];B[nn];W[mn];B[nl];W[rf];B[sh];W[gd];B[hf];W[hs];B[mm];W[lm];B[nf];W[ng];B[mf];W[mg];B[lf];W[oe];B[eo];W[cp];B[em];W[dk];B[an];W[bl];B[al];W[ci];B[bg];W[oh];B[oi];W[jh];B[lg];W[nj];B[oj];W[no];B[oo];W[ns];B[os];W[il];B[ik];W[nm];B[ab];W[ca];B[ee];W[ed];B[gm];W[fl];B[kl];W[km];B[hp];W[io];B[hq];W[ir];B[am];W[ck];B[ak];W[me];B[ne];W[bn];B[dn];W[pd];B[gf];W[fd];B[aa];W[jb];B[kf];W[md];B[mi];W[mk];B[ai];W[ao];B[fg];W[dj];B[fe];W[bm];B[mh];W[cn];B[pf];W[of];B[ig];W[jg];B[om];W[mm])
-            `,
+          sgf_data:
+            "(;EV[5th Mlily Cup, round 1]\n            DT[2023-08-03]\n            PB[Shin Jinseo]BR[9p]\n            PW[Zhou Hongyu]WR[7p]\n            KM[7.5]RE[B+3.5]\n            SO[Go4Go.net]\n            ;B[qd];W[dp];B[pp];W[dd];B[cc];W[dc];B[cd];W[de];B[bf];W[od];B[oc];W[nc];B[pc];W[nd];B[qf];W[jd];B[nq];W[fq];B[cg];W[mp];B[gp];W[mq];B[np];W[mo];B[pn];W[im];B[gq];W[fp];B[hn];W[in];B[jp];W[om];B[pm];W[pq];B[qq];W[pr];B[or];W[fn];B[kq];W[mr];B[qr];W[ko];B[fr];W[er];B[gr];W[og];B[hd];W[dg];B[dh];W[eh];B[ei];W[fh];B[df];W[eg];B[ef];W[ce];B[be];W[cf];B[ff];W[cb];B[bb];W[eb];B[ch];W[ba];B[je];W[ke];B[jf];W[id];B[he];W[fi];B[kd];W[kc];B[ld];W[lc];B[bc];W[gb];B[ej];W[fj];B[hg];W[cj];B[ek];W[cl];B[dl];W[cm];B[hb];W[ib];B[hk];W[ii];B[hi];W[hj];B[ij];W[hh];B[gj];W[ih];B[gh];W[gi];B[gg];W[hj];B[gc];W[ha];B[hi];W[fk];B[fl];W[hj];B[ic];W[jc];B[hi];W[gk];B[hj];W[gl];B[hl];W[fm];B[hm];W[kh];B[ki];W[jj];B[lh];W[ji];B[kg];W[kj];B[li];W[ho];B[go];W[ip];B[fo];W[el];B[gn];W[iq];B[dq];W[cq];B[dr];W[ep];B[cp];W[co];B[bp];W[cr];B[es];W[bq];B[en];W[dm];B[do];W[bo];B[mk];W[ll];B[ph];W[ap];B[eq];W[pe];B[qe];W[pg];B[qh];W[hr];B[gs];W[ml];B[ol];W[nk];B[ok];W[cs];B[ds];W[le];B[ni];W[di];B[bi];W[ob];B[hc];W[fc];B[pb];W[nr];B[oq];W[qg];B[rg];W[mj];B[nh];W[nb];B[lj];W[lk];B[jk];W[kk];B[jl];W[jm];B[bk];W[bj];B[aj];W[pa];B[qa];W[oa];B[qb];W[nm];B[on];W[rh];B[ri];W[ie];B[if];W[ge];B[nn];W[mn];B[nl];W[rf];B[sh];W[gd];B[hf];W[hs];B[mm];W[lm];B[nf];W[ng];B[mf];W[mg];B[lf];W[oe];B[eo];W[cp];B[em];W[dk];B[an];W[bl];B[al];W[ci];B[bg];W[oh];B[oi];W[jh];B[lg];W[nj];B[oj];W[no];B[oo];W[ns];B[os];W[il];B[ik];W[nm];B[ab];W[ca];B[ee];W[ed];B[gm];W[fl];B[kl];W[km];B[hp];W[io];B[hq];W[ir];B[am];W[ck];B[ak];W[me];B[ne];W[bn];B[dn];W[pd];B[gf];W[fd];B[aa];W[jb];B[kf];W[md];B[mi];W[mk];B[ai];W[ao];B[fg];W[dj];B[fe];W[bm];B[mh];W[cn];B[pf];W[of];B[ig];W[jg];B[om];W[mm])\n            ",
+          game_date: "2023-08-04T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Fan Tingyu",
           black_player: "Shin Jinseo",
           white_player: "Zhou Hongyu",
           black_rank: "9p",
           white_rank: "7p",
           komi: 7.5,
-          game_date: "2023-08-04 15:00:00.000",
+          result: "B+3.5",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955875/Seeder%20Data/Shin-Jinseo6_thumbnail_zrejkg.png",
           suspended: false,
-          result: "B+3.5",
         },
-        // Game 7 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[9th Kuksu Mountains Tournament, final]
-            DT[2023-07-28]
-            PB[Shin Jinseo]BR[9p]
-            PW[Shin Minjun]WR[9p]
-            KM[6.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[pd];W[dp];B[pp];W[dd];B[cq];W[dq];B[cp];W[do];B[bn];W[qc];B[qd];W[pc];B[od];W[nc];B[rc];W[nd];B[fc];W[nf];B[cf];W[df];B[dg];W[ef];B[ce];W[cd];B[ic];W[rb];B[oc];W[ob];B[nb];W[pb];B[mb];W[rd];B[re];W[sc];B[pf];W[jc];B[de];W[ed];B[jb];W[ee];B[kc];W[cg];B[ph];W[qq];B[qp];W[pq];B[nq];W[oq];B[op];W[nr];B[rq];W[rr];B[or];W[rp];B[qr];W[sq];B[pr];W[rq];B[mr];W[np];B[mq];W[qo];B[no];W[ql];B[hp];W[ch];B[pn];W[qn];B[gq];W[jd];B[kd];W[cr];B[br];W[bo];B[co];W[cn];B[bp];W[bm];B[dn];W[an];B[dr];W[dm];B[en];W[em];B[fn];W[gl];B[hm];W[hl];B[im];W[ke];B[je];W[id];B[hc];W[jf];B[ie];W[hd];B[gd];W[he];B[if];W[kf];B[ge];W[hf];B[ig];W[gf];B[gg];W[ff];B[jh];W[oh];B[lh];W[oi];B[pi];W[oj];B[og];W[ng];B[qj];W[jk];B[kj];W[jj];B[mi];W[ki];B[kh];W[mh];B[li];W[mk];B[lk];W[ll];B[nk];W[ih];B[jg];W[pj];B[me];W[kb];B[lb];W[le];B[md];W[lc];B[ld];W[mf];B[qk];W[ne];B[mc];W[nl];B[mj];W[ml];B[pl];W[ol];B[kk];W[pk];B[rl];W[pm];B[rm];W[mp])
-            `,
+          sgf_data:
+            "(;EV[9th Kuksu Mountains Tournament, final]\n            DT[2023-07-28]\n            PB[Shin Jinseo]BR[9p]\n            PW[Shin Minjun]WR[9p]\n            KM[6.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[pd];W[dp];B[pp];W[dd];B[cq];W[dq];B[cp];W[do];B[bn];W[qc];B[qd];W[pc];B[od];W[nc];B[rc];W[nd];B[fc];W[nf];B[cf];W[df];B[dg];W[ef];B[ce];W[cd];B[ic];W[rb];B[oc];W[ob];B[nb];W[pb];B[mb];W[rd];B[re];W[sc];B[pf];W[jc];B[de];W[ed];B[jb];W[ee];B[kc];W[cg];B[ph];W[qq];B[qp];W[pq];B[nq];W[oq];B[op];W[nr];B[rq];W[rr];B[or];W[rp];B[qr];W[sq];B[pr];W[rq];B[mr];W[np];B[mq];W[qo];B[no];W[ql];B[hp];W[ch];B[pn];W[qn];B[gq];W[jd];B[kd];W[cr];B[br];W[bo];B[co];W[cn];B[bp];W[bm];B[dn];W[an];B[dr];W[dm];B[en];W[em];B[fn];W[gl];B[hm];W[hl];B[im];W[ke];B[je];W[id];B[hc];W[jf];B[ie];W[hd];B[gd];W[he];B[if];W[kf];B[ge];W[hf];B[ig];W[gf];B[gg];W[ff];B[jh];W[oh];B[lh];W[oi];B[pi];W[oj];B[og];W[ng];B[qj];W[jk];B[kj];W[jj];B[mi];W[ki];B[kh];W[mh];B[li];W[mk];B[lk];W[ll];B[nk];W[ih];B[jg];W[pj];B[me];W[kb];B[lb];W[le];B[md];W[lc];B[ld];W[mf];B[qk];W[ne];B[mc];W[nl];B[mj];W[ml];B[pl];W[ol];B[kk];W[pk];B[rl];W[pm];B[rm];W[mp])\n            ",
+          game_date: "2023-07-28T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Fan Tingyu",
           black_player: "Shin Jinseo",
           white_player: "Shin Minjun",
           black_rank: "9p",
           white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-07-28 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956063/Seeder%20Data/Shin-Jinseo7_thumbnail_acfagz.png",
           suspended: false,
-          result: "W+R",
         },
-        // Game 8 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[9th Kuksu Mountains Tournament, semi-final]
-            DT[2023-07-27]
-            PB[Shin Jinseo]BR[9p]
-            PW[Shibano Toramaru]WR[9p]
-            KM[6.5]RE[B+R]
-            SO[Go4Go.net]
-            ;B[qd];W[dp];B[cd];W[pp];B[ec];W[oc];B[pf];W[kd];B[qq];W[qp];B[pq];W[nq];B[nr];W[mq];B[mr];W[lq];B[cq];W[dq];B[cp];W[cn];B[co];W[do];B[bn];W[cm];B[bm];W[cl];B[oq];W[op];B[lr];W[kq];B[pj];W[oh];B[pc];W[od];B[ph];W[oi];B[pi];W[pe];B[qe];W[of];B[og];W[ng];B[pg];W[fd];B[fc];W[ce];B[dd];W[hk];B[jk];W[lk];B[ji];W[hi];B[jm];W[il];B[jl];W[lm];B[lj];W[mk];B[lh];W[bl];B[cg];W[kj];B[jj];W[li];B[jf];W[id];B[in];W[ih];B[gn];W[ho];B[hn];W[gp];B[jh];W[ig];B[gl];W[gk];B[el];W[ek];B[jp];W[jq];B[ip];W[kn];B[hl];W[ik];B[jn];W[en];B[gq];W[fq];B[hq];W[cr];B[br];W[er];B[cs];W[go];B[mg];W[nf];B[mf];W[le];B[mi];W[mj];B[nh];W[ni];B[mh];W[ok];B[me];W[md];B[nd];W[nc];B[ne];W[oe];B[mc];W[mb];B[ld];W[lc];B[md];W[kc];B[ke];W[ds];B[dr];W[lf];B[kg];W[cr];B[bs];W[pk];B[rk];W[de];B[ee];W[bd];B[bc];W[bf];B[ef];W[cc];B[cb];W[ac];B[dc];W[bb];B[hd];W[je];B[kf];W[hc];B[gc];W[he];B[gd];W[if];B[qm];W[qk];B[rj];W[hb];B[om];W[nm];B[bg];W[cc];B[db];W[df];B[dg];W[eg];B[bc];W[ap];B[bp];W[cc];B[ba];W[ae];B[bc];W[am];B[ao];W[cc];B[ag];W[ci];B[bc];W[ki];B[kk];W[cc];B[nn];W[pn];B[bc];W[pm];B[ko];W[lo];B[fm];W[cc];B[dh];W[eh];B[di];W[fk];B[bc];W[qj];B[qi];W[cc];B[ei];W[ff];B[fi];W[fe];B[ed];W[ca];B[bc];W[lj];B[kh];W[cc];B[da];W[fh];B[gb];W[ga];B[bc];W[rl];B[rp];W[cc];B[fa];W[ha];B[bc];W[ro];B[rq];W[cc];B[cf];W[be];B[bc];W[fl];B[fn];W[cc];B[ge];W[gf];B[bc];W[hm];B[gm];W[cc];B[eb];W[im];B[io];W[kp];B[ir];W[gr];B[kr])
-            `,
+          sgf_data:
+            "(;EV[9th Kuksu Mountains Tournament, semi-final]\n            DT[2023-07-27]\n            PB[Shin Jinseo]BR[9p]\n            PW[Shibano Toramaru]WR[9p]\n            KM[6.5]RE[B+R]\n            SO[Go4Go.net]\n            ;B[qd];W[dp];B[cd];W[pp];B[ec];W[oc];B[pf];W[kd];B[qq];W[qp];B[pq];W[nq];B[nr];W[mq];B[mr];W[lq];B[cq];W[dq];B[cp];W[cn];B[co];W[do];B[bn];W[cm];B[bm];W[cl];B[oq];W[op];B[lr];W[kq];B[pj];W[oh];B[pc];W[od];B[ph];W[oi];B[pi];W[pe];B[qe];W[of];B[og];W[ng];B[pg];W[fd];B[fc];W[ce];B[dd];W[hk];B[jk];W[lk];B[ji];W[hi];B[jm];W[il];B[jl];W[lm];B[lj];W[mk];B[lh];W[bl];B[cg];W[kj];B[jj];W[li];B[jf];W[id];B[in];W[ih];B[gn];W[ho];B[hn];W[gp];B[jh];W[ig];B[gl];W[gk];B[el];W[ek];B[jp];W[jq];B[ip];W[kn];B[hl];W[ik];B[jn];W[en];B[gq];W[fq];B[hq];W[cr];B[br];W[er];B[cs];W[go];B[mg];W[nf];B[mf];W[le];B[mi];W[mj];B[nh];W[ni];B[mh];W[ok];B[me];W[md];B[nd];W[nc];B[ne];W[oe];B[mc];W[mb];B[ld];W[lc];B[md];W[kc];B[ke];W[ds];B[dr];W[lf];B[kg];W[cr];B[bs];W[pk];B[rk];W[de];B[ee];W[bd];B[bc];W[bf];B[ef];W[cc];B[cb];W[ac];B[dc];W[bb];B[hd];W[je];B[kf];W[hc];B[gc];W[he];B[gd];W[if];B[qm];W[qk];B[rj];W[hb];B[om];W[nm];B[bg];W[cc];B[db];W[df];B[dg];W[eg];B[bc];W[ap];B[bp];W[cc];B[ba];W[ae];B[bc];W[am];B[ao];W[cc];B[ag];W[ci];B[bc];W[ki];B[kk];W[cc];B[nn];W[pn];B[bc];W[pm];B[ko];W[lo];B[fm];W[cc];B[dh];W[eh];B[di];W[fk];B[bc];W[qj];B[qi];W[cc];B[ei];W[ff];B[fi];W[fe];B[ed];W[ca];B[bc];W[lj];B[kh];W[cc];B[da];W[fh];B[gb];W[ga];B[bc];W[rl];B[rp];W[cc];B[fa];W[ha];B[bc];W[ro];B[rq];W[cc];B[cf];W[be];B[bc];W[fl];B[fn];W[cc];B[ge];W[gf];B[bc];W[hm];B[gm];W[cc];B[eb];W[im];B[io];W[kp];B[ir];W[gr];B[kr])\n            ",
+          game_date: "2023-07-27T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Fan Tingyu",
           black_player: "Shin Jinseo",
           white_player: "Shibano Toramaru",
           black_rank: "9p",
           white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-07-27 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956181/Seeder%20Data/Shin-Jinseo8_thumbnail_cvdvme.png",
           suspended: false,
-          result: "B+R",
         },
-        // Game 9 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 2]
-            DT[2023-07-26]
-            PB[Shin Jinseo]BR[9p]
-            PW[Kim Myounghoon]WR[9p]
-            KM[6.5]RE[B+R]
-            SO[Go4Go.net]
-            ;B[qd];W[cp];B[dd];W[pq];B[eq];W[do];B[po];W[qo];B[qn];W[qp];B[pn];W[np];B[pi];W[hq];B[nc];W[cf];B[fd];W[dj];B[fp];W[ho];B[cr];W[fo];B[mo];W[no];B[nn];W[mn];B[mm];W[ln];B[nm];W[lm];B[ll];W[kl];B[lk];W[kk];B[kj];W[jm];B[gp];W[hp];B[li];W[md];B[nd];W[mf];B[go];W[ne];B[le];W[me];B[lb];W[pd];B[pc];W[pe];B[qe];W[pf];B[qf];W[qc];B[pg];W[mc];B[ob];W[mb];B[qb];W[ic];B[lo];W[ko];B[oq];W[nq];B[kc];W[kd];B[jc];W[id];B[jd];W[je];B[ke];W[jf];B[ld];W[lc];B[ie];W[if];B[ib];W[hb];B[hc];W[he];B[hd];W[ie];B[jb];W[gb];B[fc];W[la];B[ce];W[be];B[bd];W[fb];B[eb];W[ec];B[ed];W[db];B[dc];W[ea];B[ec];W[kb];B[gc];W[fn];B[bq];W[og];B[oh];W[rc];B[of];W[oe];B[rb];W[ro];B[gn];W[ha];B[ia];W[ja];B[ka];W[qg];B[ng];W[ja];B[kn];W[km];B[ka];W[rd];B[rg];W[ja];B[kp];W[jo];B[ka];W[oc];B[od];W[ja];B[or];W[pp];B[ka];W[cq];B[br];W[ja];B[op];W[oo];B[ka];W[on];B[om];W[pm];B[qm];W[nr];B[lb];W[rf];B[qh];W[kb];B[fa];W[nb];B[pl];W[fr];B[er];W[bp];B[gr];W[de];B[cd];W[ch];B[dl];W[fl];B[ek];W[oc];B[pb];W[fi];B[fk];W[gm];B[gk];W[jj];B[gi];W[ki];B[fh];W[ei];B[ck];W[bm];B[cn];W[cm];B[dm];W[dn];B[bn];W[gh];B[bl];W[hm];B[bj];W[gq];B[fq];W[lj];B[hr];W[ir];B[gg];W[hh];B[fg];W[dg];B[ef];W[bg];B[ae];W[sl];B[eh];W[bi];B[dh];W[af];B[bf];W[re];B[qg];W[be];B[ad];W[aj];B[cj];W[al];B[ak];W[bk];B[cl];W[ai];B[am];W[bf];B[df];W[ah];B[hi];W[mj];B[hn];W[in];B[rl];W[sb];B[sf];W[sm];B[il];W[hj];B[iq])
-            `,
+          sgf_data:
+            "(;EV[9th Kuksu Mountains Tournament, round 2]\n            DT[2023-07-26]\n            PB[Shin Jinseo]BR[9p]\n            PW[Kim Myounghoon]WR[9p]\n            KM[6.5]RE[B+R]\n            SO[Go4Go.net]\n            ;B[qd];W[cp];B[dd];W[pq];B[eq];W[do];B[po];W[qo];B[qn];W[qp];B[pn];W[np];B[pi];W[hq];B[nc];W[cf];B[fd];W[dj];B[fp];W[ho];B[cr];W[fo];B[mo];W[no];B[nn];W[mn];B[mm];W[ln];B[nm];W[lm];B[ll];W[kl];B[lk];W[kk];B[kj];W[jm];B[gp];W[hp];B[li];W[md];B[nd];W[mf];B[go];W[ne];B[le];W[me];B[lb];W[pd];B[pc];W[pe];B[qe];W[pf];B[qf];W[qc];B[pg];W[mc];B[ob];W[mb];B[qb];W[ic];B[lo];W[ko];B[oq];W[nq];B[kc];W[kd];B[jc];W[id];B[jd];W[je];B[ke];W[jf];B[ld];W[lc];B[ie];W[if];B[ib];W[hb];B[hc];W[he];B[hd];W[ie];B[jb];W[gb];B[fc];W[la];B[ce];W[be];B[bd];W[fb];B[eb];W[ec];B[ed];W[db];B[dc];W[ea];B[ec];W[kb];B[gc];W[fn];B[bq];W[og];B[oh];W[rc];B[of];W[oe];B[rb];W[ro];B[gn];W[ha];B[ia];W[ja];B[ka];W[qg];B[ng];W[ja];B[kn];W[km];B[ka];W[rd];B[rg];W[ja];B[kp];W[jo];B[ka];W[oc];B[od];W[ja];B[or];W[pp];B[ka];W[cq];B[br];W[ja];B[op];W[oo];B[ka];W[on];B[om];W[pm];B[qm];W[nr];B[lb];W[rf];B[qh];W[kb];B[fa];W[nb];B[pl];W[fr];B[er];W[bp];B[gr];W[de];B[cd];W[ch];B[dl];W[fl];B[ek];W[oc];B[pb];W[fi];B[fk];W[gm];B[gk];W[jj];B[gi];W[ki];B[fh];W[ei];B[ck];W[bm];B[cn];W[cm];B[dm];W[dn];B[bn];W[gh];B[bl];W[hm];B[bj];W[gq];B[fq];W[lj];B[hr];W[ir];B[gg];W[hh];B[fg];W[dg];B[ef];W[bg];B[ae];W[sl];B[eh];W[bi];B[dh];W[af];B[bf];W[re];B[qg];W[be];B[ad];W[aj];B[cj];W[al];B[ak];W[bk];B[cl];W[ai];B[am];W[bf];B[df];W[ah];B[hi];W[mj];B[hn];W[in];B[rl];W[sb];B[sf];W[sm];B[il];W[hj];B[iq])\n            ",
+          game_date: "2023-07-26T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Kim Myounghoon",
           black_player: "Shin Jinseo",
           white_player: "Kim Myounghoon",
           black_rank: "9p",
           white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-07-26 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
           suspended: false,
-          result: "B+R",
         },
-        // Game 10 Shin Jinseo
         {
           user_id: 1,
-          sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 1]
-            DT[2023-07-26]
-            PB[Ida Atsushi]BR[9p]
-            PW[Shin Jinseo]WR[9p]
-            KM[6.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[qd];W[dc];B[qq];W[dq];B[od];W[de];B[co];W[fp];B[dk];W[ci];B[hq];W[jq];B[ho];W[mq];B[bq];W[cl];B[dn];W[dl];B[el];W[ek];B[em];W[ej];B[jc];W[go];B[gp];W[hn];B[fo];W[gn];B[io];W[fq];B[in];W[br];B[gl];W[oq];B[qn];W[hc];B[pj];W[lc];B[cc];W[cd];B[hd];W[ic];B[jd];W[id];B[je];W[ie];B[jf];W[hg];B[jh];W[pc];B[qc];W[pi];B[qj];W[pd];B[pe];W[oc];B[oe];W[qb];B[rb];W[pb];B[md];W[qe];B[re];W[qf];B[rf];W[ra];B[rc];W[kb];B[jb];W[nb];B[nn];W[oj];B[kj];W[qi];B[rh];W[lj];B[kk];W[lk];B[ok];W[nj];B[nk];W[pk];B[pl];W[qg];B[rg];W[ki];B[ji];W[mg];B[og];W[oh];B[qh];W[kl];B[kh];W[li];B[lm];W[ll];B[kn];W[il];B[hk];W[ik];B[ij];W[ld];B[lf];W[mf];B[me];W[nm];B[qk];W[le];B[lg];W[mh];B[ni];W[hj];B[hl];W[mm];B[mn];W[km];B[ln];W[im];B[oi];W[hm];B[fn];W[eo];B[gm];W[lh];B[ml];W[do];B[dm];W[bm];B[bn];W[ih];B[jj];W[jg])
-            `,
+          sgf_data:
+            "(;EV[9th Kuksu Mountains Tournament, round 1]\n            DT[2023-07-26]\n            PB[Ida Atsushi]BR[9p]\n            PW[Shin Jinseo]WR[9p]\n            KM[6.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[qd];W[dc];B[qq];W[dq];B[od];W[de];B[co];W[fp];B[dk];W[ci];B[hq];W[jq];B[ho];W[mq];B[bq];W[cl];B[dn];W[dl];B[el];W[ek];B[em];W[ej];B[jc];W[go];B[gp];W[hn];B[fo];W[gn];B[io];W[fq];B[in];W[br];B[gl];W[oq];B[qn];W[hc];B[pj];W[lc];B[cc];W[cd];B[hd];W[ic];B[jd];W[id];B[je];W[ie];B[jf];W[hg];B[jh];W[pc];B[qc];W[pi];B[qj];W[pd];B[pe];W[oc];B[oe];W[qb];B[rb];W[pb];B[md];W[qe];B[re];W[qf];B[rf];W[ra];B[rc];W[kb];B[jb];W[nb];B[nn];W[oj];B[kj];W[qi];B[rh];W[lj];B[kk];W[lk];B[ok];W[nj];B[nk];W[pk];B[pl];W[qg];B[rg];W[ki];B[ji];W[mg];B[og];W[oh];B[qh];W[kl];B[kh];W[li];B[lm];W[ll];B[kn];W[il];B[hk];W[ik];B[ij];W[ld];B[lf];W[mf];B[me];W[nm];B[qk];W[le];B[lg];W[mh];B[ni];W[hj];B[hl];W[mm];B[mn];W[km];B[ln];W[im];B[oi];W[hm];B[fn];W[eo];B[gm];W[lh];B[ml];W[do];B[dm];W[bm];B[bn];W[ih];B[jj];W[jg])\n            ",
+          game_date: "2023-07-26T15:00:00+00:00",
           sgf_name: "Ida Atsushi vs Shin Jinseo",
           black_player: "Ida Atsushi",
           white_player: "Shin Jinseo",
           black_rank: "9p",
           white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-07-26 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
           suspended: false,
-          result: "W+R",
         },
         {
           user_id: 2,
-          sgf_data: `(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])`,
+          sgf_data:
+            "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]PW[test9by9]PB[yep];B[gc];W[gg];B[cc];W[cg];B[ee];W[eg];B[ge];W[ce])",
+          game_date: "2023-01-06T00:00:00+00:00",
           sgf_name: "Nathan vs Matthew",
           black_player: "Nathan",
           white_player: "Matthew",
           black_rank: "6d",
           white_rank: "9d",
           komi: 5.5,
-          game_date: "2023-01-06 00:00:00.000",
+          result: "Black + 5.5",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693607273/13by13test1_thumbnail_z9haxr.png",
           suspended: false,
-          result: "Black + 5.5",
         },
-        // Demo user id 3 (our demo login user) sgf id of 12?
-        // Game 1 -> copy of Shin Jinseo sgf id of 2
         {
           user_id: 3,
-          sgf_data: `(;EV[9th Ing Cup, final 2]
-            DT[2023-08-23]
-            PB[Xie Ke]BR[9p]
-            PW[Shin Jinseo]WR[9p]
-            KM[7.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[qd];W[dd];B[pq];W[dp];B[oc];W[qo];B[np];W[nd];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fe];B[bc];W[dg];B[bd];W[cg];B[ce];W[nc];B[od];W[ne];B[fg];W[di];B[if];W[jd];B[fi];W[dk];B[cq];W[cp];B[dq];W[ep];B[eq];W[fq];B[fr];W[gq];B[gr];W[hq];B[qk];W[gk];B[qp];W[ij];B[ih];W[ki];B[kg];W[mh];B[ld];W[le];B[ke];W[kd];B[mg];W[je];B[nh];W[kf];B[lh];W[rp];B[rq];W[ol];B[mj];W[pj];B[qm];W[qe];B[re];W[no];B[oo];W[mp];B[nn];W[mo];B[mn];W[lk];B[ln];W[pe];B[oe];W[of];B[nf];W[mf];B[ng];W[pd];B[pc];W[qc];B[pf];W[qf];B[rd];W[pg];B[qb];W[qj];B[qg];W[qh];B[rg];W[rk];B[ql];W[mk];B[kj];W[lj];B[li];W[ji];B[jf];W[nj];B[kp];W[op];B[po];W[lq];B[nq];W[kq];B[om];W[ph];B[hd];W[hc];B[ge];W[nb];B[rf];W[pf];B[bp];W[bo];B[bq];W[cn];B[ej];W[ek];B[bg];W[bh];B[bf];W[mi];B[gj];W[hk];B[jm];W[hi];B[hh];W[gi];B[gh];W[eh];B[ic];W[id];B[kh];W[hj];B[jj];W[ii];B[hf];W[fh];B[ff];W[gc];B[ib];W[jc];B[lf];W[lg];B[jb];W[kb];B[lf];W[rc];B[rb];W[lg];B[cj];W[dj];B[lf];W[me];B[ke];W[ja];B[kl];W[ni];B[jq];W[jr];B[iq];W[nr];B[oq];W[ir];B[hr];W[mr];B[ch];W[bi];B[bm];W[go];B[gn];W[cm];B[ho];W[io];B[hp];W[ip];B[fp];W[jp];B[iq];W[jq];B[gp];W[eb];B[fl];W[fk];B[jh];W[iq];B[eo];W[en];B[em];W[dn];B[in];W[fn];B[ob];W[oa];B[pb];W[kf];B[fo];W[hm];B[cl];W[dl];B[ao];W[hn];B[ci];W[ck];B[bj];W[bk];B[ah];W[lg];B[ai];W[lf];B[bn];W[dh];B[db];W[fa];B[il];W[hl])
-            `,
+          sgf_data:
+            "(;EV[9th Ing Cup, final 2]\n            DT[2023-08-23]\n            PB[Xie Ke]BR[9p]\n            PW[Shin Jinseo]WR[9p]\n            KM[7.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[qd];W[dd];B[pq];W[dp];B[oc];W[qo];B[np];W[nd];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fe];B[bc];W[dg];B[bd];W[cg];B[ce];W[nc];B[od];W[ne];B[fg];W[di];B[if];W[jd];B[fi];W[dk];B[cq];W[cp];B[dq];W[ep];B[eq];W[fq];B[fr];W[gq];B[gr];W[hq];B[qk];W[gk];B[qp];W[ij];B[ih];W[ki];B[kg];W[mh];B[ld];W[le];B[ke];W[kd];B[mg];W[je];B[nh];W[kf];B[lh];W[rp];B[rq];W[ol];B[mj];W[pj];B[qm];W[qe];B[re];W[no];B[oo];W[mp];B[nn];W[mo];B[mn];W[lk];B[ln];W[pe];B[oe];W[of];B[nf];W[mf];B[ng];W[pd];B[pc];W[qc];B[pf];W[qf];B[rd];W[pg];B[qb];W[qj];B[qg];W[qh];B[rg];W[rk];B[ql];W[mk];B[kj];W[lj];B[li];W[ji];B[jf];W[nj];B[kp];W[op];B[po];W[lq];B[nq];W[kq];B[om];W[ph];B[hd];W[hc];B[ge];W[nb];B[rf];W[pf];B[bp];W[bo];B[bq];W[cn];B[ej];W[ek];B[bg];W[bh];B[bf];W[mi];B[gj];W[hk];B[jm];W[hi];B[hh];W[gi];B[gh];W[eh];B[ic];W[id];B[kh];W[hj];B[jj];W[ii];B[hf];W[fh];B[ff];W[gc];B[ib];W[jc];B[lf];W[lg];B[jb];W[kb];B[lf];W[rc];B[rb];W[lg];B[cj];W[dj];B[lf];W[me];B[ke];W[ja];B[kl];W[ni];B[jq];W[jr];B[iq];W[nr];B[oq];W[ir];B[hr];W[mr];B[ch];W[bi];B[bm];W[go];B[gn];W[cm];B[ho];W[io];B[hp];W[ip];B[fp];W[jp];B[iq];W[jq];B[gp];W[eb];B[fl];W[fk];B[jh];W[iq];B[eo];W[en];B[em];W[dn];B[in];W[fn];B[ob];W[oa];B[pb];W[kf];B[fo];W[hm];B[cl];W[dl];B[ao];W[hn];B[ci];W[ck];B[bj];W[bk];B[ah];W[lg];B[ai];W[lf];B[bn];W[dh];B[db];W[fa];B[il];W[hl])\n            ",
+          game_date: "2023-08-23T15:00:00+00:00",
           sgf_name: "Xie Ke vs Shin Jinseo",
           black_player: "Xie Ke",
           white_player: "Shin Jinseo",
           black_rank: "9p",
           white_rank: "9p",
           komi: 7.5,
-          game_date: "2023-08-23 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886733/Seeder%20Data/Shin-Jinseo2_thumbnail_jebjvy.png",
           suspended: false,
-          result: "W+R",
         },
-        // Include sgfs of smaller boards too for testing
-        // Game 2
         {
           user_id: 3,
-          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-05] PC[OGS: https://online-go.com/game/56820296] GN[Vriendschappelijke Wedstrijd] PB[goloveye2] PW[erikdeviking] BR[6k] WR[6k] TM[150]OT[5x60 byo-yomi] RE[B+2.5] SZ[13] KM[5.5] RU[Japanese] ;B[dd] (;W[jj] (;B[kd] (;W[cj] (;B[gk] (;W[ek] (;B[jk] (;W[kk] (;B[jl] (;W[kl] (;B[ij] (;W[ji] (;B[fi] (;W[dh] (;B[cg] (;W[ch] (;B[gd] (;W[dg] (;B[cf] (;W[jc] (;B[kc] (;W[kb] (;B[lb] (;W[ib] (;B[ka] (;W[gb] (;B[fc] (;W[fb] (;B[eb] (;W[gc] (;B[fd] (;W[jb] (;B[jd] (;W[id] (;B[ie] (;W[hd] (;B[he] (;W[ea] (;B[db] (;W[ja] (;B[fa] (;W[ga] (;B[hc] (;W[ic] (;B[kh] (;W[ki] (;B[jh] (;W[ii] (;B[hj] (;W[ih] (;B[ig] (;W[df] (;B[de] (;W[la] (;B[mb] (;W[bg] (;B[bf] (;W[lh] (;B[lg] (;W[li] (;B[kg] (;W[bh] (;B[ef] (;W[eg] (;B[ff] (;W[hg] (;B[hf] (;W[fg] (;B[gg] (;W[gh] (;B[hh] (;W[hi] (;B[hg] (;W[gi] (;B[gj] (;W[fj] (;B[fk] (;W[ej] (;B[el] (;W[dl] (;B[em] (;W[il] (;B[ik] (;W[hl] (;B[jm] (;W[gl] (;B[fl] (;W[km] (;B[gm] (;W[hm] (;B[hk] (;W[fm] (;B[hb] (;W[dm] (;B[gm] (;W[lc] (;B[ld] (;W[fm] (;B[ha] (;W[ia] (;B[gm] (;W[hb] (;B[im] (;W[be] (;B[ce] (;W[bd] (;B[af] (;W[cb] (;B[da] (;W[ca] (;B[cc] (;W[bc] (;B[bb] (;W[ag] (;B[mh] (;W[mi] (;B[mg] (;W[fa] (;B[mc] (;W[ka] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_data:
+            "(;FF[4] CA[UTF-8] GM[1] DT[2023-09-05] PC[OGS: https://online-go.com/game/56820296] GN[Vriendschappelijke Wedstrijd] PB[goloveye2] PW[erikdeviking] BR[6k] WR[6k] TM[150]OT[5x60 byo-yomi] RE[B+2.5] SZ[13] KM[5.5] RU[Japanese] ;B[dd] (;W[jj] (;B[kd] (;W[cj] (;B[gk] (;W[ek] (;B[jk] (;W[kk] (;B[jl] (;W[kl] (;B[ij] (;W[ji] (;B[fi] (;W[dh] (;B[cg] (;W[ch] (;B[gd] (;W[dg] (;B[cf] (;W[jc] (;B[kc] (;W[kb] (;B[lb] (;W[ib] (;B[ka] (;W[gb] (;B[fc] (;W[fb] (;B[eb] (;W[gc] (;B[fd] (;W[jb] (;B[jd] (;W[id] (;B[ie] (;W[hd] (;B[he] (;W[ea] (;B[db] (;W[ja] (;B[fa] (;W[ga] (;B[hc] (;W[ic] (;B[kh] (;W[ki] (;B[jh] (;W[ii] (;B[hj] (;W[ih] (;B[ig] (;W[df] (;B[de] (;W[la] (;B[mb] (;W[bg] (;B[bf] (;W[lh] (;B[lg] (;W[li] (;B[kg] (;W[bh] (;B[ef] (;W[eg] (;B[ff] (;W[hg] (;B[hf] (;W[fg] (;B[gg] (;W[gh] (;B[hh] (;W[hi] (;B[hg] (;W[gi] (;B[gj] (;W[fj] (;B[fk] (;W[ej] (;B[el] (;W[dl] (;B[em] (;W[il] (;B[ik] (;W[hl] (;B[jm] (;W[gl] (;B[fl] (;W[km] (;B[gm] (;W[hm] (;B[hk] (;W[fm] (;B[hb] (;W[dm] (;B[gm] (;W[lc] (;B[ld] (;W[fm] (;B[ha] (;W[ia] (;B[gm] (;W[hb] (;B[im] (;W[be] (;B[ce] (;W[bd] (;B[af] (;W[cb] (;B[da] (;W[ca] (;B[cc] (;W[bc] (;B[bb] (;W[ag] (;B[mh] (;W[mi] (;B[mg] (;W[fa] (;B[mc] (;W[ka] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2023-09-05T15:00:00+00:00",
           sgf_name: "goloveye2 vs erikdeviking",
           black_player: "goloveye2",
           white_player: "erikdeviking",
           black_rank: "6k",
           white_rank: "6k",
           komi: 5.5,
-          game_date: "2023-09-05 15:00:00.000",
+          result: "Black + 2.5",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028715/vqnappgjnx5oljz2nddb.png",
           suspended: false,
-          result: "Black + 2.5",
         },
-        // Game 3
         {
           user_id: 3,
-          sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 2]
-            DT[2023-07-26]
-            PB[Shin Jinseo]BR[9p]
-            PW[Kim Myounghoon]WR[9p]
-            KM[6.5]RE[B+R]
-            SO[Go4Go.net]
-            ;B[qd];W[cp];B[dd];W[pq];B[eq];W[do];B[po];W[qo];B[qn];W[qp];B[pn];W[np];B[pi];W[hq];B[nc];W[cf];B[fd];W[dj];B[fp];W[ho];B[cr];W[fo];B[mo];W[no];B[nn];W[mn];B[mm];W[ln];B[nm];W[lm];B[ll];W[kl];B[lk];W[kk];B[kj];W[jm];B[gp];W[hp];B[li];W[md];B[nd];W[mf];B[go];W[ne];B[le];W[me];B[lb];W[pd];B[pc];W[pe];B[qe];W[pf];B[qf];W[qc];B[pg];W[mc];B[ob];W[mb];B[qb];W[ic];B[lo];W[ko];B[oq];W[nq];B[kc];W[kd];B[jc];W[id];B[jd];W[je];B[ke];W[jf];B[ld];W[lc];B[ie];W[if];B[ib];W[hb];B[hc];W[he];B[hd];W[ie];B[jb];W[gb];B[fc];W[la];B[ce];W[be];B[bd];W[fb];B[eb];W[ec];B[ed];W[db];B[dc];W[ea];B[ec];W[kb];B[gc];W[fn];B[bq];W[og];B[oh];W[rc];B[of];W[oe];B[rb];W[ro];B[gn];W[ha];B[ia];W[ja];B[ka];W[qg];B[ng];W[ja];B[kn];W[km];B[ka];W[rd];B[rg];W[ja];B[kp];W[jo];B[ka];W[oc];B[od];W[ja];B[or];W[pp];B[ka];W[cq];B[br];W[ja];B[op];W[oo];B[ka];W[on];B[om];W[pm];B[qm];W[nr];B[lb];W[rf];B[qh];W[kb];B[fa];W[nb];B[pl];W[fr];B[er];W[bp];B[gr];W[de];B[cd];W[ch];B[dl];W[fl];B[ek];W[oc];B[pb];W[fi];B[fk];W[gm];B[gk];W[jj];B[gi];W[ki];B[fh];W[ei];B[ck];W[bm];B[cn];W[cm];B[dm];W[dn];B[bn];W[gh];B[bl];W[hm];B[bj];W[gq];B[fq];W[lj];B[hr];W[ir];B[gg];W[hh];B[fg];W[dg];B[ef];W[bg];B[ae];W[sl];B[eh];W[bi];B[dh];W[af];B[bf];W[re];B[qg];W[be];B[ad];W[aj];B[cj];W[al];B[ak];W[bk];B[cl];W[ai];B[am];W[bf];B[df];W[ah];B[hi];W[mj];B[hn];W[in];B[rl];W[sb];B[sf];W[sm];B[il];W[hj];B[iq])
-            `,
+          sgf_data:
+            "(;EV[9th Kuksu Mountains Tournament, round 2]\n            DT[2023-07-26]\n            PB[Shin Jinseo]BR[9p]\n            PW[Kim Myounghoon]WR[9p]\n            KM[6.5]RE[B+R]\n            SO[Go4Go.net]\n            ;B[qd];W[cp];B[dd];W[pq];B[eq];W[do];B[po];W[qo];B[qn];W[qp];B[pn];W[np];B[pi];W[hq];B[nc];W[cf];B[fd];W[dj];B[fp];W[ho];B[cr];W[fo];B[mo];W[no];B[nn];W[mn];B[mm];W[ln];B[nm];W[lm];B[ll];W[kl];B[lk];W[kk];B[kj];W[jm];B[gp];W[hp];B[li];W[md];B[nd];W[mf];B[go];W[ne];B[le];W[me];B[lb];W[pd];B[pc];W[pe];B[qe];W[pf];B[qf];W[qc];B[pg];W[mc];B[ob];W[mb];B[qb];W[ic];B[lo];W[ko];B[oq];W[nq];B[kc];W[kd];B[jc];W[id];B[jd];W[je];B[ke];W[jf];B[ld];W[lc];B[ie];W[if];B[ib];W[hb];B[hc];W[he];B[hd];W[ie];B[jb];W[gb];B[fc];W[la];B[ce];W[be];B[bd];W[fb];B[eb];W[ec];B[ed];W[db];B[dc];W[ea];B[ec];W[kb];B[gc];W[fn];B[bq];W[og];B[oh];W[rc];B[of];W[oe];B[rb];W[ro];B[gn];W[ha];B[ia];W[ja];B[ka];W[qg];B[ng];W[ja];B[kn];W[km];B[ka];W[rd];B[rg];W[ja];B[kp];W[jo];B[ka];W[oc];B[od];W[ja];B[or];W[pp];B[ka];W[cq];B[br];W[ja];B[op];W[oo];B[ka];W[on];B[om];W[pm];B[qm];W[nr];B[lb];W[rf];B[qh];W[kb];B[fa];W[nb];B[pl];W[fr];B[er];W[bp];B[gr];W[de];B[cd];W[ch];B[dl];W[fl];B[ek];W[oc];B[pb];W[fi];B[fk];W[gm];B[gk];W[jj];B[gi];W[ki];B[fh];W[ei];B[ck];W[bm];B[cn];W[cm];B[dm];W[dn];B[bn];W[gh];B[bl];W[hm];B[bj];W[gq];B[fq];W[lj];B[hr];W[ir];B[gg];W[hh];B[fg];W[dg];B[ef];W[bg];B[ae];W[sl];B[eh];W[bi];B[dh];W[af];B[bf];W[re];B[qg];W[be];B[ad];W[aj];B[cj];W[al];B[ak];W[bk];B[cl];W[ai];B[am];W[bf];B[df];W[ah];B[hi];W[mj];B[hn];W[in];B[rl];W[sb];B[sf];W[sm];B[il];W[hj];B[iq])\n            ",
+          game_date: "2023-07-26T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Kim Myounghoon",
           black_player: "Shin Jinseo",
           white_player: "Kim Myounghoon",
           black_rank: "9p",
           white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-07-26 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956302/Seeder%20Data/Shin-Jinseo9_thumbnail_l9ubsq.png",
           suspended: false,
-          result: "B+R",
         },
-        // Game 4 9by9
         {
           user_id: 3,
-          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-03] PC[OGS: https://online-go.com/game/56766164] GN[play for fun] PB[iself101] PW[erikdeviking] BR[7k] WR[6k] TM[0]OT[15 simple] RE[B+16.5] SZ[9] KM[5.5] RU[Japanese] ;B[gc] (;W[df] (;B[gg] (;W[ge] (;B[dg] (;W[ef] (;B[eg] (;W[ec] (;B[cc] (;W[db] (;B[bf] (;W[cf] (;B[be] (;W[cg] (;B[ff] (;W[fe] (;B[gf] (;W[cb] (;B[bb] (;W[ba] (;B[bc] (;W[bg] (;B[ag] (;W[ad] (;B[ce] (;W[ed] (;B[dd] (;W[de] (;B[dc] (;W[bd] (;B[bh] (;W[ch] (;B[ah] (;W[bi] (;B[dh] (;W[di] (;B[ei] (;W[ci] (;B[fd] (;W[gd] (;B[fc] (;W[hc] (;B[eb] (;W[ee] (;B[fb] (;W[af] (;B[ae] (;W[ai] (;B[da] (;W[af] (;B[ag] (;W[fh] (;B[fg] (;W[eh] (;B[gh] (;W[fi] (;B[gi] (;W[ei] (;B[hb] (;W[hf] (;B[hg] (;W[he] (;B[ih] (;W[hi] (;B[ic] (;W[id] (;B[hd] (;W[ie] (;B[hc] (;W[ah] (;B[cd] (;W[af] (;B[ac] (;W[ag] (;B[ig] (;W[ii] (;B[hh] (;W[ii] (;B[hi] (;W[] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_data:
+            "(;FF[4] CA[UTF-8] GM[1] DT[2023-09-03] PC[OGS: https://online-go.com/game/56766164] GN[play for fun] PB[iself101] PW[erikdeviking] BR[7k] WR[6k] TM[0]OT[15 simple] RE[B+16.5] SZ[9] KM[5.5] RU[Japanese] ;B[gc] (;W[df] (;B[gg] (;W[ge] (;B[dg] (;W[ef] (;B[eg] (;W[ec] (;B[cc] (;W[db] (;B[bf] (;W[cf] (;B[be] (;W[cg] (;B[ff] (;W[fe] (;B[gf] (;W[cb] (;B[bb] (;W[ba] (;B[bc] (;W[bg] (;B[ag] (;W[ad] (;B[ce] (;W[ed] (;B[dd] (;W[de] (;B[dc] (;W[bd] (;B[bh] (;W[ch] (;B[ah] (;W[bi] (;B[dh] (;W[di] (;B[ei] (;W[ci] (;B[fd] (;W[gd] (;B[fc] (;W[hc] (;B[eb] (;W[ee] (;B[fb] (;W[af] (;B[ae] (;W[ai] (;B[da] (;W[af] (;B[ag] (;W[fh] (;B[fg] (;W[eh] (;B[gh] (;W[fi] (;B[gi] (;W[ei] (;B[hb] (;W[hf] (;B[hg] (;W[he] (;B[ih] (;W[hi] (;B[ic] (;W[id] (;B[hd] (;W[ie] (;B[hc] (;W[ah] (;B[cd] (;W[af] (;B[ac] (;W[ag] (;B[ig] (;W[ii] (;B[hh] (;W[ii] (;B[hi] (;W[] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2023-09-03T15:00:00+00:00",
           sgf_name: "iself101 vs erikdeviking",
           black_player: "iself101",
           white_player: "erikdeviking",
           black_rank: "7k",
           white_rank: "6k",
           komi: 5.5,
-          game_date: "2023-09-03 15:00:00.000",
+          result: "Black + 16.5",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694028141/b7q8a1csj5wycsfd4zp1.png",
           suspended: false,
-          result: "Black + 16.5",
         },
-        // Game 5
         {
           user_id: 3,
-          sgf_data: `(;EV[9th Kuksu Mountains Tournament, round 1]
-            DT[2023-07-26]
-            PB[Ida Atsushi]BR[9p]
-            PW[Shin Jinseo]WR[9p]
-            KM[6.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[qd];W[dc];B[qq];W[dq];B[od];W[de];B[co];W[fp];B[dk];W[ci];B[hq];W[jq];B[ho];W[mq];B[bq];W[cl];B[dn];W[dl];B[el];W[ek];B[em];W[ej];B[jc];W[go];B[gp];W[hn];B[fo];W[gn];B[io];W[fq];B[in];W[br];B[gl];W[oq];B[qn];W[hc];B[pj];W[lc];B[cc];W[cd];B[hd];W[ic];B[jd];W[id];B[je];W[ie];B[jf];W[hg];B[jh];W[pc];B[qc];W[pi];B[qj];W[pd];B[pe];W[oc];B[oe];W[qb];B[rb];W[pb];B[md];W[qe];B[re];W[qf];B[rf];W[ra];B[rc];W[kb];B[jb];W[nb];B[nn];W[oj];B[kj];W[qi];B[rh];W[lj];B[kk];W[lk];B[ok];W[nj];B[nk];W[pk];B[pl];W[qg];B[rg];W[ki];B[ji];W[mg];B[og];W[oh];B[qh];W[kl];B[kh];W[li];B[lm];W[ll];B[kn];W[il];B[hk];W[ik];B[ij];W[ld];B[lf];W[mf];B[me];W[nm];B[qk];W[le];B[lg];W[mh];B[ni];W[hj];B[hl];W[mm];B[mn];W[km];B[ln];W[im];B[oi];W[hm];B[fn];W[eo];B[gm];W[lh];B[ml];W[do];B[dm];W[bm];B[bn];W[ih];B[jj];W[jg])
-            `,
+          sgf_data:
+            "(;EV[9th Kuksu Mountains Tournament, round 1]\n            DT[2023-07-26]\n            PB[Ida Atsushi]BR[9p]\n            PW[Shin Jinseo]WR[9p]\n            KM[6.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[qd];W[dc];B[qq];W[dq];B[od];W[de];B[co];W[fp];B[dk];W[ci];B[hq];W[jq];B[ho];W[mq];B[bq];W[cl];B[dn];W[dl];B[el];W[ek];B[em];W[ej];B[jc];W[go];B[gp];W[hn];B[fo];W[gn];B[io];W[fq];B[in];W[br];B[gl];W[oq];B[qn];W[hc];B[pj];W[lc];B[cc];W[cd];B[hd];W[ic];B[jd];W[id];B[je];W[ie];B[jf];W[hg];B[jh];W[pc];B[qc];W[pi];B[qj];W[pd];B[pe];W[oc];B[oe];W[qb];B[rb];W[pb];B[md];W[qe];B[re];W[qf];B[rf];W[ra];B[rc];W[kb];B[jb];W[nb];B[nn];W[oj];B[kj];W[qi];B[rh];W[lj];B[kk];W[lk];B[ok];W[nj];B[nk];W[pk];B[pl];W[qg];B[rg];W[ki];B[ji];W[mg];B[og];W[oh];B[qh];W[kl];B[kh];W[li];B[lm];W[ll];B[kn];W[il];B[hk];W[ik];B[ij];W[ld];B[lf];W[mf];B[me];W[nm];B[qk];W[le];B[lg];W[mh];B[ni];W[hj];B[hl];W[mm];B[mn];W[km];B[ln];W[im];B[oi];W[hm];B[fn];W[eo];B[gm];W[lh];B[ml];W[do];B[dm];W[bm];B[bn];W[ih];B[jj];W[jg])\n            ",
+          game_date: "2023-07-26T15:00:00+00:00",
           sgf_name: "Ida Atsushi vs Shin Jinseo",
           black_player: "Ida Atsushi",
           white_player: "Shin Jinseo",
           black_rank: "9p",
           white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-07-26 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956436/Seeder%20Data/ShinJinseo10_thumbnail_e580u4.png",
           suspended: false,
-          result: "W+R",
         },
-        // Game 6
         {
           user_id: 3,
-          sgf_data: `(;EV[9th Kuksu Mountains Tournament, final]
-            DT[2023-07-28]
-            PB[Shin Jinseo]BR[9p]
-            PW[Shin Minjun]WR[9p]
-            KM[6.5]RE[W+R]
-            SO[Go4Go.net]
-            ;B[pd];W[dp];B[pp];W[dd];B[cq];W[dq];B[cp];W[do];B[bn];W[qc];B[qd];W[pc];B[od];W[nc];B[rc];W[nd];B[fc];W[nf];B[cf];W[df];B[dg];W[ef];B[ce];W[cd];B[ic];W[rb];B[oc];W[ob];B[nb];W[pb];B[mb];W[rd];B[re];W[sc];B[pf];W[jc];B[de];W[ed];B[jb];W[ee];B[kc];W[cg];B[ph];W[qq];B[qp];W[pq];B[nq];W[oq];B[op];W[nr];B[rq];W[rr];B[or];W[rp];B[qr];W[sq];B[pr];W[rq];B[mr];W[np];B[mq];W[qo];B[no];W[ql];B[hp];W[ch];B[pn];W[qn];B[gq];W[jd];B[kd];W[cr];B[br];W[bo];B[co];W[cn];B[bp];W[bm];B[dn];W[an];B[dr];W[dm];B[en];W[em];B[fn];W[gl];B[hm];W[hl];B[im];W[ke];B[je];W[id];B[hc];W[jf];B[ie];W[hd];B[gd];W[he];B[if];W[kf];B[ge];W[hf];B[ig];W[gf];B[gg];W[ff];B[jh];W[oh];B[lh];W[oi];B[pi];W[oj];B[og];W[ng];B[qj];W[jk];B[kj];W[jj];B[mi];W[ki];B[kh];W[mh];B[li];W[mk];B[lk];W[ll];B[nk];W[ih];B[jg];W[pj];B[me];W[kb];B[lb];W[le];B[md];W[lc];B[ld];W[mf];B[qk];W[ne];B[mc];W[nl];B[mj];W[ml];B[pl];W[ol];B[kk];W[pk];B[rl];W[pm];B[rm];W[mp])
-            `,
+          sgf_data:
+            "(;EV[9th Kuksu Mountains Tournament, final]\n            DT[2023-07-28]\n            PB[Shin Jinseo]BR[9p]\n            PW[Shin Minjun]WR[9p]\n            KM[6.5]RE[W+R]\n            SO[Go4Go.net]\n            ;B[pd];W[dp];B[pp];W[dd];B[cq];W[dq];B[cp];W[do];B[bn];W[qc];B[qd];W[pc];B[od];W[nc];B[rc];W[nd];B[fc];W[nf];B[cf];W[df];B[dg];W[ef];B[ce];W[cd];B[ic];W[rb];B[oc];W[ob];B[nb];W[pb];B[mb];W[rd];B[re];W[sc];B[pf];W[jc];B[de];W[ed];B[jb];W[ee];B[kc];W[cg];B[ph];W[qq];B[qp];W[pq];B[nq];W[oq];B[op];W[nr];B[rq];W[rr];B[or];W[rp];B[qr];W[sq];B[pr];W[rq];B[mr];W[np];B[mq];W[qo];B[no];W[ql];B[hp];W[ch];B[pn];W[qn];B[gq];W[jd];B[kd];W[cr];B[br];W[bo];B[co];W[cn];B[bp];W[bm];B[dn];W[an];B[dr];W[dm];B[en];W[em];B[fn];W[gl];B[hm];W[hl];B[im];W[ke];B[je];W[id];B[hc];W[jf];B[ie];W[hd];B[gd];W[he];B[if];W[kf];B[ge];W[hf];B[ig];W[gf];B[gg];W[ff];B[jh];W[oh];B[lh];W[oi];B[pi];W[oj];B[og];W[ng];B[qj];W[jk];B[kj];W[jj];B[mi];W[ki];B[kh];W[mh];B[li];W[mk];B[lk];W[ll];B[nk];W[ih];B[jg];W[pj];B[me];W[kb];B[lb];W[le];B[md];W[lc];B[ld];W[mf];B[qk];W[ne];B[mc];W[nl];B[mj];W[ml];B[pl];W[ol];B[kk];W[pk];B[rl];W[pm];B[rm];W[mp])\n            ",
+          game_date: "2023-07-28T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Fan Tingyu",
           black_player: "Shin Jinseo",
           white_player: "Shin Minjun",
           black_rank: "9p",
           white_rank: "9p",
           komi: 6.5,
-          game_date: "2023-07-28 15:00:00.000",
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693956063/Seeder%20Data/Shin-Jinseo7_thumbnail_acfagz.png",
           suspended: false,
-          result: "W+R",
         },
-
-        // Game 7
         {
           user_id: 3,
-          sgf_data: `(;EV[9th Ing Cup, final 1]
-            DT[2023-08-21]
-            PB[Shin Jinseo]BR[9p]
-            PW[Xie Ke]WR[9p]
-            KM[8]RE[B+R]
-            SO[Go4Go.net]
-            ;B[pd];W[dd];B[pp];W[dq];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fg];B[cg];W[bc];B[eb];W[eh];B[dg];W[ci];B[gc];W[fh];B[ce];W[bd];B[bf];W[gd];B[hc];W[hd];B[bh];W[ic];B[hb];W[ib];B[ga];W[je];B[dp];W[eq];B[cp];W[cq];B[bq];W[br];B[bo];W[aq];B[bi];W[qf];B[re];W[qn];B[nq];W[rf];B[oc];W[qp];B[qq];W[rq];B[rr];W[rp];B[pq];W[on];B[pm];W[pn];B[qm];W[qj];B[pk];W[sr];B[rs];W[mn];B[pj];W[qi];B[pi];W[rd];B[qe];W[se];B[pf];W[cb];B[ab];W[pg];B[og];W[of];B[pe];W[oh];B[ph];W[qg];B[ng];W[nh];B[mh];W[mg];B[nf];W[mi];B[lh];W[ni];B[rc];W[rl];B[rm];W[rk];B[ml];W[li];B[om];W[mp];B[lr];W[op];B[rn];W[qo];B[mq];W[nl];B[nm];W[mm];B[nk];W[ll];B[ol];W[mk];B[nj];W[nl];B[ql];W[mf];B[ne];W[me];B[fl];W[nd];B[oe];W[nc];B[qh];W[rh];B[sg];W[sf];B[qd];W[ri];B[hk];W[fj];B[ml];W[bb];B[ea];W[nl];B[im];W[mj];B[oi];W[ij];B[gq];W[hj];B[ap];W[bp];B[sd];W[rg];B[bq];W[ar];B[lp];W[ob];B[lo];W[ia];B[ha];W[nn];B[fo];W[gr];B[fr];W[fq];B[hr];W[gp];B[hq];W[eo];B[er];W[bp];B[id];W[jd];B[bq];W[fp];B[dr];W[bp];B[ff];W[fe];B[bq];W[ok];B[oj];W[bp];B[ie];W[if];B[bq];W[fn];B[cr];W[bp];B[he];W[gf];B[bq];W[ae];B[bp];W[ca];B[em];W[in];B[hn];W[cm];B[hm];W[ck];B[cn];W[jn];B[io];W[ik];B[km];W[gl];B[gm];W[fm];B[el];W[jm];B[jl];W[kn];B[ln];W[kl];B[lm];W[il];B[jo];W[dm];B[dn];W[en];B[do];W[jk];B[ep];W[pb];B[ml];W[go];B[gn];W[nl];B[dk];W[dj];B[ml];W[oq];B[or];W[nl];B[jc];W[hf];B[ml];W[pr];B[ps];W[nl];B[jb];W[ge];B[ml];W[rb];B[qb];W[nl];B[bj];W[cj];B[pa];W[oa];B[qa];W[pc];B[qc];W[po];B[qr];W[ml];B[od];W[nb];B[bm])
-            `,
+          sgf_data:
+            "(;EV[9th Ing Cup, final 1]\n            DT[2023-08-21]\n            PB[Shin Jinseo]BR[9p]\n            PW[Xie Ke]WR[9p]\n            KM[8]RE[B+R]\n            SO[Go4Go.net]\n            ;B[pd];W[dd];B[pp];W[dq];B[cc];W[cd];B[dc];W[fc];B[fb];W[gb];B[ec];W[fd];B[ed];W[ee];B[de];W[be];B[df];W[ef];B[eg];W[fg];B[cg];W[bc];B[eb];W[eh];B[dg];W[ci];B[gc];W[fh];B[ce];W[bd];B[bf];W[gd];B[hc];W[hd];B[bh];W[ic];B[hb];W[ib];B[ga];W[je];B[dp];W[eq];B[cp];W[cq];B[bq];W[br];B[bo];W[aq];B[bi];W[qf];B[re];W[qn];B[nq];W[rf];B[oc];W[qp];B[qq];W[rq];B[rr];W[rp];B[pq];W[on];B[pm];W[pn];B[qm];W[qj];B[pk];W[sr];B[rs];W[mn];B[pj];W[qi];B[pi];W[rd];B[qe];W[se];B[pf];W[cb];B[ab];W[pg];B[og];W[of];B[pe];W[oh];B[ph];W[qg];B[ng];W[nh];B[mh];W[mg];B[nf];W[mi];B[lh];W[ni];B[rc];W[rl];B[rm];W[rk];B[ml];W[li];B[om];W[mp];B[lr];W[op];B[rn];W[qo];B[mq];W[nl];B[nm];W[mm];B[nk];W[ll];B[ol];W[mk];B[nj];W[nl];B[ql];W[mf];B[ne];W[me];B[fl];W[nd];B[oe];W[nc];B[qh];W[rh];B[sg];W[sf];B[qd];W[ri];B[hk];W[fj];B[ml];W[bb];B[ea];W[nl];B[im];W[mj];B[oi];W[ij];B[gq];W[hj];B[ap];W[bp];B[sd];W[rg];B[bq];W[ar];B[lp];W[ob];B[lo];W[ia];B[ha];W[nn];B[fo];W[gr];B[fr];W[fq];B[hr];W[gp];B[hq];W[eo];B[er];W[bp];B[id];W[jd];B[bq];W[fp];B[dr];W[bp];B[ff];W[fe];B[bq];W[ok];B[oj];W[bp];B[ie];W[if];B[bq];W[fn];B[cr];W[bp];B[he];W[gf];B[bq];W[ae];B[bp];W[ca];B[em];W[in];B[hn];W[cm];B[hm];W[ck];B[cn];W[jn];B[io];W[ik];B[km];W[gl];B[gm];W[fm];B[el];W[jm];B[jl];W[kn];B[ln];W[kl];B[lm];W[il];B[jo];W[dm];B[dn];W[en];B[do];W[jk];B[ep];W[pb];B[ml];W[go];B[gn];W[nl];B[dk];W[dj];B[ml];W[oq];B[or];W[nl];B[jc];W[hf];B[ml];W[pr];B[ps];W[nl];B[jb];W[ge];B[ml];W[rb];B[qb];W[nl];B[bj];W[cj];B[pa];W[oa];B[qa];W[pc];B[qc];W[po];B[qr];W[ml];B[od];W[nb];B[bm])\n            ",
+          game_date: "2023-08-21T15:00:00+00:00",
           sgf_name: "Xie Ke vs Shin Jinseo",
           black_player: "Shin Jinseo",
           white_player: "Xie Ke",
           black_rank: "9p",
           white_rank: "9p",
-          komi: 8,
-          game_date: "2023-08-21 15:00:00.000",
+          komi: 8.0,
+          result: "W+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886995/Seeder%20Data/Shin-Jinseo3_thumbnail_sykatb.png",
           suspended: false,
-          result: "W+R",
         },
-
-        // Game 8
         {
           user_id: 3,
-          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-02] PC[OGS: https://online-go.com/game/56740614] GN[Friendly Match] PB[erikdeviking] PW[blammin] BR[6k] WR[5k] TM[120]OT[3x30 byo-yomi] RE[B+0.5] SZ[9] KM[5.5] RU[Japanese] ;B[ff] (;W[df] (;B[fc] (;W[dd] (;B[eg] (;W[gd] (;B[fd] (;W[gc] (;B[gb] (;W[hb] (;B[fb] (;W[hf] (;B[hg] (;W[gf] (;B[gg] (;W[ge] (;B[dg] (;W[cf] (;B[ee] (;W[cc] (;B[cg] (;W[bg] (;B[bh] (;W[bf] (;B[de] (;W[ce] (;B[ed] (;W[ha] (;B[dc] (;W[cb] (;B[cd] (;W[bd] (;B[db] (;W[ig] (;B[ih] (;W[if] (;B[hi] (;W[ah] (;B[bb] (;W[bc] (;B[ca] (;W[ab] (;B[ba] (;W[ae] (;B[ch] (;W[ac] (;B[ag] (;W[af] (;B[bi] (;W[fe] (;B[ef] (;W[dd] (;B[ic] (;W[ib] (;B[cd] (;W[da] (;B[ea] (;W[dd] (;B[hc] (;W[hd] (;B[cd] (;W[aa] (;B[da] (;W[dd] (;B[ga] (;W[id] (;B[cd] (;W[fh] (;B[fg] (;W[dd] (;B[ai] (;W[ag] (;B[cd] (;W[gh] (;B[hh] (;W[dd] (;B[] (;W[cd] (;B[] (;W[] ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
-          sgf_name: "erikdeviking vs blammin",
-          black_player: "erikdeviking",
-          white_player: "blammin",
-          black_rank: "6k",
-          white_rank: "5k",
-          komi: 5.5,
-          game_date: "2023-09-02 15:00:00.000",
-          thumbnail:
-            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029192/qerzwfuss56al6d1y3tn.png",
-          suspended: false,
-          result: "Black + 0.5",
-        },
-        // Game 9
-        {
-          user_id: 3,
-          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-01] PC[OGS: https://online-go.com/game/56701948] GN[Friendly Match] PB[erikdeviking] PW[dAsper] BR[6k] WR[7k] TM[30]OT[5x20 byo-yomi] RE[B+R] SZ[9] KM[5.5] RU[Japanese] ;B[ff] (;W[dg] (;B[eg] (;W[df] (;B[fc] (;W[dc] (;B[ed] (;W[dd] (;B[dh] (;W[ef] (;B[fg] (;W[ee] (;B[fe] (;W[ec] (;B[cg] (;W[fd] (;B[gd] (;W[gc] (;B[fb] (;W[hd] (;B[ed] (;W[gb] (;B[fd] (;W[he] (;B[cf] (;W[de] (;B[bd] (;W[bc] (;B[ac] (;W[cd] (;B[be] (;W[ab] (;B[bb] (;W[ad] (;B[cb] (;W[db] (;B[cc] (;W[ca] (;B[ac] (;W[eh] (;B[aa] (;W[ch] (;B[fh] (;W[di] (;B[bh] (;W[hg] (;B[fi] (;W[gh] (;B[ea] (;W[da] (;B[ba] (;W[bi] (;B[ah] (;W[ga] (;B[ei] (;W[fa] (;B[eb] (;W[dh] (;B[ce] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_data:
+            "(;FF[4] CA[UTF-8] GM[1] DT[2023-09-01] PC[OGS: https://online-go.com/game/56701948] GN[Friendly Match] PB[erikdeviking] PW[dAsper] BR[6k] WR[7k] TM[30]OT[5x20 byo-yomi] RE[B+R] SZ[9] KM[5.5] RU[Japanese] ;B[ff] (;W[dg] (;B[eg] (;W[df] (;B[fc] (;W[dc] (;B[ed] (;W[dd] (;B[dh] (;W[ef] (;B[fg] (;W[ee] (;B[fe] (;W[ec] (;B[cg] (;W[fd] (;B[gd] (;W[gc] (;B[fb] (;W[hd] (;B[ed] (;W[gb] (;B[fd] (;W[he] (;B[cf] (;W[de] (;B[bd] (;W[bc] (;B[ac] (;W[cd] (;B[be] (;W[ab] (;B[bb] (;W[ad] (;B[cb] (;W[db] (;B[cc] (;W[ca] (;B[ac] (;W[eh] (;B[aa] (;W[ch] (;B[fh] (;W[di] (;B[bh] (;W[hg] (;B[fi] (;W[gh] (;B[ea] (;W[da] (;B[ba] (;W[bi] (;B[ah] (;W[ga] (;B[ei] (;W[fa] (;B[eb] (;W[dh] (;B[ce] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2023-09-01T15:00:00+00:00",
           sgf_name: "erikdeviking vs dAsper",
           black_player: "erikdeviking",
           white_player: "dAsper",
           black_rank: "6k",
           white_rank: "7k",
           komi: 5.5,
-          game_date: "2023-09-01 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029329/iiybzoialwlvgtrdvpie.png",
           suspended: false,
-          result: "B+R",
         },
-        // Game 10
+        {
+          user_id: 1,
+          sgf_data:
+            "(;EV[5th Mlily Cup, round 1]\n            DT[2023-08-03]\n            PB[Shin Jinseo]BR[9p]\n            PW[Zhou Hongyu]WR[7p]\n            KM[7.5]RE[B+3.5]\n            SO[Go4Go.net]\n            ;B[qd];W[dp];B[pp];W[dd];B[cc];W[dc];B[cd];W[de];B[bf];W[od];B[oc];W[nc];B[pc];W[nd];B[qf];W[jd];B[nq];W[fq];B[cg];W[mp];B[gp];W[mq];B[np];W[mo];B[pn];W[im];B[gq];W[fp];B[hn];W[in];B[jp];W[om];B[pm];W[pq];B[qq];W[pr];B[or];W[fn];B[kq];W[mr];B[qr];W[ko];B[fr];W[er];B[gr];W[og];B[hd];W[dg];B[dh];W[eh];B[ei];W[fh];B[df];W[eg];B[ef];W[ce];B[be];W[cf];B[ff];W[cb];B[bb];W[eb];B[ch];W[ba];B[je];W[ke];B[jf];W[id];B[he];W[fi];B[kd];W[kc];B[ld];W[lc];B[bc];W[gb];B[ej];W[fj];B[hg];W[cj];B[ek];W[cl];B[dl];W[cm];B[hb];W[ib];B[hk];W[ii];B[hi];W[hj];B[ij];W[hh];B[gj];W[ih];B[gh];W[gi];B[gg];W[hj];B[gc];W[ha];B[hi];W[fk];B[fl];W[hj];B[ic];W[jc];B[hi];W[gk];B[hj];W[gl];B[hl];W[fm];B[hm];W[kh];B[ki];W[jj];B[lh];W[ji];B[kg];W[kj];B[li];W[ho];B[go];W[ip];B[fo];W[el];B[gn];W[iq];B[dq];W[cq];B[dr];W[ep];B[cp];W[co];B[bp];W[cr];B[es];W[bq];B[en];W[dm];B[do];W[bo];B[mk];W[ll];B[ph];W[ap];B[eq];W[pe];B[qe];W[pg];B[qh];W[hr];B[gs];W[ml];B[ol];W[nk];B[ok];W[cs];B[ds];W[le];B[ni];W[di];B[bi];W[ob];B[hc];W[fc];B[pb];W[nr];B[oq];W[qg];B[rg];W[mj];B[nh];W[nb];B[lj];W[lk];B[jk];W[kk];B[jl];W[jm];B[bk];W[bj];B[aj];W[pa];B[qa];W[oa];B[qb];W[nm];B[on];W[rh];B[ri];W[ie];B[if];W[ge];B[nn];W[mn];B[nl];W[rf];B[sh];W[gd];B[hf];W[hs];B[mm];W[lm];B[nf];W[ng];B[mf];W[mg];B[lf];W[oe];B[eo];W[cp];B[em];W[dk];B[an];W[bl];B[al];W[ci];B[bg];W[oh];B[oi];W[jh];B[lg];W[nj];B[oj];W[no];B[oo];W[ns];B[os];W[il];B[ik];W[nm];B[ab];W[ca];B[ee];W[ed];B[gm];W[fl];B[kl];W[km];B[hp];W[io];B[hq];W[ir];B[am];W[ck];B[ak];W[me];B[ne];W[bn];B[dn];W[pd];B[gf];W[fd];B[aa];W[jb];B[kf];W[md];B[mi];W[mk];B[ai];W[ao];B[fg];W[dj];B[fe];W[bm];B[mh];W[cn];B[pf];W[of];B[ig];W[jg];B[om];W[mm])\n            ",
+          game_date: "2023-08-04T15:00:00+00:00",
+          sgf_name: "Shin Jinseo vs Fan Tingyu",
+          black_player: "Shin Jinseo",
+          white_player: "Zhou Hongyu",
+          black_rank: "9p",
+          white_rank: "7p",
+          komi: 7.5,
+          result: "B+3.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955875/Seeder%20Data/Shin-Jinseo6_thumbnail_zrejkg.png",
+          suspended: false,
+        },
         {
           user_id: 3,
-          sgf_data: `(;FF[4] CA[UTF-8] GM[1] DT[2023-09-06] PC[OGS: https://online-go.com/game/56846957] GN[Vriendschappelijke Wedstrijd] PB[erikdeviking] PW[aizmaylov] BR[5k] WR[4k] TM[150]OT[5x60 byo-yomi] RE[B+R] SZ[13] KM[5.5] RU[Japanese] ;B[jj] (;W[dd] (;B[cj] (;W[jd] (;B[kh] (;W[kf] (;B[fk] (;W[jk] (;B[kk] (;W[ik] (;B[kl] (;W[ij] (;B[ji] (;W[ii] (;B[ih] (;W[gi] (;B[fi] (;W[hh] (;B[gj] (;W[ig] (;B[jh] (;W[fh] (;B[ei] (;W[eh] (;B[dh] (;W[dg] (;B[ch] (;W[cg] (;B[ce] (;W[cd] (;B[de] (;W[bg] (;B[eg] (;W[fg] (;B[ef] (;W[be] (;B[ed] (;W[dc] (;B[ec] (;W[bc] (;B[ff] (;W[hc] (;B[hg] (;W[hf] (;B[gg] (;W[jf] (;B[db] (;W[cb] (;B[fb] (;W[bi] (;B[bj] (;W[ci] (;B[di] (;W[bh] (;B[jb] (;W[jc] (;B[kc] (;W[ib] (;B[lb] (;W[ja] (;B[ld] (;W[kb] (;B[kd] (;W[la] (;B[lf] (;W[lg] (;B[mf] (;W[kg] (;B[mc] (;W[mg] (;B[le] (;W[li] (;B[lh] (;W[mh] (;B[lj] (;W[mj] (;B[mk] (;W[mi] (;B[kj] (;W[ml] (;B[lk] (;W[jl] (;B[gh] (;W[hi] (;B[jm] (;W[im] (;B[km] (;W[jg] (;B[hm] (;W[il] (;B[hl] (;W[ge] (;B[gc] (;W[gd] (;B[ca] (;W[ba] (;B[da] (;W[gb] (;B[ga] (;W[fc] (;B[ha] (;W[hb] (;B[fd] (;W[gc] (;B[fe] (;W[aj] (;B[ak] (;W[ai] (;B[bl] (;W[ia] (;B[eb] (;W[fa] (;B[ga] (;W[ha] (;B[gf] (;W[ke] (;B[mb] (;W[cf] (;B[df] (;W[ga] (;B[hj] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))`,
+          sgf_data:
+            "(;FF[4] CA[UTF-8] GM[1] DT[2023-09-06] PC[OGS: https://online-go.com/game/56846957] GN[Vriendschappelijke Wedstrijd] PB[erikdeviking] PW[aizmaylov] BR[5k] WR[4k] TM[150]OT[5x60 byo-yomi] RE[B+R] SZ[13] KM[5.5] RU[Japanese] ;B[jj] (;W[dd] (;B[cj] (;W[jd] (;B[kh] (;W[kf] (;B[fk] (;W[jk] (;B[kk] (;W[ik] (;B[kl] (;W[ij] (;B[ji] (;W[ii] (;B[ih] (;W[gi] (;B[fi] (;W[hh] (;B[gj] (;W[ig] (;B[jh] (;W[fh] (;B[ei] (;W[eh] (;B[dh] (;W[dg] (;B[ch] (;W[cg] (;B[ce] (;W[cd] (;B[de] (;W[bg] (;B[eg] (;W[fg] (;B[ef] (;W[be] (;B[ed] (;W[dc] (;B[ec] (;W[bc] (;B[ff] (;W[hc] (;B[hg] (;W[hf] (;B[gg] (;W[jf] (;B[db] (;W[cb] (;B[fb] (;W[bi] (;B[bj] (;W[ci] (;B[di] (;W[bh] (;B[jb] (;W[jc] (;B[kc] (;W[ib] (;B[lb] (;W[ja] (;B[ld] (;W[kb] (;B[kd] (;W[la] (;B[lf] (;W[lg] (;B[mf] (;W[kg] (;B[mc] (;W[mg] (;B[le] (;W[li] (;B[lh] (;W[mh] (;B[lj] (;W[mj] (;B[mk] (;W[mi] (;B[kj] (;W[ml] (;B[lk] (;W[jl] (;B[gh] (;W[hi] (;B[jm] (;W[im] (;B[km] (;W[jg] (;B[hm] (;W[il] (;B[hl] (;W[ge] (;B[gc] (;W[gd] (;B[ca] (;W[ba] (;B[da] (;W[gb] (;B[ga] (;W[fc] (;B[ha] (;W[hb] (;B[fd] (;W[gc] (;B[fe] (;W[aj] (;B[ak] (;W[ai] (;B[bl] (;W[ia] (;B[eb] (;W[fa] (;B[ga] (;W[ha] (;B[gf] (;W[ke] (;B[mb] (;W[cf] (;B[df] (;W[ga] (;B[hj] )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2023-09-06T15:00:00+00:00",
           sgf_name: "erikdeviking vs aizmaylov",
           black_player: "erikdeviking",
           white_player: "aizmaylov",
           black_rank: "5k",
           white_rank: "4k",
           komi: 5.5,
-          game_date: "2023-09-06 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029477/v6fhjbggnwyxsizbbeio.png",
           suspended: false,
-          result: "B+R",
         },
-        // Game 11 (DON'T CHANGE)
         {
           user_id: 3,
-          sgf_data: `(;EV[46th Korean Myeongin, round 1]
-            DT[2023-08-30]
-            PB[Shin Jinseo]BR[9p]
-            PW[Han Sangcho]WR[5p]
-            KM[6.5]RE[B+R]
-            SO[Go4Go.net]
-            ;B[qd];W[dp];B[cd];W[qp];B[cq];W[cp];B[dq];W[fq];B[fr];W[pd];B[pc];W[qe];B[od];W[pe];B[qc];W[gr];B[er];W[gp];B[ep];W[eq];B[bp];W[bo];B[bq];W[cn];B[oq];W[lq];B[qi];W[ph];B[pi];W[oi];B[oj];W[qh];B[po];W[qo];B[pn];W[qm];B[pm];W[ql];B[pk];W[ni];B[nj];W[pq];B[mi];W[ng];B[mf];W[ec];B[oe];W[of];B[nf];W[og];B[mg];W[ri];B[hc];W[de];B[ce];W[df];B[bg];W[he];B[ie];W[hd];B[id];W[ic];B[jc];W[ib];B[jb];W[hb];B[gc];W[gb];B[hf];W[gd];B[pr];W[qr];B[eo];W[dn];B[jq];W[fn];B[hq];W[gq];B[pp];W[qq];B[jo];W[if];B[jf];W[ig];B[nr];W[ch];B[il];W[bh];B[cg];W[dg];B[db];W[in];B[eb];W[fb];B[jn];W[im];B[jm];W[hl];B[ik];W[hk];B[hj];W[ij];B[jj];W[ii];B[ih];W[ji];B[jg];W[kj];B[jl];W[hi];B[hg];W[ps];B[eh];W[fh];B[en];W[em];B[dm];W[dl];B[fm];W[cm];B[gn];W[fl];B[gh];W[gm];B[fi];W[gi];B[fg];W[mr];B[dh];W[mo];B[mm];W[ns];B[dd];W[ed];B[fj];W[gj];B[fe];W[ia];B[ck];W[qk];B[re];W[rf];B[rd];W[lk];B[mk];W[ja];B[lb];W[la];B[ma];W[ka];B[mc];W[bk];B[bj];W[bl];B[dj];W[sf];B[np];W[ln];B[lm];W[no];B[or];W[os];B[ho];W[li];B[fo];W[go];B[hn];W[hp];B[ip];W[hr];B[fm];W[hm];B[io];W[nm];B[nl];W[nn];B[lo];W[ko];B[pl];W[ll];B[ml];W[lp];B[kl];W[fn];B[kk];W[lj];B[lh])
-            `,
+          sgf_data:
+            "(;EV[46th Korean Myeongin, round 1]\n            DT[2023-08-30]\n            PB[Shin Jinseo]BR[9p]\n            PW[Han Sangcho]WR[5p]\n            KM[6.5]RE[B+R]\n            SO[Go4Go.net]\n            ;B[qd];W[dp];B[cd];W[qp];B[cq];W[cp];B[dq];W[fq];B[fr];W[pd];B[pc];W[qe];B[od];W[pe];B[qc];W[gr];B[er];W[gp];B[ep];W[eq];B[bp];W[bo];B[bq];W[cn];B[oq];W[lq];B[qi];W[ph];B[pi];W[oi];B[oj];W[qh];B[po];W[qo];B[pn];W[qm];B[pm];W[ql];B[pk];W[ni];B[nj];W[pq];B[mi];W[ng];B[mf];W[ec];B[oe];W[of];B[nf];W[og];B[mg];W[ri];B[hc];W[de];B[ce];W[df];B[bg];W[he];B[ie];W[hd];B[id];W[ic];B[jc];W[ib];B[jb];W[hb];B[gc];W[gb];B[hf];W[gd];B[pr];W[qr];B[eo];W[dn];B[jq];W[fn];B[hq];W[gq];B[pp];W[qq];B[jo];W[if];B[jf];W[ig];B[nr];W[ch];B[il];W[bh];B[cg];W[dg];B[db];W[in];B[eb];W[fb];B[jn];W[im];B[jm];W[hl];B[ik];W[hk];B[hj];W[ij];B[jj];W[ii];B[ih];W[ji];B[jg];W[kj];B[jl];W[hi];B[hg];W[ps];B[eh];W[fh];B[en];W[em];B[dm];W[dl];B[fm];W[cm];B[gn];W[fl];B[gh];W[gm];B[fi];W[gi];B[fg];W[mr];B[dh];W[mo];B[mm];W[ns];B[dd];W[ed];B[fj];W[gj];B[fe];W[ia];B[ck];W[qk];B[re];W[rf];B[rd];W[lk];B[mk];W[ja];B[lb];W[la];B[ma];W[ka];B[mc];W[bk];B[bj];W[bl];B[dj];W[sf];B[np];W[ln];B[lm];W[no];B[or];W[os];B[ho];W[li];B[fo];W[go];B[hn];W[hp];B[ip];W[hr];B[fm];W[hm];B[io];W[nm];B[nl];W[nn];B[lo];W[ko];B[pl];W[ll];B[ml];W[lp];B[kl];W[fn];B[kk];W[lj];B[lh])\n            ",
+          game_date: "2023-08-30T15:00:00+00:00",
           sgf_name: "Shin Jinseo vs Han Sangcho",
           black_player: "Shin Jinseo",
           white_player: "Han Sangcho",
           black_rank: "9p",
           white_rank: "5p",
           komi: 6.5,
-          game_date: "2023-08-30 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693886732/Seeder%20Data/Shin-Jinseo1_thumbnail_wldxal.png",
           suspended: false,
-          result: "B+R",
         },
-        // Arthur 67 move Fox game (sgf_id 23)
         {
           user_id: 3,
           sgf_data:
-            "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[7.50]TM[300] GN[]PW[青瓦楼阁]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3ㅤ​]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30] ;B[qd] ;W[dp] ;B[pq] ;W[dd] ;B[cc] ;W[dc] ;B[cd] ;W[ce] ;B[be] ;W[bf] ;B[cf] ;W[de] ;B[bg] ;W[bd] ;B[af] ;W[bc] ;B[nc] ;W[qo] ;B[ql] ;W[op] ;B[oq] ;W[np] ;B[mr] ;W[lq] ;B[mq] ;W[mp] ;B[lp] ;W[kq] ;B[lo] ;W[rq] ;B[qr]C[Move 31: B R2 Score: W+3.9 Win rate: W 71.1% Estimated point loss: 4.3 Predicted top move was S2 (B+0.5). PV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6 Move was #96 according to policy (0.00%). Top policy move was K4 (40.0%). ㅤ​] ;W[rr] ;B[lr] ;W[kr] ;B[nq]C[Move 35: B O3 Score: W+8.9 Win rate: W 87.0% Estimated point loss: 4.4 Predicted top move was J4 (W+4.2). PV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4 Move was #33 according to policy (0.03%). Top policy move was J4 (29.8%). ㅤ​] ;W[on] ;B[jp] ;W[iq] ;B[ip] ;W[hq] ;B[go] ;W[fp] ;B[ol] ;W[nm] ;B[mk] ;W[rd] ;B[re] ;W[qc] ;B[rc] ;W[pd] ;B[qe] ;W[rb] ;B[sd] ;W[pe] ;B[pc] ;W[oc] ;B[qb] ;W[nd] ;B[ob] ;W[od]C[Move 60: W P16 Score: W+5.4 Win rate: W 78.3% Estimated point loss: 4.8 Predicted top move was M7 (W+10.4). PV: WM7 K7 L8 K8 L9 K9 L10 N12 Move was #134 according to policy (0.01%). Top policy move was M7 (32.0%). ㅤ​] ;B[mc] ;W[md] ;B[ld] ;W[le] ;B[ke] ;W[kf]C[Move 66: W L14 Score: W+0.5 Win rate: W 55.3% Estimated point loss: 5.4 Predicted top move was M14 (W+6.0). PV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9 Move was #3 according to policy (1.72%). Top policy move was M14 (75.8%). ㅤ​] ;B[kd]) ",
+            "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[7.50]TM[300] GN[]PW[\u9752\u74e6\u697c\u9601]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3\u3164\u200b]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30] ;B[qd] ;W[dp] ;B[pq] ;W[dd] ;B[cc] ;W[dc] ;B[cd] ;W[ce] ;B[be] ;W[bf] ;B[cf] ;W[de] ;B[bg] ;W[bd] ;B[af] ;W[bc] ;B[nc] ;W[qo] ;B[ql] ;W[op] ;B[oq] ;W[np] ;B[mr] ;W[lq] ;B[mq] ;W[mp] ;B[lp] ;W[kq] ;B[lo] ;W[rq] ;B[qr]C[Move 31: B R2 Score: W+3.9 Win rate: W 71.1% Estimated point loss: 4.3 Predicted top move was S2 (B+0.5). PV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6 Move was #96 according to policy (0.00%). Top policy move was K4 (40.0%). \u3164\u200b] ;W[rr] ;B[lr] ;W[kr] ;B[nq]C[Move 35: B O3 Score: W+8.9 Win rate: W 87.0% Estimated point loss: 4.4 Predicted top move was J4 (W+4.2). PV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4 Move was #33 according to policy (0.03%). Top policy move was J4 (29.8%). \u3164\u200b] ;W[on] ;B[jp] ;W[iq] ;B[ip] ;W[hq] ;B[go] ;W[fp] ;B[ol] ;W[nm] ;B[mk] ;W[rd] ;B[re] ;W[qc] ;B[rc] ;W[pd] ;B[qe] ;W[rb] ;B[sd] ;W[pe] ;B[pc] ;W[oc] ;B[qb] ;W[nd] ;B[ob] ;W[od]C[Move 60: W P16 Score: W+5.4 Win rate: W 78.3% Estimated point loss: 4.8 Predicted top move was M7 (W+10.4). PV: WM7 K7 L8 K8 L9 K9 L10 N12 Move was #134 according to policy (0.01%). Top policy move was M7 (32.0%). \u3164\u200b] ;B[mc] ;W[md] ;B[ld] ;W[le] ;B[ke] ;W[kf]C[Move 66: W L14 Score: W+0.5 Win rate: W 55.3% Estimated point loss: 5.4 Predicted top move was M14 (W+6.0). PV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9 Move was #3 according to policy (1.72%). Top policy move was M14 (75.8%). \u3164\u200b] ;B[kd]) ",
+          game_date: "2023-08-30T15:00:00+00:00",
           sgf_name: "Arthur Fox seeder game",
           black_player: "anning97",
           white_player: "fox opponent",
           black_rank: "3d",
           white_rank: "3d",
           komi: 7.5,
-          game_date: "2023-08-30 15:00:00.000",
+          result: "B+R",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1697658286/pznbdvcfgyn7m9vopejc.png",
           suspended: false,
-          result: "B+R",
         },
-        // Arbyter73 game puzzles (includes one or two ladder/net problems) -> sgf_id 24 I think
         {
           user_id: 3,
           sgf_data:
             "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Chinese]SZ[19]KM[0.00]TM[300] PW[Game 5]PB[arbyter73]DT[2023-10-19]RE[W+3.00]RL[0]RN[1]TC[3]TT[30] ;B[pd] ;W[dp] ;B[pq] ;W[dc] ;B[fq] ;W[jp] ;B[cq] ;W[dq] ;B[cp] ;W[do] ;B[dr] ;W[er] ;B[cr] ;W[eq] ;B[cn] ;W[fp] ;B[de] ;W[ce] ;B[cf] ;W[cd] ;B[dg] ;W[fc] ;B[cj] ;W[cl] ;B[dm] ;W[dj] ;B[ck] ;W[dl] ;B[em] ;W[dk] ;B[ci] ;W[di] ;B[dh] ;W[gj] ;B[pn] ;W[nq] ;B[lq] ;W[lp] ;B[kp] ;W[pp] ;B[qp] ;W[op] (;B[mp] ;W[lo] ;B[mq] ;W[qq] (;B[pr] ;W[qr] (;B[or] ;W[nr] ;B[np] ;W[oq] ;B[ko] ;W[jq] ;B[kq] ;W[qo] ;B[oo] ;W[rp] ;B[jd] ;W[qf] ;B[qh] ;W[qc] ;B[qd] ;W[pc] ;B[od] ;W[rd] ;B[re] ;W[rc] ;B[rf] ;W[nc] ;B[me] ;W[lc] ;B[hl] ;W[gl] ;B[gm] ;W[fl] ;B[el] ;W[hk] ;B[il] ;W[fm] ;B[ik] ;W[ij] ;B[jj] ;W[gn] ;B[ii] ;W[hj] ;B[ih] ;W[ql] ;B[qm] ;W[rm] ;B[pl] ;W[qk] ;B[pk] ;W[qj] ;B[pj] ;W[qi] ;B[pi] ;W[rh] ;B[qg] ;W[jo] ;B[jn] ;W[in] ;B[jm] ;W[le] ;B[oc] ;W[ob] ;B[md] ;W[ld] ;B[lf] ;W[ke] ;B[kf] ;W[je] ;B[nb] ;W[mb] ;B[hd] ;W[ie] ;B[ge] ;W[ef] ;B[df] ;W[hf] ;B[ee] ;W[jg] ;B[kh] ;W[bo] ;B[co] ;W[bn] ;B[bm] ;W[cm] ;B[bl] ;W[dn] ;B[ek]C[E11 F11 ] (;W[ff] ;B[fe] (;W[fj] (;B[be] ;W[gf] ;B[id] ;W[bd] ;B[bf] ;W[rg] ;B[pf] ;W[hb] ;B[fh] ;W[fi] ;B[jr] ;W[ir] ;B[kr] ;W[hq] ;B[hn] ;W[hm] ;B[im] ;W[ho] ;B[qn] ;W[rn] ;B[po] ;W[jb] ;B[mc] ;W[na] ;B[nd] ;W[nb] ;B[kc] ;W[kb] ;B[ig] ;W[jf] ;B[he] ;W[if] ;B[sg] ;W[ri] ;B[sh] ;W[si] ;B[sf] ;W[mr] ;B[gc] ;W[gb] ;B[fd] ;W[ec] ;B[ad] ;W[ac] ;B[ae] ;W[bc] ;B[es] ;W[fs] ;B[ds] ;W[fr] ;B[ei] ;W[ej] ;B[eh] ;W[hc] ;B[gd] ;W[jc] ;B[kd] ;W[gh] ;B[jh] ;W[kg] ;B[lg] ;W[hi] ;B[gg] ;W[hg] ;B[fg] ;W[hh] ;B[dd] ;W[sd] ;B[is] ;W[hs] ;B[js] ;W[ls] ;B[lr] ;W[ms] ;B[ks] ;W[ic] ;B[qe]) (;B[ej] ;W[ei] ;B[fi] ;W[eh] ;B[fh] ;W[eg] ;B[gf])) (;W[ei] ;B[fi] ;W[eh] ;B[fh] ;W[eg] ;B[gf])) (;W[ei] ;B[fi] ;W[eh] ;B[fh] ;W[eg] ;B[ff])) (;B[nr] ;W[or] ;B[os] ;W[oq] ;B[ps] ;W[qs] ;B[ns] ;W[mr])) (;B[rq] ;W[qr] ;B[qo])) (;B[ko] ;W[qq] (;B[qo] ;W[rq]) (;B[rq] ;W[qr] ;B[qo] ;W[rr] (;B[mp]) (;B[jq]))) (;B[qr]) (;B[qq] ;W[ko] ;B[kq] ;W[mp] ;B[jq] ;W[ip] ;B[hq]))",
+          game_date: "2023-11-18T15:00:00+00:00",
           sgf_name:
             "Arbyter73 game 5 game with at least one ladder / net problem",
           black_player: "arbyter73",
@@ -507,11 +408,10 @@ module.exports = {
           black_rank: "7k",
           white_rank: "7k",
           komi: 7.5,
-          game_date: "2023-11-18 15:00:00.000",
+          result: "W+6.5",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1700363947/ipv131utyu36lp8xo0ll.png",
           suspended: false,
-          result: "W+6.5",
         },
         {
           user_id: 1,
@@ -593,23 +493,6 @@ module.exports = {
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955660/Seeder%20Data/Shin-Jinseo5_thumbnail_grp4np.png",
           suspended: false,
         },
-        {
-          user_id: 1,
-          sgf_data:
-            "(;EV[5th Mlily Cup, round 1]\n            DT[2023-08-03]\n            PB[Shin Jinseo]BR[9p]\n            PW[Zhou Hongyu]WR[7p]\n            KM[7.5]RE[B+3.5]\n            SO[Go4Go.net]\n            ;B[qd];W[dp];B[pp];W[dd];B[cc];W[dc];B[cd];W[de];B[bf];W[od];B[oc];W[nc];B[pc];W[nd];B[qf];W[jd];B[nq];W[fq];B[cg];W[mp];B[gp];W[mq];B[np];W[mo];B[pn];W[im];B[gq];W[fp];B[hn];W[in];B[jp];W[om];B[pm];W[pq];B[qq];W[pr];B[or];W[fn];B[kq];W[mr];B[qr];W[ko];B[fr];W[er];B[gr];W[og];B[hd];W[dg];B[dh];W[eh];B[ei];W[fh];B[df];W[eg];B[ef];W[ce];B[be];W[cf];B[ff];W[cb];B[bb];W[eb];B[ch];W[ba];B[je];W[ke];B[jf];W[id];B[he];W[fi];B[kd];W[kc];B[ld];W[lc];B[bc];W[gb];B[ej];W[fj];B[hg];W[cj];B[ek];W[cl];B[dl];W[cm];B[hb];W[ib];B[hk];W[ii];B[hi];W[hj];B[ij];W[hh];B[gj];W[ih];B[gh];W[gi];B[gg];W[hj];B[gc];W[ha];B[hi];W[fk];B[fl];W[hj];B[ic];W[jc];B[hi];W[gk];B[hj];W[gl];B[hl];W[fm];B[hm];W[kh];B[ki];W[jj];B[lh];W[ji];B[kg];W[kj];B[li];W[ho];B[go];W[ip];B[fo];W[el];B[gn];W[iq];B[dq];W[cq];B[dr];W[ep];B[cp];W[co];B[bp];W[cr];B[es];W[bq];B[en];W[dm];B[do];W[bo];B[mk];W[ll];B[ph];W[ap];B[eq];W[pe];B[qe];W[pg];B[qh];W[hr];B[gs];W[ml];B[ol];W[nk];B[ok];W[cs];B[ds];W[le];B[ni];W[di];B[bi];W[ob];B[hc];W[fc];B[pb];W[nr];B[oq];W[qg];B[rg];W[mj];B[nh];W[nb];B[lj];W[lk];B[jk];W[kk];B[jl];W[jm];B[bk];W[bj];B[aj];W[pa];B[qa];W[oa];B[qb];W[nm];B[on];W[rh];B[ri];W[ie];B[if];W[ge];B[nn];W[mn];B[nl];W[rf];B[sh];W[gd];B[hf];W[hs];B[mm];W[lm];B[nf];W[ng];B[mf];W[mg];B[lf];W[oe];B[eo];W[cp];B[em];W[dk];B[an];W[bl];B[al];W[ci];B[bg];W[oh];B[oi];W[jh];B[lg];W[nj];B[oj];W[no];B[oo];W[ns];B[os];W[il];B[ik];W[nm];B[ab];W[ca];B[ee];W[ed];B[gm];W[fl];B[kl];W[km];B[hp];W[io];B[hq];W[ir];B[am];W[ck];B[ak];W[me];B[ne];W[bn];B[dn];W[pd];B[gf];W[fd];B[aa];W[jb];B[kf];W[md];B[mi];W[mk];B[ai];W[ao];B[fg];W[dj];B[fe];W[bm];B[mh];W[cn];B[pf];W[of];B[ig];W[jg];B[om];W[mm])\n            ",
-          game_date: "2023-08-04T15:00:00+00:00",
-          sgf_name: "Shin Jinseo vs Fan Tingyu",
-          black_player: "Shin Jinseo",
-          white_player: "Zhou Hongyu",
-          black_rank: "9p",
-          white_rank: "7p",
-          komi: 7.5,
-          result: "B+3.5",
-          thumbnail:
-            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1693955875/Seeder%20Data/Shin-Jinseo6_thumbnail_zrejkg.png",
-          suspended: false,
-        },
-        // ********************* 120 SGFs manually grabbed and uploaded from OGS, Fox, and KGS ***************** NOTE: some potential puzzles fail to generate, due to bug (now fixed) with "Pass" being the right move or follow up sequence, as well as AB AW conversion failing on a small amount of puzzles.
         {
           user_id: 4,
           sgf_data:
@@ -2528,6 +2411,742 @@ module.exports = {
           result: "B+22.75",
           thumbnail:
             "https://res.cloudinary.com/dn8rdavoi/image/upload/v1701999922/nsboqtdzsrlcc6lb3edw.png",
+          suspended: false,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702265216/xiunf29d8a2klemt4u5a.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702237207/gfolkasdkuo7xjh179f1.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1701999927/sx80nxpg911w0i4rcxnc.png",
+          suspended: true,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702266077/islxp4tnr2zorbhtbur7.png",
+          suspended: false,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702317634/s0onsrpbca7sjcy7lt7u.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702318180/e25pxg1pta9zlyjjezwx.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702320259/o6cuksalakno5gktkjxn.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702322503/o6yfz4ctr14yipsb2e2w.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702323156/nt7de4hbezj7jwe3np6z.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702405020/aqggtgvtniwr9ztiono2.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702324156/fdofytq17se6li8hkd6o.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702324759/qlumwwugmx88s9bkgrsf.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702405598/puxi1muromfjx6xfh6ti.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702318814/cxpzs0c84hbdvdbnzm7e.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702325059/igkjbwgqwo2rfxdna4zr.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702407005/cyryty6ubw24v4fd7nii.png",
+          suspended: false,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702321106/fayef0pzcn32rynp3pva.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702323078/ihh1nds5ldtw8opbjgjd.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702323811/zs84hmlhzmts0mjzczkv.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702324582/in8gbvqdczisav7b3io7.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702324842/glfos2szs5oplzyzzsmx.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702325208/nakbprbo5wigagplqtjq.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702325449/vu2fzqjy1lwy0euy3b4u.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702325883/tp455756g7twz6pulagl.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702325636/jr8mcumuzog7dd1sfqcr.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702404333/ffrdyh0kwswzpy1acxtx.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702404328/kz3d3jfsv7ntnoyw3urh.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702325855/aitx0ojtwsfqbsouxxbj.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702325506/djttbmvrwkbgwfwpfcvi.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702405014/s7dogpkabmytocmwkze1.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702405007/ybyjl7vtzzzsye8mv9eg.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702405947/nvj10kagovo3ajrgmmfx.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-02-21]\r\nPB[arbyter73]\r\nPW[V263850611]\r\nBR[8\u7ea7]\r\nWR[8\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[1]RE[B+22.75]TM[1200]TC[3]TT[60]AP[foxwq]RL[0]\r\n;B[pd];W[dd];B[pq];W[dp];B[qk];W[po];B[qo];W[qn];B[qp];W[pn];B[nq];W[np];B[mp];W[op];B[oq];W[mo];B[qh];W[lo];B[fq];W[hq];B[cq];W[dq];B[cp];W[co];B[dr];W[er];B[cr];W[fr];B[do];W[eo];B[dn];W[fp];B[en];W[fn];B[cl];W[fm];B[jd];W[nd];B[pf];W[od];B[pc];W[of];B[og];W[pe];B[qe];W[oe];B[qg];W[ng];B[fc];W[hd];B[hc];W[fd];B[ec];W[ed];B[id];W[gc];B[gb];W[gd];B[hb];W[dc];B[if];W[db];B[fb];W[dg];B[ok];W[oh];B[pg];W[mh];B[ni];W[nh];B[nm];W[nn];B[mm];W[om];B[ol];W[pl];B[pk];W[ql];B[lc];W[ld];B[mc];W[md];B[kd];W[mf];B[lj];W[hf];B[gf];W[he];B[gg];W[hg];B[gh];W[hh];B[fi];W[ie];B[di];W[je];B[ch];W[cg];B[oc];W[nc];B[nb];W[ke];B[kc];W[hj];B[kq];W[lp];B[lq];W[mq];B[mr];W[kp];B[jq];W[jp];B[km];W[gi];B[eh];W[fj];B[ej];W[ek];B[dk];W[el];B[dm];W[dl];B[ck];W[em];B[cn];W[eg];B[dh];W[bh];B[bi];W[bg];B[im];W[kh];B[oi];W[kj];B[kk];W[li];B[mj];W[jk];B[kl];W[ji];B[rn];W[rm];B[ro];W[rk];B[rj];W[sj];B[ri];W[mp];B[pp];W[iq];B[ir];W[hr];B[jr];W[io];B[ef];W[df];B[fg];W[ee];B[gp];W[gq];B[go];W[fo];B[hn];W[in];B[hm];W[gk];B[si];W[sk];B[ah];W[ag];B[ai];W[ff];B[bo];W[ds];B[cs];W[es];B[lr];W[ho];B[gn];W[jl];B[jm];W[is];B[js];W[hs];B[ph];W[mi];B[lm];W[jn];B[kn];W[hp];B[ik];W[il];B[hl];W[jj];B[hk];W[ij];B[gl];W[fl];B[sm];W[sl];B[rl];W[qm];B[ea];W[da];B[eb];W[ko];B[mn];W[gm];B[ge];W[fe];B[fh];W[ln])",
+          game_date: "2022-02-21T00:00:00+00:00",
+          sgf_name: "arbyter73 vs V263850611",
+          black_player: "arbyter73",
+          white_player: "V263850611",
+          black_rank: "8\u7ea7",
+          white_rank: "8\u7ea7",
+          komi: 375.0,
+          result: "B+22.75",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702406257/x1ktl2sn0xelmdx8yqwi.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702405594/w43e3tid54z2nnmfrotc.png",
+          suspended: true,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[gzhtt]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[dp];W[pc];B[qd];W[nd];B[pd];W[qc];B[od];W[oc];B[ne];W[md];B[me];W[qh];B[qg];W[pg];B[qf];W[of];B[ph];W[oh];B[pi];W[oe];B[qi];W[rh];B[ri];W[mh];B[le];W[fc];B[ld];W[lc];B[kc];W[lb];B[jd];W[ic];B[kb];W[nb];B[rc];W[rb];B[rd];W[jc];B[pm];W[qo];B[qp];W[qm];B[ql];W[pl];B[qk];W[pn];B[om];W[on];B[rm];W[qn];B[ol];W[rn];B[np];W[rp];B[rq];W[sq];B[rr];W[rl];B[rk];W[sm];B[kq];W[hq];B[fq];W[ho];B[cn];W[cq];B[dq];W[cp];B[co];W[dr];B[er];W[br];B[ds];W[cs];B[bo];W[es];B[fs];W[ds];B[bp];W[bq];B[ck];W[ch];B[ec];W[fd];B[ed];W[fe];B[de];W[ce];B[df];W[cf];B[cb];W[dg];B[ef];W[gf];B[fg];W[hg];B[fh];W[kg];B[ib];W[hb];B[hc];W[hd];B[jb];W[id];B[je];W[kf];B[bc];W[bj];B[cj];W[bk];B[ci];W[bi];B[bl];W[di];B[ej];W[cl];B[bm];W[dj];B[dk];W[ek];B[dl];W[ei];B[fj];W[fi];B[gj];W[gi];B[gl];W[bd];B[eb];W[fb];B[ab];W[ba];B[ca];W[dc];B[gb];W[gc];B[ea];W[db];B[jm];W[kr];B[lr];W[jr];B[kp];W[eo];B[do];W[fp];B[gq];W[gp];B[ip];W[gs];B[fr];W[hp];B[hs];W[hr];B[gr];W[is];B[iq];W[fm];B[el];W[jn];B[kn];W[ks];B[ir];W[io];B[jo];W[hm];B[hl];W[im];B[il];W[in];B[eq];W[gn];B[gm];W[em];B[en];W[fn];B[ep];W[dn])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "gzhtt vs jonwick01",
+          black_player: "gzhtt",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702406519/yg7s7ha4otpsccigxalt.png",
+          suspended: false,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-02-21]\r\nPB[arbyter73]\r\nPW[V263850611]\r\nBR[8\u7ea7]\r\nWR[8\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[1]RE[B+22.75]TM[1200]TC[3]TT[60]AP[foxwq]RL[0]\r\n;B[pd];W[dd];B[pq];W[dp];B[qk];W[po];B[qo];W[qn];B[qp];W[pn];B[nq];W[np];B[mp];W[op];B[oq];W[mo];B[qh];W[lo];B[fq];W[hq];B[cq];W[dq];B[cp];W[co];B[dr];W[er];B[cr];W[fr];B[do];W[eo];B[dn];W[fp];B[en];W[fn];B[cl];W[fm];B[jd];W[nd];B[pf];W[od];B[pc];W[of];B[og];W[pe];B[qe];W[oe];B[qg];W[ng];B[fc];W[hd];B[hc];W[fd];B[ec];W[ed];B[id];W[gc];B[gb];W[gd];B[hb];W[dc];B[if];W[db];B[fb];W[dg];B[ok];W[oh];B[pg];W[mh];B[ni];W[nh];B[nm];W[nn];B[mm];W[om];B[ol];W[pl];B[pk];W[ql];B[lc];W[ld];B[mc];W[md];B[kd];W[mf];B[lj];W[hf];B[gf];W[he];B[gg];W[hg];B[gh];W[hh];B[fi];W[ie];B[di];W[je];B[ch];W[cg];B[oc];W[nc];B[nb];W[ke];B[kc];W[hj];B[kq];W[lp];B[lq];W[mq];B[mr];W[kp];B[jq];W[jp];B[km];W[gi];B[eh];W[fj];B[ej];W[ek];B[dk];W[el];B[dm];W[dl];B[ck];W[em];B[cn];W[eg];B[dh];W[bh];B[bi];W[bg];B[im];W[kh];B[oi];W[kj];B[kk];W[li];B[mj];W[jk];B[kl];W[ji];B[rn];W[rm];B[ro];W[rk];B[rj];W[sj];B[ri];W[mp];B[pp];W[iq];B[ir];W[hr];B[jr];W[io];B[ef];W[df];B[fg];W[ee];B[gp];W[gq];B[go];W[fo];B[hn];W[in];B[hm];W[gk];B[si];W[sk];B[ah];W[ag];B[ai];W[ff];B[bo];W[ds];B[cs];W[es];B[lr];W[ho];B[gn];W[jl];B[jm];W[is];B[js];W[hs];B[ph];W[mi];B[lm];W[jn];B[kn];W[hp];B[ik];W[il];B[hl];W[jj];B[hk];W[ij];B[gl];W[fl];B[sm];W[sl];B[rl];W[qm];B[ea];W[da];B[eb];W[ko];B[mn];W[gm];B[ge];W[fe];B[fh];W[ln])",
+          game_date: "2022-02-21T00:00:00+00:00",
+          sgf_name: "arbyter73 vs V263850611",
+          black_player: "arbyter73",
+          white_player: "V263850611",
+          black_rank: "8\u7ea7",
+          white_rank: "8\u7ea7",
+          komi: 375.0,
+          result: "B+22.75",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702406523/sjntziziyuuob9ies8ql.png",
+          suspended: false,
+        },
+        {
+          user_id: 4,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2022-03-13]\r\nPB[462205562]\r\nPW[jonwick01]\r\nBR[6\u7ea7]\r\nWR[6\u7ea7]\r\nKM[375]HA[0]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[60]TC[3]TT[20]AP[foxwq]RL[0]\r\n;B[pp];W[cd];B[pd];W[dq];B[bq];W[cq];B[cp];W[dp];B[co];W[br];B[bp];W[gq];B[cm];W[lq];B[jq];W[qq];B[pq];W[qp];B[qr];W[rr];B[pr];W[po];B[mq];W[lp];B[mp];W[lo];B[oo];W[pn];B[rm];W[rn];B[qm];W[io];B[hp];W[en];B[ho];W[im];B[ip];W[jo];B[hq];W[gr];B[fo];W[eo];B[fp];W[fq];B[hm];W[mo];B[no];W[lr];B[mr];W[nm];B[qn];W[qo];B[ro];W[rp];B[sn];W[om];B[ck];W[ec];B[cf];W[di];B[ci];W[ch];B[dj];W[bi];B[cj];W[eh];B[ef];W[ej];B[ek];W[gd];B[fd];W[fc];B[ed];W[ge];B[ff];W[gf];B[fg];W[fk];B[el];W[fj];B[fl];W[hh];B[fh];W[gi];B[fi];W[ei];B[cg];W[bg];B[bf];W[dd];B[de];W[fe];B[ee];W[dg];B[gj];W[gk];B[hj];W[hk];B[gh];W[hi];B[hg];W[gg];B[ij];W[ig];B[il];W[ik];B[jk];W[jl];B[hl];W[jj];B[ii];W[ih];B[ji];W[kk];B[hf];W[if];B[he];W[hd];B[ie];W[je])",
+          game_date: "2022-03-13T00:00:00+00:00",
+          sgf_name: "462205562 vs jonwick01",
+          black_player: "462205562",
+          white_player: "jonwick01",
+          black_rank: "6\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 375.0,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1702406705/n4kdkyii6fm9weo3dbwr.png",
+          suspended: false,
+        },
+        {
+          user_id: 1,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703014569/prnqekj3zzib26lxr7qp.png",
+          suspended: false,
+        },
+        {
+          user_id: 5,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2022-11-23]\nPC[OGS: https://online-go.com/game/48829460]\nGN[MattPs vs. Grok Grock]\nPB[MattPs]\nPW[Grok Grock]\nBR[13k]\nWR[12k]\nTM[600]OT[4x30 byo-yomi]\nRE[W+34.5]\nSZ[13]\nKM[0.5]\nRU[Japanese]\nAB[jd]\n;W[ck]\n(;B[jj]\n(;W[dc]\n(;B[dl]\n(;W[cl]\n(;B[fk]\n(;W[kc]\n(;B[kd]\n(;W[ld]\n(;B[le]\n(;W[md]\n(;B[me]\n(;W[lb]\n(;B[jg]\n(;W[jf]\n(;B[kf]\n(;W[je]\n(;B[if]\n(;W[ie]\n(;B[ig]\n(;W[id]\n(;B[ke]\n(;W[jc]\n(;B[he]\n(;W[hd]\n(;B[hj]\n(;W[kj]\n(;B[ki]\n(;W[li]\n(;B[kk]\n(;W[kg]\n(;B[lg]\n(;W[kh]\n(;B[lj]\n(;W[lh]\n(;B[mh]\n(;W[mf]\n(;B[jh]\n(;W[lf]\n(;B[ff]\n(;W[ge]\n(;B[gf]\n(;W[hf]\n(;B[hg]\n(;W[he]\n(;B[fe]\n(;W[ej]\n(;B[fd]\n(;W[fc]\n(;B[eh]\n(;W[fh]\n(;B[fi]\n(;W[ei]\n(;B[fg]\n(;W[dh]\n(;B[gh]\n(;W[eg]\n(;B[fh]\n(;W[ef]\n(;B[ee]\n(;W[de]\n(;B[dd]\n(;W[cd]\n(;B[df]\n(;W[ed]\n(;B[dg]\n(;W[gc]\n(;B[ch]\n(;W[di]\n(;B[ci]\n(;W[dk]\n(;B[el]\n(;W[ek]\n(;B[cg]\n(;W[bj]\n(;B[cj]\n(;W[dm]\n(;B[em]\n(;W[fl]\n(;B[cm]\n(;W[fm]\n(;B[fj]\n(;W[gl]\n(;B[hl]\n(;W[gk]\n(;B[gj]\n(;W[hk]\n(;B[ik]\n(;W[dm]\n(;B[im]\n(;W[bi]\n(;B[ce]\n(;W[dd]\n(;B[bh]\n(;W[be]\n(;B[cf]\n(;W[ai]\n(;B[ah]\n(;W[bk]\n(;B[bg]\n(;W[ae]\n(;B[hm]\n(;W[gd]\n(;B[gm]\n(;W[bm]\n(;B[mi]\n(;W[mg]\n(;B[mj]\n(;W[af]\n(;B[]\n(;W[dj]\n(;B[]\n(;W[ag]\n(;B[eg]\n(;W[bd]\n(;B[]\n(;W[bf]\n(;B[]\n(;W[ii]\n(;B[]\n(;W[ij]\n(;B[jk]\n(;W[ji]\n(;B[kj]\n(;W[hh]\n(;B[hi]\n(;W[jm]\n(;B[il]\n(;W[km]\n(;B[ih]\n(;W[ll]\n(;B[]\n(;W[lk]\n(;B[mk]\n(;W[]\n(;B[]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2022-11-23T00:00:00+00:00",
+          sgf_name: "MattPs vs Grok Grock",
+          black_player: "MattPs",
+          white_player: "Grok Grock",
+          black_rank: "13k",
+          white_rank: "12k",
+          komi: 0.5,
+          result: "W+34.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703029755/yv0k2gajx4olpfbzga8u.png",
+          suspended: false,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;GM[1]FF[4]\r\nSZ[19]\r\nGN[]\r\nDT[2023-12-04]\r\nPB[arbyter73]\r\nPW[\u96e8\u540e\u5f69\u867905]\r\nBR[7\u7ea7]\r\nWR[6\u7ea7]\r\nKM[0]HA[1]RU[Chinese]AP[GNU Go:3.8]RN[3]RE[W+R]TM[300]TC[3]TT[30]AP[foxwq]RL[0]\r\n;B[qd];W[dp];B[oq];W[cd];B[ec];W[dc];B[ed];W[cg];B[jd];W[oc];B[mc];W[qb];B[rc];W[rb];B[qh];W[qc];B[re];W[sc];B[rd];W[pd];B[pe];W[oe];B[of];W[pf];B[qe];W[nf];B[og];W[nd];B[ng];W[mf];B[mg];W[lf];B[fq];W[eq];B[fp];W[iq];B[do];W[co];B[ep];W[dq];B[kq];W[dn];B[fn];W[jp];B[kp];W[gr];B[fr];W[gq];B[jo];W[io];B[jn];W[in];B[jm];W[im];B[jl];W[il];B[fl];W[gm];B[fm];W[gl];B[fk];W[pp];B[qn];W[pq];B[rp];W[or];B[nq];W[nr];B[qr];W[qq];B[rq];W[pr];B[rr];W[mq];B[np];W[mp];B[no];W[lo];B[ko];W[ln];B[on];W[qo];B[ro];W[pn];B[pm];W[po];B[om];W[ll];B[kj];W[kk];B[jk];W[jj];B[ij];W[ji];B[ik];W[lj];B[ki];W[li];B[kh];W[jh];B[jg];W[ih];B[ig];W[hh];B[gk];W[lh];B[kg];W[lg];B[mk];W[lk];B[nj];W[rl];B[ql];W[rk];B[ri];W[qj];B[pj];W[pi];B[qk];W[rj];B[qi];W[rn];B[qm];W[rm];B[sn];W[oj];B[pk];W[ok];B[oi];W[ni];B[ph];W[nk];B[gg];W[hg];B[hf];W[gh];B[fg];W[fh];B[eh];W[ei];B[fi];W[eg];B[dh];W[di];B[ch];W[gf])",
+          game_date: "2023-12-04T00:00:00+00:00",
+          sgf_name: "arbyter73 vs \u96e8\u540e\u5f69\u867905",
+          black_player: "arbyter73",
+          white_player: "\u96e8\u540e\u5f69\u867905",
+          black_rank: "7\u7ea7",
+          white_rank: "6\u7ea7",
+          komi: 0.5,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703187952/cbv51swfcsw1emvdxfl3.png",
+          suspended: false,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2023-12-12]\nPC[OGS: https://online-go.com/game/59694877]\nGN[Friendly Match]\nPB[PsychoInferno]\nPW[HarpSeal]\nBR[5k]\nWR[4k]\nTM[600]OT[5x30 byo-yomi]\nRE[W+R]\nSZ[19]\nKM[7.5]\nRU[Chinese]\n;B[pd]\n(;W[dp]\n(;B[cd]\n(;W[qp]\n(;B[cn]\n(;W[fq]\n(;B[id]\n(;W[dd]\n(;B[dc]\n(;W[ce]\n(;B[ed]\n(;W[de]\n(;B[cc]\n(;W[dj]\n(;B[ck]\n(;W[cj]\n(;B[dk]\n(;W[ek]\n(;B[el]\n(;W[fl]\n(;B[em]\n(;W[fm]\n(;B[ej]\n(;W[fk]\n(;B[ei]\n(;W[dh]\n(;B[eh]\n(;W[dg]\n(;B[ff]\n(;W[ee]\n(;B[fe]\n(;W[bk]\n(;B[bl]\n(;W[bj]\n(;B[cm]\n(;W[bp]\n(;B[eo]\n(;W[fn]\n(;B[bo]\n(;W[en]\n(;B[dm]\n(;W[do]\n(;B[co]\n(;W[cp]\n(;B[ap]\n(;W[nq]\n(;B[pm]\n(;W[qf]\n(;B[qh]\n(;W[qc]\n(;B[pc]\n(;W[qd]\n(;B[pe]\n(;W[pf]\n(;B[qe]\n(;W[re]\n(;B[rd]\n(;W[rg]\n(;B[rc]\n(;W[qj]\n(;B[rh]\n(;W[ph]\n(;B[pg]\n(;W[og]\n(;B[qg]\n(;W[of]\n(;B[pi]\n(;W[oh]\n(;B[qi]\n(;W[pk]\n(;B[oi]\n(;W[ni]\n(;B[ok]\n(;W[ol]\n(;B[nj]\n(;W[mi]\n(;B[pl]\n(;W[nk]\n(;B[oj]\n(;W[mj]\n(;B[nl]\n(;W[eg]\n(;B[fg]\n(;W[fh]\n(;B[gh]\n(;W[fi]\n(;B[fj]\n(;W[gi]\n(;B[gj]\n(;W[hi]\n(;B[hj]\n(;W[ii]\n(;B[ij]\n(;W[ji]\n(;B[jj]\n(;W[kj]\n(;B[kk]\n(;W[ki]\n(;B[jl]\n(;W[lk]\n(;B[ll]\n(;W[ml]\n(;B[mk]\n(;W[ec]\n(;B[fd]\n(;W[nk]\n(;B[nm]\n(;W[mk]\n(;B[mm]\n(;W[lm]\n(;B[kl]\n(;W[ln]\n(;B[hl]\n(;W[im]\n(;B[il]\n(;W[in]\n(;B[kn]\n(;W[lo]\n(;B[jn]\n(;W[io]\n(;B[gk]\n(;W[ik]\n(;B[mg]\n(;W[lf]\n(;B[lg]\n(;W[kg]\n(;B[mf]\n(;W[lh]\n(;B[nh]\n(;W[ig]\n(;B[le]\n(;W[kf]\n(;B[mp]\n(;W[lp]\n(;B[mq]\n(;W[np]\n(;B[mo]\n(;W[mn]\n(;B[nn]\n(;W[no]\n(;B[lq]\n(;W[jp]\n(;B[kq]\n(;W[kp]\n(;B[hr]\n(;W[jq]\n(;B[jr]\n(;W[hq]\n(;B[iq]\n(;W[hp]\n(;B[nr]\n(;W[or]\n(;B[mr]\n(;W[on]\n(;B[om]\n(;W[pq]\n(;B[oo]\n(;W[pn]\n(;B[po]\n(;W[qn]\n(;B[qo]\n(;W[rn]\n(;B[ro]\n(;W[rp]\n(;B[sn]\n(;W[ke]\n(;B[ld]\n(;W[ng]\n(;B[ne]\n(;W[mh]\n(;B[rm]\n(;W[kd]\n(;B[bq]\n(;W[cr]\n(;B[kc]\n(;W[bd]\n(;B[bc]\n(;W[be]\n(;B[jc]\n(;W[ac]\n(;B[ab]\n(;W[ad]\n(;B[bb]\n(;W[gr]\n(;B[is]\n(;W[ks]\n(;B[pp]\n(;W[oq]\n(;B[qq]\n(;W[qr]\n(;B[rq]\n(;W[rr]\n(;B[sp]\n(;W[ps]\n(;B[sr]\n(;W[rs]\n(;B[ns]\n(;W[os]\n(;B[ls]\n(;W[he]\n(;B[hd]\n(;W[gg]\n(;B[cq]\n(;W[dq]\n(;B[br]\n(;W[dr]\n))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2023-12-12T00:00:00+00:00",
+          sgf_name: "PsychoInferno vs HarpSeal",
+          black_player: "PsychoInferno",
+          white_player: "HarpSeal",
+          black_rank: "5k",
+          white_rank: "4k",
+          komi: 7.5,
+          result: "W+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703188371/ptyxcp0a7dlnlpg27vag.png",
+          suspended: false,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]\nRU[Chinese]SZ[19]KM[7.50]TM[300]\nGN[]PW[\u9752\u74e6\u697c\u9601]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3\u3164\u200b]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30]\n;B[qd]\n;W[dp]\n;B[pq]\n;W[dd]\n;B[cc]\n;W[dc]\n;B[cd]\n;W[ce]\n;B[be]\n;W[bf]\n;B[cf]\n;W[de]\n;B[bg]\n;W[bd]\n;B[af]\n;W[bc]\n;B[nc]\n;W[qo]\n;B[ql]\n;W[op]\n;B[oq]\n;W[np]\n;B[mr]\n;W[lq]\n;B[mq]\n;W[mp]\n;B[lp]\n;W[kq]\n;B[lo]\n;W[rq]\n;B[qr]C[Move 31: B R2\r\nScore: W+3.9\r\nWin rate: W 71.1%\r\nEstimated point loss: 4.3\r\nPredicted top move was S2 (B+0.5).\r\nPV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6\r\nMove was #96 according to policy  (0.00%).\r\nTop policy move was K4 (40.0%).\r\n\u3164\u200b]\n;W[rr]\n;B[lr]\n;W[kr]\n;B[nq]C[Move 35: B O3\r\nScore: W+8.9\r\nWin rate: W 87.0%\r\nEstimated point loss: 4.4\r\nPredicted top move was J4 (W+4.2).\r\nPV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4\r\nMove was #33 according to policy  (0.03%).\r\nTop policy move was J4 (29.8%).\r\n\u3164\u200b]\n;W[on]\n;B[jp]\n;W[iq]\n;B[ip]\n;W[hq]\n;B[go]\n;W[fp]\n;B[ol]\n;W[nm]\n;B[mk]\n;W[rd]\n;B[re]\n;W[qc]\n;B[rc]\n;W[pd]\n;B[qe]\n;W[rb]\n;B[sd]\n;W[pe]\n;B[pc]\n;W[oc]\n;B[qb]\n;W[nd]\n;B[ob]\n;W[od]C[Move 60: W P16\r\nScore: W+5.4\r\nWin rate: W 78.3%\r\nEstimated point loss: 4.8\r\nPredicted top move was M7 (W+10.4).\r\nPV: WM7 K7 L8 K8 L9 K9 L10 N12\r\nMove was #134 according to policy  (0.01%).\r\nTop policy move was M7 (32.0%).\r\n\u3164\u200b]\n;B[mc]\n;W[md]\n;B[ld]\n;W[le]\n;B[ke]\n;W[kf]C[Move 66: W L14\r\nScore: W+0.5\r\nWin rate: W 55.3%\r\nEstimated point loss: 5.4\r\nPredicted top move was M14 (W+6.0).\r\nPV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9\r\nMove was #3 according to policy  (1.72%).\r\nTop policy move was M14 (75.8%).\r\n\u3164\u200b]\n;B[kd])\n",
+          game_date: "2023-07-09T00:00:00+00:00",
+          sgf_name: "anning97 vs \u9752\u74e6\u697c\u9601",
+          black_player: "anning97",
+          white_player: "\u9752\u74e6\u697c\u9601",
+          black_rank: "?",
+          white_rank: "?",
+          komi: 7.5,
+          result: "B+Resign",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703351533/voermj73fovkjbno8y9y.png",
+          suspended: true,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]\nRU[Chinese]SZ[19]KM[7.50]TM[300]\nGN[]PW[\u9752\u74e6\u697c\u9601]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3\u3164\u200b]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30]\n;B[qd]\n;W[dp]\n;B[pq]\n;W[dd]\n;B[cc]\n;W[dc]\n;B[cd]\n;W[ce]\n;B[be]\n;W[bf]\n;B[cf]\n;W[de]\n;B[bg]\n;W[bd]\n;B[af]\n;W[bc]\n;B[nc]\n;W[qo]\n;B[ql]\n;W[op]\n;B[oq]\n;W[np]\n;B[mr]\n;W[lq]\n;B[mq]\n;W[mp]\n;B[lp]\n;W[kq]\n;B[lo]\n;W[rq]\n;B[qr]C[Move 31: B R2\r\nScore: W+3.9\r\nWin rate: W 71.1%\r\nEstimated point loss: 4.3\r\nPredicted top move was S2 (B+0.5).\r\nPV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6\r\nMove was #96 according to policy  (0.00%).\r\nTop policy move was K4 (40.0%).\r\n\u3164\u200b]\n;W[rr]\n;B[lr]\n;W[kr]\n;B[nq]C[Move 35: B O3\r\nScore: W+8.9\r\nWin rate: W 87.0%\r\nEstimated point loss: 4.4\r\nPredicted top move was J4 (W+4.2).\r\nPV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4\r\nMove was #33 according to policy  (0.03%).\r\nTop policy move was J4 (29.8%).\r\n\u3164\u200b]\n;W[on]\n;B[jp]\n;W[iq]\n;B[ip]\n;W[hq]\n;B[go]\n;W[fp]\n;B[ol]\n;W[nm]\n;B[mk]\n;W[rd]\n;B[re]\n;W[qc]\n;B[rc]\n;W[pd]\n;B[qe]\n;W[rb]\n;B[sd]\n;W[pe]\n;B[pc]\n;W[oc]\n;B[qb]\n;W[nd]\n;B[ob]\n;W[od]C[Move 60: W P16\r\nScore: W+5.4\r\nWin rate: W 78.3%\r\nEstimated point loss: 4.8\r\nPredicted top move was M7 (W+10.4).\r\nPV: WM7 K7 L8 K8 L9 K9 L10 N12\r\nMove was #134 according to policy  (0.01%).\r\nTop policy move was M7 (32.0%).\r\n\u3164\u200b]\n;B[mc]\n;W[md]\n;B[ld]\n;W[le]\n;B[ke]\n;W[kf]C[Move 66: W L14\r\nScore: W+0.5\r\nWin rate: W 55.3%\r\nEstimated point loss: 5.4\r\nPredicted top move was M14 (W+6.0).\r\nPV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9\r\nMove was #3 according to policy  (1.72%).\r\nTop policy move was M14 (75.8%).\r\n\u3164\u200b]\n;B[kd])\n",
+          game_date: "2023-07-09T00:00:00+00:00",
+          sgf_name: "anning97 vs \u9752\u74e6\u697c\u9601",
+          black_player: "anning97",
+          white_player: "\u9752\u74e6\u697c\u9601",
+          black_rank: "?",
+          white_rank: "?",
+          komi: 7.5,
+          result: "B+Resign",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703351561/tidrfcianpdshwxppuzf.png",
+          suspended: true,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;FF[4]\nCA[UTF-8]\nGM[1]\nDT[2023-12-18]\nPC[OGS: https://online-go.com/game/59865919]\nGN[Friendly Match]\nPB[cchengx1]\nPW[EmperorPilaf]\nBR[7k]\nWR[7k]\nTM[1500]OT[3x30 byo-yomi]\nRE[B+R]\nSZ[19]\nKM[6.5]\nRU[Japanese]\n;B[pd]\n(;W[dc]\n(;B[qp]\n(;W[eq]\n(;B[dp]\n(;W[dq]\n(;B[cp]\n(;W[cq]\n(;B[dl]\n(;W[op]\n(;B[oq]\n(;W[nq]\n(;B[pq]\n(;W[mp]\n(;B[pm]\n(;W[ep]\n(;B[eo]\n(;W[fo]\n(;B[en]\n(;W[fn]\n(;B[ce]\n(;W[ch]\n(;B[cj]\n(;W[df]\n(;B[de]\n(;W[ef]\n(;B[ee]\n(;W[ff]\n(;B[fe]\n(;W[fc]\n(;B[gf]\n(;W[gg]\n(;B[hf]\n(;W[nc]\n(;B[oc]\n(;W[nd]\n(;B[kc]\n(;W[ic]\n(;B[ke]\n(;W[pe]\n(;B[qe]\n(;W[od]\n(;B[pc]\n(;W[pf]\n(;B[qf]\n(;W[pg]\n(;B[qg]\n(;W[pi]\n(;B[nf]\n(;W[mf]\n(;B[ng]\n(;W[mg]\n(;B[nh]\n(;W[mh]\n(;B[ni]\n(;W[ne]\n(;B[ph]\n(;W[ld]\n(;B[kd]\n(;W[ge]\n(;B[gd]\n(;W[he]\n(;B[hd]\n(;W[ie]\n(;B[if]\n(;W[id]\n(;B[fd]\n(;W[gc]\n(;B[jf]\n(;W[mm]\n(;B[hi]\n(;W[fi]\n(;B[gk]\n(;W[bc]\n(;B[cf]\n(;W[cg]\n(;B[eh]\n(;W[ei]\n(;B[di]\n(;W[dh]\n(;B[eg]\n(;W[bj]\n(;B[ej]\n(;W[ci]\n(;B[dj]\n(;W[bl]\n(;B[fh]\n(;W[fj]\n(;B[fk]\n(;W[bp]\n(;B[dg]\n)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          game_date: "2023-12-18T00:00:00+00:00",
+          sgf_name: "cchengx1 vs EmperorPilaf",
+          black_player: "cchengx1",
+          white_player: "EmperorPilaf",
+          black_rank: "7k",
+          white_rank: "7k",
+          komi: 6.5,
+          result: "B+R",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703351586/mzdvtgp7qw0fvnuomhso.png",
+          suspended: true,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;FF[4]GM[1]CA[UTF-8]DT[2023-09-02]PC[OGS: https://online-go.com/game/56740614]GN[Friendly Match]PB[erikdeviking]PW[blammin]BR[18k]WR[5k]TM[120]OT[3x30 byo-yomi]RE[Black + 0.5]SZ[9]KM[5.5]RU[Japanese];B[ff];W[df];B[fc];W[dd];B[eg];W[gd];B[fd];W[gc];B[gb];W[hb];B[fb];W[hf];B[hg];W[gf];B[gg];W[ge];B[dg];W[cf];B[ee];W[cc];B[cg];W[bg];B[bh];W[bf];B[de];W[ce];B[ed];W[ha];B[dc];W[cb];B[cd];W[bd];B[db];W[ig];B[ih];W[if];B[hi];W[ah];B[bb];W[bc];B[ca];W[ab];B[ba];W[ae];B[ch];W[ac];B[ag];W[af];B[bi];W[fe];B[ef];W[dd];B[ic];W[ib];B[cd];W[da];B[ea];W[dd];B[hc];W[hd];B[cd];W[aa];B[da];W[dd];B[ga];W[id];B[cd];W[fh];B[fg];W[dd];B[ai];W[ag];B[cd];W[gh];B[hh];W[dd];B[];W[cd];B[];W[])",
+          game_date: "2023-09-02T00:00:00+00:00",
+          sgf_name: "testing",
+          black_player: "erikdeviking",
+          white_player: "blammin",
+          black_rank: "18k",
+          white_rank: "5k",
+          komi: 5.5,
+          result: "Black + 0.5",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1694029192/qerzwfuss56al6d1y3tn.png",
+          suspended: true,
+        },
+        {
+          user_id: 3,
+          sgf_data:
+            "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]\nRU[Chinese]SZ[19]KM[7.50]TM[300]\nGN[]PW[\u9752\u74e6\u697c\u9601]PB[anning97]DT[2023-07-09]C[SGF generated by KaTrain 1.12.3\u3164\u200b]RE[B+Resign]KTV[1.0]RL[0]RN[3]TC[3]TT[30]\n;B[qd]\n;W[dp]\n;B[pq]\n;W[dd]\n;B[cc]\n;W[dc]\n;B[cd]\n;W[ce]\n;B[be]\n;W[bf]\n;B[cf]\n;W[de]\n;B[bg]\n;W[bd]\n;B[af]\n;W[bc]\n;B[nc]\n;W[qo]\n;B[ql]\n;W[op]\n;B[oq]\n;W[np]\n;B[mr]\n;W[lq]\n;B[mq]\n;W[mp]\n;B[lp]\n;W[kq]\n;B[lo]\n;W[rq]\n;B[qr]C[Move 31: B R2\r\nScore: W+3.9\r\nWin rate: W 71.1%\r\nEstimated point loss: 4.3\r\nPredicted top move was S2 (B+0.5).\r\nPV: BS2 K4 O6 P6 P7 O7 Q6 P5 P8 R3 R2 M6\r\nMove was #96 according to policy  (0.00%).\r\nTop policy move was K4 (40.0%).\r\n\u3164\u200b]\n;W[rr]\n;B[lr]\n;W[kr]\n;B[nq]C[Move 35: B O3\r\nScore: W+8.9\r\nWin rate: W 87.0%\r\nEstimated point loss: 4.4\r\nPredicted top move was J4 (W+4.2).\r\nPV: BJ4 K4 K5 J3 H4 H3 G3 G4 G2 J5 H5 L5 J6 M6 N5 L4\r\nMove was #33 according to policy  (0.03%).\r\nTop policy move was J4 (29.8%).\r\n\u3164\u200b]\n;W[on]\n;B[jp]\n;W[iq]\n;B[ip]\n;W[hq]\n;B[go]\n;W[fp]\n;B[ol]\n;W[nm]\n;B[mk]\n;W[rd]\n;B[re]\n;W[qc]\n;B[rc]\n;W[pd]\n;B[qe]\n;W[rb]\n;B[sd]\n;W[pe]\n;B[pc]\n;W[oc]\n;B[qb]\n;W[nd]\n;B[ob]\n;W[od]C[Move 60: W P16\r\nScore: W+5.4\r\nWin rate: W 78.3%\r\nEstimated point loss: 4.8\r\nPredicted top move was M7 (W+10.4).\r\nPV: WM7 K7 L8 K8 L9 K9 L10 N12\r\nMove was #134 according to policy  (0.01%).\r\nTop policy move was M7 (32.0%).\r\n\u3164\u200b]\n;B[mc]\n;W[md]\n;B[ld]\n;W[le]\n;B[ke]\n;W[kf]C[Move 66: W L14\r\nScore: W+0.5\r\nWin rate: W 55.3%\r\nEstimated point loss: 5.4\r\nPredicted top move was M14 (W+6.0).\r\nPV: WM14 F5 E5 L14 M13 P13 L13 L16 M7 K7 L9\r\nMove was #3 according to policy  (1.72%).\r\nTop policy move was M14 (75.8%).\r\n\u3164\u200b]\n;B[kd])\n",
+          game_date: "2023-07-09T00:00:00+00:00",
+          sgf_name: "anning97 vs \u9752\u74e6\u697c\u9601",
+          black_player: "anning97",
+          white_player: "\u9752\u74e6\u697c\u9601",
+          black_rank: "?",
+          white_rank: "?",
+          komi: 7.5,
+          result: "B+Resign",
+          thumbnail:
+            "https://res.cloudinary.com/dn8rdavoi/image/upload/v1703359181/f5mwr0tgcphywqhzzyww.png",
           suspended: false,
         },
       ],

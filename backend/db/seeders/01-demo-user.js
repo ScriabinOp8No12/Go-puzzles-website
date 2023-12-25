@@ -39,6 +39,13 @@ module.exports = {
           rank: 1500,
           solved_puzzles: 0,
           hashedPassword: bcrypt.hashSync("password"),
+        },
+        {
+        username: "test foreign key error",
+        email: "testingError@gmail.com",
+          rank: 1500,
+          solved_puzzles: 0,
+          hashedPassword: bcrypt.hashSync("password"),
         }
       ],
       {}
