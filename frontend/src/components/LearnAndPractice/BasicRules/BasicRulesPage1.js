@@ -40,9 +40,7 @@ const BasicRulesPage1 = () => {
                 The player with the most territory at the end of the game wins!
               </li>
             </ul>
-          </div>
-          {/* Image(s) on the right half */}
-          <div className="content-image-section">
+            <div className="content-image-section">
             <img
             className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-1_dtrowf.png"
@@ -50,11 +48,41 @@ const BasicRulesPage1 = () => {
             />
             <p>Diagram 1: Black has surrounded 4 points of territory</p>
           </div>
+          <div className="content-image-section">
+            <img
+            className="button-hover"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-2_bhdwck.png"
+              alt="Surrounding territory 2"
+            />
+            <p>Diagram 2: Highlighting the 4 points of territory</p>
+          </div>
+          <div className="content-image-section">
+            <img
+            className="button-hover"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977661/Tutorial-images/basic-rules-3_ayyhdl.png"
+              alt="Surrounding territory 3"
+            />
+            <p>
+              Diagram 3: How many points are each of the above black groups
+              surrounding? Go to the next page to check your answer! 😄{" "}
+            </p>
+
+          </div>
+          </div>
+          {/* Image(s) on the right half */}
+          {/* <div className="content-image-section">
+            <img
+            className="button-hover"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-1_dtrowf.png"
+              alt="Surrounding territory 1"
+            />
+            <p>Diagram 1: Black has surrounded 4 points of territory</p>
+          </div> */}
         </div>
         {/* Under the "content-section" where we render 2 more diagrams */}
-        <div className="diagram-container">
+        {/* <div className="diagram-container"> */}
           {/* For making the text stack vertically with the image above it */}
-          <div className="image-text-wrap">
+          {/* <div className="image-text-wrap">
             <img
             className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1698977660/Tutorial-images/basic-rules-2_bhdwck.png"
@@ -74,7 +102,7 @@ const BasicRulesPage1 = () => {
             </p>
 
           </div>
-        </div>
+        </div> */}
       </div>
   )
 }
