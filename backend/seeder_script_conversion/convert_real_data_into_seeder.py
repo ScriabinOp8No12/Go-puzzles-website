@@ -59,8 +59,8 @@ puzzles_data = cur.fetchall()
 cur.execute('SELECT * FROM go_website_schema_seeder."PotentialPuzzles"')
 potential_puzzles_data = cur.fetchall()
 
-cur.execute('SELECT * FROM go_website_schema_seeder."Users"')
-users_data = cur.fetchall()
+# cur.execute('SELECT * FROM go_website_schema_seeder."Users"')
+# users_data = cur.fetchall()
 
 # Formatting the data to match structure and order of fields in seeder data
 sgfs_formatted = [
@@ -93,7 +93,7 @@ puzzles_formatted = [
         "description": row[7],
         "vote_count": row[8],
         "board_size": row[9],
-        "solution_coordinates": row[10],
+        "solution_coordinates": row[10], # Not necessary, since we aren't actually using this for anything?
         "thumbnail": row[11],
         "suspended": row[12],
         "createdAt": row[13],
@@ -114,12 +114,6 @@ potential_puzzles_formatted = [
         "createdAt": row[9],
         "updatedAt": row[10],
     } for row in potential_puzzles_data
-]
-
-users_formatted = [
-    {
-
-    }
 ]
 
 # Formatting and writing the SGF data to the file
