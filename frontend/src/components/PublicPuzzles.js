@@ -21,7 +21,7 @@ const PublicPuzzles = () => {
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
   const [selectedFilters, setSelectedFilters] = useState({});
   const [offset, setOffset] = useState(0);
-  const LIMIT = 8; // Number of puzzles per page
+  const LIMIT = 20; // Number of puzzles per page
 
   // Edit sgf modal
   const openEditModal = async (puzzleId) => {
