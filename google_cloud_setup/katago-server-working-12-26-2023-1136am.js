@@ -2,20 +2,30 @@ const https = require('https');
 const fs = require('fs');
 const express = require("express");
 const helmet = require("helmet");
+const cors = require('cors');
 const moment = require("moment");
 const { python } = require("pythonia");
 const path = require("path");
 const app = express();
-app.use(helmet());
-app.use(express.json());
+// const port = 3000; // port 3000
+
+app.use(helmet()); // For basic security headers
+// app.use(cors());
+app.use(express.json()); // For parsing application/json
+
+app.get("/test", (req, res) => {
+  res.json({ message: "HTTPS test successful" });
+});
 
 // KataGo Analysis endpoint
 app.post("/potential_puzzles/generate", async (req, res) => {
   try {
     const { one_line_json_string, sgf_id, sgf_data } = req.body;
+//    console.log("Received request data:", req.body);
 
     const jsonEncodedString = JSON.stringify(one_line_json_string);
 
+    // Check if the required values are provided
     if (!one_line_json_string || !sgf_id || !sgf_data) {
       return res.status(400).json({ error: "Required parameters missing" });
     }
@@ -30,17 +40,18 @@ app.post("/potential_puzzles/generate", async (req, res) => {
     );
 
     // Import setting initial potential puzzle ranking script and then use it (Different path than one we have locally, which is in the utils folder instead)
-    const GCP_sgf_mill_set_initial_potential_puzzle_ranking = await python(
-     path.join(__dirname, "GCP_sgf_mill_set_initial_potential_puzzle_ranking.py")
-    );
+    // const sgf_mill_set_initial_potential_puzzle_ranking = await python(
+    //  path.join(__dirname, "sgf_mill_set_initial_potential_puzzle_ranking.py")
+    //);
 
-    const set_potential_puzzle_rank =
-     await GCP_sgf_mill_set_initial_potential_puzzle_ranking.set_potential_puzzle_difficulty(
-       sgf_data
-     );
+    // const set_potential_puzzle_rank =
+     // await sgf_mill_set_initial_potential_puzzle_ranking.set_potential_puzzle_difficulty(
+       // sgf_data
+     // );
 
-    const difficulty = set_potential_puzzle_rank; // Setting difficulty column in potential puzzle table to the difficulty found using our python script above (determines ranking based on player's ranks)
+    // const difficulty = set_potential_puzzle_rank; // Setting difficulty column in potential puzzle table to the difficulty found using our python script above (determines ranking based on player's ranks)
     const category = "other";
+    const difficulty = 1500;
 
     const formattedPuzzles = potential_puzzles.map((puzzle) => {
       return {
@@ -90,6 +101,10 @@ const credentials = {
 };
 
 const IP_ADDRESS = "0.0.0.0";
+// const IP_ADDRESS = '34.118.131.136' // change to this later
+// app.listen(port, () => {
+//  console.log(`Server running on http://${IP_ADDRESS}:${port}`);
+// });
 
 const port = 8081;
 

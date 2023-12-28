@@ -196,7 +196,7 @@ export const generatePotentialPuzzlesThunk =
 
     let fourthResponse;
     try {
-      console.log("Before fourth API call - fourthEndpointData:", fourthEndpointData);
+
       fourthResponse = await csrfFetch(
         `/api/potential_puzzles/${sgf_id}/convert_to_AB_AW`,
         {
@@ -207,7 +207,6 @@ export const generatePotentialPuzzlesThunk =
           body: JSON.stringify(fourthEndpointData),
         }
       );
-      console.log("After fourth API call - fourthResponse:", fourthResponse);
     } catch (error) {
       console.error("Failed to convert SGF data to AB and AW format");
       dispatch(setError("Failed to convert SGF data"));
