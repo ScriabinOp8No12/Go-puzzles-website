@@ -149,7 +149,7 @@ const UserSGFs = () => {
   }
 
   const isVirtualMachineOff = !isVMOperational();
-  console.log("Is the virtual machine off?", isVirtualMachineOff);
+  // console.log("Is the virtual machine off?", isVirtualMachineOff);
 
   return (
     <div className="outer-wrapper">
