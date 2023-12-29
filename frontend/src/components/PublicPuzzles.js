@@ -36,7 +36,7 @@ const PublicPuzzles = () => {
   useEffect(() => {
     // Extract query parameters from URL
     const queryParams = new URLSearchParams(location.search);
-    const page = parseInt(queryParams.get("page")); // get the page for pagination
+    let page = parseInt(queryParams.get("page")); // get the page for pagination
     const filtersFromURL = {};
     // Typically forEach when used on arrays is in the order (key, value), but now we are
     // using URLSearchParams (query string stuff) which is in (value, key) order
@@ -45,13 +45,29 @@ const PublicPuzzles = () => {
         filtersFromURL[key] = value; // Add each query parameter to filtersFromURL, except for 'page' which is for pagination
       }
     });
-    // If a page number is present in the URL, calculate the offset for pagination
-    if (page) {
-      setOffset((page - 1) * LIMIT);
+
+    if (!page) {
+      page = 1;
     }
-    // Set the filters from URL as initial state
+    const newOffset = (page - 1) * LIMIT;
+
+    // Set filters and offset based on URL
     setSelectedFilters(filtersFromURL);
-  }, [location.search]);
+    setOffset(newOffset);
+    // Construct filter with pagination for data fetching
+    const filtersWithPagination = {
+      ...filtersFromURL,
+      limit: LIMIT,
+      offset: newOffset,
+    };
+
+    // Fetch data based on the updated state
+    if (Object.keys(filtersFromURL).length) {
+      dispatch(fetchFilteredPuzzlesThunk(filtersWithPagination));
+    } else {
+      dispatch(fetchPublicPuzzlesThunk(filtersWithPagination));
+    }
+  }, [location.search, dispatch]);
 
   const handleFilterChange = (newFilters) => {
     setSelectedFilters(newFilters);
@@ -69,25 +85,25 @@ const PublicPuzzles = () => {
   };
 
   // This rerenders the page when any of the filters, offset change or when the component mounts
-  useEffect(() => {
-    const filtersWithPagination = { ...selectedFilters, limit: LIMIT, offset };
-    // Check if filters are applied, if they are, then fetch the filtered puzzles
-    if (Object.keys(selectedFilters).length) {
-      dispatch(fetchFilteredPuzzlesThunk(filtersWithPagination));
-    } else {
-      // Otherwise simply fetch all the public puzzles
-      dispatch(fetchPublicPuzzlesThunk(filtersWithPagination));
-    }
-  }, [dispatch, selectedFilters, offset]);
+  // useEffect(() => {
+  //   const filtersWithPagination = { ...selectedFilters, limit: LIMIT, offset };
+  //   // Check if filters are applied, if they are, then fetch the filtered puzzles
+  //   if (Object.keys(selectedFilters).length) {
+  //     dispatch(fetchFilteredPuzzlesThunk(filtersWithPagination));
+  //   } else {
+  //     // Otherwise simply fetch all the public puzzles
+  //     dispatch(fetchPublicPuzzlesThunk(filtersWithPagination));
+  //   }
+  // }, [dispatch, selectedFilters, offset]);
 
   // Handle when user clicks the back button or navigates to a different page number, we need to rerender the page
-  useEffect(() => {
-    // const queryParams = new URLSearchParams(history.location.search);
-    const queryParams = new URLSearchParams(location.search);
-    const page = parseInt(queryParams.get("page")) || 1; // Default to page 1 if not specified
-    setOffset((page - 1) * LIMIT);
-  }, [location]); // Depend on the URL search string
-// }, [history.location.search]); // Depend on the URL search string
+  // useEffect(() => {
+  //   // const queryParams = new URLSearchParams(history.location.search);
+  //   const queryParams = new URLSearchParams(location.search);
+  //   const page = parseInt(queryParams.get("page")) || 1; // Default to page 1 if not specified
+  //   setOffset((page - 1) * LIMIT);
+  // }, [location]); // Depend on the URL search string
+  // }, [history.location.search]); // Depend on the URL search string
 
   const handleNextPageClick = () => {
     setOffset((prevOffset) => {
@@ -113,7 +129,7 @@ const PublicPuzzles = () => {
   // **** Filter block above **** //
 
   return (
-    <div className="outer-wrapper" >
+    <div className="outer-wrapper">
       <div className="filter-wrapper">
         <div className="filter-public-puzzles" onClick={toggleFilter}>
           <label className="button-hover">Filter Puzzles</label>
@@ -151,11 +167,10 @@ const PublicPuzzles = () => {
         )}
       </div>
       <div className="button-container glift-puzzle-layout">
-
-      {showPreviousPageButton && (
-        <PreviousPageButton onClick={handlePreviousPageClick} />
-      )}
-      {showNextPageButton && <NextPageButton onClick={handleNextPageClick} />}
+        {showPreviousPageButton && (
+          <PreviousPageButton onClick={handlePreviousPageClick} />
+        )}
+        {showNextPageButton && <NextPageButton onClick={handleNextPageClick} />}
       </div>
     </div>
   );

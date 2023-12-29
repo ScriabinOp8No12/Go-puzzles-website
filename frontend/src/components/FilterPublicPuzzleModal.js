@@ -14,9 +14,9 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
     min_rank: 1000,
     max_rank: 2000,
     min_move_number: 0,
-    max_move_number: 250,
+    max_move_number: 500,
     category: "",
-    board_size: "",
+    board_size: 19,
   });
 
   // State for filter validation errors
@@ -146,7 +146,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
                 type="range"
                 name="min_move_number"
                 min="0"
-                max="250"
+                max="500"
                 step="25"
                 value={filterState.min_move_number}
                 onChange={handleChange}
@@ -160,7 +160,7 @@ const FilterPublicPuzzleModal = ({ onApplyFilter }) => {
                 type="range"
                 name="max_move_number"
                 min="0"
-                max="250"
+                max="500"
                 step="25"
                 value={filterState.max_move_number}
                 onChange={handleChange}
