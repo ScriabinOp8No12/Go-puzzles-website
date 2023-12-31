@@ -84,27 +84,6 @@ const PublicPuzzles = () => {
     );
   };
 
-  // This rerenders the page when any of the filters, offset change or when the component mounts
-  // useEffect(() => {
-  //   const filtersWithPagination = { ...selectedFilters, limit: LIMIT, offset };
-  //   // Check if filters are applied, if they are, then fetch the filtered puzzles
-  //   if (Object.keys(selectedFilters).length) {
-  //     dispatch(fetchFilteredPuzzlesThunk(filtersWithPagination));
-  //   } else {
-  //     // Otherwise simply fetch all the public puzzles
-  //     dispatch(fetchPublicPuzzlesThunk(filtersWithPagination));
-  //   }
-  // }, [dispatch, selectedFilters, offset]);
-
-  // Handle when user clicks the back button or navigates to a different page number, we need to rerender the page
-  // useEffect(() => {
-  //   // const queryParams = new URLSearchParams(history.location.search);
-  //   const queryParams = new URLSearchParams(location.search);
-  //   const page = parseInt(queryParams.get("page")) || 1; // Default to page 1 if not specified
-  //   setOffset((page - 1) * LIMIT);
-  // }, [location]); // Depend on the URL search string
-  // }, [history.location.search]); // Depend on the URL search string
-
   const handleNextPageClick = () => {
     setOffset((prevOffset) => {
       const newOffset = prevOffset + LIMIT;
