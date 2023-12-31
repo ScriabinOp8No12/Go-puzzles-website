@@ -7,6 +7,8 @@ import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "../LeftNavBar";
 import MoreRulesPage1 from "./MoreRulesPage1";
 import MoreRulesPage2 from "./MoreRulesPage2";
+import MoreRulesPage3 from "./MoreRulesPage3";
+
 import "../styles/LearnAndPracticeIndex.css";
 
 const MoreRulesContainer = () => {
@@ -38,26 +40,29 @@ const MoreRulesContainer = () => {
         return <MoreRulesPage1 />;
       case "2":
         return <MoreRulesPage2 />;
+        case"3":
+        return <MoreRulesPage3/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
   };
 
   // Determine the pageType based on the pageNumber (glift puzzle rendering in tutorials is on page 7)
-  const pageType = pageNumber === "7" ? "specialType" : "normalType";
+  // const pageType = pageNumber === "7" ? "specialType" : "normalType";
 
   // Logic for checking pageType to see if it's a glift container and we want the buttons up down instead of left right
-  const buttonContainerClass =
-    pageType === "specialType"
-      ? "button-container glift-puzzle-layout"
-      : "button-container";
+  // const buttonContainerClass =
+  //   pageType === "specialType"
+  //     ? "button-container glift-puzzle-layout"
+  //     : "button-container";
 
   return (
     <div className="learn-and-practice-container">
       <LeftNavBar />
 
       {renderPage()}
-      <div className={buttonContainerClass}>
+      {/* <div className={buttonContainerClass}> */}
+      <div className="button-container">
         <PreviousPageButton
           onClick={navigateToPreviousPage}
           isTutorial={true}
