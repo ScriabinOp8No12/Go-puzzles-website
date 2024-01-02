@@ -33,6 +33,10 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/more-rules-and-strategy/3");
   };
 
+  const navigateToMoreRules4 = () => {
+    history.push("/learn-and-practice/more-rules-and-strategy/4");
+  };
+
   // Determines if the current URL contains any of the specified path segments.
   // Accepts either a single string or an array of strings.
   // Returns true if a match is found, otherwise returns false.
@@ -103,7 +107,9 @@ const LeftNavBar = () => {
             <li onClick={navigateToMoreRules3}
             className={isActive("/more-rules-and-strategy/3") ? "active" : ""}
             >Seki</li>
-            <li>Ko</li>
+            <li onClick={navigateToMoreRules4}
+            className={isActive("/more-rules-and-strategy/4") ? "active" : ""}
+            >Ko</li>
             <li>Game ending condition</li>
             <li>Strategy</li>
           </ul>

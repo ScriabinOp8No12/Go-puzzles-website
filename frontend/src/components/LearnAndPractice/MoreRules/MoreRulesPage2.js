@@ -10,7 +10,7 @@ const MoreRulesPage2 = () => {
           <p>
             An <span className="important-text">eye</span> is any spot where the
             opponent is not allowed to play (an illegal move), since they would
-            have 0 liberties when they play there.
+            have 0 liberties when they play there. Read more about eyes <a href="https://senseis.xmp.net/?RecognizingAnEye" target="_blank" rel="noopener noreferrer">here</a>.
           </p>
 
           <p>

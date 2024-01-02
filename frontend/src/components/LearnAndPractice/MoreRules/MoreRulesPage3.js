@@ -27,11 +27,11 @@ const MoreRulesPage3 = () => {
           <div className="content-image-section">
             <img
               className="button-hover"
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1704049260/Tutorial-images/Puzzles_3_2023-12-31_eqejjj.png"
-              alt="2 eyes 2"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1704050415/Tutorial-images/Puzzles_7_2023-12-31_aca7zo.png"
+              alt="Seki 2"
             />
             <p>
-              Diagram 2: PLACEHOLDER
+              Diagram 2: Here's another example of a seki - notice how if either player places a stone at the triangle, they can get captured.
             </p>
           </div>
         </div>
