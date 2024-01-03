@@ -7,23 +7,21 @@ const MoreRulesPage2 = () => {
       <div className="content-section">
         {/* Text section on the left half, images / diagrams on the right half */}
         <div className="content-text-section">
-          <p>
+        <ul className="spaced-list">
+            <li>
             An <span className="important-text">eye</span> is any spot where the
             opponent is not allowed to play (an illegal move), since they would
             have 0 liberties when they play there. Read more about eyes <a href="https://senseis.xmp.net/?RecognizingAnEye" target="_blank" rel="noopener noreferrer">here</a>.
-          </p>
-
-          <p>
-            For a group of stones to be alive and unkillable, it must have{" "}
+            </li>
+            <li>For a group of stones to be alive and unkillable, it must have{" "}
             <span className="important-text">at least 2 eyes</span> (there is an
             exception, which we will discuss in the next section). Most living
-            groups will have a lot more than 2 eyes.
-          </p>
-
-          <p>
+            groups will have a lot more than 2 eyes.</li>
+            <li>
             A group with one eye is not alive, because the opponent could place
             a stone at that location as their last move to capture the group.
-          </p>
+            </li>
+          </ul>
 
           <div className="content-image-section">
             <img
