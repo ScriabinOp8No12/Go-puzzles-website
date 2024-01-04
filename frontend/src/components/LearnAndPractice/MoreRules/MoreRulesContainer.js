@@ -10,6 +10,7 @@ import MoreRulesPage2 from "./MoreRulesPage2";
 import MoreRulesPage3 from "./MoreRulesPage3";
 import MoreRulesPage4 from "./MoreRulesPage4";
 import MoreRulesPage5 from "./MoreRulesPage5";
+import MoreRulesPageQuiz from "./MoreRulesQuiz";
 
 import "../styles/LearnAndPracticeIndex.css";
 
@@ -48,6 +49,8 @@ const MoreRulesContainer = () => {
         return <MoreRulesPage4/>;
         case"5":
         return <MoreRulesPage5/>;
+        case"quiz":
+        return <MoreRulesPageQuiz/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }

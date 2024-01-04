@@ -3,10 +3,10 @@ const LearnAndPracticeStructure = [
     section: "basic-rules",
     pages: 7,
     quiz: true, // If there's a quiz at the end of the section
-    nextSection: "more-rules-and-strategy" // The next section to navigate to
+    nextSection: "more-rules" // The next section to navigate to
   },
   {
-    section: "more-rules-and-strategy",
+    section: "more-rules",
     pages: 5,
     quiz: true,
     // nextSection: null // No next section means it's the last one

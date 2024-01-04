@@ -22,23 +22,27 @@ const LeftNavBar = () => {
   };
 
   const navigateToMoreRules1 = () => {
-    history.push("/learn-and-practice/more-rules-and-strategy/1");
+    history.push("/learn-and-practice/more-rules/1");
   };
 
   const navigateToMoreRules2 = () => {
-    history.push("/learn-and-practice/more-rules-and-strategy/2");
+    history.push("/learn-and-practice/more-rules/2");
   };
 
   const navigateToMoreRules3 = () => {
-    history.push("/learn-and-practice/more-rules-and-strategy/3");
+    history.push("/learn-and-practice/more-rules/3");
   };
 
   const navigateToMoreRules4 = () => {
-    history.push("/learn-and-practice/more-rules-and-strategy/4");
+    history.push("/learn-and-practice/more-rules/4");
   };
 
   const navigateToMoreRules5 = () => {
-    history.push("/learn-and-practice/more-rules-and-strategy/5");
+    history.push("/learn-and-practice/more-rules/5");
+  };
+
+  const navigateToMoreRules6 = () => {
+    history.push("/learn-and-practice/more-rules/quiz");
   };
 
   // Determines if the current URL contains any of the specified path segments.
@@ -94,30 +98,31 @@ const LeftNavBar = () => {
       <div className="nav-section">
         {/* More Rules and Strategy Section */}
         <section className="left-nav-bar-section">
-          <h2>More Rules and Strategy</h2>
+          <h2>More Rules</h2>
           <ul className="small-spaced-list">
             <li
               onClick={navigateToMoreRules1}
-              className={isActive("/more-rules-and-strategy/1") ? "active" : ""}
+              className={isActive("/more-rules/1") ? "active" : ""}
             >
               Illegal moves
             </li>
 
             <li
             onClick={navigateToMoreRules2}
-            className={isActive("/more-rules-and-strategy/2") ? "active" : ""}
+            className={isActive("/more-rules/2") ? "active" : ""}
             >Eyes
             </li>
             <li onClick={navigateToMoreRules3}
-            className={isActive("/more-rules-and-strategy/3") ? "active" : ""}
+            className={isActive("/more-rules/3") ? "active" : ""}
             >Seki</li>
             <li onClick={navigateToMoreRules4}
-            className={isActive("/more-rules-and-strategy/4") ? "active" : ""}
+            className={isActive("/more-rulesy/4") ? "active" : ""}
             >Ko</li>
             <li onClick={navigateToMoreRules5}
-            className={isActive("/more-rules-and-strategy/5") ? "active" : ""}>
+            className={isActive("/more-rules/5") ? "active" : ""}>
               Game ending condition</li>
-            <li>Strategy</li>
+              <li onClick={navigateToMoreRules6}
+            className={isActive("/more-rules/quiz") ? "active" : ""}>More Rules Quiz</li>
           </ul>
         </section>
       </div>
