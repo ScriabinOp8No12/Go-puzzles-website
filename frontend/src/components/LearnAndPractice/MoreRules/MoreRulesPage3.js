@@ -3,7 +3,7 @@ import React from "react";
 const MoreRulesPage3 = () => {
   return (
     <div className="main-content">
-      <h2>More Rules and Strategy: Seki</h2>
+      <h2>More Rules: Seki</h2>
       <div className="content-section">
         {/* Text section on the left half, images / diagrams on the right half */}
         <div className="content-text-section">

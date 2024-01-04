@@ -11,7 +11,7 @@ const LearnAndPracticeContainer = () => {
     switch (section) {
       case 'basic-rules':
         return <BasicRulesContainer />;
-      case 'more-rules-and-strategy':
+      case 'more-rules':
         return <MoreRulesContainer />;
       case 'external-resources':
         return <ExternalResources/>
