@@ -24,7 +24,7 @@ const LandingPage = () => {
     history.push("/learn-and-practice/basic-rules/1");
   };
   const goToMoreRulesAndStrategy = () => {
-    history.push("/learn-and-practice/more-rules-and-strategy/1");
+    history.push("/learn-and-practice/more-rules/1");
   };
   const goToExternalResources  = () => {
     history.push("/learn-and-practice/external-resources")

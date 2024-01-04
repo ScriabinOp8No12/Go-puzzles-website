@@ -1,5 +1,5 @@
 import React, { useEffect, useRef} from "react";
-import { capturingPuzzles } from '../GliftPuzzles/CapturingPuzzles/CapturingPuzzles';
+import { capturingPuzzles } from '../GliftPuzzles/CapturingPuzzles';
 
 import "../../../lib/glift";
 

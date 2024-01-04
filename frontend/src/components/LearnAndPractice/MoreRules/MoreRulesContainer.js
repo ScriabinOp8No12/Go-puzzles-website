@@ -10,7 +10,7 @@ import MoreRulesPage2 from "./MoreRulesPage2";
 import MoreRulesPage3 from "./MoreRulesPage3";
 import MoreRulesPage4 from "./MoreRulesPage4";
 import MoreRulesPage5 from "./MoreRulesPage5";
-import MoreRulesPageQuiz from "./MoreRulesQuiz";
+import MoreRulesPage6 from "./MoreRulesPage6";
 
 import "../styles/LearnAndPracticeIndex.css";
 
@@ -49,29 +49,29 @@ const MoreRulesContainer = () => {
         return <MoreRulesPage4/>;
         case"5":
         return <MoreRulesPage5/>;
-        case"quiz":
-        return <MoreRulesPageQuiz/>;
+        case"6":
+        return <MoreRulesPage6/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
   };
 
-  // Determine the pageType based on the pageNumber (glift puzzle rendering in tutorials is on page 7)
-  // const pageType = pageNumber === "7" ? "specialType" : "normalType";
+  // Determine the pageType based on the pageNumber (glift puzzle rendering in tutorials is on page 6)
+  const pageType = pageNumber === "6" ? "specialType" : "normalType";
 
   // Logic for checking pageType to see if it's a glift container and we want the buttons up down instead of left right
-  // const buttonContainerClass =
-  //   pageType === "specialType"
-  //     ? "button-container glift-puzzle-layout"
-  //     : "button-container";
+  const buttonContainerClass =
+    pageType === "specialType"
+      ? "button-container glift-puzzle-layout"
+      : "button-container";
 
   return (
     <div className="learn-and-practice-container">
       <LeftNavBar />
 
       {renderPage()}
-      {/* <div className={buttonContainerClass}> */}
-      <div className="button-container">
+      <div className={buttonContainerClass}>
+      {/* <div className="button-container"> */}
         <PreviousPageButton
           onClick={navigateToPreviousPage}
           isTutorial={true}

@@ -7,8 +7,8 @@ const LearnAndPracticeStructure = [
   },
   {
     section: "more-rules",
-    pages: 5,
-    quiz: true,
+    pages: 6,
+    quiz: false,
     // nextSection: null // No next section means it's the last one
   }
   // More sections here
