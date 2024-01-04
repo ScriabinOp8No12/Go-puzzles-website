@@ -122,7 +122,7 @@ const LeftNavBar = () => {
             className={isActive("/more-rules/5") ? "active" : ""}>
               Game ending condition</li>
               <li onClick={navigateToMoreRules6}
-            className={isActive("/more-rules/quiz") ? "active" : ""}>More Rules Quiz</li>
+            className={isActive("/more-rules/6") ? "active" : ""}>More Rules Puzzles</li>
           </ul>
         </section>
       </div>
