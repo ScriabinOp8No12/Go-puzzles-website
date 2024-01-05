@@ -42,7 +42,7 @@ const LeftNavBar = () => {
   };
 
   const navigateToMoreRules6 = () => {
-    history.push("/learn-and-practice/more-rules/quiz");
+    history.push("/learn-and-practice/more-rules/6");
   };
 
   // Determines if the current URL contains any of the specified path segments.
@@ -126,7 +126,7 @@ const LeftNavBar = () => {
           </ul>
         </section>
       </div>
-      <div className="nav-section">
+      {/* <div className="nav-section">
         <section className="left-nav-bar-section">
           <h2>Rules & Strategy Puzzles</h2>
           <ul className="small-spaced-list">
@@ -134,7 +134,7 @@ const LeftNavBar = () => {
             <li>Rules & Strategy Puzzles 2</li>
           </ul>
         </section>
-      </div>
+      </div> */}
 
       <div className="nav-section">
         <section className="left-nav-bar-section">

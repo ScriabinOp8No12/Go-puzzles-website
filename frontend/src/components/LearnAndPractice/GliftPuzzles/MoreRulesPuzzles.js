@@ -2,14 +2,14 @@ export const moreRulesPuzzles = [
   {
     // More Rules puzzle 1
     sgfString:
-      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[ee]AB[ed][de][ef]C[Capture the single white stone in one move! ] ;B[fe]C[Good job! Click the arrow on the right of the green check mark to try the next puzzle.]GB[1])",
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[ba][ab][bb][bc][ad][bd]AB[ca][cb][cc][cd][ae][be][ce]LB[gc:A][ge:B]C[Is white alive or can they be killed? Place a stone at A if white can be killed. Place a stone at B if white can NOT be killed.] (;B[gc]C[Nice, white is already alive since they have 2 eyes. Black is literally not allowed to place a stone at A9 or A7, meaning white can never be killed.]GB[1]) (;B[ge]C[Unfortunately for black, white is already alive. You can go back to the original puzzle and try to click A7 and A9, but it won't let you since those are illegal moves (you are not allowed to capture yourself) ]))",
     problemConditions: { GB: [] },
     widgetType: "STANDARD_PROBLEM",
   },
   // More Rules puzzle 2
   {
     sgfString:
-      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[fd][ee]AB[fc][ed][gd]C[The 2 white stones are not connected by a straight line, so black can capture the white stones separately. ] ;B[fe]C[Well done! ]GB[1])",
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[ha][hb][hc][hd][he][ie]AB[ga][gb][gc][gd][ge][gf][hf][if]LB[cc:A]C[How would black stop white from getting 2 eyes and living? If white is already alive, click A. ] (;B[cc]C[Correct, white is not killable, go back to the original puzzle to explore why!]GB[1]) (;B[ia] ;W[ib]C[White can not be killed from here, but you can keep trying. ] (;B[ic] ;W[id]C[White has 2 eyes]) (;B[id] ;W[ic]C[White has 2 eyes])) (;B[ib] ;W[ic]C[White has 2 eyes, black is not allowed to suicide with J9]) (;B[ic] ;W[ib]C[White is alive with 2 eyes, black is not allowed to suicide with J6.]) (;B[id] ;W[ic]C[White cannot be killed from here, but you can keep trying.] (;B[ib] ;W[ia]C[White has 2 eyes.]) (;B[ia] ;W[ib]C[White has 2 eyes.])))",
     problemConditions: { GB: [] },
     widgetType: "STANDARD_PROBLEM",
   },
@@ -17,7 +17,7 @@ export const moreRulesPuzzles = [
   // More Rules puzzle 3
   {
     sgfString:
-      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]AW[fd][fe]AB[fc][ed][gd][ee][ge]C[You can capture more than one stone at a time if the stones are connected by a straight line.];B[ff]C[Nice!]GB[1])",
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[da][ha][db][gb][hb][dc][gc][hc][dd][ed][fd][gd]AB[ca][ea][ia][cb][eb][ib][cc][ec][fc][ic][cd][hd][id][ce][de][ee][fe][ge][he]LB[cg:A]C[Place a stone at A if black can't do anything good.] (;B[fa]TR[ga][fb]C[Good job, you found the seki! If either player places a stone at the triangle, the opponent can immediately capture them. Although both players don't have 2 eyes, they are both alive!]GB[1]) (;B[fb] ;W[fa]C[White captures and has 2 eyes (and lives), there's one eye at G9 and the other space is enough for at least another eye. ]) (;B[ga] ;W[fa]C[White lives with 2 eyes, black is not allowed to play F8 because they would be capturing themselves with that move. ]) (;B[cg]C[Nope, black can find a seki! ]))",
     problemConditions: { GB: [] },
     widgetType: "STANDARD_PROBLEM",
   },
