@@ -80,12 +80,36 @@
 /********** Styling for main content (everything outside of the left navbar) **********/
 
 .main-content {
-  margin-left:75px;
-  width: 100%;
+  margin-left: 200px;
+  width: 50%;
   height: calc(100vh - 115px);
   padding: 0px 50px 15px 50px; /* top right bottom left */
-  /* padding-bottom: 60px; */ /* FOR glift puzzle rendering pages - This allows the previous and next page button to not overlap the content at the bottom of the page */
 }
+
+/* Left right layout for main content, and also for glift puzzles to center it */
+.main-content-left-right {
+  margin-left: 75px;
+  width: 100%;
+  height: calc(100vh - 115px);
+  padding: 0px 50px 15px 50px;
+}
+
+.glift-container {
+  margin-left: 40px;
+  width: 100%;
+  height: calc(100vh - 115px);
+  padding: 0px 50px 15px 50px;
+}
+
+/* .glift-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-left: 75px;
+  margin-top: -50px;
+} */
+
 
 .main-content h2 {
   color: rgb(255, 204, 102);

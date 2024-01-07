@@ -6,7 +6,7 @@ const BasicRulesPage6 = () => {
   const [showAnswer2, setShowAnswer2] = useState(false);
 
   return (
-    <div className="main-content">
+    <div className="main-content-left-right">
       <h2>Basic Rules: Counting Liberties and Capturing Stones</h2>
       <div className="content-section">
         {/* Text section on the left half, images / diagrams on the right half */}

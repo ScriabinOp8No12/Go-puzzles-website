@@ -45,6 +45,10 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/more-rules/6");
   };
 
+  const navigateToReading1 = () => {
+    history.push("/learn-and-practice/reading/1");
+  };
+
   // Determines if the current URL contains any of the specified path segments.
   // Accepts either a single string or an array of strings.
   // Returns true if a match is found, otherwise returns false.
@@ -140,7 +144,8 @@ const LeftNavBar = () => {
         <section className="left-nav-bar-section">
           <h2>Fundamentals</h2>
           <ul className="small-spaced-list">
-            <li>Reading</li>
+          <li onClick={navigateToReading1}
+            className={isActive("/reading/1") ? "active" : ""}>Reading</li>
             <li>Ladders & Nets</li>
             <li>Cuts</li>
             <li>Counting</li>

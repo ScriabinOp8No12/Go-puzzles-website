@@ -27,7 +27,7 @@ const BasicRulesPage7 = () => {
   }, []);
 
   return (
-    <div className="main-content">
+    <div className="glift-container">
       {/* <h2>Basic Rules: Capturing Stones</h2> */}
       {/* <div className="glift-wrapper"> */}
       <div id="gliftContainer"></div>
