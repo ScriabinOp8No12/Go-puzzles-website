@@ -6,7 +6,7 @@ import usePreviousPageNavigation from "../usePreviousPageNavigation";
 import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "../LeftNavBar";
 import ReadingPage1 from "./ReadingPage1";
-// import MoreRulesPage2 from "./MoreRulesPage2";
+import ReadingPage2 from "./ReadingPage2";
 // import MoreRulesPage3 from "./MoreRulesPage3";
 // import MoreRulesPage4 from "./MoreRulesPage4";
 // import MoreRulesPage5 from "./MoreRulesPage5";
@@ -41,8 +41,8 @@ const MoreRulesContainer = () => {
     switch (pageNumber) {
       case "1":
         return <ReadingPage1 />;
-      // case "2":
-      //   return <MoreRulesPage2 />;
+      case "2":
+        return <ReadingPage2 />;
       //   case"3":
       //   return <MoreRulesPage3/>;
       //   case"4":
