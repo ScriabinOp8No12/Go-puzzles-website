@@ -145,7 +145,7 @@ const LeftNavBar = () => {
           <h2>Fundamentals</h2>
           <ul className="small-spaced-list">
           <li onClick={navigateToReading1}
-            className={isActive("/reading/1") ? "active" : ""}>Reading</li>
+            className={isActive(["/reading/1", "/reading/2", "/reading/3"]) ? "active" : ""}>Reading</li>
             <li>Ladders & Nets</li>
             <li>Cuts</li>
             <li>Counting</li>
