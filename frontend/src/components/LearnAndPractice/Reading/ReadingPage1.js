@@ -18,7 +18,7 @@ const ReadingPage1 = () => {
               placed on the board, reading is arguably the most important skill
               to have in this game.
             </li>
-            <li>Let's try a few on the next page.</li>
+            <li>Let's look at a few examples on the next page.</li>
           </ul>
         </div>
       </div>
