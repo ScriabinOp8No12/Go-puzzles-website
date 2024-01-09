@@ -7,7 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "../LeftNavBar";
 import ReadingPage1 from "./ReadingPage1";
 import ReadingPage2 from "./ReadingPage2";
-// import MoreRulesPage3 from "./MoreRulesPage3";
+import ReadingPage3 from "./ReadingPage3";
 // import MoreRulesPage4 from "./MoreRulesPage4";
 // import MoreRulesPage5 from "./MoreRulesPage5";
 // import MoreRulesPage6 from "./MoreRulesPage6";
@@ -43,8 +43,8 @@ const MoreRulesContainer = () => {
         return <ReadingPage1 />;
       case "2":
         return <ReadingPage2 />;
-      //   case"3":
-      //   return <MoreRulesPage3/>;
+        case"3":
+        return <ReadingPage3/>;
       //   case"4":
       //   return <MoreRulesPage4/>;
       //   case"5":
