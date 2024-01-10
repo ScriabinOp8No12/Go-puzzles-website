@@ -61,9 +61,8 @@ const BasicRulesQuiz = () => {
     e.preventDefault();
     await dispatch(uploadQuizThunk({ answers }, quizId));
     await dispatch(fetchQuizScoreThunk(quizId));
-    window.scrollTo(0,0); // Scroll to the top of the page on a submission of the quiz
+    window.scrollTo(0, 0); // Scroll to the top of the page on a submission of the quiz
   };
-
 
   return (
     <form onSubmit={handleSubmit} className="quiz-form">
@@ -71,7 +70,8 @@ const BasicRulesQuiz = () => {
         {/* Conditionally render the welcome text or the score and "Show All Answers" button */}
         {hasAttempted ? (
           <>
-            <span className="important-text">Quiz submitted</span>, your score was: <span className="important-text">{score}%</span>
+            <span className="important-text">Quiz submitted</span>, your score
+            was: <span className="important-text">{score}%</span>
             <button
               // need this here to prevent it from bubbling up (our toggle button function is defined outside of here) and submitting the form when we click the button, lol...
               type="button"
@@ -119,9 +119,9 @@ const BasicRulesQuiz = () => {
           <div className="answer">
             {showAllAnswers && (
               <p>
-              <span className="important-text">False: </span>Stones are placed
-              on the intersections, not the squares.
-            </p>
+                <span className="important-text">False: </span>Stones are placed
+                on the intersections, not the squares.
+              </p>
             )}
           </div>
         )}
@@ -156,12 +156,11 @@ const BasicRulesQuiz = () => {
         {hasAttempted && (
           <div className="answer">
             {showAllAnswers && (
-
               <p>
-              <span className="important-text">False: </span>Black typically
-              plays first, the exception is if black is taking a handicap,
-              then white goes first.
-            </p>
+                <span className="important-text">False: </span>Black typically
+                plays first, the exception is if black is taking a handicap,
+                then white goes first.
+              </p>
             )}
           </div>
         )}

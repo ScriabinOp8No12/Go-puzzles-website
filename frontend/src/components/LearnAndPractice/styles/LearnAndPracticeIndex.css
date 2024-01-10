@@ -8,7 +8,6 @@
   align-items: flex-start; /* Align items to the top */
   position: relative; /* Sets the positioning context for child elements */
   /* height: calc(100vh - 140px); 100vh shows a scroll bar because of the top navbar, so we adjust it to take off 140 pixels */
-
 }
 
 /* Make all text aliceblue color on the learn and practice container (entire page) */
@@ -17,7 +16,7 @@
 }
 
 /* Make the forms have black text for the input fields */
-.learn-and-practice-container form input{
+.learn-and-practice-container form input {
   color: black; /* Override the 'learn and practice container' color of aliceblue */
 }
 
@@ -37,9 +36,8 @@
   z-index: 100;
 }
 
-
 .left-nav-bar-section {
-  background-color: #393E46;
+  background-color: #393e46;
   border-radius: 15px;
   padding: 3px 15px 3px 15px;
   margin-bottom: 20px;
@@ -49,7 +47,7 @@
   color: rgb(255, 204, 102);
 }
 
-.small-spaced-list li{
+.small-spaced-list li {
   margin-bottom: 5px;
 }
 
@@ -81,7 +79,7 @@
 
 .main-content {
   margin-left: 200px;
-  width: 50%;
+  width: 60%;
   height: calc(100vh - 115px);
   padding: 0px 50px 15px 50px; /* top right bottom left */
 }
@@ -110,8 +108,13 @@
   margin-top: -50px;
 } */
 
-
 .main-content h2 {
+  color: rgb(255, 204, 102);
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.main-content-left-right h2 {
   color: rgb(255, 204, 102);
   font-size: 26px;
   margin-bottom: 5px;
@@ -140,9 +143,19 @@
   font-weight: bold;
 }
 
-.content-image-section {
+/* .content-image-section {
   width: 50%;
   text-align: center;
+} */
+
+.content-image-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 30px;
 }
 
 .content-image-section img {
@@ -191,7 +204,7 @@
   margin-left: 20px; /* 20 pixels gap between the buttons */
   bottom: 10px;
   right: 10px;
-  background-color: #00ADB5;
+  background-color: #00adb5;
   border: 3px solid black;
   color: aliceblue;
   font-weight: bold;
@@ -199,11 +212,8 @@
   text-align: center;
   font-size: 12px;
   cursor: pointer;
-  text-shadow:
-  -.75px -.75px 0 #000,
-  .75px -.75px 0 #000,
-  -.75px .75px 0 #000,
-  .75px .75px 0 #000;
+  text-shadow: -0.75px -0.75px 0 #000, 0.75px -0.75px 0 #000,
+    -0.75px 0.75px 0 #000, 0.75px 0.75px 0 #000;
 }
 
 .next-page-button:hover {
@@ -214,7 +224,7 @@
   bottom: 10px;
   left: 10px;
   /* right: 20px; */
-  background-color: #00ADB5;
+  background-color: #00adb5;
   border: 3px solid black;
   color: aliceblue;
   font-weight: bold;
@@ -222,11 +232,8 @@
   text-align: center;
   font-size: 12px;
   cursor: pointer;
-  text-shadow:
-  -.75px -.75px 0 #000,
-  .75px -.75px 0 #000,
-  -.75px .75px 0 #000,
-  .75px .75px 0 #000;
+  text-shadow: -0.75px -0.75px 0 #000, 0.75px -0.75px 0 #000,
+    -0.75px 0.75px 0 #000, 0.75px 0.75px 0 #000;
 }
 
 /* Specific styling for tutorial context */
@@ -234,7 +241,8 @@
   left: 17.75vw;
 }
 
-.previous-page-button:hover, .tutorial-button:hover {
+.previous-page-button:hover,
+.tutorial-button:hover {
   border: 3px solid aliceblue;
 }
 

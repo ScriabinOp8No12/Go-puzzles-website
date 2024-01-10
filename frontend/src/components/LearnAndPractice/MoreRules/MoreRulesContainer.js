@@ -43,14 +43,14 @@ const MoreRulesContainer = () => {
         return <MoreRulesPage1 />;
       case "2":
         return <MoreRulesPage2 />;
-        case"3":
-        return <MoreRulesPage3/>;
-        case"4":
-        return <MoreRulesPage4/>;
-        case"5":
-        return <MoreRulesPage5/>;
-        case"6":
-        return <MoreRulesPage6/>;
+      case "3":
+        return <MoreRulesPage3 />;
+      case "4":
+        return <MoreRulesPage4 />;
+      case "5":
+        return <MoreRulesPage5 />;
+      case "6":
+        return <MoreRulesPage6 />;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
@@ -71,7 +71,7 @@ const MoreRulesContainer = () => {
 
       {renderPage()}
       <div className={buttonContainerClass}>
-      {/* <div className="button-container"> */}
+        {/* <div className="button-container"> */}
         <PreviousPageButton
           onClick={navigateToPreviousPage}
           isTutorial={true}

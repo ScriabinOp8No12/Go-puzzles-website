@@ -43,8 +43,8 @@ const MoreRulesContainer = () => {
         return <ReadingPage1 />;
       case "2":
         return <ReadingPage2 />;
-        case"3":
-        return <ReadingPage3/>;
+      case "3":
+        return <ReadingPage3 />;
       //   case"4":
       //   return <MoreRulesPage4/>;
       //   case"5":
@@ -71,7 +71,7 @@ const MoreRulesContainer = () => {
 
       {renderPage()}
       <div className={buttonContainerClass}>
-      {/* <div className="button-container"> */}
+        {/* <div className="button-container"> */}
         <PreviousPageButton
           onClick={navigateToPreviousPage}
           isTutorial={true}
