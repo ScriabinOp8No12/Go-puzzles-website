@@ -9,10 +9,9 @@ const ReadingPage2 = () => {
         <div className="content-text-section">
           <ul className="spaced-list">
             <li>
-              In the diagram below, can black capture the 3
-              white stones? By considering various
-              different starting moves and follow up moves, you are looking into
-              the future!
+              In the diagram below, can black capture the 3 white stones? By
+              considering various different starting moves and follow up moves,
+              you are looking into the future!
             </li>
           </ul>
 
@@ -23,13 +22,12 @@ const ReadingPage2 = () => {
               alt="Reading puzzle 1"
             />
             <p>
-              Diagram 1: H6 J6 J4 J5 J7 captures the 3 white stones!</p>
-              <p>
-                If you could visualize that without putting stones on the board,
-                you are very good at reading / visualizing! If you couldn't visualize it, don't worry, we will walk through
+              <span className="important-text">H6 J6 J4 J5 J7 </span> captures
+              the 3 white stones! If you could visualize that without putting
+              stones on the board, you are very good at reading / visualizing!
+              If you couldn't visualize it, don't worry, we will walk through
               that sequence on the next page.
-              </p>
-
+            </p>
           </div>
         </div>
       </div>

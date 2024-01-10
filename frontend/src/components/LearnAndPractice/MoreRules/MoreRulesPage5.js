@@ -5,7 +5,6 @@ const MoreRulesPage5 = () => {
     <div className="main-content">
       <h2>More Rules: Game Ending Condition</h2>
       <div className="content-section">
-        {/* Text section on the left half, images / diagrams on the right half */}
         <div className="content-text-section">
           <ul className="spaced-list">
             <li>
@@ -14,10 +13,10 @@ const MoreRulesPage5 = () => {
               <span className="important-text">pass</span> (one after another).
             </li>
             <li>
-              Saying pass is equivalent to saying "I don't think there's anything left to play, so
-              I won't play anything, and now it's your turn."
+              Saying pass is equivalent to saying "I don't think there's
+              anything left to play, so I won't play anything, and now it's your
+              turn."
             </li>
-
           </ul>
 
           <div className="content-image-section">
@@ -27,7 +26,7 @@ const MoreRulesPage5 = () => {
               alt="Game ending condition 1"
             />
             <p>
-              Diagram 1: This game is not over yet. Notice how the space{" "}
+              This game is not over yet. Notice how the space{" "}
               <span className="important-text">between</span> black and white
               are still open. The game is usually over when black and white are
               touching everywhere, except for where they have territory. This is
@@ -42,9 +41,9 @@ const MoreRulesPage5 = () => {
               alt="Game ending condition 2"
             />
             <p>
-              Diagram 2: The game is almost over now, but there are still a few
-              spots left to play on the E and F line. Most of these are worth 0
-              points, and the term we use in Japanese is{" "}
+              The game is almost over now, but there are still a few spots left
+              to play on the E and F line. Most of these are worth 0 points, and
+              the term we use in Japanese is{" "}
               <span className="important-text">dame</span> to describe these
               spots. F7 for white is actually{" "}
               <span className="important-text">sente</span> meaning black must
@@ -61,12 +60,12 @@ const MoreRulesPage5 = () => {
               alt="Game ending condition 3"
             />
             <p>
-              Diagram 3: Now the game is over! Notice how all the black and
-              white stones are touching anywhere between the two players. All
-              that's left is for the players to say "pass" (one after another),
-              you can choose to not play on your turn by saying pass. Once both
-              players say pass, the game goes into the counting / scoring phase
-              to see who won!
+              Now the game is over! Notice how all the black and white stones
+              are touching anywhere between the two players. All that's left is
+              for the players to say "pass" (one after another), you can choose
+              to not play on your turn by saying pass. Once both players say
+              pass, the game goes into the counting / scoring phase to see who
+              won!
             </p>
           </div>
         </div>

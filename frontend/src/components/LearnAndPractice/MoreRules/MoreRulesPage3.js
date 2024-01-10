@@ -5,7 +5,6 @@ const MoreRulesPage3 = () => {
     <div className="main-content">
       <h2>More Rules: Seki</h2>
       <div className="content-section">
-        {/* Text section on the left half, images / diagrams on the right half */}
         <div className="content-text-section">
           <ul className="spaced-list">
             <li>
@@ -23,7 +22,7 @@ const MoreRulesPage3 = () => {
               alt="Seki 1"
             />
             <p>
-              Diagram 1: Black and white's groups marked at A and B are{" "}
+              Black and white's groups marked at A and B are{" "}
               <span className="important-text">both alive</span> even though
               neither player has 2 eyes. Whoever places a stone at a triangle
               first gets immediately captured by the opponent at the other
@@ -38,8 +37,8 @@ const MoreRulesPage3 = () => {
               alt="Seki 2"
             />
             <p>
-              Diagram 2: Here's another example of a seki - notice how if either
-              player places a stone at the triangle, they can get captured.
+              Here's another example of a seki - notice how if either player
+              places a stone at the triangle, they can get captured.
             </p>
           </div>
         </div>
