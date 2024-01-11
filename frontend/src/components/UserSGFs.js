@@ -148,7 +148,9 @@ const UserSGFs = () => {
     return currentTimeInMT.isBetween(startTime, endTime);
   }
 
-  const isVirtualMachineOff = !isVMOperational();
+  const isVirtualMachineOff = true;
+  // const isVirtualMachineOff = !isVMOperational(); // flip this back on when I fix VM zone unavailable issue
+
   // console.log("Is the virtual machine off?", isVirtualMachineOff);
 
   return (
@@ -174,9 +176,14 @@ const UserSGFs = () => {
         <div className="generate-puzzles-feature-text">
           {" "}
           The <span className="important-text">generate puzzles</span> feature
+          is currently{" "}
+          <span className="important-text">UNAVAILABLE</span> due to an outage, sorry for the inconvenience!
+          {" "}
+
+          {/* The <span className="important-text">generate puzzles</span> feature
           is available between{" "}
           <span className="important-text">11am and 1pm Mountain Time</span>{" "}
-          daily.{" "}
+          daily.{" "} */}
         </div>
       </div>
       <div className="user-sgf-table">
