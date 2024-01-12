@@ -22,3 +22,12 @@ The following command for if it can't find the drivers didn't work initially, le
 after reinstalling the nvidia drivers that it works?
 
 sudo apt-get install linux-headers-`uname -r`
+
+old static external ip address just in case: 34.118.131.136
+
+Had to release it since it was in a different region as the new ip address, couldn't get it to simply transfer over to the new vm...
+
+Log into namecheap, click on our domain, click advanced dns, change the A record to the new external static ip address
+
+Wow, it just works... huh, that was faster than I thought (took 80 minutes to create new vm), deleted old vm now, looks like I never needed that extra static INTERNAL ip address, so this will
+actually save me some money too, great!
