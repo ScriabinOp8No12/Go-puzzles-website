@@ -30,3 +30,15 @@ actually save me some money too I think, great!
 ---- Next day below:
 
 One issue is it's not auto starting in the morning at 11am, it could be that it needs one extra day to work since I manually turned it off yesterday?
+
+---- Didn't start the day after either, so let's user cloud scheduler instead
+
+Search for cloud scheduler:
+
+Name it, keep the region we are currently on selected, set a description
+
+For Frequency, put 0 11 * * *
+
+This should be daily at 11am, pick Mountain Standard Time
+
+Need to write functions, so messed around with creating a new instance scheduler instead, let's see if that works tomorrow
