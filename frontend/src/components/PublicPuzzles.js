@@ -20,7 +20,6 @@ const PublicPuzzles = () => {
   const location = useLocation();
   const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles); // this naming convention is confusing, our store's name is publicPuzzles, but in our index.js for our store, we are aliasing the reducer as 'puzzles' instead...
   const user = useSelector((state) => state.session.user);
-  console.log("user!!!", user)
   const [selectedFilters, setSelectedFilters] = useState({});
   const [offset, setOffset] = useState(0);
   const LIMIT = 20; // Number of puzzles per page
