@@ -80,6 +80,11 @@ module.exports = (sequelize, DataTypes) => {
           max: 1000000000,
         },
       },
+      isAdmin: {
+        allowNull: false,
+        type:DataTypes.BOOLEAN,
+        defaultValue: false
+      }
     },
     {
       sequelize,

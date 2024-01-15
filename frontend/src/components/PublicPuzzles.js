@@ -18,7 +18,8 @@ const PublicPuzzles = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles);
+  const publicPuzzles = useSelector((state) => state.puzzles.publicPuzzles); // this naming convention is confusing, our store's name is publicPuzzles, but in our index.js for our store, we are aliasing the reducer as 'puzzles' instead...
+  const user = useSelector((state) => state.session.user);
   const [selectedFilters, setSelectedFilters] = useState({});
   const [offset, setOffset] = useState(0);
   const LIMIT = 20; // Number of puzzles per page
@@ -130,7 +131,7 @@ const PublicPuzzles = () => {
                   Category: {puzzle.category}
                 </div>
                 <div className="puzzle-rank">Rank: {puzzle.difficulty}</div>
-                <button
+                {user.isAdmin && (<><button
                   className="public-puzzles-pencil-icon button-hover"
                   onClick={() => openEditModal(puzzle.id)}
                   title="Edit public puzzle"
@@ -138,6 +139,8 @@ const PublicPuzzles = () => {
                   ✏️
                 </button>
                 <SuspendPublicPuzzleModal puzzleId={puzzle.id} />
+                </>
+                )}
               </div>
             </div>
           ))

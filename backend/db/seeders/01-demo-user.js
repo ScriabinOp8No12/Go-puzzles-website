@@ -17,6 +17,7 @@ module.exports = {
           email: "test@gmail.com",
           rank: 2650,
           solved_puzzles: 5050,
+          isAdmin: false,
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
@@ -24,6 +25,7 @@ module.exports = {
           email: "test1@gmail.com",
           rank: 2000,
           solved_puzzles: 500,
+          isAdmin: false,
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
@@ -31,6 +33,7 @@ module.exports = {
           email: "test2@gmail.com",
           rank: 2000,
           solved_puzzles: 10,
+          isAdmin: false,
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
@@ -38,14 +41,16 @@ module.exports = {
           email: "seeder@gmail.com",
           rank: 1500,
           solved_puzzles: 0,
+          isAdmin: false,
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
-        username: "test foreign key error",
-        email: "testingError@gmail.com",
-          rank: 1500,
+        username: "Chad admin",
+        email: "chadadmin@gmail.com",
+          rank: 2500,
           solved_puzzles: 0,
-          hashedPassword: bcrypt.hashSync("password"),
+          isAdmin: true,
+          hashedPassword: bcrypt.hashSync("chadadmin123"),
         }
       ],
       {}
