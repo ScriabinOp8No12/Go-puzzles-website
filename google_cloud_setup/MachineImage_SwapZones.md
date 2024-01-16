@@ -42,3 +42,6 @@ For Frequency, put 0 11 * * *
 This should be daily at 11am, pick Mountain Standard Time
 
 Need to write functions, so messed around with creating a new instance scheduler instead, let's see if that works tomorrow
+
+Sent in a billing support ticket to Google Cloud, sent it from the wrong email address / account first, then sent the same one from the actual account,
+let's see what they say the issue is?  I've spent another 30 minutes today and can't figure it out.
