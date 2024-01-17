@@ -4,7 +4,7 @@
 
 I am thankful for my teachers at App Academy and grateful for my Mom, Dad, and twin brother for listening to my ridiculous bugs, and for brainstorming the best approach to solving problems.
 
-I've been wanting to build this Go website for more than 2 years now, and through App Academy, I have finally been able to build it! I built this Go website to help my current Go students as well as other Go players. I began building this website at the end of May 2023, and anytime I learned something new at App Academy, I would immediately apply it to this project, which helped me solidify the concepts I had just learned. I have spent 509 hours on this project as of 1/17/23.
+I've been wanting to build this Go website for more than 2 years now, and through App Academy, I have finally been able to build it! I built this Go website to help my current Go students as well as other Go players. I began building this website at the end of May 2023, and anytime I learned something new at App Academy, I would immediately apply it to this project, which helped me solidify the concepts I had just learned. I have spent 509 hours on this project as of 1/17/24.
 
 <br>
 
