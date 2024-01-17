@@ -3,7 +3,7 @@ import React from "react";
 const ReadingPage2 = () => {
   return (
     <div className="main-content">
-      <h2>Reading: Examples 1</h2>
+      <h2>Reading: Example 1</h2>
       <div className="content-section">
         {/* Text section on the left half, images / diagrams on the right half */}
         <div className="content-text-section">
