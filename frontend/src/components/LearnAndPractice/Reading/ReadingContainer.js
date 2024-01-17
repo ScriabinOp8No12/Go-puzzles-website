@@ -5,14 +5,11 @@ import useNextPageNavigation from "../useNextPageNavigation";
 import usePreviousPageNavigation from "../usePreviousPageNavigation";
 import { useHistory, useParams } from "react-router-dom";
 import LeftNavBar from "../LeftNavBar";
+import "../styles/LearnAndPracticeIndex.css";
 import ReadingPage1 from "./ReadingPage1";
 import ReadingPage2 from "./ReadingPage2";
 import ReadingPage3 from "./ReadingPage3";
-// import MoreRulesPage4 from "./MoreRulesPage4";
-// import MoreRulesPage5 from "./MoreRulesPage5";
-// import MoreRulesPage6 from "./MoreRulesPage6";
-
-import "../styles/LearnAndPracticeIndex.css";
+import ReadingPage4 from "./ReadingPage4";
 
 const MoreRulesContainer = () => {
   const history = useHistory();
@@ -45,8 +42,8 @@ const MoreRulesContainer = () => {
         return <ReadingPage2 />;
       case "3":
         return <ReadingPage3 />;
-      //   case"4":
-      //   return <MoreRulesPage4/>;
+        case"4":
+        return <ReadingPage4/>;
       //   case"5":
       //   return <MoreRulesPage5/>;
       //   case"6":
