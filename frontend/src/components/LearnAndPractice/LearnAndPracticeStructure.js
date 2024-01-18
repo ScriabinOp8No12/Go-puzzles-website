@@ -9,10 +9,10 @@ const LearnAndPracticeStructure = [
     section: "more-rules",
     pages: 6,
     quiz: false,
-    nextSection: "reading"
+    nextSection: "fundamentals"
   },
   {
-    section: "reading",
+    section: "fundamentals",
     pages: 5,
     quiz: false,
     // nextSection: null // No next section means it's the last one

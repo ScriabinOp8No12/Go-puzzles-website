@@ -10,8 +10,9 @@ import ReadingPage1 from "./ReadingPage1";
 import ReadingPage2 from "./ReadingPage2";
 import ReadingPage3 from "./ReadingPage3";
 import ReadingPage4 from "./ReadingPage4";
+import ReadingPage5 from "./ReadingPage5";
 
-const MoreRulesContainer = () => {
+const FundamentalContainer = () => {
   const history = useHistory();
   const { pageNumber } = useParams();
 
@@ -44,8 +45,8 @@ const MoreRulesContainer = () => {
         return <ReadingPage3 />;
         case"4":
         return <ReadingPage4/>;
-      //   case"5":
-      //   return <MoreRulesPage5/>;
+        case"5":
+        return <ReadingPage5/>;
       //   case"6":
       //   return <MoreRulesPage6/>;
       default:
@@ -79,4 +80,4 @@ const MoreRulesContainer = () => {
   );
 };
 
-export default MoreRulesContainer;
+export default FundamentalContainer;

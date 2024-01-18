@@ -26,8 +26,8 @@ const LandingPage = () => {
   const goToMoreRules = () => {
     history.push("/learn-and-practice/more-rules/1");
   };
-  const goToReading = () => {
-    history.push("/learn-and-practice/reading/1");
+  const goToFundamentals = () => {
+    history.push("/learn-and-practice/fundamentals/1");
   };
   const goToExternalResources  = () => {
     history.push("/learn-and-practice/external-resources")
@@ -82,7 +82,7 @@ const LandingPage = () => {
               <h2><span className="important-text">New to the game?</span></h2>
               <button className="button-hover" onClick={goToBasicRules}>Basic rules</button>
               <button className="button-hover" onClick={goToMoreRules}>More rules & strategy</button>
-              <button className="button-hover" onClick={goToReading}>Reading</button>
+              <button className="button-hover" onClick={goToFundamentals}>Fundamentals</button>
               {/* <button className="button-hover">Puzzles</button>
               <button className="button-hover">External Resources</button> */}
             </div>
