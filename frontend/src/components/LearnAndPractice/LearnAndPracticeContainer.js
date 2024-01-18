@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import BasicRulesContainer from "./BasicRules/BasicRulesContainer";
 import MoreRulesContainer from "./MoreRules/MoreRulesContainer";
-import ReadingContainer from "./Reading/ReadingContainer";
+import FundamentalContainer from "./Fundamentals/FundamentalContainer";
 import ExternalResources from "../ExternalResources";
 
 const LearnAndPracticeContainer = () => {
@@ -14,8 +14,8 @@ const LearnAndPracticeContainer = () => {
         return <BasicRulesContainer />;
       case "more-rules":
         return <MoreRulesContainer />;
-      case "reading":
-        return <ReadingContainer />;
+      case "fundamentals":
+        return <FundamentalContainer />;
       case "external-resources":
         return <ExternalResources />;
       default:

@@ -3,7 +3,7 @@ import React from "react";
 const ReadingPage4 = () => {
   return (
     <div className="main-content">
-      <h2>Reading: Example 2</h2>
+      <h2>Reading: Example 2 with solution</h2>
       <div className="content-section">
         {/* Text section on the left half, images / diagrams on the right half */}
         <div className="content-text-section">
@@ -25,7 +25,7 @@ const ReadingPage4 = () => {
           <div className="content-image-section">
             <img
               className="button-hover"
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1705523832/Tutorial-images/Puzzle_3_2024-01-17_puxgkj.png"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1705612555/Tutorial-images/Puzzle_3_2024-01-17_ufozw6.png"
               alt="Reading puzzle 2"
             />
             <p>
