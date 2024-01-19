@@ -81,3 +81,5 @@ In the role filter enter Compute. Select Compute Instance Admin (v1).
 Click SAVE
 
 Now we can add the VM to the scheduler!
+
+Update 1/19/2024: Looks like the current new VM takes 8-9 minutes past the initial startup time to actually start up, and the VM gets shut off roughly 8-9 minutes after the scheduled stop time too.
