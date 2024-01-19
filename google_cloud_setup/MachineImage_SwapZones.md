@@ -45,3 +45,5 @@ Need to write functions, so messed around with creating a new instance scheduler
 
 Sent in a billing support ticket to Google Cloud, sent it from the wrong email address / account first, then sent the same one from the actual account,
 let's see what they say the issue is?  I've spent another 30 minutes today and can't figure it out.
+
+Update 1/19/2024: Looks like the current new VM takes 8-9 minutes past the initial startup time to actually start up, and the VM gets shut off roughly 8-9 minutes after the scheduled stop time too. So it was working all along!

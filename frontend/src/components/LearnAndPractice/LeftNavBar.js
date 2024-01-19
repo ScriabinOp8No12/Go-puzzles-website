@@ -46,7 +46,11 @@ const LeftNavBar = () => {
   };
 
   const navigateToReading1 = () => {
-    history.push("/learn-and-practice/reading/1");
+    history.push("/learn-and-practice/fundamentals/1");
+  };
+
+  const navigateToLadder1 = () => {
+    history.push("/learn-and-practice/fundamentals/6");
   };
 
   // Determines if the current URL contains any of the specified path segments.
@@ -146,7 +150,8 @@ const LeftNavBar = () => {
           <ul className="small-spaced-list">
           <li onClick={navigateToReading1}
             className={isActive(["/fundamentals/1", "/fundamentals/2", "/fundamentals/3", "/fundamentals/4", "/fundamentals/5" ]) ? "active" : ""}>Reading</li>
-            <li>Ladders & Nets</li>
+            <li onClick={navigateToLadder1}
+            className={isActive(["/fundamentals/6"]) ? "active" : ""}>Ladders & Nets</li>
             <li>Cuts</li>
             <li>Counting</li>
             <li>Direction of Play</li>
