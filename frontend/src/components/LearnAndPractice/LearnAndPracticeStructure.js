@@ -13,7 +13,7 @@ const LearnAndPracticeStructure = [
   },
   {
     section: "fundamentals",
-    pages: 5,
+    pages: 15,
     quiz: false,
     // nextSection: null // No next section means it's the last one
   }

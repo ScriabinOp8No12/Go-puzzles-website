@@ -11,6 +11,7 @@ import ReadingPage2 from "./ReadingPage2";
 import ReadingPage3 from "./ReadingPage3";
 import ReadingPage4 from "./ReadingPage4";
 import ReadingPage5 from "./ReadingPage5";
+import LadderPage1 from "./LadderPage1";
 
 const FundamentalContainer = () => {
   const history = useHistory();
@@ -47,15 +48,15 @@ const FundamentalContainer = () => {
         return <ReadingPage4/>;
         case"5":
         return <ReadingPage5/>;
-      //   case"6":
-      //   return <MoreRulesPage6/>;
+        case"6":
+        return <LadderPage1/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
   };
 
   // Determine the pageType based on the pageNumber (glift puzzle rendering in tutorials is on page 6)
-  const pageType = pageNumber === "4" ? "specialType" : "normalType";
+  const pageType = pageNumber === "15" ? "specialType" : "normalType";
 
   // Logic for checking pageType to see if it's a glift container and we want the buttons up down instead of left right
   const buttonContainerClass =
