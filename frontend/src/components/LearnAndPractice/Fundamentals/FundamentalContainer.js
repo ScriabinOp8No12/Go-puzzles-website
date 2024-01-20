@@ -12,6 +12,8 @@ import ReadingPage3 from "./ReadingPage3";
 import ReadingPage4 from "./ReadingPage4";
 import ReadingPage5 from "./ReadingPage5";
 import LadderPage1 from "./LadderPage1";
+import LadderPage2 from "./LadderPage2";
+import LadderPage3 from "./LadderPage3";
 
 const FundamentalContainer = () => {
   const history = useHistory();
@@ -50,6 +52,10 @@ const FundamentalContainer = () => {
         return <ReadingPage5/>;
         case"6":
         return <LadderPage1/>;
+        case"7":
+        return <LadderPage2/>;
+        case"8":
+        return <LadderPage3/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
