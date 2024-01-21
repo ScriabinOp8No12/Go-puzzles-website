@@ -15,7 +15,7 @@ const LadderPage1 = () => {
             <img
               className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1705691455/Tutorial-images/Puzzles_1_2024-01-19_cfspyc.png"
-              alt="Reading puzzle 1"
+              alt="Ladder puzzle 1"
             />
             <p>
               <span className="important-text">Scroll down</span> to see the
@@ -26,7 +26,7 @@ const LadderPage1 = () => {
             <img
               className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1705691456/Tutorial-images/Puzzles_2_2024-01-19_jkqzri.png"
-              alt="Reading puzzle 2"
+              alt="Ladder puzzle 2"
             />
             <p>
               <span className="important-text">Answer:</span> Black can NOT save
