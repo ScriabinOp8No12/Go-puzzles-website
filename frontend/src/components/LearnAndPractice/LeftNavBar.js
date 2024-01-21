@@ -151,7 +151,7 @@ const LeftNavBar = () => {
           <li onClick={navigateToReading1}
             className={isActive(["/fundamentals/1", "/fundamentals/2", "/fundamentals/3", "/fundamentals/4", "/fundamentals/5" ]) ? "active" : ""}>Reading</li>
             <li onClick={navigateToLadder1}
-            className={isActive(["/fundamentals/6", "/fundamentals/7", "/fundamentals/8"]) ? "active" : ""}>Ladders & Nets</li>
+            className={isActive(["/fundamentals/6", "/fundamentals/7", "/fundamentals/8", "/fundamentals/9", "/fundamentals/10"]) ? "active" : ""}>Ladders & Nets</li>
             <li>Cuts</li>
             <li>Counting</li>
             <li>Direction of Play</li>

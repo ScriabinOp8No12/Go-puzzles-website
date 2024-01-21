@@ -18,7 +18,7 @@ const LadderPage2 = () => {
             <img
               className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1705691459/Tutorial-images/Puzzles_10_2024-01-19_pqvoil.png"
-              alt="Reading puzzle 1"
+              alt="Ladder puzzle 1"
             />
             <p>
               <span className="important-text">Scroll down</span> to see the
@@ -29,7 +29,7 @@ const LadderPage2 = () => {
             <img
               className="button-hover"
               src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1705691457/Tutorial-images/Puzzles_3_2024-01-19_rywryb.png"
-              alt="Reading puzzle 2"
+              alt="Ladder puzzle 2"
             />
             <p>
               <span className="important-text">Answer:</span> Black can save the
