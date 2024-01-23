@@ -58,13 +58,19 @@ const LeftNavBar = () => {
   // Returns true if a match is found, otherwise returns false.
 
   const isActive = (paths) => {
+    const currentPath = location.pathname;
     if (Array.isArray(paths)) {
-      return paths.some((path) => location.pathname.includes(path));
+      return paths.some((path) => {
+        const regex = new RegExp(`${path}/?$`); // Matches the path exactly, allowing for an optional trailing slash
+        return regex.test(currentPath);
+      });
     } else if (typeof paths === "string") {
-      return location.pathname.includes(paths);
+      const regex = new RegExp(`${paths}/?$`); // Same as above for a single string
+      return regex.test(currentPath);
     }
     return false;
   };
+
 
   return (
     <div className="left-nav-bar">
@@ -124,7 +130,7 @@ const LeftNavBar = () => {
             className={isActive("/more-rules/3") ? "active" : ""}
             >Seki</li>
             <li onClick={navigateToMoreRules4}
-            className={isActive("/more-rulesy/4") ? "active" : ""}
+            className={isActive("/more-rules/4") ? "active" : ""}
             >Ko</li>
             <li onClick={navigateToMoreRules5}
             className={isActive("/more-rules/5") ? "active" : ""}>
