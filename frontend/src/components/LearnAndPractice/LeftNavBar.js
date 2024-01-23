@@ -53,6 +53,10 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/fundamentals/6");
   };
 
+  const navigateToReadingLadderPuzzles = () => {
+    history.push("/learn-and-practice/fundamentals/11");
+  };
+
   // Determines if the current URL contains any of the specified path segments.
   // Accepts either a single string or an array of strings.
   // Returns true if a match is found, otherwise returns false.
@@ -71,7 +75,6 @@ const LeftNavBar = () => {
     return false;
   };
 
-
   return (
     <div className="left-nav-bar">
       <h1 className="interactive-tutorial-text">Interactive Tutorials</h1>
@@ -83,7 +86,15 @@ const LeftNavBar = () => {
             <li
               onClick={navigateToBasicRules1}
               className={
-                isActive(["/basic-rules/1", "/basic-rules/2", "/basic-rules/3", "/basic-rules/4", "/basic-rules/5"]) ? "active" : ""
+                isActive([
+                  "/basic-rules/1",
+                  "/basic-rules/2",
+                  "/basic-rules/3",
+                  "/basic-rules/4",
+                  "/basic-rules/5",
+                ])
+                  ? "active"
+                  : ""
               }
             >
               Placing stones & surrounding territory
@@ -122,21 +133,35 @@ const LeftNavBar = () => {
             </li>
 
             <li
-            onClick={navigateToMoreRules2}
-            className={isActive("/more-rules/2") ? "active" : ""}
-            >Eyes
+              onClick={navigateToMoreRules2}
+              className={isActive("/more-rules/2") ? "active" : ""}
+            >
+              Eyes
             </li>
-            <li onClick={navigateToMoreRules3}
-            className={isActive("/more-rules/3") ? "active" : ""}
-            >Seki</li>
-            <li onClick={navigateToMoreRules4}
-            className={isActive("/more-rules/4") ? "active" : ""}
-            >Ko</li>
-            <li onClick={navigateToMoreRules5}
-            className={isActive("/more-rules/5") ? "active" : ""}>
-              Game ending condition</li>
-              <li onClick={navigateToMoreRules6}
-            className={isActive("/more-rules/6") ? "active" : ""}>More Rules Puzzles</li>
+            <li
+              onClick={navigateToMoreRules3}
+              className={isActive("/more-rules/3") ? "active" : ""}
+            >
+              Seki
+            </li>
+            <li
+              onClick={navigateToMoreRules4}
+              className={isActive("/more-rules/4") ? "active" : ""}
+            >
+              Ko
+            </li>
+            <li
+              onClick={navigateToMoreRules5}
+              className={isActive("/more-rules/5") ? "active" : ""}
+            >
+              Game ending condition
+            </li>
+            <li
+              onClick={navigateToMoreRules6}
+              className={isActive("/more-rules/6") ? "active" : ""}
+            >
+              More Rules Puzzles
+            </li>
           </ul>
         </section>
       </div>
@@ -154,10 +179,44 @@ const LeftNavBar = () => {
         <section className="left-nav-bar-section">
           <h2>Fundamentals</h2>
           <ul className="small-spaced-list">
-          <li onClick={navigateToReading1}
-            className={isActive(["/fundamentals/1", "/fundamentals/2", "/fundamentals/3", "/fundamentals/4", "/fundamentals/5" ]) ? "active" : ""}>Reading</li>
-            <li onClick={navigateToLadder1}
-            className={isActive(["/fundamentals/6", "/fundamentals/7", "/fundamentals/8", "/fundamentals/9", "/fundamentals/10"]) ? "active" : ""}>Ladders & Nets</li>
+            <li
+              onClick={navigateToReading1}
+              className={
+                isActive([
+                  "/fundamentals/1",
+                  "/fundamentals/2",
+                  "/fundamentals/3",
+                  "/fundamentals/4",
+                  "/fundamentals/5",
+                ])
+                  ? "active"
+                  : ""
+              }
+            >
+              Reading
+            </li>
+            <li
+              onClick={navigateToLadder1}
+              className={
+                isActive([
+                  "/fundamentals/6",
+                  "/fundamentals/7",
+                  "/fundamentals/8",
+                  "/fundamentals/9",
+                  "/fundamentals/10",
+                ])
+                  ? "active"
+                  : ""
+              }
+            >
+              Ladders & Nets
+            </li>
+            <li
+              onClick={navigateToReadingLadderPuzzles}
+              className={isActive(["/fundamentals/11"]) ? "active" : ""}
+            >
+              Reading/Ladder puzzles
+            </li>
             <li>Cuts</li>
             <li>Counting</li>
             <li>Direction of Play</li>
