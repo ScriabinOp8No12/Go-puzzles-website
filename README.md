@@ -109,12 +109,11 @@ This website is designed to help Go players of all ranks improve their skills th
 
 Major tasks I'm working on:
 
-- Add 500-1000 seeder puzzles that I hand select from AI's potential puzzle output. Currently writing script utilizing Selenium to auto click the generate puzzles button and wait.
+- Finish the rest of the interactive tutorials
 - Create an onboarding puzzle set for users setting their initial rank, hand select / hard code these
-- Finish the rest of the tutorials
 - Add an upvote/downvote button for puzzles, and allow user to determine the category when creating a public puzzle
-- Create my own Server -> build it from my desktop computer, and put in a nice GPU chip. Google Cloud VMs are too expensive to leave on
-- Build my own puzzle rendering library since the unmaintained one I'm currently using is way too complex to use well
-- Create a feature letting the user save the puzzle into an anki card for spaced repetition
 - Setup a payment system for people to donate or pay for a monthly subscription to offset GPU costs
-- Create a button that converts the site into Mandarin (I'm fluent in Mandarin, but this will still take a long time)
+- Create my own Server -> build it from my desktop computer, and put in a nice GPU chip. Google Cloud VMs are too expensive to leave on
+- Create a feature letting the user save the puzzle into an anki card for spaced repetition
+- Create a button that converts the site into Mandarin
+- Build my own puzzle rendering library since the unmaintained one I'm currently using is way too complex to use well
