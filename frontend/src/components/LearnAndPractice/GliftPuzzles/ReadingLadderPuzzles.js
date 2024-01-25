@@ -14,27 +14,27 @@ export const readingLadderPuzzles = [
       widgetType: "STANDARD_PROBLEM",
     },
 
-//     // Capturing puzzle 3
-//     {
-//       sgfString:
-//         "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2]RU[Japanese]SZ[9]KM[6.50]AW[fd][fe]AB[fc][ed][gd][ee][ge]C[You can capture more than one stone at a time if the stones are connected by a straight line.];B[ff]C[Nice!]GB[1])",
-//       problemConditions: { GB: [] },
-//       widgetType: "STANDARD_PROBLEM",
-//     },
-//     // Capturing puzzle 4
-//     {
-//       sgfString:
-//         "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[ec][fc][dd][ed][de][df]AB[eb][fb][gc][cd][fd][gd][ce][ee][cf][ef][dg]C[Capture all 6 stones together!] ;B[dc]TR[db][gb][cc][fe][cg][eg]C[It seems like you are getting the hang of this now. 😀 Remember that you do NOT need to take away the diagonals coming off the stone or stones (see marked triangles). Only the straight lines (liberties) are needed for capturing. Alright, let's bump up the difficulty!]GB[1])",
-//       problemConditions: { GB: [] },
-//       widgetType: "STANDARD_PROBLEM",
-//     },
-//     // Capturing puzzle 5
-//     {
-//       sgfString:
-//         "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[he][eg][fg][gg][hg]AB[gd][hd][ge]TR[he]C[The white stone has 2 liberties right now, but black can still capture it after a few moves.] (;B[hf] ;W[ie]C[Good start, running the opponent into the edge of the board is a very common technique for capturing stones.] (;B[if] ;W[id]C[Keeping the white stones in atari (at one liberty) is a good plan.] ;B[ic]C[Well done! ]GB[1]) (;B[id] ;W[if]C[Keeping the white stones in atari (at one liberty) is a good plan.] ;B[ig]C[Well done! ]GB[1]) (;B[ig] ;W[gf] ;B[id] ;W[if] ;B[hf]C[This works too (it's a snapback), are you sure you are a beginner? ]GB[1])) (;B[ie] ;W[hf]C[White connects back to their friends 😭]))",
-//       problemConditions: { GB: [] },
-//       widgetType: "STANDARD_PROBLEM",
-//     },
+    // Ladder/net puzzle 3
+    {
+      sgfString:
+        "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[db][gd][de][df]AB[cd][ce][cf][ef][dg]LB[gg:A]C[Capture the 2 white stones, if it's not possible, click A] (;B[dd] ;W[ee]C[This ladder won't work, but you can keep trying] ;B[fe] ;W[ed] (;B[ec] ;W[fd]C[White connects]) (;B[fd] ;W[ec]C[White connects to the D8 stone, and can't be laddered anymore])) (;B[ee] ;W[dd]C[This ladder won't work, but you can keep trying] (;B[ed] ;W[dc]C[White connects]) (;B[dc] ;W[ed] (;B[ec] ;W[fd]C[White connects]) (;B[fd] ;W[ec] (;B[eb] ;W[cc]C[White captures the stone and is connected with more than 2 liberties now]) (;B[fc] ;W[eb]C[White connects])))) (;B[ed] ;W[ee]C[Nice net!] ;B[fe] ;W[dd]C[And now?] ;B[dc]C[Solved, no ladder needed, white still got captured!]GB[1]) (;B[gg]C[White can be captured, but both the ladders don't work!]))",
+      problemConditions: { GB: [] },
+      widgetType: "STANDARD_PROBLEM",
+    },
+   // Ladder/net puzzle 4
+    {
+      sgfString:
+        "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] CR[dd]AW[dd][fd][ge][df][gf][cg][eg][fg][hg]AB[db][cc][gd][hd][be][ee][fe][ef][ff]LB[gb:A]TR[ee][fe][ef][ff]C[Can black save the 4 stones that were just net? Click A if it's not possible] (;B[gb]C[Black can save the group, this is an example of a net that doesn't work!]) (;B[de] ;W[ce]C[This won't work, but you can keep trying] ;B[ed] ;W[ec]C[Black gets captured now]) (;B[ed] ;W[ec]C[Great, now what?] (;B[fc] ;W[de]C[The net didn't work so you solved it, but white has another trick up their sleeves] ;B[fd]C[You've successfully saved the 4 black stones, nice!]GB[1]) (;B[de] ;W[ce]C[This doesn't work])))",
+      problemConditions: { GB: [] },
+      widgetType: "STANDARD_PROBLEM",
+    },
+    //  Reading puzzle 2
+    {
+      sgfString:
+        "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] CR[di]AW[aa][ba][bb][cb][db][eb][fb][fc][hc][gd][ge][gf][gg][hg][eh][fh][di]AB[ab][ac][bc][cc][dc][ec][ed][fd][fe][ff][dg][eg][fg][ch][dh]C[White just made a very common mistake, how can black punish white?] (;B[ci] (;W[ei]C[Great start, now what?] ;B[gh]C[Nice cut!] (;W[fi] ;B[gi]C[Nice job!]GB[1]) (;W[hh] ;B[fi]C[Great!]GB[1])) (;W[gh] ;B[ei]C[Nice capture]GB[1])) (;B[gh] ;W[hh]C[This works, I don't think you are a beginner...] ;B[ci] ;W[ei] ;B[fi]C[Nice]GB[1]))",
+      problemConditions: { GB: [] },
+      widgetType: "STANDARD_PROBLEM",
+    },
 //     // Capturing puzzle 6
 //     {
 //       sgfString:
