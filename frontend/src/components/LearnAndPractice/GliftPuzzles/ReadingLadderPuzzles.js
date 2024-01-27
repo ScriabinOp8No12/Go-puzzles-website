@@ -35,10 +35,10 @@ export const readingLadderPuzzles = [
       problemConditions: { GB: [] },
       widgetType: "STANDARD_PROBLEM",
     },
-    // {
-    //     sgfString:
-    //       "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[gb][gd][fe][ge][ff]AB[hd][ee][he][ef][gf][hf][fg]TR[gd][fe][ge][ff]C[Capture the 4 white stones in a ladder!] (;B[gc] ;W[fd]C[Great start, keep going, which way should we atari from? Or do both work?] (;B[ed] ;W[fc]TR[gc]C[Oops, this ladder won't work now since G7 is in atari]) (;B[fc] ;W[ed]C[Nice decision, what now?] ;B[dd] ;W[ec] ;B[eb] ;W[dc] ;B[cc] ;W[db] (;B[da] ;W[cb] ;B[bb] ;W[fb] ;B[ca]C[Nice one!]GB[1]) (;B[cb] ;W[da] (;B[ca] ;W[fb] ;B[ea]C[Nice one!]GB[1]) (;B[ea] ;W[fb] ;B[ca]C[Nice one!]GB[1])))) (;B[fd] ;W[gc]C[Nope, that won't work, white connects up]))",
-    //     problemConditions: { GB: [] },
-    //     widgetType: "STANDARD_PROBLEM",
-    //   },
+    {
+        sgfString:
+          "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[aa][ca][da][bb][db][eb][dc][fc][gc][dd][gd][hd][id][de][ff][gf][hf][hg][gh][hh][ih][fi][gi]AB[ab][ac][bc][cc][ec][ad][bd][cd][ed][fd][ae][be][ce][ee][fe][ge][he][cf][df][ef][bg][dg][eg][fg][gg][ch][eh][fh][di][ei]C[Win the game as black, assume white has 0.5 komi (white wins the tie).] (;B[ie] ;W[if]C[Excellent job, J5 was sente because if white didn't go J4, black could go J4 and kill the white group.] ;B[cb] ;W[fb]C[Good, white couldn't connect at B9 because black could play F8 after and kill the whole thing.] ;B[ba]TR[aa][bb][af][bf][ag][cg][ah][bh][dh][ai][bi][ci]SQ[ea][fa][ga][ha][ia][gb][hb][ib][hc][ic][ig][hi][ii]C[You are amazing! Black wins 14 to 13.5 (half point victory!) Black has 10 points in the bottom left corner, 2 points in the top left corner, for 12 points. Black has 2 prisoners, it's easier to add that to black's score instead of subtracting off white's score. So black has 10 + 2 + 2 = 14. White has 10 in the top right and 3 in the bottom right for 10 + 3 = 13 points and 0.5 komi for a total of 13.5. ]GB[1]) (;B[cb] ;W[ie]C[This is close to working, but black will lose this game. You can continue if you want to] ;B[ba] ;W[fb]TR[aa][bb][af][bf][ag][cg][ah][bh][dh][ai][bi][ci]SQ[ea][fa][ga][ha][ia][gb][hb][ib][hc][ic][if][ig][hi][ii]C[Black has 12 points (triangles) and 2 prisoners captured, for a total of 14 points. Instead of taking 2 points off white, it's easier to just add the 2 prisoners to black's score. White also has 14 points, but white has 0.5 komi, and thus wins 14.5 to 14! Good try though]))",
+        problemConditions: { GB: [] },
+        widgetType: "STANDARD_PROBLEM",
+      },
   ];
