@@ -33,6 +33,7 @@
 
 .about-me-outer-container a {
   color: rgb(255, 204, 102);
+  font-weight: bold;
   text-decoration: none;
 }
 

@@ -71,6 +71,10 @@ const AboutMe = () => {
         for my wonderful family and friends because they encourage me to become
         the best version of myself.
       </p>
+      <p className="about-me-paragraph-text">
+       I'm currently a fullstack web developer at an AI startup. If you are interested in <span className="important-text"> Go lessons</span> and/or want a <span className="important-text">website</span> built, please let me know!
+      </p>
+
       {/* Image and text of me teaching at Boulder Go club
           <figure>
           <img className="about-me-image" src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1701826538/About%20me%20page%20photos/20231008B010_jdxqd2.jpg" alt="Descriptive Alt Text"/>
