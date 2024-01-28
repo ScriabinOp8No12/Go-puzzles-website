@@ -2,7 +2,7 @@ export const moreRulesPuzzles = [
   {
     // More Rules puzzle 1
     sgfString:
-      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[ba][ab][bb][bc][ad][bd]AB[ca][cb][cc][cd][ae][be][ce]LB[gc:A][ge:B]C[Is white alive or can they be killed? Place a stone at A if white can be killed. Place a stone at B if white can NOT be killed.] (;B[gc]C[Nice, white is already alive since they have 2 eyes. Black is literally not allowed to place a stone at A9 or A7, meaning white can never be killed.]GB[1]) (;B[ge]C[Unfortunately for black, white is already alive. You can go back to the original puzzle and try to click A7 and A9, but it won't let you since those are illegal moves (you are not allowed to capture yourself) ]))",
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[ba][ab][bb][bc][ad][bd]AB[ca][cb][cc][cd][ae][be][ce]LB[gc:A][ge:B]C[Is white alive or can they be killed? Place a stone at A if white can NOT be killed. Place a stone at B if white can be killed.] (;B[gc]C[Nice, white is already alive since they have 2 eyes. Black is literally not allowed to place a stone at A9 or A7, meaning white can never be killed.]GB[1]) (;B[ge]C[Unfortunately for black, white is already alive. You can go back to the original puzzle and try to click A7 and A9, but it won't let you since those are illegal moves (you are not allowed to capture yourself) ]))",
     problemConditions: { GB: [] },
     widgetType: "STANDARD_PROBLEM",
   },
