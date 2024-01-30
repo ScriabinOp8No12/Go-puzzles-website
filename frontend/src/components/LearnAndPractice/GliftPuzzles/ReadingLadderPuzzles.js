@@ -62,4 +62,32 @@ export const readingLadderPuzzles = [
     problemConditions: { GB: [] },
     widgetType: "STANDARD_PROBLEM",
   },
+  // Puzzle 10
+  {
+    sgfString:
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[ed][fe][gf][cg][gg][gh]AB[fc][fd][gd][ge][hf][hg]TR[ed]C[Capture the white stone marked with a triangle!] (;B[ee] ;W[ff]C[Nice start, now the stone is cut off] (;B[dd] ;W[ec]C[Great job, now we just ladder white] (;B[eb] ;W[dc] ;B[cc]C[Solved!]GB[1]) (;B[dc] ;W[eb]C[This can work too, but it's a little harder to navigate as black] ;B[db] ;W[fb] ;B[gb]C[Great job]GB[1])) (;B[ec] ;W[dd]C[White escapes, hint: you could have laddered white])) (;B[ec] ;W[ee]C[White connects the stone up, try again]))",
+    problemConditions: { GB: [] },
+    widgetType: "STANDARD_PROBLEM",
+  },
+  // Puzzle 11
+  {
+    sgfString:
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] AW[fb][gb][hc][ed][hd][ee][he][ef][hf][eg][hg]AB[dc][dd][de][fe][df][ff][dg][fg][eh]TR[ed][ee][ef][eg]C[Uh oh, the ladder won't work here, how does black capture the 4 white stones? ] (;B[ec] ;W[fd]C[White is going to connect, there's no way for black to cut them off] (;B[gd] ;W[fc]C[White is connected]) (;B[fc] ;W[gd]C[White is connected])) (;B[fd] ;W[ec]C[White is going to connect, there's no way for black to cut them off] (;B[fc] ;W[eb]C[White is connected]) (;B[eb] ;W[fc]C[White is connected])) (;B[fc] ;W[ec]C[Nice net] ;B[eb] ;W[fd] ;B[gd]C[Easy game]GB[1]))",
+    problemConditions: { GB: [] },
+    widgetType: "STANDARD_PROBLEM",
+  },
+  // Puzzle 12
+  {
+    sgfString:
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[9]KM[6.50] CR[de]AW[cb][bc][cc][ad][cd][be][de][gf][fg][eh]AB[db][fb][dc][gc][dd][ce][cf]TR[ce][cf]C[White just cut our two stones off, but black can capture the white stone in a 'loose ladder' or net] (;B[df] ;W[ee]C[This isn't going to work, white is going to connect, and our 3 black stones are still cut off]) (;B[ee] ;W[df]TR[ce][cf]C[Since black can't ladder or net these 2 white stones, black's two stones are going to die]) (;B[ef] (;W[ee]C[Excellent! This will behave like a ladder, but instead of white having 1 liberty the whole time, they will have 2, let's play it out] ;B[fe] ;W[ed]C[White must run upwards here] (;B[fd] ;W[ec]C[Now how do we stop them?] (;B[eb] ;W[df]C[Perfect, after E8, that was basically a net] ;B[dg] ;W[cg]C[Finish them off!!!!] ;B[fc]C[The game is saved, well played]GB[1]) (;B[fc] ;W[eb]C[White kills our 3 stones now])) (;B[ec] ;W[fd]C[This was a mistake, white will get away now] ;B[gd] ;W[ff]C[This is atari unfortunately] ;B[ge] ;W[df]C[White gets away])) (;W[df] ;B[dg]C[White could also push here first, but this just becomes a normal ladder] ;W[ee] ;B[fe] ;W[ed]C[White dies in a ladder])))",
+    problemConditions: { GB: [] },
+    widgetType: "STANDARD_PROBLEM",
+  },
+  // Puzzle 13 (famous broken ladder problem from Pro game)
+  {
+    sgfString:
+      "(;GM[1]FF[4]CA[UTF-8]AP[CGoban:3]ST[2] RU[Japanese]SZ[19]KM[0.00] GN[Moves 67 to 74 (B: Yi Se-tol W: Hong Chang-sik)]DT[2009-04-22]PC[http://senseis.xmp.net/?LeeSedolHongChangSikLadderGame]AW[bb][db][cc][dd][ce][de][cf][dg][eg][eh][fh][rk][ml][rl][sl][km][mm][pm][qm][rm][mn][nn][on][sn][co][po][qo][so][mp][pp][qp][dq][qq][qr][rr][rs]AB[cb][dc][ec][nc][fd][pd][df][ef][cg][fg][dh][ei][rj][ok][qk][nl][pl][lm][nm][om][pn][qn][rn][lo][mo][no][oo][ro][rp][iq][nq][oq][pq][rq][sq][sr]TR[dg][eg][eh][fh]C[This is a famous 'broken ladder' game from two professionals. We've been looking at only examples on the 9 by 9 board, but this is the 19 by 19 board, the full size board. How does black start to ladder the 4 white stones? ]PL[B] ;B[gh] ;W[fi]C[Nice, let's play it out] ;B[fj] ;W[gi] ;B[hi] ;W[gj] ;B[gk] ;W[hj] ;B[ij] ;W[hk] ;B[hl] ;W[ik] ;B[jk] ;W[il] ;B[im] ;W[jl]TR[kl]C[This isn't looking too good, white is starting to connect. Black needs to play at the marked triangle here. ] ;B[kl] ;W[jm]TR[jn]C[We need to play K6 here, but we aren't going to kill the stones in a ladder] ;B[jn] ;W[kn]TR[ln]C[And here's the magic, we can play M6 to kill a different group of stones!] ;B[ln] ;W[ko]TR[mk][pn][qn][rn][ro][rp][rq][sq][sr]C[After we play N9, we kill the 5 white stones, which saves the big black group on the right, which simultaneously kills white's entire right side group (white does not have 2 eyes) ] ;B[mk]TR[gg][hh][di][ii][ej][jj][fk][kk][gl][hm][in]C[Nice! Although black has a million cuts, black has effectively won the game by killing the entire right side of the board. ]GB[1])",
+    problemConditions: { GB: [] },
+    widgetType: "STANDARD_PROBLEM",
+  },
 ];
