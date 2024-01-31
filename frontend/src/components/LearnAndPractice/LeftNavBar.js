@@ -57,6 +57,10 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/fundamentals/11");
   };
 
+  const navigateToCuts1 = () => {
+    history.push("/learn-and-practice/fundamentals/12");
+  };
+
   // Determines if the current URL contains any of the specified path segments.
   // Accepts either a single string or an array of strings.
   // Returns true if a match is found, otherwise returns false.
@@ -217,7 +221,12 @@ const LeftNavBar = () => {
             >
               Reading/Ladder puzzles
             </li>
-            <li>Cuts</li>
+            <li
+              onClick={navigateToCuts1}
+              className={isActive(["/fundamentals/12"]) ? "active" : ""}
+            >
+              Cuts
+            </li>
             <li>Counting</li>
             <li>Direction of Play</li>
             <li>Judgment</li>
