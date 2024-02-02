@@ -31,6 +31,26 @@ const CutsPage2 = () => {
               Oh no, white has just cut us, which group is weaker (A or B)?  Scroll down to see the answer!
             </p>
           </div>
+
+          <div className="content-image-section">
+            <img
+              className="button-hover"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1706842341/Tutorial-images/Puzzles_4_2024-02-01_ldiirw.png"
+              alt="Cut 2"
+            />
+            <p>The 2 black stones near the edge of the board are much weaker, they have less liberties and can be surrounded more easily.
+            </p>
+          </div>
+          <div className="content-image-section">
+            <img
+              className="button-hover"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1706842208/Tutorial-images/Puzzles_2_2024-02-01_pdmmha.png"
+              alt="Cut 3"
+            />
+            <p>
+              Black can play a move like this to protect the 2 weaker stones.
+            </p>
+          </div>
         </div>
       </div>
     </div>
