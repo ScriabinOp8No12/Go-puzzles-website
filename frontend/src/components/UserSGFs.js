@@ -126,12 +126,12 @@ const UserSGFs = () => {
       return "Unavailable because Potential Puzzles have already been generated for this SGF.";
     }
     else if (isVirtualMachineOff) {
-      return "Unavailable because this service operates daily from 11am to 1pm Mountain Time due to high costs.";
+      return "Unavailable because this service operates daily from 11:10am to 1pm Mountain Time due to high costs.";
     }
     return "Have KataGo AI generate potential puzzles!"; // Default title when button is working and NOT disabled
   };
 
-  // Check if current time is within 11am - 1pm Mountain Time for disabling our button
+  // Check if current time is within 11:10am - 1pm Mountain Time for disabling our button
   function isVMOperational() {
     // Get current time in Mountain Time
     const currentTimeInMT = moment().tz("America/Denver");
@@ -139,7 +139,7 @@ const UserSGFs = () => {
     // Define start and end times (11am and 1pm in Mountain Time)
     const startTime = currentTimeInMT
       .clone()
-      .set({ hour: 11, minute: 0, second: 0 });
+      .set({ hour: 11, minute: 10, second: 0 });
     const endTime = currentTimeInMT
       .clone()
       .set({ hour: 13, minute: 0, second: 0 });
@@ -182,7 +182,7 @@ const UserSGFs = () => {
 
           The <span className="important-text">generate puzzles</span> feature
           is available between{" "}
-          <span className="important-text">11am and 1pm Mountain Time</span>{" "}
+          <span className="important-text">11:10am and 1pm Mountain Time</span>{" "}
           daily.{" "}
         </div>
       </div>
