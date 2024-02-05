@@ -224,7 +224,7 @@ const LeftNavBar = () => {
             </li>
             <li
               onClick={navigateToCuts1}
-              className={isActive(["/fundamentals/12", "/fundamentals/13", "/fundamentals/14"]) ? "active" : ""}
+              className={isActive(["/fundamentals/12", "/fundamentals/13", "/fundamentals/14", "/fundamentals/15"]) ? "active" : ""}
             >
               Cuts
             </li>
