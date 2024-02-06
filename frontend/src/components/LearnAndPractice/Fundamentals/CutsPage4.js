@@ -29,64 +29,29 @@ const CutsPage4 = () => {
             />
             <p>
               Big mistake: black shouldn't atari this way, as black is forced to connect at 3, then white 4 kills the H5 cutting stone and black falls apart.
-              However, there really isn't a good way to handle this, so black should just go into "sacrifice mode", and give up the weaker stone.
+
             </p>
           </div>
-          {/* <div className="content-image-section">
+          <div className="content-image-section">
             <img
               className="button-hover"
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1706918841/Tutorial-images/Puzzles_2_2024-02-02_kcnpqq.png"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1707185668/Tutorial-images/Puzzles_1_2024-02-05_xpu3xc.png"
               alt="Cut 3"
             />
             <p>
-              This is one of the most costly mistakes when dealing with cuts.
-              This atari is really bad as black now has the option to cut at A
-              (along with the cut at B), both of which white can not handle.
-              <br></br>
-              <br></br>
-              The atari that doesn't fix the cut problem is usually bad, notice
-              how after the move at 1, white still owes a move at B to protect
-              the cut. This causes problems as black's move at A would kill our
-              2 other cutting stones!
+              Black extends the weaker stone, but white runs away anyways and black's 2 stones are still split.  This is not optimal for black. Back should go into "sacrifice mode", and give up the weaker stone.
             </p>
           </div>
           <div className="content-image-section">
             <img
               className="button-hover"
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1706919670/Tutorial-images/Puzzles_7_2024-02-02_s5h6me.png"
+              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1707185668/Tutorial-images/Puzzles_2_2024-02-05_gaihwn.png"
               alt="Cut 4"
             />
             <p>
-              If white connects the bottom stone to defend against that cut,
-              white will die to the other cut when black plays at the triangle.
+              Black ataris and sacrifices the single black stone, forming a large wall and moyo (large area) on the left side of the board!  Black is happy with the result.
             </p>
           </div>
-          <div className="content-image-section">
-            <img
-              className="button-hover"
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1706918841/Tutorial-images/Puzzles_4_2024-02-02_ksgej2.png"
-              alt="Cut 5"
-            />
-            <p>
-              {" "}
-              <span className="important-text">Answer:</span> a simple extension
-              from the weaker group makes it really easy to handle this
-              situation!
-            </p>
-          </div>
-          <div className="content-image-section">
-            <img
-              className="button-hover"
-              src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1706919462/Tutorial-images/Puzzles_5_2024-02-02_lmqpoa.png"
-              alt="Cut 6"
-            />
-            <p>
-              {" "}
-              <span className="important-text">Answer variation:</span> Because
-              white calmly extended, black's cut at 2 doesn't work as that stone
-              will get easily captured.
-            </p>
-          </div> */}
         </div>
       </div>
     </div>
