@@ -72,7 +72,8 @@ const AboutMe = () => {
         the best version of myself.
       </p>
       <p className="about-me-paragraph-text">
-       I'm currently a fullstack web developer at an AI startup. If you are interested in <span className="important-text"> Go lessons</span> and/or want a <span className="important-text">website</span> built, please let me know!
+       I'm currently a fullstack web developer at an AI startup building a graph interface for LLMs, I've had to learn various new technologies quickly, which is exciting!
+       If you are interested in <span className="important-text"> Go lessons</span> and/or want a <span className="important-text">website</span> built, please let me know!
       </p>
 
       {/* Image and text of me teaching at Boulder Go club
