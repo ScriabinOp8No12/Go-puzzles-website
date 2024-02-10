@@ -32,7 +32,7 @@ This website is designed to help Go players of all ranks improve their skills th
   &nbsp;
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" style="width:75px;" title="Nginx"/>
   &nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" style="width:75px;" title="Node.js"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" style="width:75px;" title="Node.js"/>
   &nbsp;
   <img src="https://res.cloudinary.com/dn8rdavoi/image/upload/v1702109030/icons%20for%20github/express2_orhv2h.jpg" style="width:75px;" title="Express.js"/>
   &nbsp;
