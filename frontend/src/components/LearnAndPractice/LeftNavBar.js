@@ -61,6 +61,10 @@ const LeftNavBar = () => {
     history.push("/learn-and-practice/fundamentals/12");
   };
 
+  const navigateToCounting1 = () => {
+    history.push("/learn-and-practice/fundamentals/16");
+  };
+
 
   // Determines if the current URL contains any of the specified path segments.
   // Accepts either a single string or an array of strings.
@@ -170,15 +174,6 @@ const LeftNavBar = () => {
           </ul>
         </section>
       </div>
-      {/* <div className="nav-section">
-        <section className="left-nav-bar-section">
-          <h2>Rules & Strategy Puzzles</h2>
-          <ul className="small-spaced-list">
-            <li>Rules & Strategy Puzzles 1</li>
-            <li>Rules & Strategy Puzzles 2</li>
-          </ul>
-        </section>
-      </div> */}
 
       <div className="nav-section">
         <section className="left-nav-bar-section">
@@ -228,7 +223,12 @@ const LeftNavBar = () => {
             >
               Cuts
             </li>
-            <li>Counting</li>
+            <li
+              onClick={navigateToCounting1}
+              className={isActive(["/fundamentals/16"]) ? "active" : ""}
+            >
+              Counting
+            </li>
             <li>Direction of Play</li>
             <li>Judgment</li>
             <li>Life & Death</li>
