@@ -225,7 +225,7 @@ const LeftNavBar = () => {
             </li>
             <li
               onClick={navigateToCounting1}
-              className={isActive(["/fundamentals/16"]) ? "active" : ""}
+              className={isActive(["/fundamentals/16", "/fundamentals/17"]) ? "active" : ""}
             >
               Counting
             </li>
