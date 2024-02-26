@@ -23,6 +23,7 @@ import CutsPage3 from "./CutsPage3";
 import CutsPage4 from "./CutsPage4";
 import CountingPage1 from "./CountingPage1";
 import CountingPage2 from "./CountingPage2";
+import CountingPage3 from "./CountingPage3";
 
 const FundamentalContainer = () => {
   const history = useHistory();
@@ -83,6 +84,8 @@ const FundamentalContainer = () => {
         return <CountingPage1/>;
         case"17":
         return <CountingPage2/>;
+        case"18":
+        return <CountingPage3/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
