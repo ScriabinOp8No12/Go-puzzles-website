@@ -25,6 +25,7 @@ import CountingPage1 from "./CountingPage1";
 import CountingPage2 from "./CountingPage2";
 import CountingPage3 from "./CountingPage3";
 import CountingPage4 from "./CountingPage4";
+import CountingPage5 from "./CountingPage5";
 
 const FundamentalContainer = () => {
   const history = useHistory();
@@ -89,6 +90,8 @@ const FundamentalContainer = () => {
         return <CountingPage3/>;
         case"19":
         return <CountingPage4/>;
+        case"20":
+        return <CountingPage5/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
