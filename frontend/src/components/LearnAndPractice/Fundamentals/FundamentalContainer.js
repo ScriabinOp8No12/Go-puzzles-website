@@ -26,6 +26,7 @@ import CountingPage2 from "./CountingPage2";
 import CountingPage3 from "./CountingPage3";
 import CountingPage4 from "./CountingPage4";
 import CountingPage5 from "./CountingPage5";
+import CutsCountingPuzzles from "./CutsCountingPuzzles";
 
 const FundamentalContainer = () => {
   const history = useHistory();
@@ -92,13 +93,15 @@ const FundamentalContainer = () => {
         return <CountingPage4/>;
         case"20":
         return <CountingPage5/>;
+        case"21":
+        return <CutsCountingPuzzles/>;
       default:
         return <div className="page-not-found-text">Page not found</div>;
     }
   };
 
   // Determine the pageType based on the pageNumber (glift puzzle rendering in tutorials is on page 6)
-  const pageType = pageNumber === "11" ? "specialType" : "normalType";
+  const pageType = (pageNumber === "11" || pageNumber === "21") ? "specialType" : "normalType";
 
   // Logic for checking pageType to see if it's a glift container and we want the buttons up down instead of left right
   const buttonContainerClass =
