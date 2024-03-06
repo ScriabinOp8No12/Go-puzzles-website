@@ -184,6 +184,14 @@
   flex-direction: column;
 }
 
+/* Media query for screens narrower than 1400 pixels */
+@media (max-width: 1430px) {
+  .button-container.glift-puzzle-layout .next-page-button
+   {
+    margin-bottom: 45px; /* Increased bottom value for smaller screens */
+  }
+}
+
 .next-page-button {
   margin-left: 20px; /* 20 pixels gap between the buttons */
   bottom: 10px;
@@ -218,13 +226,6 @@
   cursor: pointer;
   text-shadow: -0.75px -0.75px 0 #000, 0.75px -0.75px 0 #000,
     -0.75px 0.75px 0 #000, 0.75px 0.75px 0 #000;
-}
-
-/* Media query for screens narrower than 1400 pixels */
-@media (max-width: 1430px) {
-  .next-page-button {
-    margin-bottom: 45px !important; /* Increased bottom value for smaller screens */
-  }
 }
 
 /* Specific styling for tutorial context */
