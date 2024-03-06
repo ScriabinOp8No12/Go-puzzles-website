@@ -7,7 +7,7 @@
 .logo {
   position: fixed;
   top: 18px;
-  left: 35px;
+  left: 15px;
   width: 70px;
   border: 3px solid black;
   border-radius: 15px;
@@ -33,7 +33,7 @@
 }
 /* move the STARTING POSITION of the profile button slightly away from the top right corner of the screen */
 .profile-button {
-  transform: translate(-45px, 22px);
+  transform: translate(-20px, 22px);
   cursor: pointer;
   /* align the profile icon to the top of the login and signup buttons on the right of it */
   align-self: flex-start;
@@ -296,7 +296,7 @@
 }
 
 .game-records-button-wrapper {
-  margin-right: 180px;
+  margin-right: 150px;
 }
 
 .game-records-button {

@@ -92,22 +92,6 @@
   padding: 0px 50px 15px 50px;
 }
 
-.glift-container {
-  margin-left: 40px;
-  width: 100%;
-  height: calc(100vh - 115px);
-  padding: 0px 50px 15px 50px;
-}
-
-/* .glift-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin-left: 75px;
-  margin-top: -50px;
-} */
-
 .main-content h2 {
   color: rgb(255, 204, 102);
   font-size: 26px;
@@ -234,6 +218,13 @@
   cursor: pointer;
   text-shadow: -0.75px -0.75px 0 #000, 0.75px -0.75px 0 #000,
     -0.75px 0.75px 0 #000, 0.75px 0.75px 0 #000;
+}
+
+/* Media query for screens narrower than 1400 pixels */
+@media (max-width: 1430px) {
+  .next-page-button {
+    margin-bottom: 45px !important; /* Increased bottom value for smaller screens */
+  }
 }
 
 /* Specific styling for tutorial context */

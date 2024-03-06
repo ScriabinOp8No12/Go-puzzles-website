@@ -44,7 +44,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button button-hover${
+                className={`navbar-button button-hover ${
                   isLearnAndPracticeActive ? "active" : ""
                 }`}
               >
@@ -84,7 +84,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button button-hover${
+                className={`navbar-button button-hover ${
                   isPublicPuzzlesActive ? "active" : ""
                 }`}
               >
@@ -104,7 +104,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="navbar-button-wrapper">
               <div
-                className={`navbar-button button-hover${
+                className={`navbar-button button-hover ${
                   isPotentialPuzzlesActive ? "active" : ""
                 }`}
               >
@@ -124,7 +124,7 @@ function Navigation({ isLoaded }) {
           {sessionUser && (
             <div className="game-records-button-wrapper">
               <div
-                className={`navbar-button button-hover${
+                className={`navbar-button button-hover ${
                   isSgfsActive ? "active" : ""
                 }`}
               >

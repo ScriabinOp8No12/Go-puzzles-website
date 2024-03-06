@@ -25,12 +25,7 @@ const MoreRulesPage6 = () => {
   }, []);
 
   return (
-    <div className="glift-container">
-      {/* <h2>Basic Rules: Capturing Stones</h2> */}
-      {/* <div className="glift-wrapper"> */}
-      <div id="gliftContainer"></div>
-    </div>
-    // </div>
+    <div id="gliftContainer"></div>
   );
 };
 
