@@ -92,22 +92,6 @@
   padding: 0px 50px 15px 50px;
 }
 
-.glift-container {
-  margin-left: 40px;
-  width: 100%;
-  height: calc(100vh - 115px);
-  padding: 0px 50px 15px 50px;
-}
-
-/* .glift-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin-left: 75px;
-  margin-top: -50px;
-} */
-
 .main-content h2 {
   color: rgb(255, 204, 102);
   font-size: 26px;
@@ -198,6 +182,14 @@
 /* Special layout for glift puzzle pages, we want the buttons up down instead of left right so they don't overlap on the page */
 .button-container.glift-puzzle-layout {
   flex-direction: column;
+}
+
+/* Media query for screens narrower than 1400 pixels */
+@media (max-width: 1430px) {
+  .button-container.glift-puzzle-layout .next-page-button
+   {
+    margin-bottom: 45px; /* Increased bottom value for smaller screens */
+  }
 }
 
 .next-page-button {

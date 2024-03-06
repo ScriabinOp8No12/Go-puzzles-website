@@ -26,9 +26,7 @@ const CutsCountingPuzzles = () => {
   }, []);
 
   return (
-    <div className="glift-container">
       <div id="gliftContainer"></div>
-    </div>
   );
 };
 

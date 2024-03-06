@@ -24,6 +24,7 @@ import AutoMovesDisplay from "./components/TestAutoMove";
 function App() {
   // dispatch is used to send actions to the store and trigger them
   const dispatch = useDispatch();
+  const [isNotDesktop, setIsNotDesktop] = useState(false);
   // We pass isLoaded from this parent component, down to our Navigation component (Navigation.js/index.js)
   const [isLoaded, setIsLoaded] = useState(false);
   const modalComponent = useSelector((state) => state.modal.modalComponent);
@@ -66,7 +67,33 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  return (
+  const handleResize = () => {
+    setIsNotDesktop(window.innerWidth < 1365);
+  };
+
+  // Event listener for window resize
+  useEffect(() => {
+    handleResize(); // Check immediately on mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  //
+  if (isNotDesktop) {
+    return (
+      <>
+      <div className="centered-container">
+        <div className="non-desktop-warning">
+          This website is not yet designed for mobile or tablet devices (or your screen isn't wide enough).
+          <br></br>
+          <br></br>
+          Please use a device that's at least 1365 pixels wide!
+        </div>
+      </div>
+      </>
+    );
+  } else {
+    return (
     <>
       {/* Render the Navigation component, passing in the isLoaded state, which Navigation component now takes in as a prop */}
       <Navigation isLoaded={isLoaded} />
@@ -119,7 +146,8 @@ function App() {
         </Switch>
       )}
     </>
-  );
+    );
+  }
 }
 
 export default App;
