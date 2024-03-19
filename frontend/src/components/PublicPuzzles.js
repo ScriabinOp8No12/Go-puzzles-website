@@ -31,7 +31,8 @@ const PublicPuzzles = () => {
   };
 
   // **** Filter block below (limit/offset + filter by puzzle type) **** //
-
+  // **** BUGS 3/19/2024: If we repeatedly apply the Filter, the sort order is different, something is wrong here. Need to check backend logic and
+  // pagination as well.  Also, should probably store the last filter string into local storage so logging back in or going back to it loads the last filtered results
   // Initializing filters from URL, this is also good for when we use the back button and want to render the same filters!
   // Note: Since limit and offset are not set in this useEffect, applying new filters *SHOULD* reset the view to the first page of results, regardless of the current page number (which is intended)
   useEffect(() => {
