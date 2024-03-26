@@ -110,6 +110,7 @@ This website is designed to help Go players of all ranks improve their skills th
 Major tasks I'm working on:
 
 - Finish the rest of the interactive tutorials
+- Debugging filter puzzle bugs / writing setup docs for getting it working locally
 - Create an onboarding puzzle set for users setting their initial rank, hand select / hard code these
 - Add an upvote/downvote button for puzzles, and allow user to determine the category when creating a public puzzle
 - Setup a payment system for people to donate or pay for a monthly subscription to offset GPU costs
