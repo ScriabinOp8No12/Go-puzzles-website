@@ -112,8 +112,6 @@ const UserSGFs = () => {
   // Convert the offset to hours (it could be a decimal)
   const localTimezoneOffsetHours = -localTimezoneOffsetMinutes / 60;
 
-  // console.log("*****************", localTimezoneOffsetHours)
-
   // Function that grabs true or false from redux store for hasPotentialPuzzle on an SGF
   const hasPotentialPuzzle = (sgfId) => {
     const sgf = userSGFs.find((sgf) => sgf.id === sgfId); // find specific sgf by sgf_id
@@ -121,14 +119,17 @@ const UserSGFs = () => {
   };
 
   // Determine the title for the "Generate Puzzles" button
+  // const getButtonTitle = (sgfId) => {
+  //   if (hasPotentialPuzzle(sgfId)) {
+  //     return "Unavailable because Potential Puzzles have already been generated for this SGF.";
+  //   }
+  //   else if (isVirtualMachineOff) {
+  //     return "Unavailable because this service operates daily from 11:00am to 11:30am Mountain Time due to high costs.";
+  //   }
+  //   return "Have KataGo AI generate potential puzzles!"; // Default title when button is working and NOT disabled
+  // };
   const getButtonTitle = (sgfId) => {
-    if (hasPotentialPuzzle(sgfId)) {
-      return "Unavailable because Potential Puzzles have already been generated for this SGF.";
-    }
-    else if (isVirtualMachineOff) {
-      return "Unavailable because this service operates daily from 11:00am to 11:30am Mountain Time due to high costs.";
-    }
-    return "Have KataGo AI generate potential puzzles!"; // Default title when button is working and NOT disabled
+    return "Currently disabled, sorry about that!"
   };
 
   // Check if current time is within 11:00am - 11:30am Mountain Time for disabling our button
@@ -180,10 +181,9 @@ const UserSGFs = () => {
           <span className="important-text">UNAVAILABLE</span> due to an outage, sorry for the inconvenience!
           {" "} */}
 
-          The <span className="important-text">generate puzzles</span> feature
-          should be available between{" "}
-          <span className="important-text">11:00am and 11:30am Mountain Time</span>{" "}
-          daily.{" "}
+          Sorry, the <span className="important-text">generate puzzles</span> feature is currently unavailable
+          {/* <span className="important-text">11:00am and 11:30am Mountain Time</span>{" "}
+          daily.{" "} */}
         </div>
       </div>
       <div className="user-sgf-table">
@@ -232,10 +232,13 @@ const UserSGFs = () => {
                             : ""
                         }`}
                         onClick={() => handleGeneratePuzzles(sgf)}
+                        // disabled={
+                        //   isVirtualMachineOff ||
+                        //   hasPotentialPuzzle(sgf.id) ||
+                        //   isLoading === "GENERATING_PUZZLES"
+                        // }
                         disabled={
-                          isVirtualMachineOff ||
-                          hasPotentialPuzzle(sgf.id) ||
-                          isLoading === "GENERATING_PUZZLES"
+                          true
                         }
                       >
                         Generate Puzzles!
