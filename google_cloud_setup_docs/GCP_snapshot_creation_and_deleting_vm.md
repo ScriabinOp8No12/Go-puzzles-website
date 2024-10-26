@@ -1,4 +1,4 @@
-Since my unused GCP vm is charging me around $7 a month, and I haven't had this VM with my KataGo GPU on it run for like 6 months now, I want to save money by making a snapshot of the VM in case I want to restore it later, and delete it after.  To do this, I did the following steps:
+Since my unused GCP vm is charging me around $7 a month, and I haven't had this VM with my KataGo GPU on it run for like 6 months now, I want to save money by making a snapshot of the VM in case I want to restore it later, and then delete the vm.  To do this, I did the following steps:
 
 1. Make sure the VM is off.  Navigate to "VM instances" in the left panel, or using the search field at the top, then stopping it.  
 
