@@ -16,4 +16,10 @@ Do NOT check the "Enable application consistent snapshot" button at the bottom
 
 Finally, click "Create", it'll take a few minutes to create the snapshot!
 
+4. To delete the vm, simply search for "Vm instances", then select the VM, then click "Delete" in the top panel.
+
+5. Now search for VPC networks in the search field, look for the external ip address that's no longer in use, and click the "Release static address" (2nd image below)
+
 ![snapshot](gcp-snapshot.png)
+
+![release-ip-address](release-ip-address.png)
