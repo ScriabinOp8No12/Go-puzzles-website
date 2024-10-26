@@ -14,4 +14,6 @@ For Location change it to regional (it should auto select the location of the vm
 
 Do NOT check the "Enable application consistent snapshot" button at the bottom
 
+Finally, click "Create", it'll take a few minutes to create the snapshot!
+
 ![snapshot](gcp-snapshot.png)
